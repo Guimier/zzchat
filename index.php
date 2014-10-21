@@ -1,6 +1,6 @@
 <?php
 /*
- * Point d'entrée du chat
+ * Entry point.
  */
 
 // TODO
