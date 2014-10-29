@@ -4,6 +4,6 @@
  */
 
 /* Initialize execution */
-require 'back/init.php';
+require 'back/init.php' ;
 
 // TODO
