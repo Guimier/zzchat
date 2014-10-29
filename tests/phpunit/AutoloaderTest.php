@@ -7,7 +7,7 @@
 require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
 
 /* Test class */
-class TestAutoloader extends PHPUnit_Framework_TestCase
+class AutoloaderTest extends PHPUnit_Framework_TestCase
 {
 
 	private static $helper ;
