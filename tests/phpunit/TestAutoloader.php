@@ -4,44 +4,48 @@
  */
 
 /* Start the test */
-require_once dirname( __DIR__ ) . '/UnitTestBase.php' ;
+require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
 
 /* Test class */
 class TestAutoloader extends PHPUnit_Framework_TestCase
 {
 
-	private static $autoloader ;
-	private static $tester ;
+	private static $helper ;
 
 	/* Build an autoloader object */
 	public static function setUpBeforeClass()
 	{
-		self::$tester = new UnitTestBase( 'Autoloader', 'back' ) ;
-
-		self::$autoloader = new Autoloader(
-			self::$tester->getRootDir(),
-			self::$tester->getDataPath( 'classes.json' )
-		);
+		self::$helper = new UnitTestHelper( 'Autoloader', 'back' ) ;
 	}
 
 	public function testClassExistanceCheck()
 	{
+		$autoloader = new Autoloader(
+			self::$helper->getRootDir(),
+			self::$helper->getDataPath( 'classes.json' )
+		);
+
 		$this->assertTrue(
-			self::$autoloader->classExists( 'Existant' ),
+			$autoloader->classExists( 'Existant' ),
 			'An existant class must be reported as existant'
 		) ;
 
 		$this->assertFalse(
-			self::$autoloader->classExists( 'Inexistant'),
+			$autoloader->classExists( 'Inexistant'),
 			'An inexistant class must be reported as inexistant'
 		) ;
 	}
 
 	public function testClassPathBuild()
 	{
+		$autoloader = new Autoloader(
+			self::$helper->getRootDir(),
+			self::$helper->getDataPath( 'classes.json' )
+		);
+
 		$this->assertEquals(
 			dirname( dirname( __DIR__ ) ) . '/some/path.php',
-			self::$autoloader->getClassFullPath( 'Existant' ),
+			$autoloader->getClassFullPath( 'Existant' ),
 			'Class full path test'
 		) ;
 	}

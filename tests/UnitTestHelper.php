@@ -1,9 +1,9 @@
 <?php
-/*
- * Common initialisation for PHPUnit tests.
+/**
+ * Helper for unit testing.
+ * @codeCoverageIgnore
  */
-
-class UnitTestBase
+class UnitTestHelper
 {
 	
 	private $className ;
@@ -39,3 +39,4 @@ class UnitTestBase
 	}
 
 }
+

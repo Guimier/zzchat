@@ -46,8 +46,9 @@ class Autoloader
 		return $this->root . '/' . $this->classes[$className] ;
 	}
 
-	/*
+	/**
 	 * Load a class if it exists.
+	 * @codeCoverageIgnore
 	 */
 	public function load( $className )
 	{
