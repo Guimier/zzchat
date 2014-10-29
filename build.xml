@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="zzchat-tests" default="run" basedir=".">
+	<property name="coverage-report" value="doc/coverage"/>
+	<property name="tests-location" value="tests/phpunit"/>
+
+	<target name="clean">
+		<!-- Remove old code coverage report -->
+		<delete dir="${coverage-report}"/>
+	</target>
+
+	<target name="run" depends="clean">
+		<!-- Create coverage report directory -->
+		<mkdir dir="${coverage-report}"/>
+		<!-- Run tests -->
+		<exec executable="phpunit">
+			<arg value="--coverage-html" />
+			<arg value="${coverage-report}" />
+			<arg value="${tests-location}" />
+		</exec>
+	</target>
+</project>
