@@ -1,0 +1,64 @@
+@charset "utf-8" ;
+
+body 
+{
+	font-family : Arial, Helvetica, sans-serif ;
+	font-size : 12px ;
+	background-color : black ;
+	background-image : url(../image/TempleGrecAccueil.jpg) ;
+	background-repeat : no-repeat ;
+	background-position : center ;
+	background-size : contain ;
+	background-attachment : fixed ;
+	margin : 0 ;
+	padding : 0 ;
+}
+
+@media all and (max-width : 700px)
+{
+	body
+	{
+		background-size : cover ;
+	}
+}
+
+
+#container
+{
+	position : absolute ;
+	left : 0px ;
+	right : 0px ;
+	top : 0px ;
+	bottom : 0px ;
+}
+
+#login
+{
+	position : absolute ;
+	height : 10% ;
+	width : 20% ;
+	left : 40% ;
+	top : 45% ;
+	text-align : center ;
+}
+
+#footer
+{
+	position : absolute ;
+	right : 0px ;
+	bottom : 0px ;
+	padding-bottom : 1em ;
+	padding-right : 1em ;
+	padding-left : 1em ;
+	color : white ;
+}
+
+#menu
+{
+	width : 50% ;
+	margin-top : 1em ;
+	margin-left : 1em ;
+}
+
+
+	
