@@ -1,3 +1,4 @@
 {
-	"Autoload": "back/Autoload.php"
+	"Autoload": "back/Autoload.php",
+	"Context": "back/Context.php"
 }
