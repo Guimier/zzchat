@@ -1,4 +1,5 @@
 {
 	"Autoload": "back/Autoload.php",
-	"Context": "back/Context.php"
+	"Context": "back/Context.php",
+	"NoSuchConfigurationKeyException": "back/NoSuchConfigurationKeyException.php"
 }

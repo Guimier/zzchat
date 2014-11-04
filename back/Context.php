@@ -98,17 +98,16 @@ abstract class Context
 	
 	/*
 	 * Get specific configuration value.
+	 * Throws NoSuchConfigurationKeyException if the value does not exist.
 	 */
 	public function getConf( $key )
 	{
-		if ( array_key_exists( $key, $this->configuration ) )
+		if ( ! array_key_exists( $key, $this->configuration ) )
 		{
-			return $this->configuration[$key] ;
+			throw new NoSuchConfigurationKeyException( $key ) ;
 		}
-		else
-		{
-			return null:
-		}
+		
+		return $this->configuration[$key] ;
 	}
 
 }
