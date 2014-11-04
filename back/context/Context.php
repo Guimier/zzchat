@@ -50,7 +50,7 @@ abstract class Context
 		'channels.postlength' => 1024,
 		/* Default language */
 		'user.defaultlang' => 'en',
-		/* Number of posts storred in one file */
+		/* Number of posts stored in one file */
 		'channels.filelength' => 100,
 		/* Maximum inactivity for a user (sec) */
 		'user.inactivity' => 86400,
@@ -74,7 +74,7 @@ abstract class Context
 	}
 
 	/*
-	 * Load configuration (override defaults with storred values).
+	 * Load configuration (override defaults with stored values).
 	 */
 	private function loadConfiguration()
 	{
