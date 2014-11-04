@@ -3,13 +3,40 @@
  * Context object.
  */
 
-class Context
+abstract class Context
 {
-	
+
+/***** Constructor *****/
+
+	public function __construct()
+	{
+		/* Path */
+		$this->root = dirname( __DIR__ ) ;
+		/* Configuration */
+		$this->loadConfiguration();
+	}
+
+/***** Path *****/
+
+	/* Root directory path */
 	private $root = null;
 
+	/* Get root repository path */
+	public function getRootDir()
+	{
+		return $this->root ;
+	}
+
+	/* Get specific data directory path */
+	public function getDataDir( $key )
+	{
+		return $this->root . '/data/' . $key ;
+	}
+
+/***** Configuration *****/
+
 	/*
-	 * Default configuration, will be overridden on __construct.
+	 * Default configuration, will be overridden on construction.
 	 * Types need to match.
 	 */
 	private $configuration = array(
@@ -30,14 +57,10 @@ class Context
 		/* Maximum inactivity for a channel */
 		'channels.inactivity' => 604800 
 	) ;
-
-	public function __construct()
-	{
-		$this->root = dirname( __DIR__ ) ;
-
-		$this->loadConfiguration();
-	}
-
+	
+	/*
+	 * Merge an array into another, selecting only keys with matching types.
+	 */
 	private function mergeTypedArrays( $src, &$dest )
 	{
 		foreach ( $src as $key => $val )
@@ -50,10 +73,13 @@ class Context
 		
 	}
 
+	/*
+	 * Load configuration (override defaults with storred values).
+	 */
 	private function loadConfiguration()
 	{
 		$raw = file_get_contents(
-			$this->root . '/config.global.json'
+			$this->root . '/config/global.json'
 		) ;
 
 		if ( $raw !== null )
@@ -69,17 +95,10 @@ class Context
 			}
 		}
 	}
-
-	public function getRootDir()
-	{
-		return $this->root ;
-	}
-
-	public function getDataDir( $key )
-	{
-		return $this->root . '/data/' . $key ;
-	}
-
+	
+	/*
+	 * Get specific configuration value.
+	 */
 	public function getConf( $key )
 	{
 		if ( array_key_exists( $key, $this->configuration ) )
