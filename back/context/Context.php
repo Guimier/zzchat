@@ -44,18 +44,18 @@ abstract class Context
 		'channels.maxnum' => 100,
 		/* Default style of channels */
 		'channels.style' => 'theater',
-		/* Maximum post rate allowed for a user (post/minute) */
-		'user.maxpostrate' => 20,
+		/* Maximum inactivity for a channel */
+		'channels.inactivity' => 604800,
 		/* Maximum length of a post (bytes) */
 		'channels.postlength' => 1024,
-		/* Default language */
-		'user.defaultlang' => 'en',
 		/* Number of posts stored in one file */
 		'channels.filelength' => 100,
+		/* Maximum post rate allowed for a user (post/minute) */
+		'user.maxpostrate' => 20,
+		/* Default language */
+		'user.defaultlang' => 'en',
 		/* Maximum inactivity for a user (sec) */
-		'user.inactivity' => 86400,
-		/* Maximum inactivity for a channel */
-		'channels.inactivity' => 604800 
+		'user.inactivity' => 86400 
 	) ;
 	
 	/*
