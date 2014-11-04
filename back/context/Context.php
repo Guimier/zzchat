@@ -110,4 +110,13 @@ abstract class Context
 		return $this->configuration[$key] ;
 	}
 
+/***** Parameters *****/
+
+	/*
+	 * Get a parameter of the call.
+	 * $key is the name of the parameter.
+	 * $more may be used for selection precision (for example GET/POST).
+	 */
+	abstract function getParameter( $key, $more ) ;
+
 }

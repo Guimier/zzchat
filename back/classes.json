@@ -1,5 +1,7 @@
 {
 	"Autoload": "back/Autoload.php",
+	"BadCallException": "back/BadCallException.php",
 	"Context": "back/context/Context.php",
-	"NoSuchConfigurationKeyException": "back/context/NoSuchConfigurationKeyException.php"
+	"NoSuchConfigurationKeyException": "back/context/NoSuchConfigurationKeyException.php",
+	"WebContext": "back/context/WebContext.php",
 }
