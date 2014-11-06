@@ -1,17 +1,19 @@
 <?php
 
+/** Context of execution in case of a web query.
+ * The dynamic parameters in this type of context are the given as GET or POST parameters.
+ */
 class WebContext extends Context
 {
 	
-	const POST = 1 ;
-	const GET  = 2 ;
-	const BOTH = 3 ;
+	const POST = 1 ; ///< Parameter selection in #getParameter: only POST
+	const GET  = 2 ; ///< Parameter selection in #getParameter: only GET
+	const BOTH = 3 ; ///< Parameter selection in #getParameter: POST or GET
 	
-	/*
-	 * Get a parameter of the call.
-	 * $key is the name of the parameter.
-	 * $more may be one of POST, GET, BOTH.
-	 *       In case BOTH, POST takes priority over GET.
+	/** Get a parameter.
+	 * @param string $key Name of the parameter.
+	 * @param $more Which parameter to get, one of #POST, #GET and #BOTH.
+	 *   In case BOTH, POST parameter takes priority over GET one.
 	 */
 	function getParameter( $key, $more )
 	{
