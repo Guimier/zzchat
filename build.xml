@@ -24,7 +24,7 @@
 	</target>
 
 	<!-- Make PHP unit tests -->
-	<target name="test" depends="clean">
+	<target name="test">
 		<echo message="Running PHP unit tests…"/>
 		<!-- Create coverage report directory -->
 		<mkdir dir="${coverage-report}"/>
