@@ -1,25 +1,28 @@
 <?php
 
+/** Classes autoloader.
+ * Enables autoloading of classes defined in /back/classes.json.
+ *
+ * May be called directly or defined as autoloader using:
+ * @code{.php}
+ *     spl_autoload_register( array( $autoloader, 'load' ) );
+ * @endcode
+ */
 class Autoloader
 {
 
-	/*
-	 * Root directory for zzChat.
-	 */
+	/** Root directory for zzChat. */
 	private $root ;
 
-	/*
-	 * Class list.
-	 */
+	/** List of known classes extracted from /back/classes.json. */
 	private $classes ;
 
-	/* Constructor */
-	public function __construct(
-		/* Root directory of zzchat */
-		$root,
-		/* Name of the file containing the class list */
-		$classList
-	)
+	/** Constructor
+	 *
+	 * @param string $root Root directory of Agora.
+	 * @param string $classList Name of the file containing the class list.
+	 */
+	public function __construct( $root, $classList )
 	{
 		$this->root = $root ;
 		$this->classes = json_decode(
@@ -28,8 +31,9 @@ class Autoloader
 		) ;
 	}
 
-	/*
-	 * Check if we know a class.
+	/** Check if a class is known
+	 *
+	 * @param string $className Name of the class to check.
 	 */
 	public function classExists( $className )
 	{
@@ -37,17 +41,18 @@ class Autoloader
 		
 	}
 
-	/*
-	 * Get path to the file implementing a class (from system root).
-	 * Assumes the class exists.
+	/** Get relative path to the file implementing a class
+	 * @warning Assumes the class exists.
+	 * @param string $className Name of the file whose path is wanted.
+	 * @return Path to the file where the class is defined, relative to the root directory of Agora.
 	 */
 	public function getClassFullPath( $className )
 	{
 		return $this->root . '/' . $this->classes[$className] ;
 	}
 
-	/**
-	 * Load a class if it exists.
+	/** Load a class if it exists.
+	 * @warning This function is not unit-tested since require_once is not easy to test.
 	 * @codeCoverageIgnore
 	 */
 	public function load( $className )
