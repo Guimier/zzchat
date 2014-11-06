@@ -1,13 +1,11 @@
 <?php
-/*
- * Context object.
+/** The context of execution.
+ * Includes configuration (static context) and parameters (dynamic context).
  */
-
 abstract class Context
 {
 
-/***** Constructor *****/
-
+	/** Constructor. */
 	public function __construct()
 	{
 		/* Path */
@@ -18,16 +16,18 @@ abstract class Context
 
 /***** Path *****/
 
-	/* Root directory path */
+	/** Root directory path. */
 	private $root = null;
 
-	/* Get root repository path */
+	/** Get root repository path. */
 	public function getRootDir()
 	{
 		return $this->root ;
 	}
 
-	/* Get specific data directory path */
+	/** Get specific data directory path.
+	 * @return Full path to a specific data directory.
+	 */
 	public function getDataDir( $key )
 	{
 		return $this->root . '/data/' . $key ;
@@ -35,9 +35,9 @@ abstract class Context
 
 /***** Configuration *****/
 
-	/*
-	 * Default configuration, will be overridden on construction.
-	 * Types need to match.
+	/** Configuration.
+	 * The initial values are the default ones; they will be overridden on construction by
+	 * any key in /config/global.json whose type matches the one given here.
 	 */
 	private $configuration = array(
 		/* Maximum allowed number of open channels */
@@ -58,8 +58,10 @@ abstract class Context
 		'user.inactivity' => 86400 
 	) ;
 	
-	/*
-	 * Merge an array into another, selecting only keys with matching types.
+	/** Merge an array into another, selecting only keys with matching types.
+	 *
+	 * @param array $src Source array.
+	 * @param array &$dest Destination array.
 	 */
 	private function mergeTypedArrays( $src, &$dest )
 	{
@@ -73,8 +75,8 @@ abstract class Context
 		
 	}
 
-	/*
-	 * Load configuration (override defaults with stored values).
+	/** Load configuration
+	 * This method read /config/gloabl.json and override values when types match.
 	 */
 	private function loadConfiguration()
 	{
@@ -96,9 +98,8 @@ abstract class Context
 		}
 	}
 	
-	/*
-	 * Get specific configuration value.
-	 * Throws NoSuchConfigurationKeyException if the value does not exist.
+	/** Get specific configuration value.
+	 * @throws NoSuchConfigurationKeyException Thrown if the value does not exist.
 	 */
 	public function getConf( $key )
 	{
@@ -112,10 +113,11 @@ abstract class Context
 
 /***** Parameters *****/
 
-	/*
-	 * Get a parameter of the call.
-	 * $key is the name of the parameter.
-	 * $more may be used for selection precision (for example GET/POST).
+	/** Get a parameter of the call.
+	 * 
+	 * @param string $key Name of the parameter.
+	 * @param $more May be used by subclasses for selection precision (for example GET/POST).
+	 * @return Value of the parameter.
 	 */
 	abstract function getParameter( $key, $more ) ;
 
