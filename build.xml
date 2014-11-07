@@ -30,8 +30,9 @@
 		<mkdir dir="${coverage-report}"/>
 		<!-- Run tests -->
 		<exec executable="phpunit">
-			<arg value="--coverage-html" />
-			<arg value="${coverage-report}" />
+			<arg value="--coverage-html" /> <arg value="${coverage-report}" />
+			<arg value="--test-suffix" /> <arg value="Test.php" />
+			<arg value="--process-isolation" />
 			<arg value="${tests-location}" />
 		</exec>
 	</target>

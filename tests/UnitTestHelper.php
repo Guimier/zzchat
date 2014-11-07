@@ -20,43 +20,48 @@ class UnitTestHelper
 	public function __construct( $className )
 	{
 		$this->className = $className ;
-		if ( $className !== 'Autoloader' )
-		{
-			$this->setUpAutoLogin();
-		}
+		$this->load( $className ) ;
 	}
 
 /***** Partial autoloading *****/
-
-	/** Object Autoloader used for partial autoload. */
-	private $loader = null ;
+	
+	/** Autoloader for classes. */
+	private static $autoloader = null ;
 	
 	/** Is the object allowed to load more classes.
 	 * Exceptions loading is not affected by the value.
 	 */
 	private $loadAny = false ;
 
+	/** Load a class (unrestricted access to the autoloader).
+	 *
+	 * @param string $className Class to load.
+	 */
+	public static function load( $className )
+	{
+		if ( self::$autoloader == null )
+		{
+			self::$autoloader = new Autoloader( self::getRootDir(), 'back/classes.json' ) ;
+		}
+		self::$autoloader->load( $className ) ;
+	}
+
 	/** Load a class (restricted access to the autoloader).
 	 *
 	 * @param string $className Class to load.
 	 */
-	public function loadClass( $className )
+	public function autoload( $className )
 	{
 		if ( $this->loadAny || substr( $className, -9 ) === 'Exception' )
 		{
-			$this->loader->load( $className ) ;
+			$this->load( $className ) ;
 		}
 	}
 	
-	/** Build loading infrastructure and load the tested class. */
-	private function setUpAutoLogin()
+	/** Load the tested class and its parents. */
+	private function startAutoload()
 	{
-		/* Building autoloading */
-		$this->loader = new Autoloader( $this->getRootDir(), 'back/classes.json' ) ;
-		spl_autoload_register( array( $this, 'loadClass' ) ) ;
-		
-		/* Loading tested class */
-		$this->loadAny = true ; // Allow loading of parent class if needed.
+		$this->loadAny = true ;
 		$this->loadClass( $this->className ) ;
 		$this->loadAny = false ;
 	}
@@ -64,7 +69,7 @@ class UnitTestHelper
 /***** Paths *****/
 
 	/** Get full path to root directory of Agora. */
-	private function getRootDir()
+	private static function getRootDir()
 	{
 		return dirname( __DIR__ ) ;
 	}

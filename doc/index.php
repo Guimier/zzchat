@@ -22,7 +22,7 @@ function addToDisplay( &$section, $dir, $label )
 	}
 }
 
-addToDisplay( $code, 'code', 'PHP code' ) ;
+addToDisplay( $code, 'code', 'PHP code documentation' ) ;
 addToDisplay( $code, 'coverage', 'PHP test coverage' ) ;
 
 ?>
