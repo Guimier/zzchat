@@ -6,7 +6,9 @@
 class NoSuchConfigurationKeyException extends Exception
 {
 
-	/** Constructor */
+	/** Constructor
+	 * @param string $key Unknown key causing the exception.
+	 */
 	public function __construct( $key )
 	{
 		parent::__construct( "Unknown configuration key $key" ) ;

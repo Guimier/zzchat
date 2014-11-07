@@ -14,6 +14,7 @@ class WebContext extends Context
 	 * @param string $key Name of the parameter.
 	 * @param $more Which parameter to get, one of #POST, #GET and #BOTH.
 	 *   In case BOTH, POST parameter takes priority over GET one.
+	 * @throw BadCallException Thrown if $more is not valid
 	 */
 	function getParameter( $key, $more )
 	{
