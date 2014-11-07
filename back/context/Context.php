@@ -32,7 +32,7 @@ abstract class Context
 	 */
 	public function getDataDir( $key )
 	{
-		return $this->root . '/data/' . $key ;
+		return $this->getRootDir() . '/data/' . $key ;
 	}
 
 /***** Configuration *****/
@@ -69,7 +69,7 @@ abstract class Context
 	{
 		foreach ( $src as $key => $val )
 		{
-			if ( gettype( $val ) == gettype( $dest[$src] ) )
+			if ( array_key_exists( $key, $dest ) && gettype( $val ) == gettype( $dest[$key] ) )
 			{
 				$dest[$key] = $val ;
 			}
