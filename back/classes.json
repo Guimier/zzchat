@@ -2,6 +2,7 @@
 	"Autoload": "back/Autoload.php",
 	"BadCallException": "back/BadCallException.php",
 	"Context": "back/context/Context.php",
+	"CmdContext": "back/context/CmdContext.php",
 	"NoSuchConfigurationKeyException": "back/context/NoSuchConfigurationKeyException.php",
 	"WebContext": "back/context/WebContext.php"
 }
