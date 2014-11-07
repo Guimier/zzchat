@@ -44,7 +44,7 @@ class UnitTestHelper
 	{
 		if ( $this->loadAny || substr( $className, -9 ) === 'Exception' )
 		{
-			$this->loader->loadClass( $className ) ;
+			$this->loader->load( $className ) ;
 		}
 	}
 	
