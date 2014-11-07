@@ -10,6 +10,23 @@ class WebContext extends Context
 	const GET  = 2 ; ///< Parameter selection in #getParameter: only GET
 	const BOTH = 3 ; ///< Parameter selection in #getParameter: POST or GET
 	
+	/** Array of GET parameters ($_GET). */
+	private $getParams ;
+	/** Array of POST parameters ($_POST). */
+	private $postParams ;
+	
+	/** Constructor.
+	 * @param string $root Full path to the root directory of Agora.
+	 * @param array $getParams Array of GET parameters ($_GET).
+	 * @param array $postParams Array of POST parameters ($_POST).
+	 */
+	public function __construct( $root, $getParams, $postParams )
+	{
+		parent::__construct( $root ) ;
+		$this->getParams = $getParams ;
+		$this->postParams = $postParams ;
+	}
+	
 	/** Get a parameter.
 	 * @param string $key Name of the parameter.
 	 * @param $more Which parameter to get, one of #POST, #GET and #BOTH.
@@ -23,27 +40,27 @@ class WebContext extends Context
 		switch ( $more )
 		{
 			case self::POST :
-				if ( array_key_exists( $key, $_POST ) )
+				if ( array_key_exists( $key, $this->postParams ) )
 				{
-					$value = $_POST[$key] ;
+					$value = $this->postParams[$key] ;
 				}
 				break ;
 			
 			case self::GET :
-				if ( array_key_exists( $key, $_GET ) )
+				if ( array_key_exists( $key, $this->getParams ) )
 				{
-					$value = $_GET[$key] ;
+					$value = $this->getParams[$key] ;
 				}
 				break ;
 			
 			case self::BOTH :
-				if ( array_key_exists( $key, $_POST ) )
+				if ( array_key_exists( $key, $this->postParams ) )
 				{
-					$value = $_POST[$key] ;
+					$value = $this->postParams[$key] ;
 				}
-				else if ( array_key_exists( $key, $_GET ) )
+				else if ( array_key_exists( $key, $this->getParams ) )
 				{
-					$value = $_GET[$key] ;
+					$value = $this->getParams[$key] ;
 				}
 				break ;
 			

@@ -2,8 +2,8 @@
 
 require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
 
-/**
- * Test for Autoloader.
+/** Test for Autoloader.
+ * @codeCoverageIgnore
  */
 class WebContextTest extends PHPUnit_Framework_TestCase
 {

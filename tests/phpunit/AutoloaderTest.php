@@ -4,6 +4,7 @@ require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
 
 /**
  * Test for Autoloader.
+ * @codeCoverageIgnore
  */
 class AutoloaderTest extends PHPUnit_Framework_TestCase
 {

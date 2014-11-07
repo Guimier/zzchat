@@ -5,11 +5,13 @@
 abstract class Context
 {
 
-	/** Constructor. */
-	public function __construct()
+	/** Constructor.
+	 * @param string $root Full path to the root directory of Agora.
+	 */
+	public function __construct( $root )
 	{
 		/* Path */
-		$this->root = dirname( __DIR__ ) ;
+		$this->root = $root ;
 		/* Configuration */
 		$this->loadConfiguration();
 	}
