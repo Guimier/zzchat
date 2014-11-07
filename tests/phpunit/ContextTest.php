@@ -4,13 +4,17 @@ require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
 UnitTestHelper::load( 'Context' ) ;
 UnitTEstHelper::load( 'NoSuchConfigurationKeyException' ) ;
 
+/// @cond HIDDEN_SYMBOLS
+
 /** Generic child class of Context
  * @codeCoverageIgnore
  */
-class GenericContext extends Context
+class _Context extends Context
 {
 	public function getParameter( $key, $more ) {}
 }
+
+/// @endcond
 
 /**
  * Test for Autoloader.
@@ -33,7 +37,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	/** Test of pathes given. */
 	public function testPathes()
 	{
-		$context = new GenericContext( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( self::$helper->getTestDataDir() ) ;
 		
 		$this->assertEquals(
 			$context->getDataDir( 'someKey' ),
@@ -45,7 +49,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	/** Test of configuration access. */
 	public function testConfigurationAccess()
 	{
-		$context = new GenericContext( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( self::$helper->getTestDataDir() ) ;
 		
 		$this->assertEquals(
 			$context->getConf( 'user.maxpostrate' ),
@@ -71,7 +75,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConfigurationDefinedBadKeyAccess()
 	{
-		$context = new GenericContext( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( self::$helper->getTestDataDir() ) ;
 		
 		$context->getConf( 'nonexistant' ) ;
 	}
@@ -81,7 +85,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConfigurationBadKeyAccess()
 	{
-		$context = new GenericContext( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( self::$helper->getTestDataDir() ) ;
 		
 		$context->getConf( 'nonexistant-nondefined' ) ;
 	}
