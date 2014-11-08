@@ -1,9 +1,8 @@
 <?php
-/*
- * Entry point.
+/**
+ * Entry point for HTML queries.
+ * @file
+ * @todo Return something.
  */
 
-/* Initialize execution */
 require 'back/init.php' ;
-
-// TODO

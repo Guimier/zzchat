@@ -18,11 +18,11 @@ EXTRACT_STATIC         = YES
 #EXTRACT_LOCAL_CLASSES = YES
 
 # Input
-INPUT                  = back tests
+INPUT                  = .
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.php
 RECURSIVE              = YES
-EXCLUDE_PATTERNS       = config/* data/*
+EXCLUDE_PATTERNS       = */doc/index.php
 
 # Source browsing
 SOURCE_BROWSER         = YES
