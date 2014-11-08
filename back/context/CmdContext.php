@@ -75,7 +75,7 @@ class CmdContext extends Context
 	/** Add an named parameter to the detected parameters.
 	 * @param string $name Name of the parameter.
 	 * @param string $value Value of the parameter.
-	 * @todo Do we want to warn/throw on double execution?
+	 * @todo Do we want to warn/throw on double definition?
 	 */
 	private function addNamedParameter( $name, $value )
 	{
