@@ -2,6 +2,7 @@
 
 /* Placeholders for WebContext. */
 
+/** @codeCoverageIgnore */
 abstract class WebContext
 {
 	const BOTH = null ;
@@ -17,11 +18,13 @@ abstract class WebContext
 	}
 }
 
+/** @codeCoverageIgnore */
 class NonIndentedContext extends WebContext
 {
 	public function getIndentParameter() { return null ; }
 }
 
+/** @codeCoverageIgnore */
 class IndentedContext extends WebContext
 {
 	public function getIndentParameter() { return '' ; }
@@ -29,10 +32,12 @@ class IndentedContext extends WebContext
 
 /* Generic exception */
 
+/** @codeCoverageIgnore */
 class GenericException extends Exception {}
 
 /* AjaxQueryPart classes */
 
+/** @codeCoverageIgnore */
 class WorkingAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -43,6 +48,7 @@ class WorkingAjaxQueryPart
 	}
 }
 
+/** @codeCoverageIgnore */
 class WorkingNullAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -53,6 +59,7 @@ class WorkingNullAjaxQueryPart
 	}
 }
 
+/** @codeCoverageIgnore */
 class ThrowingAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
