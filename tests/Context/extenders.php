@@ -1,7 +1,5 @@
 <?php
 
-ClassTester::load( 'NoSuchConfigurationKeyException' ) ;
-
 /** Generic child class of Context
  * @codeCoverageIgnore
  */
