@@ -1,7 +1,7 @@
 {
 	"AjaxQuery": "back/ajax/AjaxQuery.php",
 	"AjaxQueryPart": "back/ajax/AjaxQueryPart.php",
-	"Autoload": "back/Autoload.php",
+	"Autoloader": "back/Autoloader.php",
 	"BadCallException": "back/BadCallException.php",
 	"Context": "back/context/Context.php",
 	"CmdContext": "back/context/CmdContext.php",
