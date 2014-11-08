@@ -1,29 +1,18 @@
 <?php
 
-require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
+require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for Autoloader.
+/** Test for CmdContext.
  * @codeCoverageIgnore
  */
-class CmdContextTest extends PHPUnit_Framework_TestCase
+class CmdContextTest extends ClassTester
 {
-
-	/** Unit-test helper for these tests */
-	private static $helper ;
-
-	/** Common test initialization.
-	 * Creates the helper object.
-	 */
-	public static function setUpBeforeClass()
-	{
-		self::$helper = new UnitTestHelper( 'CmdContext' ) ;
-	}
 	
 	/** Canonical case. */
 	public function testCanonicalCase()
 	{
 		$context = new CmdContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( '<file.php>', 'foo1', '--bar', '--baz=qux', 'foo2' )
 		) ;
 		
@@ -56,7 +45,7 @@ class CmdContextTest extends PHPUnit_Framework_TestCase
 	public function testOnlyUnnamed()
 	{
 		$context = new CmdContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( '<file.php>', '--', 'foo', '--bar', '--baz=qux' )
 		) ;
 		
@@ -83,7 +72,7 @@ class CmdContextTest extends PHPUnit_Framework_TestCase
 	public function testMixed()
 	{
 		$context = new CmdContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( '<file.php>', 'foo1', '--bar1', '--baz1=qux1', '--', 'foo2', '--bar2', '--baz2=qux2' )
 		) ;
 		

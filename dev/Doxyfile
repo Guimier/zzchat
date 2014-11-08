@@ -22,7 +22,7 @@ INPUT                  = .
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.php
 RECURSIVE              = YES
-EXCLUDE_PATTERNS       = */doc/index.php
+EXCLUDE_PATTERNS       = */doc/index.php */**/placeholders.php */**/extenders.php
 
 # Source browsing
 SOURCE_BROWSER         = YES

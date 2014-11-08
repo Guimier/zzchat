@@ -1,30 +1,19 @@
 <?php
 
-require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
+require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for Autoloader.
+/** Test for WebContext.
  * @codeCoverageIgnore
  */
-class WebContextTest extends PHPUnit_Framework_TestCase
+class WebContextTest extends ClassTester
 {
-
-	/** Unit-test helper for these tests */
-	private static $helper ;
-
-	/** Common test initialization.
-	 * Creates the helper object.
-	 */
-	public static function setUpBeforeClass()
-	{
-		self::$helper = new UnitTestHelper( 'WebContext' ) ;
-	}
 	
 	/** Tests of parameters access for GET selection.
 	 */
 	public function testParametersGET()
 	{
 		$context = new WebContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( 'get_existant' => 'foo' ),
 			array( 'post_existant' => 'bar' )
 		) ;
@@ -51,7 +40,7 @@ class WebContextTest extends PHPUnit_Framework_TestCase
 	public function testParametersPOST()
 	{
 		$context = new WebContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( 'get_existant' => 'foo' ),
 			array( 'post_existant' => 'bar' )
 		) ;
@@ -78,7 +67,7 @@ class WebContextTest extends PHPUnit_Framework_TestCase
 	public function testParametersBOTH()
 	{
 		$context = new WebContext(
-			self::$helper->getTestDataDir(),
+			$this->getTestDataDir(),
 			array( 'get_existant' => 'foo', 'common' => 'foo2' ),
 			array( 'post_existant' => 'bar', 'common' => 'bar2' )
 		) ;

@@ -7,7 +7,7 @@
 	<property name="php-documentation" value="${doc}/code"/>
 	<property name="php-doxyfile" value="dev/Doxyfile" />
 	<property name="coverage-report" value="${doc}/coverage"/>
-	<property name="tests-location" value="tests/phpunit"/>
+	<property name="tests-location" value="tests"/>
 
 	<!-- Build all automatically generated files -->
 	<target name="regenerate-all" depends="clean,test,doc-php">

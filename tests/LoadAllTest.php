@@ -1,17 +1,19 @@
 <?php
 
+require_once __DIR__ . '/ClassTester.php' ;
+
 /** Testing that all inclusions work.
  * This tests ensures all classes load correctly, but its main point
  * is to load all classes in order to have full information about
  * code coverage.
  * @codeCoverageIgnore
  */
-class _LoadAllTest extends PHPUnit_Framework_TestCase
+class LoadAllTest extends ClassTester
 {
 
 	public function testAnyInclusion()
 	{
-		$root = dirname( dirname( __DIR__ ) ) ;
+		$root = dirname( __DIR__ ) ;
 
 		require_once "$root/back/Autoloader.php" ;
 		spl_autoload_register( array(

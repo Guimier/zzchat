@@ -1,47 +1,22 @@
 <?php
 
-require_once dirname( __DIR__ ) . '/UnitTestHelper.php' ;
-UnitTestHelper::load( 'Context' ) ;
-UnitTEstHelper::load( 'NoSuchConfigurationKeyException' ) ;
-
-/// @cond HIDDEN_SYMBOLS
-
-/** Generic child class of Context
- * @codeCoverageIgnore
- */
-class _Context extends Context
-{
-	public function getParameter( $key, $more ) {}
-}
-
-/// @endcond
+require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /**
- * Test for Autoloader.
+ * Test for Context.
  * @codeCoverageIgnore
  */
-class ContextTest extends PHPUnit_Framework_TestCase
+class ContextTest extends ClassTester
 {
-
-	/** Unit-test helper for these tests */
-	private static $helper ;
-
-	/** Common test initialization.
-	 * Creates the helper object.
-	 */
-	public static function setUpBeforeClass()
-	{
-		self::$helper = new UnitTestHelper( 'Context' ) ;
-	}
 	
 	/** Test of pathes given. */
 	public function testPathes()
 	{
-		$context = new _Context( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( $this->getTestDataDir() ) ;
 		
 		$this->assertEquals(
 			$context->getDataDir( 'someKey' ),
-			self::$helper->getTestDataDir() . '/data/someKey',
+			$this->getTestDataDir() . '/data/someKey',
 			'Root path must not have changed since construction'
 		) ;
 	}
@@ -49,7 +24,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	/** Test of configuration access. */
 	public function testConfigurationAccess()
 	{
-		$context = new _Context( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( $this->getTestDataDir() ) ;
 		
 		$this->assertEquals(
 			$context->getConf( 'user.maxpostrate' ),
@@ -75,7 +50,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConfigurationDefinedBadKeyAccess()
 	{
-		$context = new _Context( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( $this->getTestDataDir() ) ;
 		
 		$context->getConf( 'nonexistant' ) ;
 	}
@@ -85,7 +60,7 @@ class ContextTest extends PHPUnit_Framework_TestCase
 	 */
 	public function testConfigurationBadKeyAccess()
 	{
-		$context = new _Context( self::$helper->getTestDataDir() ) ;
+		$context = new _Context( $this->getTestDataDir() ) ;
 		
 		$context->getConf( 'nonexistant-nondefined' ) ;
 	}
