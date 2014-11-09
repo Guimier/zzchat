@@ -44,7 +44,7 @@ class WorkingAjaxQueryPart
 	
 	public function execute()
 	{
-		return array( 'foo', 'bar' ) ;
+		return array( 'foo', 'ß', '×' ) ;
 	}
 }
 
