@@ -76,9 +76,7 @@
 			{
 				part = queries[i].shift() ;
 				parts.push( part ) ;
-				console.warn( data, part.name ) ;
 				extendPrefixed( part.data, data, part.name + '_' ) ;
-				console.warn( data ) ;
 			}
 		}
 		
@@ -107,7 +105,6 @@
 				
 				for ( i in parts )
 				{
-					console.log( parts[i].name ) ;
 					if ( data[parts[i].name].success )
 					{
 						parts[i].success( data[parts[i].name].data ) ;
