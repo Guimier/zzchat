@@ -1,15 +1,14 @@
 <?php
-/*
- * Load what is needed for execution.
+/** Loads what is needed for execution.
+ * @file
  */
 
-/*
- * Root directory of zzChat.
- */
-$path = dirname( __DIR__ ) ;
+/* Root directory of zzChat. */
+$root = dirname( __DIR__ ) ;
 
-require_once "$path/back/Autoloader.php" ;
+/* Classes autoloading. */
+require_once "$root/back/Autoloader.php" ;
 spl_autoload_register( array(
-	new Autoloader( $path, 'back/classes.json' ),
+	new Autoloader( $root, 'back/classes.json' ),
 	'load'
 ) ) ;
