@@ -75,6 +75,10 @@
 			if ( queries[i].length > 0 )
 			{
 				part = queries[i].shift() ;
+				if ( part.method === 'POST' )
+				{
+					method = part.method ;
+				}
 				parts.push( part ) ;
 				extendPrefixed( part.data, data, part.name + '_' ) ;
 			}
