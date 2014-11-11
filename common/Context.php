@@ -79,12 +79,12 @@ abstract class Context
 		) ;
 	}
 	
-	/** Get a the language.
-	 * Child classes should override this.
-	 */
+	/** Get a the language. */
 	public function getLanguage()
 	{
-		return null ;
+		$param = $this->getParameter( 'language' ) ;
+		
+		return ( $param === null ) ? 'en' : $param ;
 	}
 	
 	/** Get a translated message.

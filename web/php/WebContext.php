@@ -65,13 +65,5 @@ class WebContext extends Context
 		return $value ;
 	}
 	
-	/** Get a the language. */
-	public function getLanguage()
-	{
-		$param = $this->getParameter( 'language' ) ;
-		
-		return ( $param === null ) ? 'en' : $param ;
-	}
-	
 }
 
