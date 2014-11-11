@@ -4,7 +4,7 @@
  * @warning Not unit-tested (passes globals to another class).
  * @codeCoverageIgnore
  */
-class CmdContext extends Context
+class CliContext extends Context
 {
 	/** Constructor.
 	 * @param Configuration $configuration The configuration.
@@ -15,7 +15,7 @@ class CmdContext extends Context
 
 		parent::__construct(
 			$configuration,
-			new CmdParameters( $argv )
+			new CliParameters( $argv )
 		) ;
 	}
 	

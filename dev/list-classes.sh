@@ -6,10 +6,10 @@
 declare root="$( dirname "$( dirname "$0" )"  )"
 
 # Relative paths to directories to explore
-declare -a dirs=( 'back' )
+declare -a dirs=( 'common' 'cli' 'web/php' )
 
 # Relative path to the outpu file
-declare list='back/classes.json'
+declare list='common/classes.json'
 
 ##### Functions #####
 

@@ -2,16 +2,16 @@
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for CmdContext.
+/** Test for CliContext.
  * @codeCoverageIgnore
  */
-class CmdParametersTest extends ClassTester
+class CliParametersTest extends ClassTester
 {
 	
 	/** Canonical case. */
 	public function testCanonicalCase()
 	{
-		$context = new CmdParameters( array(
+		$context = new CliParameters( array(
 				'<file.php>',
 				'foo1',
 				'--bar',
@@ -47,7 +47,7 @@ class CmdParametersTest extends ClassTester
 	/** Test of only-unnamed parameters. */
 	public function testOnlyUnnamed()
 	{
-		$context = new CmdParameters( array(
+		$context = new CliParameters( array(
 			'<file.php>',
 			'--',
 			'foo',
@@ -77,7 +77,7 @@ class CmdParametersTest extends ClassTester
 	/** Test of mixed modes */
 	public function testMixed()
 	{
-		$context = new CmdParameters( array(
+		$context = new CliParameters( array(
 			'<file.php>',
 			'foo1',
 			'--bar1',

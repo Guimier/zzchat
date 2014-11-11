@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname( __DIR__ ) . '/back/Autoloader.php' ;
+require_once dirname( __DIR__ ) . '/common/Autoloader.php' ;
 
 /** Helper for unit testing.
  * Will load the class, provide test data abstraction and load any exception
@@ -67,7 +67,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	{
 		if ( self::$autoloader == null )
 		{
-			self::$autoloader = new Autoloader( self::getRootDir(), 'back/classes.json' ) ;
+			self::$autoloader = new Autoloader( self::getRootDir(), 'common/classes.json' ) ;
 		}
 		self::$autoloader->load( $className ) ;
 	}

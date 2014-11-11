@@ -1,7 +1,7 @@
 <?php
 
 /** Classes autoloader.
- * Enables autoloading of classes defined in /back/classes.json.
+ * Enables autoloading of classes defined in classes.json.
  *
  * May be called directly or defined as autoloader using:
  * @code{.php}
@@ -14,7 +14,7 @@ class Autoloader
 	/** Root directory for zzChat. */
 	private $root ;
 
-	/** List of known classes extracted from /back/classes.json. */
+	/** List of known classes extracted from classes.json. */
 	private $classes ;
 
 	/** Constructor

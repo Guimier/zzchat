@@ -4,7 +4,7 @@
  * @file
  */
 
-require 'back/init.php' ;
+require 'common/init.php' ;
 
 $query = new AjaxQuery( new WebContext( $configuration ) ) ;
 $query->execute() ;

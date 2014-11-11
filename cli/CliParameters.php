@@ -1,7 +1,7 @@
 <?php
 
 /** Command line parameters. */
-class CmdParameters extends Parameters
+class CliParameters extends Parameters
 {
 	
 	/** Array of detected parameters. */
