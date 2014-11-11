@@ -43,7 +43,7 @@ class Autoloader
 
 	/** Get relative path to the file implementing a class
 	 * @warning Assumes the class exists.
-	 * @param string $className Name of the file whose path is wanted.
+	 * @param string $className Name of the class whose path is wanted.
 	 * @return Path to the file where the class is defined, relative to the root directory of Agora.
 	 */
 	public function getClassFullPath( $className )
@@ -53,6 +53,7 @@ class Autoloader
 
 	/** Load a class if it exists.
 	 * @warning This function is not unit-tested since require_once is not easy to test.
+	 * @param string $className Name of the class to load.
 	 * @codeCoverageIgnore
 	 */
 	public function load( $className )
