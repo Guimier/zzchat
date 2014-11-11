@@ -58,7 +58,7 @@ class WebParameters extends Parameters
 			
 			// @codeCoverageIgnoreStart
 			default:
-				throw new BadCallException( __METHOD__ ) ;
+				throw new BadCallException() ;
 			// @codeCoverageIgnoreStop
 		}
 		

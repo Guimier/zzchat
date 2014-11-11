@@ -11,11 +11,11 @@
 class BadCallException extends AgoraInternalException
 {
 
-	/** Constructor
-	 * @param string $method Name of the method throwing the exception.
-	 */
-	public function __construct( $method )
+	/** Constructor. */
+	public function __construct()
 	{
+		$last = $this->getTrace()[0] ;
+		$method = $last['class'] . '::' . $last['function'] ;
 		parent::__construct( "$method called with wrong argument(s)" ) ;
 	}
 
