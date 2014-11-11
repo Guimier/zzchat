@@ -3,13 +3,19 @@
  * Index of documentation.
  */
 
-$code = array(
-	'title' => 'Code',
+$php = array(
+	'title' => 'PHP',
+	'contents' => array()
+) ;
+
+$js = array(
+	'title' => 'JavaScript',
 	'contents' => array()
 ) ;
 
 $display = array() ;
-$display[] = &$code ;
+$display[] = &$php ;
+$display[] = &$js ;
 
 function addToDisplay( &$section, $dir, $label )
 {
@@ -22,8 +28,9 @@ function addToDisplay( &$section, $dir, $label )
 	}
 }
 
-addToDisplay( $code, 'code', 'PHP code documentation' ) ;
-addToDisplay( $code, 'coverage', 'PHP test coverage' ) ;
+addToDisplay( $php, 'php', 'Code documentation' ) ;
+addToDisplay( $php, 'coverage', 'PHP test coverage' ) ;
+addToDisplay( $js, 'js', 'Code documentation' ) ;
 
 ?>
 <!DOCTYPE html>
