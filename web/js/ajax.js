@@ -1,3 +1,5 @@
+/* Dependencies: languages */
+
 /** Ajax abstraction.
  * @class ajax
  */
@@ -66,7 +68,9 @@
 			/* Index. */
 			i,
 			/* Data to send */
-			data = {},
+			data = {
+				language: languages.getCurrent()
+			},
 			/* HTTP methos. */
 			method = 'GET' ;
 		
@@ -98,7 +102,7 @@
 				var i ;
 				for ( i in parts )
 				{
-					parts[i].error( 'ajax:' + textStatus ) ;
+					parts[i].error( 'ajax:' + textStatus, parts[i].message ) ;
 				}
 			}
 		

@@ -29,12 +29,20 @@ class Languages
 	 */
 	private $messages = array() ;
 
+	/** do we know about a specific language?
+	 * @param string $language Language code.
+	 */
+	public function languageIsKnown( $language )
+	{
+		return in_array( $language, $this->known ) ;
+	}
+
 	/** Loads a language.
 	 * @param string $language Asked language.
 	 */
 	private function loadLanguage( $language )
 	{
-		if ( in_array( $language, $this->known ) && ! array_key_exists( $language, $this->messages ) )
+		if ( $this->languageIsKnown( $language ) && ! array_key_exists( $language, $this->messages ) )
 		{
 			$file = Configuration::getInstance()->getRootDir()
 				. '/default/languages/' . $language . '.json' ;
@@ -122,6 +130,29 @@ class Languages
 	{
 		$raw = $this->getRawMessage( $language, $key ) ;
 		return $this->replaceArguments( $raw, $arguments ) ;
+	}
+	
+	/** Get all messages in a language.
+	 * @param string $language Language code.
+	 * @param boolean $withDefault Insert english messages if not available.
+	 */
+	public function getAllMessages( $language, $withDefault )
+	{
+		$res = array() ;
+		
+		if ( $this->languageIsKnown( $language ) )
+		{
+			$this->loadLanguage( $language ) ;
+			$res += $this->messages[$language] ;
+		}
+		
+		if ( $withDefault )
+		{
+			$this->loadLanguage( 'en' ) ;
+			$res += $this->messages['en'] ;
+		}
+		
+		return $res ;
 	}
 
 }
