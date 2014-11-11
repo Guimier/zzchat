@@ -3,7 +3,7 @@
 /** Exception: nonexistent configuration parameter access
  * Thrown when trying to access undefined configuration key.
  */
-class NoSuchConfigurationKeyException extends Exception
+class NoSuchConfigurationKeyException extends AgoraInternalException
 {
 
 	/** Constructor

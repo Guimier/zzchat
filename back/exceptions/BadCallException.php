@@ -8,7 +8,7 @@
  *   throw new BadCallException( __METHOD__ ) ;
  * @endcode
  */
-class BadCallException extends Exception
+class BadCallException extends AgoraInternalException
 {
 
 	/** Constructor

@@ -2,7 +2,7 @@
 
 /** Exception: call of nonexistant query part
  */
-class NoSuchQueryPartException extends Exception
+class NoSuchQueryPartException extends AgoraUserException
 {
 
 	/** Constructor
