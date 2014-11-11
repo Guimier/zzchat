@@ -35,7 +35,7 @@ class AjaxQueryTest extends ClassTester
 		$query->show() ;
 		$this->expectOutputString(
 <<<JSON
-{"working":{"success":true,"data":["foo","ß","×"]},"throwingUser":{"success":false,"error":"GenericAgoraUserException","message":"baz","type":"user"},"throwingInternal":{"success":false,"error":"GenericException","message":"baz","type":"internal"},"workingNull":{"success":true},"nonexistant":{"success":false,"error":"NoSuchQueryPartException","message":"nonexistant","type":"user"}}
+{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"error":"GenericAgoraUserException","message":"baz","type":"user"},"throwingInternal":{"success":false,"error":"GenericException","message":"baz","type":"internal"},"nonexistant":{"success":false,"error":"NoSuchQueryPartException","message":"nonexistant","type":"user"}}
 JSON
 		) ;
 		
@@ -61,6 +61,15 @@ JSON
             "×"
         ]
     },
+    "workingNull": {
+        "success": true
+    },
+    "workingEmpty": {
+        "success": true,
+        "data": [
+
+        ]
+    },
     "throwingUser": {
         "success": false,
         "error": "GenericAgoraUserException",
@@ -72,9 +81,6 @@ JSON
         "error": "GenericException",
         "message": "baz",
         "type": "internal"
-    },
-    "workingNull": {
-        "success": true
     },
     "nonexistant": {
         "success": false,

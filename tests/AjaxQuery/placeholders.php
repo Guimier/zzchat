@@ -15,7 +15,7 @@ class WebContext
 	}
 	
 	public function getArrayParameter( $type, $more = null ) {
-		return array( 'working', 'throwingUser', 'throwingInternal', 'workingNull', 'nonexistant' ) ;
+		return array( 'working', 'workingNull', 'workingEmpty', 'throwingUser', 'throwingInternal', 'nonexistant' ) ;
 	}
 	
 	public function getBooleanParameter( $type, $more = null ) {
@@ -49,6 +49,16 @@ class WorkingNullAjaxQueryPart
 	public function execute()
 	{
 		return null ;
+	}
+}
+
+class WorkingEmptyAjaxQueryPart
+{
+	public function __construct( $prefix, WebContext $context ) { }
+	
+	public function execute()
+	{
+		return array() ;
 	}
 }
 

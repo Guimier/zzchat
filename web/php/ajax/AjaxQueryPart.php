@@ -26,9 +26,18 @@ abstract class AjaxQueryPart
 	 * @param string $key Unprefixed name of the parameter.
 	 * @param integer $selector See WebContext::getParameter.
 	 */
-	protected function getParameter( $key, $selector )
+	protected function getParameter( $key, $selector = null )
 	{
 		return $this->context->getParameter( $this->prefix . '_' . $key, $selector ) ;
+	}
+	
+	/** Get a boolean parameter of the query.
+	 * @param string $key Unprefixed name of the parameter.
+	 * @param integer $selector See WebContext::getParameter.
+	 */
+	protected function getBooleanParameter( $key, $selector = null )
+	{
+		return $this->context->getBooleanParameter( $this->prefix . '_' . $key, $selector ) ;
 	}
 	
 }

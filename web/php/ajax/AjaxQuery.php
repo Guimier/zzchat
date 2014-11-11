@@ -63,7 +63,7 @@ class AjaxQuery
 			{
 				$data  = $this->executePart( $part ) ;
 				$result = array( 'success' => true ) ;
-				if ( $data != null )
+				if ( $data !== null )
 				{
 					$result['data'] = $data ;
 				}
