@@ -62,8 +62,7 @@
 	<target name="doc-js">
 		<echo message="Building JS documentation…"/>
 		<!-- Build documentation -->
-		<exec executable="jsduck">
-			<arg value="-v" />
+		<exec executable="yuidoc">
 			<arg value="${js-src}" />
 			<arg value="-o" /> <arg value="${js-doc-dir}" />
 		</exec>
