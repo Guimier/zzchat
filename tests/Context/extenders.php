@@ -1,10 +1,12 @@
 <?php
 
-/** Generic child class of Context
+/** Generic child class of Context.
  * @codeCoverageIgnore
  */
-class _Context extends Context
-{
-	public function getParameter( $key, $more ) {}
+class _Context extends Context {
+	public function __construct( Configuration $c, Parameters $p )
+	{
+		parent::__construct( $c, $p ) ;
+	}
 }
 

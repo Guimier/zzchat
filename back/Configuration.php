@@ -1,19 +1,19 @@
 <?php
-/** The context of execution.
- * Includes configuration (static context) and parameters (dynamic context).
- */
-abstract class Context
+/** The configuration. */
+class Configuration
 {
 
 	/** Constructor.
 	 * @param string $root Full path to the root directory of Agora.
+	 * @param string $defaultConfig Relative path to the default configuration.
+	 * @param string $adminConfig Relative path to the configuration the administrator may change.
 	 */
-	public function __construct( $root )
+	public function __construct( $root, $defaultConfig, $adminConfig )
 	{
 		/* Path */
 		$this->root = $root ;
 		/* Configuration */
-		$this->loadConfiguration();
+		$this->loadConfiguration( $defaultConfig, $adminConfig );
 	}
 
 /***** Path *****/
@@ -41,24 +41,7 @@ abstract class Context
 	 * The initial values are the default ones; they will be overridden on construction by
 	 * any key in /config/global.json whose type matches the one given here.
 	 */
-	private $configuration = array(
-		/* Maximum allowed number of open channels */
-		'channels.maxnum' => 100,
-		/* Default style of channels */
-		'channels.style' => 'theater',
-		/* Maximum inactivity for a channel */
-		'channels.inactivity' => 604800,
-		/* Maximum length of a post (bytes) */
-		'channels.postlength' => 1024,
-		/* Number of posts stored in one file */
-		'channels.filelength' => 100,
-		/* Maximum post rate allowed for a user (post/minute) */
-		'user.maxpostrate' => 20,
-		/* Default language */
-		'user.defaultlang' => 'en',
-		/* Maximum inactivity for a user (sec) */
-		'user.inactivity' => 86400 
-	) ;
+	private $configuration = array() ;
 	
 	/** Merge an array into another, selecting only keys with matching types.
 	 *
@@ -77,33 +60,44 @@ abstract class Context
 		
 	}
 
+	/* Unserialize a JSON file.
+	 * @param string $file Relative path to the JSON file.
+	 */
+	private function loadJson( $file )
+	{
+		$full = $this->root . '/' . $file ;
+		$raw = null ;
+		if ( file_exists( $full ) )
+		{
+			$raw = file_get_contents( $full ) ;
+		}
+		return ( $raw !== null ) ? json_decode( $raw, true ) : null ;
+	}
+
 	/** Load configuration
 	 * This method read /config/gloabl.json and override values when types match.
+	 * @param string $defaultConfig Relative path to the default configuration.
+	 * @param string $adminConfig Relative path to the configuration the administrator may change.
 	 */
-	private function loadConfiguration()
+	private function loadConfiguration( $defaultConfig, $adminConfig )
 	{
-		$raw = file_get_contents(
-			$this->root . '/config/global.json'
-		) ;
+		$this->configuration = $this->loadJson( $defaultConfig ) ;
 
-		if ( $raw !== null )
+		$changes = $this->loadJson( $adminConfig ) ;
+
+		if ( $changes !== null )
 		{
-			$arr = json_decode( $raw, true ) ;
-
-			if ( $arr !== null )
-			{
-				$this->mergeTypedArrays(
-					$arr,
-					$this->configuration
-				) ;
-			}
+			$this->mergeTypedArrays(
+				$changes,
+				$this->configuration
+			) ;
 		}
 	}
 	
 	/** Get specific configuration value.
 	 * @throws NoSuchConfigurationKeyException Thrown if the value does not exist.
 	 */
-	public function getConf( $key )
+	public function getValue( $key )
 	{
 		if ( ! array_key_exists( $key, $this->configuration ) )
 		{
@@ -112,15 +106,5 @@ abstract class Context
 		
 		return $this->configuration[$key] ;
 	}
-
-/***** Parameters *****/
-
-	/** Get a parameter of the call.
-	 * 
-	 * @param string $key Name of the parameter.
-	 * @param $more May be used by subclasses for selection precision (for example GET/POST).
-	 * @return Value of the parameter.
-	 */
-	abstract function getParameter( $key, $more ) ;
 
 }

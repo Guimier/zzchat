@@ -12,3 +12,9 @@ spl_autoload_register( array(
 	new Autoloader( $root, 'back/classes.json' ),
 	'load'
 ) ) ;
+
+$configuration = new Configuration(
+	$root,
+	'config/default.json',
+	'config/local.json'
+) ;

@@ -23,7 +23,11 @@ class AjaxQuery
 	 */
 	private function extractParts()
 	{
-		$raw = $this->context->getParameter( 'query', WebContext::BOTH ) ;
+		$raw = $this
+			->context
+			->getParameters()
+			->getValue( 'query', WebParameters::BOTH ) ;
+
 		return ( $raw == null ) ? array() : explode( ',', $raw ) ;
 	}
 	
@@ -83,9 +87,19 @@ class AjaxQuery
 	/** Get JSON options. */
 	private function jsonOptions()
 	{
-		$opts = JSON_UNESCAPED_UNICODE ;
+		$opts = 0 ;
 		
-		if ( $this->context->getParameter( 'indent', Webcontext::BOTH ) !== null )
+		if ( defined( 'JSON_UNESCAPED_UNICODE' ) )
+		{
+			$opts |= JSON_UNESCAPED_UNICODE ;
+		}
+
+		$indent = $this
+			->context
+			->getParameters()
+			->getBooleanValue( 'indent' ) ;
+
+		if ( $indent && defined( 'JSON_PRETTY_PRINT' ) )
 		{
 			$opts |= JSON_PRETTY_PRINT ;
 		}

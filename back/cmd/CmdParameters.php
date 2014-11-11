@@ -1,7 +1,7 @@
 <?php
 
-/** Context of execution in case of a command line call. */
-class CmdContext extends Context
+/** Command line parameters. */
+class CmdParameters extends Parameters
 {
 	
 	/** Array of detected parameters. */
@@ -11,12 +11,10 @@ class CmdContext extends Context
 	private $unnamedCount = 0 ;
 	
 	/** Constructor.
-	 * @param string $root Full path to the root directory of Agora.
 	 * @param array $argv Array of command line arguments.
 	 */
-	public function __construct( $root, $argv )
+	public function __construct( $argv )
 	{
-		parent::__construct( $root ) ;
 		$this->parseArguments( $argv ) ;
 	}
 	
@@ -86,7 +84,7 @@ class CmdContext extends Context
 	 * @param string $key Name of the parameter.
 	 * @param null $more May be used in the future, required by parent class Context.
 	 */
-	function getParameter( $key, $more )
+	function getValue( $key, $more = null )
 	{
 		$value = null ;
 		/*

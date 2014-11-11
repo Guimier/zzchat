@@ -33,6 +33,7 @@
 			<arg value="--coverage-html" /> <arg value="${coverage-report}" />
 			<arg value="--test-suffix" /> <arg value="Test.php" />
 			<arg value="--process-isolation" />
+			<!--<arg value="&#34;-stop-on-failure" />-->
 			<arg value="${tests-location}" />
 		</exec>
 	</target>

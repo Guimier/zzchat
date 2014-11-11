@@ -1,33 +1,41 @@
 <?php
 
-/* Placeholders for WebContext. */
+/* Placeholders for WebParameters. */
 
 /** @codeCoverageIgnore */
-abstract class WebContext
+class WebParameters
 {
 	const BOTH = null ;
-	abstract public function getIndentParameter() ;
 	
-	public function getParameter( $type, $more ) {
-		switch ( $type )
-		{
-			case 'indent': return $this->getIndentParameter() ;
-			case 'query': return 'working,throwing,workingNull,nonexistant' ;
-			default: return '_default_' ;
-		}
+	private $indent;
+	
+	public function __construct( $indent )
+	{
+		$this->indent = $indent ;
+	}
+	
+	public function getValue( $type, $more = null ) {
+		return 'working,throwing,workingNull,nonexistant' ;
+	}
+	
+	public function getBooleanValue( $type, $more = null ) {
+		return $this->indent ;
 	}
 }
 
-/** @codeCoverageIgnore */
-class NonIndentedContext extends WebContext
-{
-	public function getIndentParameter() { return null ; }
-}
+/* Placeholders for WebContext. */
 
 /** @codeCoverageIgnore */
-class IndentedContext extends WebContext
+class WebContext
 {
-	public function getIndentParameter() { return '' ; }
+	private $indent ;
+	
+	public function __construct( $indent )
+	{
+		$this->params = new WebParameters( $indent ) ;
+	}
+	
+	public function getParameters() { return $this->params ; }
 }
 
 /* Generic exception */

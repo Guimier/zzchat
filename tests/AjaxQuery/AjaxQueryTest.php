@@ -29,7 +29,7 @@ class AjaxQueryTest extends ClassTester
 	/** Test execution with non-indented output. */
 	public function testNonIndented()
 	{
-		$query = new AjaxQuery( new NonIndentedContext() ) ;
+		$query = new AjaxQuery( new WebContext( false ) ) ;
 		
 		$query->execute() ;
 		$query->show() ;
@@ -45,7 +45,7 @@ JSON
 	/** Test execution with indented output. */
 	public function testIndented()
 	{
-		$query = new AjaxQuery( new IndentedContext() ) ;
+		$query = new AjaxQuery( new WebContext( true ) ) ;
 		
 		$query->execute() ;
 		$query->show() ;

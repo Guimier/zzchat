@@ -6,8 +6,7 @@
 
 require 'back/init.php' ;
 
-$context = new WebContext( __DIR__, $_POST, $_GET ) ;
-$query = new AjaxQuery( $context ) ;
+$query = new AjaxQuery( new WebContext( $configuration ) ) ;
 $query->execute() ;
 $query->show() ;
 
