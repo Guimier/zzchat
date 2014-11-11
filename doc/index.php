@@ -64,11 +64,11 @@ foreach ( $display as $section )
 		
 		echo '</ul>' ;
 	}
+}
 	
-	if ( $empty )
-	{
-		echo '<p><em>No documentation found. Run <code>ant</code> to generate all documentation</em></p>' ;
-	}
+if ( $empty )
+{
+	echo '<p><em>No documentation found. Run <code>ant</code> to generate all documentation</em></p>' ;
 }
 
 ?>
