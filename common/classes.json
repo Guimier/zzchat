@@ -7,12 +7,10 @@
 	"Autoloader": "common/Autoloader.php",
 	"BadCallException": "common/exceptions/BadCallException.php",
 	"CliContext": "cli/CliContext.php",
-	"CliParameters": "cli/CliParameters.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
+	"Languages": "common/Languages.php",
 	"NoSuchConfigurationKeyException": "common/exceptions/NoSuchConfigurationKeyException.php",
 	"NoSuchQueryPartException": "web/php/ajax/NoSuchQueryPartException.php",
-	"Parameters": "common/Parameters.php",
-	"WebContext": "web/php/WebContext.php",
-	"WebParameters": "web/php/WebParameters.php"
+	"WebContext": "web/php/WebContext.php"
 }

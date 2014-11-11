@@ -14,10 +14,8 @@ class BadCallExceptionTest extends ClassTester
 	{
 		$except = new BadCallException() ;
 	
-		$firstPart = explode( ' ', $except->getMessage() )[0] ;
-	
 		$this->assertEquals(
-			$firstPart,
+			$except->getArgs()['method'],
 			__METHOD__,
 			'The method shown in BadCallException must be the constructing one.'
 		) ;

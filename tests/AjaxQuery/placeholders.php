@@ -1,51 +1,37 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/* Placeholders for WebParameters. */
+/* Placeholders for WebContext. */
 
-/** @codeCoverageIgnore */
-class WebParameters
+class WebContext
 {
 	const BOTH = null ;
 	
-	private $indent;
+	private $indent ;
 	
 	public function __construct( $indent )
 	{
 		$this->indent = $indent ;
 	}
 	
-	public function getValue( $type, $more = null ) {
-		return 'working,throwing,workingNull,nonexistant' ;
+	public function getArrayParameter( $type, $more = null ) {
+		return array( 'working', 'throwingUser', 'throwingInternal', 'workingNull', 'nonexistant' ) ;
 	}
 	
-	public function getBooleanValue( $type, $more = null ) {
+	public function getBooleanParameter( $type, $more = null ) {
 		return $this->indent ;
 	}
 }
 
-/* Placeholders for WebContext. */
-
-/** @codeCoverageIgnore */
-class WebContext
-{
-	private $indent ;
-	
-	public function __construct( $indent )
-	{
-		$this->params = new WebParameters( $indent ) ;
-	}
-	
-	public function getParameters() { return $this->params ; }
-}
-
 /* Generic exception */
 
-/** @codeCoverageIgnore */
 class GenericException extends Exception {}
+class AgoraUserException extends Exception {}
+class GenericAgoraUserException extends AgoraUserException {}
+class NoSuchQueryPartException extends AgoraUserException {}
 
 /* AjaxQueryPart classes */
 
-/** @codeCoverageIgnore */
 class WorkingAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -56,7 +42,6 @@ class WorkingAjaxQueryPart
 	}
 }
 
-/** @codeCoverageIgnore */
 class WorkingNullAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -67,8 +52,17 @@ class WorkingNullAjaxQueryPart
 	}
 }
 
-/** @codeCoverageIgnore */
-class ThrowingAjaxQueryPart
+class ThrowingUserAjaxQueryPart
+{
+	public function __construct( $prefix, WebContext $context ) { }
+	
+	public function execute()
+	{
+		throw new GenericAgoraUserException( 'baz' ) ;
+	}
+}
+
+class ThrowingInternalAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
 	

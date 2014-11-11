@@ -50,7 +50,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	{
 		$dir = __DIR__ . '/' . $this->className ;
 		$this->tryLoad( "$dir/placeholders.php" ) ;
-		$this->startAutoload() ;
+		$this->load( $this->className ) ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
 	}
 
@@ -63,32 +63,13 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	 *
 	 * @param string $className Class to load.
 	 */
-	public static function load( $className )
+	private static function load( $className )
 	{
 		if ( self::$autoloader == null )
 		{
 			self::$autoloader = new Autoloader( self::getRootDir(), 'common/classes.json' ) ;
 		}
 		self::$autoloader->load( $className ) ;
-	}
-
-	/** Load a class (restricted access to the autoloader).
-	 *
-	 * @param string $className Class to load.
-	 */
-	public function autoload( $className )
-	{
-		if ( substr( $className, -9 ) === 'Exception' )
-		{
-			self::load( $className ) ;
-		}
-	}
-	
-	/** Load the tested class and its parents. */
-	private function startAutoload()
-	{
-		spl_autoload_register( array( $this, 'autoload' ) ) ;
-		self::load( $this->className ) ;
 	}
 
 /***** Paths *****/

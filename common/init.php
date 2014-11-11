@@ -13,8 +13,14 @@ spl_autoload_register( array(
 	'load'
 ) ) ;
 
-$configuration = new Configuration(
+Configuration::setInstance(
 	$root,
 	'default/configuration.json',
 	'local/configuration.json'
 ) ;
+
+Context::setCanonical( php_sapi_name() == 'cli'
+	? new CliContext( $argv )
+	: new WebContext( $_GET, $_POST )
+) ;
+

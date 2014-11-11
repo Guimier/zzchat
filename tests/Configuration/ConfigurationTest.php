@@ -11,7 +11,7 @@ class ConfigurationTest extends ClassTester
 	
 	private function getInstance()
 	{
-		return new Configuration(
+		return Configuration::setInstance(
 			$this->getTestDataDir(),
 			'default.json',
 			'local.json'

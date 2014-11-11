@@ -6,7 +6,7 @@
 
 require 'common/init.php' ;
 
-$query = new AjaxQuery( new WebContext( $configuration ) ) ;
+$query = new AjaxQuery( Context::getCanonical() ) ;
 $query->execute() ;
 $query->show() ;
 

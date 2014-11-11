@@ -10,7 +10,7 @@ class NoSuchQueryPartException extends AgoraUserException
 	 */
 	public function __construct( $partName )
 	{
-		parent::__construct( "$partName query part does not exist" ) ;
+		parent::__construct( 'exceptions.nosuchquerypart', array( 'partname' => $partName ) ) ;
 	}
 
 }

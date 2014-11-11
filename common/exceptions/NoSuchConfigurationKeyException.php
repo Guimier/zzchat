@@ -11,7 +11,7 @@ class NoSuchConfigurationKeyException extends AgoraInternalException
 	 */
 	public function __construct( $key )
 	{
-		parent::__construct( "Unknown configuration key $key" ) ;
+		parent::__construct( 'exceptions.nosuchconfigurationkey', array( 'key' => $key ) ) ;
 	}
 
 }

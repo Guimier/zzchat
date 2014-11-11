@@ -3,5 +3,5 @@
 /** Placeholder for Parameters.
  * @codeCoverageIgnore
  */
-class Parameters {}
+class Context {}
 

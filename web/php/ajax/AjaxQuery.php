@@ -23,12 +23,7 @@ class AjaxQuery
 	 */
 	private function extractParts()
 	{
-		$raw = $this
-			->context
-			->getParameters()
-			->getValue( 'query', WebParameters::BOTH ) ;
-
-		return ( $raw == null ) ? array() : explode( ',', $raw ) ;
+		return $this->context->getArrayParameter( 'query', WebContext::BOTH ) ;
 	}
 	
 	/** Return the name of the class associated to a part.
@@ -73,11 +68,22 @@ class AjaxQuery
 					$result['data'] = $data ;
 				}
 			}
+			catch ( AgoraUserException $e )
+			{
+				$result = array(
+					'success' => false,
+					'error' => get_class( $e ),
+					'message' => $e->getMessage(),
+					'type' => 'user'
+				) ;
+			}
 			catch ( Exception $e )
 			{
 				$result = array(
 					'success' => false,
-					'error' => get_class( $e )
+					'error' => get_class( $e ),
+					'message' => $e->getMessage(),
+					'type' => 'internal'
 				) ;
 			}
 			$this->result[$part] = $result ;
@@ -96,8 +102,7 @@ class AjaxQuery
 
 		$indent = $this
 			->context
-			->getParameters()
-			->getBooleanValue( 'indent' ) ;
+			->getBooleanParameter( 'indent' ) ;
 
 		if ( $indent && defined( 'JSON_PRETTY_PRINT' ) )
 		{

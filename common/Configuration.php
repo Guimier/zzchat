@@ -3,12 +3,47 @@
 class Configuration
 {
 
+	/** The only instance. */
+	private static $instance = null ;
+
+	/** Get the only instance. */
+	public static function getInstance()
+	{
+		if ( self::$instance === null )
+		{
+			/* Exception since AgoraException depends on Configuration. */
+			return new Exception( 'No instance of Configuration.' ) ;
+		}
+		
+		return self::$instance ;
+	}
+
+	/** Set the only instance.
+	 * @param string $root Full path to the root directory of Agora.
+	 * @param string $defaultConfig Relative path to the default configuration.
+	 * @param string $adminConfig Relative path to the configuration the administrator may change.
+	 */
+	public static function setInstance( $root, $defaultConfig, $adminConfig )
+	{
+		if ( self::$instance !== null )
+		{
+			/* Exception since AgoraException depends on Languages. */
+			return new Exception( 'Double instanciation of Configuration.' ) ;
+		}
+		
+		self::$instance = new Configuration( $root, $defaultConfig, $adminConfig ) ;
+		
+		return self::$instance ;
+	}
+
+/******************************************************************************/
+
 	/** Constructor.
 	 * @param string $root Full path to the root directory of Agora.
 	 * @param string $defaultConfig Relative path to the default configuration.
 	 * @param string $adminConfig Relative path to the configuration the administrator may change.
 	 */
-	public function __construct( $root, $defaultConfig, $adminConfig )
+	private function __construct( $root, $defaultConfig, $adminConfig )
 	{
 		/* Path */
 		$this->root = $root ;

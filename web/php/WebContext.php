@@ -1,22 +1,77 @@
 <?php
 
-/** Context of execution in case of a web query.
- * The dynamic parameters in this type of context are the given as GET or POST parameters.
- * @warning Not unit-tested (passes globals to another class).
- * @codeCoverageIgnore
- */
+/** The context of the web query. */
 class WebContext extends Context
 {
 	
+	/** Parameter selection in #getParameter: only POST */
+	const POST = 1 ;
+	/** Parameter selection in #getParameter: POST or GET */
+	const BOTH = 2 ;
+	
+	/** Array of GET parameters ($_GET). */
+	private $getParams ;
+	/** Array of POST parameters ($_POST). */
+	private $postParams ;
+	
 	/** Constructor.
-	 * @param Configuration $configuration The configuration.
+	 * @param array $getParams Array of GET parameters ($_GET).
+	 * @param array $postParams Array of POST parameters ($_POST).
 	 */
-	public function __construct( Configuration $configuration )
+	public function __construct( $getParams, $postParams )
 	{
-		parent::__construct(
-			$configuration,
-			new WebParameters( $_GET, $_POST )
-		) ;
+		$this->getParams = $getParams ;
+		$this->postParams = $postParams ;
+	}
+	
+	/** Get a parameter.
+	 * @param string $key Name of the parameter.
+	 * @param [$more] Which parameter to get, one of #POST, #GET and #BOTH.
+	 *   In case BOTH, POST parameter takes priority over GET one.
+	 * @throw BadCallException Thrown if $more is not valid
+	 */
+	function getParameter( $key, $more = null )
+	{
+		if ( $more === null )
+		{
+			$more = self::BOTH ;
+		}
+
+		$value = null ;
+		
+		switch ( $more )
+		{
+			case self::BOTH :
+				if ( array_key_exists( $key, $this->getParams ) )
+				{
+					$value = $this->getParams[$key] ;
+				}
+				// No break: POST may override.
+
+			case self::POST :
+				if ( array_key_exists( $key, $this->postParams ) )
+				{
+					$value = $this->postParams[$key] ;
+				}
+			
+				break ;
+			
+			// @codeCoverageIgnoreStart
+			default:
+				throw new BadCallException() ;
+			// @codeCoverageIgnoreStop
+		}
+		
+		return $value ;
+	}
+	
+	/** Get a the language. */
+	public function getLanguage()
+	{
+		$param = $this->getParameter( 'language' ) ;
+		
+		return ( $param === null ) ? 'en' : $param ;
 	}
 	
 }
+

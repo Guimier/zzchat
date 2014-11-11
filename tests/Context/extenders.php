@@ -4,9 +4,17 @@
  * @codeCoverageIgnore
  */
 class _Context extends Context {
-	public function __construct( Configuration $c, Parameters $p )
+
+	public function getParameter( $key, $more = null )
 	{
-		parent::__construct( $c, $p ) ;
+		switch ( $key )
+		{
+			case 'foo' : return 'bar' ;
+			case 'empty' : return '' ;
+			case 'list' : return 'foo,bar,baz' ;
+			case 'null' : return null ;
+		}
 	}
+	
 }
 
