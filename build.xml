@@ -13,7 +13,7 @@
 	<property name="php-tests-location" value="tests"/>
 
 	<!-- JS -->
-	<property name="js-src" value="front/src"/>
+	<property name="js-src" value="web/js"/>
 	<property name="js-doc-dir" value="${doc-dir}/js"/>
 
 <!-- Global rules -->

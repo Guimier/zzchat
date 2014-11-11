@@ -1,12 +1,22 @@
+
+/** Language abstraction.
+ * @class language
+ */
 ( function ( $ ) {
 
 	var
-		/* Current language */
+		/** Current language code.
+		 * @private
+		 * @property {String} current
+		 */
 		current = 'en' ;
 
-	window.languages = {} ;
+	window.language = {} ;
 	
-	window.languages.getCurrent = function ()
+	/** Get the current language.
+	 * @method getCurrent
+	 */
+	window.language.getCurrent = function ()
 	{
 		return current ;
 	} ;

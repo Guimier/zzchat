@@ -1,4 +1,4 @@
-/* Dependencies: languages */
+/* global language */
 
 /** Ajax abstraction.
  * @class ajax
@@ -21,7 +21,6 @@
 		interval = 0 ;
 	
 	window.ajax = {} ;
-	
 	
 	/** Add properties from an object to another with prefixes.
 	 * @private
@@ -157,20 +156,19 @@
 	} ;
 	
 	/** Check whether automatic sending is on or off.
-	 * @private
 	 * @method isAutomaticOn
 	 */
-	function isAutomaticOn()
+	window.ajax.isAutomaticOn = function ()
 	{
 		return interval !== 0 ;
-	}
+	} ;
 	
 	/** Stop automatic sending of queries.
 	 * @method stop
 	 */
 	window.ajax.stop = function ()
 	{
-		if ( isAutomaticOn() )
+		if ( this.isAutomaticOn() )
 		{
 			clearInterval( interval ) ;
 			interval = 0 ;
@@ -190,10 +188,7 @@
 	/** Send a query now.
 	 * @method sendNow
 	 */
-	window.ajax.sendNow = function ()
-	{
-		runQuery() ;
-	} ;
+	window.ajax.sendNow = runQuery ;
 
 /*----------------------------------------------------------------------------*/
 
