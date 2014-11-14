@@ -171,7 +171,7 @@ class Configuration
 	}
 
 	/** Load configuration
-	 * This method read /config/gloabl.json and override values when types match.
+	 * This method reads both configuration.json files and override default values with local ones when types match.
 	 * @param string $defaultConfig Relative path to the default configuration.
 	 * @param string $adminConfig Relative path to the configuration the administrator may change.
 	 */
