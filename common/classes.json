@@ -1,0 +1,20 @@
+{
+	"AgoraException": "common/exceptions/AgoraException.php",
+	"AgoraInternalException": "common/exceptions/AgoraInternalException.php",
+	"AgoraUserException": "common/exceptions/AgoraUserException.php",
+	"AjaxQueryPart": "web/php/ajax/AjaxQueryPart.php",
+	"AjaxQuery": "web/php/ajax/AjaxQuery.php",
+	"Autoloader": "common/Autoloader.php",
+	"BadCallException": "common/exceptions/BadCallException.php",
+	"CliContext": "cli/CliContext.php",
+	"Configuration": "common/Configuration.php",
+	"Context": "common/Context.php",
+	"Languages": "common/Languages.php",
+	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
+	"NoSuchConfigurationKeyException": "common/exceptions/NoSuchConfigurationKeyException.php",
+	"NoSuchQueryPartException": "web/php/ajax/NoSuchQueryPartException.php",
+	"NoSuchUserException": "common/users/NoSuchUserException.php",
+	"UserNameAlreadyTakenException": "common/users/UserNameAlreadyTaken.php",
+	"Users": "common/users/User.php",
+	"WebContext": "web/php/WebContext.php"
+}

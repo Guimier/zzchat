@@ -15,14 +15,14 @@ class LoadAllTest extends ClassTester
 	{
 		$root = dirname( __DIR__ ) ;
 
-		require_once "$root/back/Autoloader.php" ;
+		require_once "$root/common/Autoloader.php" ;
 		spl_autoload_register( array(
-			new Autoloader( $root, 'back/classes.json' ),
+			new Autoloader( $root, 'common/classes.json' ),
 			'load'
 		) ) ;
 
 		$classes = array_keys( json_decode(
-			file_get_contents( "$root/back/classes.json" ),
+			file_get_contents( "$root/common/classes.json" ),
 			true
 		) ) ;
 

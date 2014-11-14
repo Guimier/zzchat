@@ -1,43 +1,37 @@
 <?php
+// @codeCoverageIgnoreStart
 
 /* Placeholders for WebContext. */
 
-/** @codeCoverageIgnore */
-abstract class WebContext
+class WebContext
 {
 	const BOTH = null ;
-	abstract public function getIndentParameter() ;
 	
-	public function getParameter( $type, $more ) {
-		switch ( $type )
-		{
-			case 'indent': return $this->getIndentParameter() ;
-			case 'query': return 'working,throwing,workingNull,nonexistant' ;
-			default: return '_default_' ;
-		}
+	private $indent ;
+	
+	public function __construct( $indent )
+	{
+		$this->indent = $indent ;
 	}
-}
-
-/** @codeCoverageIgnore */
-class NonIndentedContext extends WebContext
-{
-	public function getIndentParameter() { return null ; }
-}
-
-/** @codeCoverageIgnore */
-class IndentedContext extends WebContext
-{
-	public function getIndentParameter() { return '' ; }
+	
+	public function getArrayParameter( $type, $more = null ) {
+		return array( 'working', 'workingNull', 'workingEmpty', 'throwingUser', 'throwingInternal', 'nonexistant' ) ;
+	}
+	
+	public function getBooleanParameter( $type, $more = null ) {
+		return $this->indent ;
+	}
 }
 
 /* Generic exception */
 
-/** @codeCoverageIgnore */
 class GenericException extends Exception {}
+class AgoraUserException extends Exception {}
+class GenericAgoraUserException extends AgoraUserException {}
+class NoSuchQueryPartException extends AgoraUserException {}
 
 /* AjaxQueryPart classes */
 
-/** @codeCoverageIgnore */
 class WorkingAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -48,7 +42,6 @@ class WorkingAjaxQueryPart
 	}
 }
 
-/** @codeCoverageIgnore */
 class WorkingNullAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
@@ -59,8 +52,27 @@ class WorkingNullAjaxQueryPart
 	}
 }
 
-/** @codeCoverageIgnore */
-class ThrowingAjaxQueryPart
+class WorkingEmptyAjaxQueryPart
+{
+	public function __construct( $prefix, WebContext $context ) { }
+	
+	public function execute()
+	{
+		return array() ;
+	}
+}
+
+class ThrowingUserAjaxQueryPart
+{
+	public function __construct( $prefix, WebContext $context ) { }
+	
+	public function execute()
+	{
+		throw new GenericAgoraUserException( 'baz' ) ;
+	}
+}
+
+class ThrowingInternalAjaxQueryPart
 {
 	public function __construct( $prefix, WebContext $context ) { }
 	

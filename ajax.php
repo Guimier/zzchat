@@ -4,10 +4,9 @@
  * @file
  */
 
-require 'back/init.php' ;
+require 'common/init.php' ;
 
-$context = new WebContext( __DIR__, $_POST, $_GET ) ;
-$query = new AjaxQuery( $context ) ;
+$query = new AjaxQuery( Context::getCanonical() ) ;
 $query->execute() ;
 $query->show() ;
 

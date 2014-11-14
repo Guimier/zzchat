@@ -5,4 +5,4 @@
  * @todo Return something.
  */
 
-require 'back/init.php' ;
+require 'common/init.php' ;

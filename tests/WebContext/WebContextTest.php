@@ -8,66 +8,42 @@ require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 class WebContextTest extends ClassTester
 {
 	
-	/** Tests of parameters access for GET selection.
-	 */
-	public function testParametersGET()
+	/** Tests of parameters access for default selection. */
+	public function testParametersDefault()
 	{
 		$context = new WebContext(
-			$this->getTestDataDir(),
-			array( 'get_existant' => 'foo' ),
-			array( 'post_existant' => 'bar' )
+			array( 'get_existant' => 'foo', 'common' => 'foo2' ),
+			array( 'post_existant' => 'bar', 'common' => 'bar2' )
 		) ;
 		
 		$this->assertEquals(
-			$context->getParameter( 'get_existant', WebContext::GET ),
+			$context->getParameter( 'get_existant' ),
 			'foo',
-			'GET parameter must be returned in GET mode'
-		) ;
-		
-		$this->assertNull(
-			$context->getParameter( 'nonexistant', WebContext::GET ),
-			'Nonexistant parameter must be replaced by null in GET mode'
-		) ;
-		
-		$this->assertNull(
-			$context->getParameter( 'post_existant', WebContext::GET ),
-			'POST parameter must be ignored in GET mode'
-		) ;
-	}
-	
-	/** Tests of parameters access for POST selection.
-	 */
-	public function testParametersPOST()
-	{
-		$context = new WebContext(
-			$this->getTestDataDir(),
-			array( 'get_existant' => 'foo' ),
-			array( 'post_existant' => 'bar' )
+			'GET parameter must be returned in default (BOTH) mode'
 		) ;
 		
 		$this->assertEquals(
-			$context->getParameter( 'post_existant', WebContext::POST ),
+			$context->getParameter( 'post_existant' ),
 			'bar',
-			'POST parameter must be returned in POST mode'
+			'POST parameter must be returned in default (BOTH) mode'
 		) ;
 		
 		$this->assertNull(
-			$context->getParameter( 'nonexistant', WebContext::POST ),
-			'Nonexistant parameter must be replaced by null in POST mode'
+			$context->getParameter( 'nonexistant' ),
+			'Nonexistant parameter must be replaced by null in default (BOTH) mode'
 		) ;
 		
-		$this->assertNull(
-			$context->getParameter( 'get_existant', WebContext::POST ),
-			'GET parameter must be ignored in POST mode'
+		$this->assertEquals(
+			$context->getParameter( 'common' ),
+			'bar2',
+			'POST must have priority in default (BOTH) mode'
 		) ;
 	}
 	
-	/** Tests of parameters access for BOTH selection.
-	 */
+	/** Tests of parameters access for BOTH selection. */
 	public function testParametersBOTH()
 	{
 		$context = new WebContext(
-			$this->getTestDataDir(),
 			array( 'get_existant' => 'foo', 'common' => 'foo2' ),
 			array( 'post_existant' => 'bar', 'common' => 'bar2' )
 		) ;
@@ -95,4 +71,30 @@ class WebContextTest extends ClassTester
 			'POST must have priority in BOTH mode'
 		) ;
 	}
+	
+	/** Tests of parameters access for POST selection. */
+	public function testParametersPOST()
+	{
+		$context = new WebContext(
+			array( 'get_existant' => 'foo' ),
+			array( 'post_existant' => 'bar' )
+		) ;
+		
+		$this->assertEquals(
+			$context->getParameter( 'post_existant', WebContext::POST ),
+			'bar',
+			'POST parameter must be returned in POST mode'
+		) ;
+		
+		$this->assertNull(
+			$context->getParameter( 'nonexistant', WebContext::POST ),
+			'Nonexistant parameter must be replaced by null in POST mode'
+		) ;
+		
+		$this->assertNull(
+			$context->getParameter( 'get_existant', WebContext::POST ),
+			'GET parameter must be ignored in POST mode'
+		) ;
+	}
+	
 }

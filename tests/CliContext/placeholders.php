@@ -3,5 +3,7 @@
 /** Placeholder for Parameters.
  * @codeCoverageIgnore
  */
-class Context {}
+class Context {
+	public function __construct() {}
+}
 

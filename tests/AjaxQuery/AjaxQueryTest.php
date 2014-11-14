@@ -29,13 +29,13 @@ class AjaxQueryTest extends ClassTester
 	/** Test execution with non-indented output. */
 	public function testNonIndented()
 	{
-		$query = new AjaxQuery( new NonIndentedContext() ) ;
+		$query = new AjaxQuery( new WebContext( false ) ) ;
 		
 		$query->execute() ;
 		$query->show() ;
 		$this->expectOutputString(
 <<<JSON
-{"working":{"success":true,"data":["foo","ß","×"]},"throwing":{"success":false,"error":"GenericException"},"workingNull":{"success":true},"nonexistant":{"success":false,"error":"NoSuchQueryPartException"}}
+{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"error":"GenericAgoraUserException","message":"baz","type":"user"},"throwingInternal":{"success":false,"error":"GenericException","message":"baz","type":"internal"},"nonexistant":{"success":false,"error":"NoSuchQueryPartException","message":"nonexistant","type":"user"}}
 JSON
 		) ;
 		
@@ -45,7 +45,7 @@ JSON
 	/** Test execution with indented output. */
 	public function testIndented()
 	{
-		$query = new AjaxQuery( new IndentedContext() ) ;
+		$query = new AjaxQuery( new WebContext( true ) ) ;
 		
 		$query->execute() ;
 		$query->show() ;
@@ -61,16 +61,32 @@ JSON
             "×"
         ]
     },
-    "throwing": {
-        "success": false,
-        "error": "GenericException"
-    },
     "workingNull": {
         "success": true
     },
+    "workingEmpty": {
+        "success": true,
+        "data": [
+
+        ]
+    },
+    "throwingUser": {
+        "success": false,
+        "error": "GenericAgoraUserException",
+        "message": "baz",
+        "type": "user"
+    },
+    "throwingInternal": {
+        "success": false,
+        "error": "GenericException",
+        "message": "baz",
+        "type": "internal"
+    },
     "nonexistant": {
         "success": false,
-        "error": "NoSuchQueryPartException"
+        "error": "NoSuchQueryPartException",
+        "message": "nonexistant",
+        "type": "user"
     }
 }
 JSON

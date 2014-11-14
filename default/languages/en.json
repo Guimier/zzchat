@@ -1,0 +1,8 @@
+{
+	"lang.en": "English",
+	"lang.fr": "French",
+	
+	"exceptions.badcall": "“${method}” called with wrong argument(s)",
+	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
+	"exceptions.nosuchquerypart": "“${partname}” query part does not exist"
+}
