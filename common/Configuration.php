@@ -70,6 +70,15 @@ class Configuration
 		return '/data/' . $key ;
 	}
 
+	/** Get the full path to a file.
+	 * @param string $relative Relative path to the file.
+	 * @return $full Full path to the file.
+	 */
+	public function getFullPath( $relative )
+	{
+		return $his->getRootDir() . '/' . $relative ;
+	}
+
 /***** File reading/writing *****/
 
 	/** Get the parsed JSON content of a file.
@@ -80,7 +89,7 @@ class Configuration
 	{
 		$res = $default ;
 
-		$full = $this->getRootDir() . '/' . $file ;
+		$full = $this->getFullPath( $file ) ;
 
 		if ( file_exists( $full ) )
 		{
@@ -105,9 +114,21 @@ class Configuration
 	public function saveJson( $file, $value )
 	{
 		file_put_contents(
-			$full = $this->getRootDir() . '/' . $file,
+			$this->getFullPath( $file ),
 			json_encode( $value )
 		) ;
+	}
+
+	/** Get the value of a counter and increment it.
+	 * @param string $counter Relative path to the counter file.
+	 * @return The saved value.
+	 */
+	public function incrementCounter( $counter )
+	{
+		$full = $this->getFullPath( $file ) ;
+		$value = 1 + (int) file_get_contents( $full ) ;
+		file_put_contents( $full, $value ) ;
+		return $value ;
 	}
 
 /***** Configuration *****/
