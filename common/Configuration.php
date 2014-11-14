@@ -70,7 +70,7 @@ class Configuration
 		return '/data/' . $key ;
 	}
 
-/***** File reading *****/
+/***** File reading/writing *****/
 
 	/** Get the parsed JSON content of a file.
 	 * @param string $file Relative path to the file.
@@ -96,6 +96,18 @@ class Configuration
 		}
 
 		return $res ;
+	}
+
+	/** Save inot a JSON file a value.
+	 * @param string $file Relative path to the file.
+	 * @param $value The value to save.
+	 */
+	public function saveJson( $file, $value )
+	{
+		file_put_contents(
+			$full = $this->getRootDir() . '/' . $file,
+			json_encode( $value )
+		) ;
 	}
 
 /***** Configuration *****/
