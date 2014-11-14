@@ -62,12 +62,40 @@ class Configuration
 		return $this->root ;
 	}
 
-	/** Get specific data directory path.
+	/** Get specific data directory path (relative).
 	 * @return Full path to a specific data directory.
 	 */
 	public function getDataDir( $key )
 	{
-		return $this->getRootDir() . '/data/' . $key ;
+		return '/data/' . $key ;
+	}
+
+/***** File reading *****/
+
+	/** Get the parsed JSON content of a file.
+	 * @param string $file Relative path to the file.
+	 * @param [$default=null] Default value if the file does not exist or contains invalid JSON.
+	 */
+	public function loadJson( $file, $default = null )
+	{
+		$res = $default ;
+
+		$full = $this->getRootDir() . '/' . $file ;
+
+		if ( file_exists( $full ) )
+		{
+			$parsed = json_decode(
+				file_get_contents( $full ),
+				true
+			);
+
+			if ( $parsed !== null )
+			{
+				$res = $parsed ;
+			}
+		}
+
+		return $res ;
 	}
 
 /***** Configuration *****/
