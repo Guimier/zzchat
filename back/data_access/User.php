@@ -4,87 +4,130 @@ class Users
 {
 	
 /***** Class *****/
-	
-	public static function getActiveUser( Context $context, string $name )
+	/** Get an active user by name.
+	 * 
+	 * @param string $name The name to look for.
+	 * 
+	 * @return The User instance or null.
+	 */
+	public static function getActiveUser( $name )
 	{
 		$user = null ;
 		
-		$activeUsers = json_decode( file_get_contents( $c->getDataDir( 'users' ) . '/active.json' ), true ) ;
+		$config = Configuration::getInstance() ;
+		
+		$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
 		
 		if ( array_key_exists( $name, $activeUser ) )
 		{
-			$user = new User( $activeUser[$name] ) ;
-			
-			if ( ! $user->isActive() )
-			{
-				$user = null ;
-			}
+			$user = self::getUser( $activeUsers[$name] ) ;
+		}
+		
+		if ( ! $user->isActive() )
+		{
+			$user = null ;
 		}
 		
 		return $user ;
-		
 	}
+	
+	/** Get a user by id.
+	 * 
+	 * @param int $userId The id to look for.
+	 * 
+	 * @return The User instance.
+	 */
+	
+	public static function getUser( $userId )
+	{
+		static $users = array() ;
+		
+		if ( ! array_key_exists( $userId, $users ) )
+		{
+			$users[$userId] = new User( $userId ) ; 
+		}
+		
+		return $users[$userId] ; 
+	}
+	
+	
+	
+	/** Create a user.
+	 * 
+	 * @param string $userName The name of the user which is created.
+	 *  
+	 * @return The User instance.
+	 */
+	public static function createUser( $userName )
+	{
+		$config = Configuration::getInstance() ; 
+		
+		if ( self::getActiveUser( $userName ) !== null )
+		{
+			throw new UserNameAlreadyTakenException( $userName ) ;
+		}
+		
+		$lastidFile = $config->getDataDir( 'users' ) . '/lastid.int' ;
+		$id = $config->incrementCounter( $lastIdFile ) ;
+		
+		$config->saveJson(
+			self::getUserFile( $id ),
+			array(
+				'name' => $userName,
+				'last-action' => time()				
+			)
+		) ;
+		
+		return self::getUser( $id ) ;
+	}
+	
+	/** Get the file of the user by id.
+	 * @param int $userId The id of the user whose file is searched.  
+	 * 
+	 * @return The File of the user.
+	 */
+	private static function getUserFile( $userId )
+	{
+		
+		return Configuration::getInstance()->getDataDir( 'users' ) . '/' . $userId . '.json' ;
+	}
+	
 	
 /**** Instances ****/
 	
+	/** The id of the user. */
 	private $id = -1 ;
 	
-	private $name = null ;
-	
-	private $context = null ;
-	
+	/** The array which contains the data concerning the user. */
 	private $userData = null ;
 	
-	public function __construct( Context $context, $pointer )  
-	{
-		$this->context = $context ;
+	/** Constructor
+	 * 
+	 * @param int $userId The id of the User which is built.
+	 */
+	public function __construct( $userId )  
+	{	
+		$this->id = $userId ;
+		$raw = file_get_contents( $this->getUserFile( $userId ) ) ;
 		
-		switch( gettype( $pointer ) )
+		if ( $raw === null ) // err
 		{
-			
-			case "integer" :
-			
-				$this->id = $pointer ;
-				$raw = file_get_contents( $this->getUserFile() ) ;
-				
-				if ( $raw === null ) // err
-				{
-					throw new NoSuchUserException( $pointer ) ;
-				}
-				else // charger données
-				{
-					$this->userData = json_decode( $raw, true ) ;
-				}
-			
-			break ;
-			
-			case "string" :
-			
-				$this->name = $pointer ;
-				
-				file_put_contents( $this->getUserFile() ) ;
-				
-				$lastidFile = $this->context->getDataDir( 'users' ) . '/lastid.int' ;
-				$this->id = 1 + (int) file_get_contents( $lastidFile ) ;
-				file_put_contents( $lastidFile, $this->id ) ;
-				
-				$this->userData = array(
-					'name' => $pointer,
-					'lastactivity' => time(), 
-					'active' => true
-				) ;
-				
-			break ;
-			
-			
-			default :
-				throw BadCallException() ; 
-		}		
+			throw new NoSuchUserException( $userId ) ;
+		}
+		else // charger données
+		{
+			$this->userData = json_decode( $raw, true ) ;
+		}
 	}
 	
-	private function getUserFile()
+	/** Check whether the user is active or not.
+	 * 
+	 * @return True if the user is active, false otherwise. 
+	 */
+	public function isActive()
 	{
-			return $this->context->getDataDir( 'users' ) . '/' . $this->id . '.json' ;
+		return time() - $this->userData['last-action'] < Configuration::getInstance()->getValue( 'user.inactivity' ) ;
 	}
+	
 			
 }
