@@ -76,7 +76,7 @@ class Configuration
 	 */
 	public function getFullPath( $relative )
 	{
-		return $his->getRootDir() . '/' . $relative ;
+		return $this->getRootDir() . '/' . $relative ;
 	}
 
 /***** File reading/writing *****/
@@ -154,20 +154,6 @@ class Configuration
 			}
 		}
 		
-	}
-
-	/* Unserialize a JSON file.
-	 * @param string $file Relative path to the JSON file.
-	 */
-	private function loadJson( $file )
-	{
-		$full = $this->root . '/' . $file ;
-		$raw = null ;
-		if ( file_exists( $full ) )
-		{
-			$raw = file_get_contents( $full ) ;
-		}
-		return ( $raw !== null ) ? json_decode( $raw, true ) : null ;
 	}
 
 	/** Load configuration

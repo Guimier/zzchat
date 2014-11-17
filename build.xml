@@ -47,7 +47,7 @@
 		<!-- Create coverage report directory ->
 		<mkdir dir="${php-coverage-dir}"/>-->
 		<!-- Run tests -->
-		<exec executable="phpunit">
+		<exec executable="phpunit" failonerror="true" >
 			<arg value="--coverage-html" /> <arg value="${php-coverage-dir}" />
 			<arg value="--test-suffix" /> <arg value="Test.php" />
 			<arg value="--process-isolation" />
