@@ -54,6 +54,17 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		$this->tryLoad( "$dir/extenders.php" ) ;
 	}
 
+	/** Conditionnaly skip a test.
+	 * @param boolean $bool Whether or not to skip the test.
+	 */
+	public function skipIf( $bool )
+	{
+		if ( $bool )
+		{
+			$this->markTestIncomplete();
+		}
+	}
+
 /***** Partial autoloading *****/
 	
 	/** Autoloader for classes. */

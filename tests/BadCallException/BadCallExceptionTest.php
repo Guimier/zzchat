@@ -13,9 +13,10 @@ class BadCallExceptionTest extends ClassTester
 	public function testMethodDiscovery()
 	{
 		$except = new BadCallException() ;
-	
+		$args = $except->getArgs() ;
+
 		$this->assertEquals(
-			$except->getArgs()['method'],
+			$args['method'],
 			__METHOD__,
 			'The method shown in BadCallException must be the constructing one.'
 		) ;
