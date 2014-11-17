@@ -37,6 +37,73 @@
 	{
 		return current ;
 	} ;
+	
+	/** Reset the translation for a node.
+	 * @method resetTranslation
+	 * @private
+	 * @param [jQuery] $node Node on which translation needs to be reseted.
+	 */
+	function resetTranslation( $node )
+	{
+		var
+			data = getTranslationData( $node ),
+			key,
+			string ;
+		
+		for ( key in data )
+		{
+			string = getStringValue( data[key] ) ;
+			
+			if ( key !== '*' )
+			{
+				core_attr.call( $node, key, string ) ;
+			}
+			else if ( data[key].html )
+			{
+				core_html.call( $node, string ) ;
+			}
+			else
+			{
+				core_text.call( $node, string ) ;
+			}
+		}
+	}
+	
+	/** Reset the translation for all translated nodes.
+	 * @method resetTranslations
+	 * @private
+	 */
+	function resetTranslations()
+	{
+		$( '.translation' ).each(
+			function ( i, dNode )
+			{
+				resetTranslation( $( dNode ) ) ;
+			}
+		) ;
+	}
+	
+	/** Change the language.
+	 * @method change
+	 * @param {String} language Code of the language to use.
+	 */
+	window.languages.change = function ( language )
+	{
+		if ( language !== current )
+		{
+			current = language ;
+			loadLanguage(
+				language,
+				function ()
+				{
+					if ( current === language )
+					{
+						resetTranslations() ;
+					}
+				}
+			) ;
+		}
+	} ;
 
 	/** Transform a message and its arguments into a string.
 	 * @method getStringValue
@@ -98,7 +165,7 @@
 	 * @private
 	 * @param {String} language Code of the language to load.
 	 * @param {Function} callback Callback called when the language is loaded.
-	 *  First argument will be the language array.
+	 *   No argument will be passed to this function.
 	 */
 	function loadLanguage( language, callback )
 	{
@@ -169,11 +236,18 @@
 	 */
 	function setTranslationData( $node, data )
 	{
-		core_attr.call(
-			$node,
-			'data-translation',
-			JSON.stringify( data )
-		) ;
+		var
+			stringValue = null,
+			classMgr = 'removeClass' ;
+		
+		if ( Object.keys( data ).length > 0 )
+		{
+			stringValue = JSON.stringify( data )
+			classMgr = 'addClass' ;
+		}
+		
+		core_attr.call( $node, 'data-translation', stringValue ) ;
+		$node[classMgr]( 'translation' ) ;
 	}
 	
 	/** Delete a translation if needed.
