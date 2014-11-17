@@ -21,11 +21,11 @@
 		/** Waiters for the messages. Keyed by the language codes. */
 		waiters = {},
 		
-		/** jQuery native $.fn.attr */
+		/** jQuery’s native $.fn.attr */
 		core_attr = $.fn.attr,
-		/** jQuery native $.fn.text */
+		/** jQuery’s native $.fn.text */
 		core_text = $.fn.text,
-		/** jQuery native $.fn.html */
+		/** jQuery’s native $.fn.html */
 		core_html = $.fn.html ;
 
 	window.languages = {} ;
@@ -37,17 +37,28 @@
 	{
 		return current ;
 	} ;
-	
+
+	/** Transform a message and its arguments into a string.
+	 * @method getStringValue
+	 * @private
+	 * @param {Object} instanceRepresentation Representation of the message
+	 *   to transform.
+	 */
 	function getStringValue( instanceRepresentation )
 	{
 		var
 			key,
 			args = instanceRepresentation.arguments,
 			res = messages[current][instanceRepresentation.message] ;
+
+		if ( res === undefined )
+		{
+			res  = '#[' + instanceRepresentation.message + ']#' ;
+		}
 		
 		for ( key in args )
 		{
-			res = res.replace( '${' + $key + '}', args[key] ) ;
+			res = res.replace( '${' + key + '}', args[key] ) ;
 		}
 		
 		return res ;
@@ -107,9 +118,9 @@
 					{
 						var i, callbacks = waiters[language] ;
 						delete waiters[language] ;
-						for ( i in waiters )
+						for ( i in callbacks )
 						{
-							waiters[i]( data ) ;
+							callbacks[i]() ;
 						}
 					}
 				) ;
@@ -135,11 +146,12 @@
 	{
 		var translationData ;
 		
-		console.log( arguments ) ;
-		
 		try
 		{
-			translationData = JSON.parse( $node.attr( 'data-translation' ) ) ;
+			translationData = JSON.parse( core_attr.call(
+				$node,
+				'data-translation'
+			) ) ;
 		}
 		catch ( e )
 		{
@@ -157,7 +169,11 @@
 	 */
 	function setTranslationData( $node, data )
 	{
-		$node.attr( 'data-translation', JSON.stringify( data ) ) ;
+		core_attr.call(
+			$node,
+			'data-translation',
+			JSON.stringify( data )
+		) ;
 	}
 	
 	/** Delete a translation if needed.
@@ -197,7 +213,7 @@
 			
 			loadLanguage(
 				current,
-				function ( data )
+				function ()
 				{
 					core_attr.call(
 						$this,
@@ -242,7 +258,7 @@
 			
 			loadLanguage(
 				current,
-				function ( data )
+				function ()
 				{
 					core_text.call(
 						$this,
@@ -286,8 +302,7 @@
 			
 			loadLanguage(
 				current,
-				function ( data )
-				{
+				function ()
 					core_html.call(
 						$this,
 						getStringValue( data['*'] )
