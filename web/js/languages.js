@@ -302,7 +302,7 @@
 			
 			loadLanguage(
 				current,
-				function ()
+				function () {
 					core_html.call(
 						$this,
 						getStringValue( data['*'] )

@@ -45,10 +45,14 @@
 	 */
 	function objectMap( obj, fn )
 	{
-		var res = {}, i ;
+		var res = {}, i, tmp ;
 		for ( i in obj )
 		{
-			res[i] = fn( obj[i] ) ;
+			tmp = fn( obj[i] ) ;
+			if ( tmp !== undefined )
+			{
+				res[i] = tmp ;
+			}
 		}
 		return res ;
 	}
@@ -92,7 +96,18 @@
 			data.query = parts.map( function ( part ) { return part.name ; } ) ;
 		
 			data = objectMap( data, function ( elem ) {
-				return $.isArray( elem ) ? elem.join( ',' ) : elem ;
+				var res = elem ;
+				
+				if (  $.isArray( elem ) )
+				{
+					res = elem.join( ',' ) ;
+				}
+				else if ( typeof elem === 'boolean' )
+				{
+					res = elem ? '' : undefined ;
+				}
+				
+				return res ;
 			} ) ;
 			
 			/* Error callback. */
