@@ -169,7 +169,7 @@
 	 */
 	function loadLanguage( language, callback )
 	{
-		if ( $.isArray( messages[language] ) )
+		if ( $.isPlainObject( messages[language] ) )
 		{
 			callback( messages[language] ) ;
 		}
