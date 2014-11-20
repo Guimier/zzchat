@@ -1,36 +1,65 @@
-/** Language abstraction.
- * @class languages
+/**
+ * Languages abstraction.
+ * @module languages
+ * @requires ajax
  */
 ( function ( $ ) {
 
+/**
+ * Languages management.
+ * @class languages
+ * @static
+ */
+
 	var
-		/** Current language code.
+		/**
+		 * Current language code.
 		 * @private
 		 * @property {String} current
 		 */
 		current = 'en',
 		
-		/** Messages.
+		/**
+		 * Messages cache.
 		 * Associative array, keys are languages codes.
 		 * Values are messages lists (associative arrays keyed by message names).
 		 * @private
-		 * @property {Objetc} messages
+		 * @property {Object} messages
 		 */
 		messages = {},
 		
-		/** Waiters for the messages. Keyed by the language codes. */
+		/**
+		 * Waiters for the messages. Keyed by the language codes.
+		 * @private
+		 * @property {Object} waiters
+		 */
 		waiters = {},
 		
-		/** jQuery’s native $.fn.attr */
+		/**
+		 * jQuery’s native $.fn.attr.
+		 * @private
+		 * @method core_attr
+		 */
 		core_attr = $.fn.attr,
-		/** jQuery’s native $.fn.text */
+
+		/**
+		 * jQuery’s native $.fn.text.
+		 * @private
+		 * @method core_text
+		 */
 		core_text = $.fn.text,
-		/** jQuery’s native $.fn.html */
+
+		/**
+		 * jQuery’s native $.fn.html.
+		 * @private
+		 * @method core_html
+		 */
 		core_html = $.fn.html ;
 
 	window.languages = {} ;
 	
-	/** Get the current language.
+	/**
+	 * Get the current language.
 	 * @method getCurrent
 	 */
 	window.languages.getCurrent = function ()
@@ -38,10 +67,11 @@
 		return current ;
 	} ;
 	
-	/** Reset the translation for a node.
+	/**
+	 * Reset the translation for a node.
 	 * @method resetTranslation
 	 * @private
-	 * @param [jQuery] $node Node on which translation needs to be reseted.
+	 * @param {jQuery} $node Node on which translation needs to be reseted.
 	 */
 	function resetTranslation( $node )
 	{
@@ -69,7 +99,8 @@
 		}
 	}
 	
-	/** Reset the translation for all translated nodes.
+	/**
+	 * Reset the translation for all translated nodes.
 	 * @method resetTranslations
 	 * @private
 	 */
@@ -83,7 +114,8 @@
 		) ;
 	}
 	
-	/** Change the language.
+	/**
+	 * Change the language.
 	 * @method change
 	 * @param {String} language Code of the language to use.
 	 */
@@ -105,7 +137,8 @@
 		}
 	} ;
 
-	/** Transform a message and its arguments into a string.
+	/**
+	 * Transform a message and its arguments into a string.
 	 * @method getStringValue
 	 * @private
 	 * @param {Object} instanceRepresentation Representation of the message
@@ -131,12 +164,13 @@
 		return res ;
 	}
 	
-	/** Send the query for a language.
+	/**
+	 * Send the query for all messages in a given language.
 	 * @method sendLanguageQuery
 	 * @private
 	 * @param {String} language Code of the language to load.
 	 * @param {Function} callback Callback called when the language is loaded.
-	 *   First argument will be the language array.
+	 *   No argument will be passed to this function.
 	 */
 	function sendLanguageQuery( language, callback )
 	{
@@ -150,7 +184,7 @@
 			function ( data )
 			{
 				messages[language] = data ;
-				callback( data ) ;
+				callback() ;
 			}
 		) ;
 		
@@ -160,7 +194,8 @@
 		}
 	}
 	
-	/** Load a language.
+	/**
+	 * Load a language.
 	 * @method loadLanguage
 	 * @private
 	 * @param {String} language Code of the language to load.
@@ -171,7 +206,7 @@
 	{
 		if ( $.isPlainObject( messages[language] ) )
 		{
-			callback( messages[language] ) ;
+			callback() ;
 		}
 		else
 		{
@@ -181,7 +216,7 @@
 				
 				sendLanguageQuery(
 					language,
-					function ( data )
+					function ()
 					{
 						var i, callbacks = waiters[language] ;
 						delete waiters[language] ;
@@ -199,12 +234,14 @@
 		}
 	}
 
-	/** jQuery Extension for languages.
-	 * @class jQuery.language
-	 * @see http:s//api.jquery.com for the native jQuery methods.
-	 */
-	
-	/** Get translation data for a node.
+/**
+ * jQuery extension for languages management.
+ * See [jQuery Documentation](https://api.jquery.com) for the native jQuery methods.
+ * @class jQuery.languages
+ */
+
+	/**
+	 * Get translation data for a node.
 	 * @method getTranslationData
 	 * @private
 	 * @param {jQuery} $node The node whose data are wanted.
@@ -228,7 +265,8 @@
 		return translationData ;
 	}
 	
-	/** Set translation data for a node.
+	/**
+	 * Set translation data for a node.
 	 * @method setTranslationData
 	 * @private
 	 * @param {jQuery} $node The node whose data are wanted.
@@ -250,7 +288,8 @@
 		$node[classMgr]( 'translation' ) ;
 	}
 	
-	/** Delete a translation if needed.
+	/**
+	 * Delete a translation if needed.
 	 * @method deleteTranslation
 	 * @private
 	 * @param {jQuery} $node The node whose data needs to be deleted.
@@ -266,11 +305,13 @@
 	/* jQuery extension. */
 	$.extend( $.fn, {
 		
-		/** Set or change a translatable attribute.
+		/**
+		 * Set or change a translatable attribute.
 		 * @method trAttr
 		 * @param {String} attrName The attribute to change.
 		 * @param {String} msgId The id of the message to use.
 		 * @param {Object} [args] Arguments of the message.
+		 * @chainable
 		 */
 		trAttr: function ( attrName, msgId, args )
 		{
@@ -300,7 +341,10 @@
 			return this ;
 		},
 		
-		/** Wrapper for $.fn.attr. */
+		/**
+		 * Wrapper for $.fn.attr.
+		 * @method attr
+		 */
 		attr: function ( attr, value )
 		{
 			if ( value !== undefined )
@@ -311,10 +355,12 @@
 			return core_attr.apply( this, arguments ) ;
 		},
 		
-		/** Set or change a translatable content (escaped).
+		/**
+		 * Set or change a translatable content (escaped).
 		 * @method trText
 		 * @param {String} msgId The id of the message to use.
-		 * @param {Object} args Arguments of the message.
+		 * @param {Object} [args] Arguments of the message.
+		 * @chainable
 		 */
 		trText: function ( msgId, args )
 		{
@@ -344,7 +390,10 @@
 			return this ;
 		},
 		
-		/** Wrapper for $.fn.text. */
+		/**
+		 * Wrapper for $.fn.text.
+		 * @method text
+		 */
 		text: function ( value )
 		{
 			if ( value !== undefined )
@@ -355,10 +404,12 @@
 			return core_text.apply( this, arguments ) ;
 		},
 		
-		/** Set or change a translatable content (raw HTML).
+		/**
+		 * Set or change a translatable content (raw HTML).
 		 * @method trHtml
 		 * @param {String} msgId The id of the message to use.
-		 * @param {Object} args Arguments of the message.
+		 * @param {Object} [args] Arguments of the message.
+		 * @chainable
 		 */
 		trHtml: function ( msgId, args )
 		{
@@ -387,7 +438,10 @@
 			return this ;
 		},
 		
-		/** Wrapper for $.fn.html. */
+		/**
+		 * Wrapper for $.fn.html.
+		 * @method html
+		 */
 		html: function ( value )
 		{
 			if ( value !== undefined )
