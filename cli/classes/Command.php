@@ -56,24 +56,27 @@ abstract class Command
 
 		foreach ( $parameters as $key => $desc )
 		{
+			$format = "--$key" ;
+
 			switch ( $desc['type'] )
 			{
 				case 'boolean' :
-					$format = array_key_exists( 'alt', $desc )
-						? ' -' . $desc['alt']
-						: '' ;
+					if ( array_key_exists( 'alt', $desc ) )
+					{
+						$format = '-' . $desc['alt'] . ", $format" ;
+					}
 					break ;
 				case 'string' :
-					$format = '=<string>' ;
+					$format .= '=<string>' ;
 					break ;
 				case 'array' :
-					$format = '=<string>[,…]' ;
+					$format .= '=<string>[,…]' ;
 					break ;
 				default :
-					$format = '=???' ;
+					$format .= '=???' ;
 			}
 
-			$this->writeln( "\t--" . $key . $format ) ;
+			$this->writeln( "\t$format" ) ;
 			$this->writeln( "\t\t" . $this->getContext()->getMessage( $desc['desc'] ) ) ;
 		}
 	}
