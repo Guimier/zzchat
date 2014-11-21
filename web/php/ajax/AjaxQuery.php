@@ -115,7 +115,6 @@ class AjaxQuery
 	}
 	
 	/** Expose te result of the query to the client.
-	 * @codeCoverageIgnore
 	 */
 	public function show()
 	{
