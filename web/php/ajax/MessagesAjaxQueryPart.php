@@ -8,7 +8,14 @@ class MessagesAjaxQueryPart extends AjaxQueryPart
 		$language = $this->getParameter( 'language' ) ;
 		$withDefaults = $this->getBooleanParameter( 'defaults' ) ;
 		
-		return Languages::getInstance()->getAllMessages( $language, $withDefaults ) ;
+		return Languages::getInstance()->getAllMessages(
+			$language,
+			$withDefaults,
+			array(
+				'cli.',
+				'exceptions.'
+			)
+		) ;
 	}
 	
 }

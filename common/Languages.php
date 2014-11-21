@@ -132,24 +132,64 @@ class Languages
 		return $this->replaceArguments( $raw, $arguments ) ;
 	}
 	
+	/** Filter an array by prefix.
+	 * @param array $array Original array.
+	 * @param array $excludes List of prefixes to exclude from the output.
+	 */
+	private function filter( array $array, array $excludes )
+	{
+		if ( count( $excludes ) > 0 )
+		{
+			$res = array() ;
+		
+			foreach ( $array as $key => $value )
+			{
+				$i = 0 ;
+				while (
+					$i < count( $excludes ) &&
+					$include = ( strpos( $key, $excludes[$i] ) !== 0 )
+				)
+				{
+					$i++ ;
+				}
+			
+				if ( $include )
+				{
+					$res[$key] = $value ;
+				}
+			}
+		}
+		else
+		{
+			$res = $array ;
+		}
+		
+		return $res ;
+			
+	}
+	
 	/** Get all messages in a language.
 	 * @param string $language Language code.
 	 * @param boolean $withDefault Insert english messages if not available.
+	 * @param array $excludes List of prefixes to exclude from the output.
 	 */
-	public function getAllMessages( $language, $withDefault )
+	public function getAllMessages( $language, $withDefault, array $excludes = array() )
 	{
 		$res = array() ;
 		
 		if ( $this->languageIsKnown( $language ) )
 		{
 			$this->loadLanguage( $language ) ;
-			$res += $this->messages[$language] ;
+			$res += $this->filter(
+				$this->messages[$language],
+				$excludes
+			) ;
 		}
 		
 		if ( $withDefault )
 		{
 			$this->loadLanguage( 'en' ) ;
-			$res += $this->messages['en'] ;
+			$res += $this->filter( $this->messages['en'], $excludes ) ;
 		}
 		
 		return $res ;

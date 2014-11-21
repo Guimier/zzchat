@@ -19,7 +19,7 @@
 <!-- Global rules -->
 
 	<!-- Build all automatically generated files. -->
-	<target name="all" depends="fix,clean,test,doc">
+	<target name="all" depends="clean,fix,test,doc">
 		<!-- Dependencies do anything we need here. -->
 	</target>
 	
