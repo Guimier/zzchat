@@ -1,0 +1,10 @@
+{
+	"channels.maxnum": 100,
+	"channels.style": "theater",
+	"channels.inactivity": 604800,
+	"channels.postlength": 1024,
+	"channels.filelength": 100,
+	"user.maxpostrate": 20,
+	"user.defaultlang": "en",
+	"user.inactivity": 86400 
+}

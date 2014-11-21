@@ -1,0 +1,8 @@
+{
+	"lang.en": "anglais",
+	"lang.fr": "français",
+	
+	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
+	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
+	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue"
+}
