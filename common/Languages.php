@@ -194,5 +194,19 @@ class Languages
 		
 		return $res ;
 	}
+	
+	/** Get all known languages with their names. */
+	public function getAllLanguages()
+	{
+		$res = array() ;
+		
+		foreach ( $this->known as $lang )
+		{
+			$this->loadLanguage( $lang ) ;
+			$res[$lang] = $this->getMessage( $lang, "lang.$lang" ) ;
+		}
+		
+		return $res ;
+	}
 
 }
