@@ -1,9 +1,6 @@
 <?php
 
-/* CLI initialization */
-
-require_once dirname( __DIR__ ) . '/common/init.php' ;
-
+/** Command line script. */ 
 abstract class Command
 {
 	

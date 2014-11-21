@@ -40,7 +40,7 @@ class CliContext extends Context
 				/* All arguments following -- are unnamed ones. */
 				$forceUnnamed = true ;
 			}
-			else if ( preg_match( '/-[\w-]+/', $arg ) )
+			else if ( preg_match( '/^-\w$/', $arg ) )
 			{
 				/* Named non-empty parameter. */
 				$chars = substr( $arg, 1 ) ;
@@ -49,7 +49,7 @@ class CliContext extends Context
 					$this->addNamedParameter( $char, '' ) ;
 				}
 			}
-			else if ( preg_match( '/--[\w-]+=.+/', $arg ) )
+			else if ( preg_match( '/^--[\w-]+=.+$/', $arg ) )
 			{
 				/* Named non-empty parameter. */
 				$arg = substr( $arg, 2 ) ;

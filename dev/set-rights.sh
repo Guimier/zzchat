@@ -22,7 +22,4 @@ find \
 chmod -R a+rw 'local/data'
 
 # Scripts must be executable by the owner (only).
-find 'cli' \
-	-exec chmod u+x,go-x {} \;
-# But some files
-chmod u-x cli/init.php cli/CliContext.php cli/.htaccess
+chmod u+x,go-x cli/*.php
