@@ -4,5 +4,15 @@
 	
 	"exceptions.badcall": "“${method}” called with wrong argument(s)",
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
-	"exceptions.nosuchquerypart": "“${partname}” query part does not exist"
+	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
+	
+	"cli.help": "Agora command line help.",
+	"cli.help.common": "Common arguments for all scripts (optional)",
+	"cli.help.common.help": "Show this help and exit.",
+	"cli.help.common.language": "Set language for the output.",
+	"cli.help.optional": "Optional arguments",
+	"cli.help.required": "Required arguments",
+	
+	"cli.messages": "This script allows retrieving translations.",
+	"cli.messages.defaults": "Replace missing messages by their english equivalent."
 }

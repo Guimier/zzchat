@@ -4,5 +4,15 @@
 	
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
-	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue"
+	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
+	
+	"cli.help": "Aide des lignes de commande Agora.",
+	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
+	"cli.help.common.help": "Affiche cette aide et quitte.",
+	"cli.help.common.language": "Définit le language de l’affichage.",
+	"cli.help.optional": "Arguments facultatifs",
+	"cli.help.required": "Arguments nécessaires",
+	
+	"cli.messages": "Ce script permet de récupérer des traductions.",
+	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise."
 }
