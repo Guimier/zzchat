@@ -4,10 +4,12 @@
 class WebContext extends Context
 {
 	
-	/** Parameter selection in #getParameter: only POST */
-	const POST = 1 ;
-	/** Parameter selection in #getParameter: POST or GET */
-	const BOTH = 2 ;
+	/** Parameter selection in #getParameter: search in POST data. */
+	const GET = 1 ;
+	/** Parameter selection in #getParameter: search in GET data. */
+	const POST = 2 ;
+	/** Parameter selection in #getParameter: search in both POST or GET data. */
+	const BOTH = 3 ;
 	
 	/** Array of GET parameters ($_GET). */
 	private $getParams ;
@@ -26,7 +28,7 @@ class WebContext extends Context
 	
 	/** Get a parameter.
 	 * @param string $key Name of the parameter.
-	 * @param [$more] Which parameter to get, one of #POST, #GET and #BOTH.
+	 * @param int [$more] Which parameter to get, one of #POST, #GET and #BOTH.
 	 *   In case BOTH, POST parameter takes priority over GET one.
 	 * @throw BadCallException Thrown if $more is not valid
 	 */
@@ -38,30 +40,21 @@ class WebContext extends Context
 		}
 
 		$value = null ;
-		
-		switch ( $more )
-		{
-			case self::BOTH :
-				if ( array_key_exists( $key, $this->getParams ) )
-				{
-					$value = $this->getParams[$key] ;
-				}
-				// No break: POST may override.
 
-			case self::POST :
-				if ( array_key_exists( $key, $this->postParams ) )
-				{
-					$value = $this->postParams[$key] ;
-				}
-			
-				break ;
-			
-			// @codeCoverageIgnoreStart
-			default:
-				throw new BadCallException() ;
-			// @codeCoverageIgnoreStop
+		if (
+			$more & self::POST &&
+			array_key_exists( $key, $this->postParams )
+		)
+		{
+			$value = $this->postParams[$key] ;
+		} else if (
+			$more & self::GET &&
+			array_key_exists( $key, $this->getParams )
+		)
+		{
+			$value = $this->getParams[$key] ;
 		}
-		
+
 		return $value ;
 	}
 	
