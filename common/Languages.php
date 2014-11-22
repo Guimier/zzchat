@@ -11,7 +11,7 @@ class Languages
 	{
 		if ( self::$instance === null )
 		{
-			self::$instance = new Languages() ;
+			self::$instance = new Languages( 'default/languages' ) ;
 		}
 		
 		return self::$instance ;
@@ -19,15 +19,29 @@ class Languages
 
 /******************************************************************************/
 
-
-	/** The known languages. */
-	private $known = array( 'en', 'fr' ) ;
+	/** Relative path to the messages’ directory. */
+	private $dir ;
+	
+	/** List of known languages. */
+	private $known ;
 	
 	/** Lists of messages.
 	 * Associative arrays with language codes as keys and associatives array
 	 * of messages as values.
 	 */
 	private $messages = array() ;
+	
+	/** Constructor.
+	 * 
+	 * @param string $dir Relative path to the directory where messages are.
+	 */
+	protected function __construct( $dir )
+	{
+		$this->dir = $dir ;
+		$this->known = Configuration::getInstance()->loadJson(
+			"$dir/list.json"
+		) ;
+	}
 
 	/** do we know about a specific language?
 	 * @param string $language Language code.
@@ -44,8 +58,9 @@ class Languages
 	{
 		if ( $this->languageIsKnown( $language ) && ! array_key_exists( $language, $this->messages ) )
 		{
-			$file = Configuration::getInstance()->getRootDir()
-				. '/default/languages/' . $language . '.json' ;
+			$file = Configuration::getInstance()->getFullPath(
+				$this->dir . '/' . $language . '.json'
+			) ;
 			
 			$array = file_exists( $file )
 				? json_decode( file_get_contents( $file ), true )
@@ -202,7 +217,6 @@ class Languages
 		
 		foreach ( $this->known as $lang )
 		{
-			$this->loadLanguage( $lang ) ;
 			$res[$lang] = $this->getMessage( $lang, "lang.$lang" ) ;
 		}
 		

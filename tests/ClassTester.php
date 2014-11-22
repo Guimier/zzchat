@@ -82,6 +82,16 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		}
 		self::$autoloader->load( $className ) ;
 	}
+	
+	/** Load the Configuration class and initiate it. */
+	public static function loadConfiguration()
+	{
+		self::load( 'Configuration' ) ;
+		Configuration::setInstance(
+			self::getRootDir(),
+			null, null
+		) ;
+	}
 
 /***** Paths *****/
 
@@ -91,10 +101,16 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		return dirname( __DIR__ ) ;
 	}
 
+	/** Get relative path to the directory where test data is. */
+	public function getRelDataDir()
+	{
+		return 'tests/' . $this->className . '/data' ;
+	}
+
 	/** Get full path to the directory where test data is. */
 	public function getTestDataDir()
 	{
-		return $this->getRootDir() . '/tests/' . $this->className . '/data' ;
+		return $this->getRootDir() . '/' . $this->getRelDataDir() ;
 	}
 
 }
