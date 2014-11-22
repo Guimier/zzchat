@@ -1,7 +1,32 @@
-<!DOCTYPE html>
+<?php
+
+require_once __DIR__ . '/common/init.php' ;
+header( 'Content-Type: text/html; charset=UTF-8' ) ;
+
+function sendConfiguration()
+{
+	echo '<script>' ;
+	
+	$config = Configuration::getInstance() ;
+	$langs = Languages::getInstance() ;
+	
+	$jsConf = array(
+		'languages' => $langs->getAllLanguages(),
+		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
+		'peoplerate' => $config->getValue( 'ajaxrate.people' )
+	) ;
+	
+	echo 'var configuration = ' . json_encode( $jsConf ) . ' ;' ;
+	
+	echo '</script>' ;
+}
+
+?><!DOCTYPE html>
 <html>
 <head>
 	<title>Empty page</title>
+	<?php sendConfiguration() ; ?>
+
 	<script src="web/lib/jquery.js"></script>
 	<script src="web/js/ajax.js"></script>
 	<script src="web/js/languages.js"></script>
