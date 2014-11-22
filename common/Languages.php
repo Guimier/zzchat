@@ -58,20 +58,12 @@ class Languages
 	{
 		if ( $this->languageIsKnown( $language ) && ! array_key_exists( $language, $this->messages ) )
 		{
-			$file = Configuration::getInstance()->getFullPath(
-				$this->dir . '/' . $language . '.json'
-			) ;
-			
-			$array = file_exists( $file )
-				? json_decode( file_get_contents( $file ), true )
-				: null ;
-			
-			if ( $array === null )
-			{
-				$array = array() ;
-			}
-			
-			$this->messages[$language] = $array ;
+			$this->messages[$language] = Configuration
+				::getInstance()
+				->loadJson(
+					$this->dir . '/' . $language . '.json',
+					array()
+				) ;
 		}
 	}
 
