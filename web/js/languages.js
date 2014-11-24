@@ -17,7 +17,7 @@
 		 * @private
 		 * @property {String} current
 		 */
-		current = 'en',
+		current = configuration.language, // Default value from configuration
 		
 		/**
 		 * Messages cache.
