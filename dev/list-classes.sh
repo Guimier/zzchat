@@ -1,4 +1,5 @@
 #!/bin/bash
+# Generate the classes.json file from the current state of the code.
 
 ##### Configuration #####
 

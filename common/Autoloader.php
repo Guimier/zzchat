@@ -52,9 +52,8 @@ class Autoloader
 	}
 
 	/** Load a class if it exists.
-	 * @warning This function is not unit-tested since require_once is not easy to test.
 	 * @param string $className Name of the class to load.
-	 * @codeCoverageIgnore
+	 * @codeCoverageIgnore `require_once` is not easy to test.
 	 */
 	public function load( $className )
 	{

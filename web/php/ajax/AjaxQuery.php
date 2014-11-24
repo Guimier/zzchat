@@ -104,16 +104,17 @@ class AjaxQuery
 			->context
 			->getBooleanParameter( 'indent' ) ;
 
+		// @codeCoverageIgnoreStart
 		if ( $indent && defined( 'JSON_PRETTY_PRINT' ) )
 		{
 			$opts |= JSON_PRETTY_PRINT ;
 		}
+		// @codeCoverageIgnoreStop
 		
 		return $opts ;
 	}
 	
 	/** Expose te result of the query to the client.
-	 * @codeCoverageIgnore
 	 */
 	public function show()
 	{

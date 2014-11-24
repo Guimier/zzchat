@@ -9,7 +9,8 @@ class BadCallException extends AgoraInternalException
 	/** Constructor. */
 	public function __construct()
 	{
-		$last = $this->getTrace()[0] ;
+		$trace = $this->getTrace() ;
+		$last = $trace[0] ;
 		$method = $last['class'] . '::' . $last['function'] ;
 		parent::__construct( 'exceptions.badcall', array( 'method' => $method ) ) ;
 	}

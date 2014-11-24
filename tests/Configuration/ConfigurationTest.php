@@ -25,8 +25,8 @@ class ConfigurationTest extends ClassTester
 		
 		$this->assertEquals(
 			$config->getDataDir( 'someKey' ),
-			$this->getTestDataDir() . '/data/someKey',
-			'Root path should not change after construction.'
+			'/data/someKey',
+			'Data subdirectories are in “data” directory.'
 		) ;
 	}
 	

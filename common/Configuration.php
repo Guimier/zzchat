@@ -76,7 +76,7 @@ class Configuration
 	 */
 	public function getFullPath( $relative )
 	{
-		return $his->getRootDir() . '/' . $relative ;
+		return $this->getRootDir() . '/' . $relative ;
 	}
 
 /***** File reading/writing *****/
@@ -156,22 +156,8 @@ class Configuration
 		
 	}
 
-	/* Unserialize a JSON file.
-	 * @param string $file Relative path to the JSON file.
-	 */
-	private function loadJson( $file )
-	{
-		$full = $this->root . '/' . $file ;
-		$raw = null ;
-		if ( file_exists( $full ) )
-		{
-			$raw = file_get_contents( $full ) ;
-		}
-		return ( $raw !== null ) ? json_decode( $raw, true ) : null ;
-	}
-
 	/** Load configuration
-	 * This method read /config/gloabl.json and override values when types match.
+	 * This method reads both configuration.json files and override default values with local ones when types match.
 	 * @param string $defaultConfig Relative path to the default configuration.
 	 * @param string $adminConfig Relative path to the configuration the administrator may change.
 	 */

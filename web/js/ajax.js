@@ -1,12 +1,19 @@
 /* global language */
 
-/** Ajax abstraction.
- * @class ajax
+/**
+ * Ajax abstraction.
+ * @module ajax
+ * @requires languages
  */
  ( function ( $ ) {
 
+/** Ajax abstraction interface.
+ * @class ajax
+ * @static
+ */
 	var
-		/** Waiting query parts
+		/**
+		 * Waiting query parts
 		 * Associative array of ordered arrays.
 		 * Key are the query parts names, values are the queues.
 		 * @private
@@ -14,7 +21,8 @@
 		 */
 		queries = {},
 		
-		/** “Interval” identifier for automatic sending.
+		/**
+		 * “Interval” identifier for automatic sending.
 		 * @private
 		 * @property {number} interval
 		 */
@@ -22,7 +30,8 @@
 	
 	window.ajax = {} ;
 	
-	/** Add properties from an object to another with prefixes.
+	/**
+	 * Add properties from an object to another with prefixes.
 	 * @private
 	 * @method extendPrefixed
 	 * @param {Object} src Source object.
@@ -37,7 +46,8 @@
 		}
 	}
 	
-	/** Equivalent of Array.prototype.map for an object.
+	/**
+	 * Equivalent of Array.prototype.map for an object.
 	 * @private
 	 * @method objectMap
 	 * @param {Object} obj Object to iterate over.
@@ -45,15 +55,20 @@
 	 */
 	function objectMap( obj, fn )
 	{
-		var res = {}, i ;
+		var res = {}, i, tmp ;
 		for ( i in obj )
 		{
-			res[i] = fn( obj[i] ) ;
+			tmp = fn( obj[i] ) ;
+			if ( tmp !== undefined )
+			{
+				res[i] = tmp ;
+			}
 		}
 		return res ;
 	}
 	
-	/** Execute as much as possible of the queued queries.
+	/**
+	 * Execute as much as possible of the queued queries.
 	 * @private
 	 * @method runQuery
 	 */
@@ -92,7 +107,18 @@
 			data.query = parts.map( function ( part ) { return part.name ; } ) ;
 		
 			data = objectMap( data, function ( elem ) {
-				return $.isArray( elem ) ? elem.join( ',' ) : elem ;
+				var res = elem ;
+				
+				if (  $.isArray( elem ) )
+				{
+					res = elem.join( ',' ) ;
+				}
+				else if ( typeof elem === 'boolean' )
+				{
+					res = elem ? '' : undefined ;
+				}
+				
+				return res ;
 			} ) ;
 			
 			/* Error callback. */
@@ -134,8 +160,9 @@
 		}
 	}
 	
-	/** Add an Ajax sub-query.
-	 * Create a AjaxQueryPart object.
+	/**
+	 * Add an Ajax sub-query.
+	 * Creates a AjaxQueryPart object.
 	 * @method add
 	 * @param {string} method 'GET' or 'POST', depending on whet is needed.
 	 * @param {string} name Sub-query name.
@@ -155,7 +182,8 @@
 		queries[name].push( query ) ;
 	} ;
 	
-	/** Check whether automatic sending is on or off.
+	/**
+	 * Check whether automatic sending is on or off.
 	 * @method isAutomaticOn
 	 */
 	window.ajax.isAutomaticOn = function ()
@@ -163,7 +191,8 @@
 		return interval !== 0 ;
 	} ;
 	
-	/** Stop automatic sending of queries.
+	/**
+	 * Stop automatic sending of queries.
 	 * @method stop
 	 */
 	window.ajax.stop = function ()
@@ -175,7 +204,8 @@
 		}
 	} ;
 	
-	/** Start automatic sending of queries.
+	/**
+	 * Start automatic sending of queries.
 	 * @method start
 	 * @param {number} period Time between two sendings (seconds).
 	 */
@@ -185,21 +215,22 @@
 		interval = setInterval( runQuery, period * 100 ) ;
 	} ;
 	
-	/** Send a query now.
+	/**
+	 * Send a query now.
 	 * @method sendNow
 	 */
 	window.ajax.sendNow = runQuery ;
 
-/*----------------------------------------------------------------------------*/
-
-	/** Ajax query part.
-	 * @class AjaxQueryPart
-	 * @param {string} method 'GET' or 'POST', depending on whet is needed.
-	 * @param {string} name Sub-query name.
-	 * @param {Object} data Data to send.
-	 * @param {Function} [success] Callback on success. Called with the returned data.
-	 * @param {Function} [error] Callback on error. Called with error name.
-	 */
+/**
+ * Ajax query part.
+ * @class AjaxQueryPart
+ * @constructor
+ * @param {string} method 'GET' or 'POST', depending on whet is needed.
+ * @param {string} name Sub-query name.
+ * @param {Object} data Data to send.
+ * @param {Function} [success] Callback on success. Called with the returned data.
+ * @param {Function} [error] Callback on error. Called with error name.
+ */
 	function AjaxQueryPart( method, name, data, success, error )
 	{
 		if ( method !== 'GET' && method !== 'POST' )
@@ -229,27 +260,32 @@
 	
 	AjaxQueryPart.prototype = {
 		
-		/** HTTP method.
-		 * @property method
+		/**
+		 * HTTP method.
+		 * @property {String} method
 		 */
 		method: null,
 		
-		/** Query part name.
-		 * @property name
+		/**
+		 * Query part name.
+		 * @property {String} name
 		 */
 		name: null,
 		
-		/** Query data.
-		 * @property data
+		/**
+		 * Query data.
+		 * @property {Object} data
 		 */
 		data: {},
 		
-		/** Success callback.
+		/**
+		 * Success callback.
 		 * @property {Function} success
 		 */
 		success: $.noop,
 		
-		/** Error callback.
+		/**
+		 * Error callback.
 		 * @property {Function} error
 		 */
 		error: function ( errName )
