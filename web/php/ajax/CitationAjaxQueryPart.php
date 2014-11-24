@@ -9,7 +9,8 @@ class CitationAjaxQueryPart extends AjaxQueryPart
 	/** See AjaxQueryPart::execute. */
 	public function execute()
 	{
-		return ( new Citations() )->getRandom() ;
+		$citations = new Citations() ;
+		return $citations->getRandom() ;
 	}
 
 }
