@@ -1,5 +1,2 @@
-/data/channels/*
-/data/users/*
-/data/posts/*
-/config/banner.html
+/local/*
 /doc/*
