@@ -213,7 +213,7 @@ class Channel
 			'date' => time(),
 			'hidden' => false,
 			'content' => $content			 
-		)
+		) ;
 		
 		$postingFileId = $this->getInsertFile() ;
 		$postingFile = self::getPostsFile( $postingFile ) ;

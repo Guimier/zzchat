@@ -20,7 +20,7 @@ class Post
 	 */
 	public function getOwner()
 	{
-		return this->postData['owner'] ;
+		return $this->postData['owner'] ;
 	}
 	
 	/** Get the date of the post.
@@ -30,7 +30,7 @@ class Post
 	 */ 
 	public function getDate()
 	{
-		return this->postData['date'] ;
+		return $this->postData['date'] ;
 	}
 	
 	 /** Get the content of the post.
@@ -39,9 +39,9 @@ class Post
 	  */ 
 	public function getContent()
 	{
-		if (!postData['hidden'])
+		if ( !$this->postData['hidden'] )
 		{
-			$ret = this->postData['content'] ;
+			$ret = $this->postData['content'] ;
 		}
 		else
 		{
