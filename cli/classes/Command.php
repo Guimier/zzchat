@@ -4,14 +4,19 @@
 abstract class Command
 {
 	
+	/* Name of the command. */
+	private $commandName ;
+	
 	/** Run the command line.
 	 * @param string $className Name of the managing class.
 	 */
-	public static function run( $className )
+	public static function run( $commandName )
 	{
+		$className = ucfirst( $commandName ) . 'Command' ;
+		
 		try
 		{
-			$command = new $className() ;
+			$command = new $className( $commandName ) ;
 			if ( Context::getCanonical()->getBooleanParameter( 'help', 'h' ) )
 			{
 				$command->showDocumentation() ;
@@ -27,6 +32,12 @@ abstract class Command
 			echo $e->getMessage() ;
 			exit ( 1 ) ;
 		}
+	}
+
+	/** Constructor. */
+	private function __construct( $commandName )
+	{
+		$this->commandName = $commandName ;
 	}
 
 	/** Executable part of the command line. */
