@@ -88,7 +88,6 @@ class Users
 	 */
 	private static function getUserFile( $userId )
 	{
-		
 		return Configuration::getInstance()->getDataDir( 'users' ) . '/' . $userId . '.json' ;
 	}
 	
@@ -129,5 +128,25 @@ class Users
 		return time() - $this->userData['last-action'] < Configuration::getInstance()->getValue( 'user.inactivity' ) ;
 	}
 	
-			
+	/** Get the id of the user.
+	 * 
+	 * @return The id of the User instance.
+	 * @codeCoverageIgnore
+	 */ 
+	public function getId()
+	{
+		return $this->id ;
+	}
+	
+	
+	/** Get the name of the user.
+	 * 
+	 * @return The name of the User instance.
+	 * @codeCoverageIgnore
+	 */ 
+	public function getName()
+	{
+		return $this->userData['name'] ;
+	}
+	
 }
