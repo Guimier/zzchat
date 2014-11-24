@@ -6,6 +6,8 @@
 	"AjaxQuery": "web/php/ajax/AjaxQuery.php",
 	"Autoloader": "common/Autoloader.php",
 	"BadCallException": "common/exceptions/BadCallException.php",
+	"CitationAjaxQueryPart": "web/php/ajax/CitationAjaxQueryPart.php",
+	"Citations": "common/Citations.php",
 	"CliContext": "cli/classes/CliContext.php",
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
