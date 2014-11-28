@@ -31,6 +31,16 @@ class Users
 		return $user ;
 	}
 	
+	/** Put an user inactive
+	 *  
+	 * @throw UserAlreadyInactiveException If the user is already inactive. 
+	 */ 
+		
+	public function isNowInactive()
+	{
+		
+	}
+	
 	/** Get a user by id.
 	 * 
 	 * @param int $userId The id to look for.
@@ -55,7 +65,9 @@ class Users
 	/** Create a user.
 	 * 
 	 * @param string $userName The name of the user which is created.
-	 *  
+	 * 
+	 * @throw UserNameAlreadyTakenException If the name is already in use.
+	 * 
 	 * @return The User instance.
 	 */
 	public static function createUser( $userName )
@@ -103,6 +115,8 @@ class Users
 	/** Constructor
 	 * 
 	 * @param int $userId The id of the User which is built.
+	 * 
+	 * @throw NoSuchUserException If there is no user whith this id.
 	 */
 	public function __construct( $userId )  
 	{	

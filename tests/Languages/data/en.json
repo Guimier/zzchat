@@ -1,0 +1,7 @@
+{
+	"lang.en": "English",
+	"lang.empty": "Empty",
+	"msg.noargs": "Message without argument",
+	"msg.arg": "Message with ${argument}; repeat: ${argument}",
+	"msg.args": "Message with ${two} ${argument}"
+}

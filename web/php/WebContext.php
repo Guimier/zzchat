@@ -15,6 +15,8 @@ class WebContext extends Context
 	private $getParams ;
 	/** Array of POST parameters ($_POST). */
 	private $postParams ;
+	/* Current User. */
+	private $user = null ;
 	
 	/** Constructor.
 	 * @param array $getParams Array of GET parameters ($_GET).
@@ -24,6 +26,17 @@ class WebContext extends Context
 	{
 		$this->getParams = $getParams ;
 		$this->postParams = $postParams ;
+		
+		session_start() ;
+		if ( array_key_exists( 'user-id', $_SESSION ) )
+		{
+			$user = getUser( $_SESSION['user-id'] )
+			
+			if( $user->isActive() ) 
+			{
+				$this->user = $user ;
+			}
+		}
 	}
 	
 	/** Get a parameter.
@@ -56,6 +69,48 @@ class WebContext extends Context
 		}
 
 		return $value ;
+	}
+	
+	
+	/**	Create and connect an user with the name in parameter.
+	 * 
+	 * @param string $userName The name of the user.
+	 * 
+	 */ 
+	function connect( $userName )
+	{
+		$this->user = Users::createUser( $userName ) ;	
+	}
+	
+	/**	Disconnect an user with the name in parameter.
+	 * 
+	 * @throw NotLoggedInUserException If no user is associated to the session.
+	 */ 
+	function disconnect()
+	{
+		if ( $user === null )
+		{
+			throw new NotLoggedInUserException() ;
+		}
+		else
+		{
+			$this->user->isNowInactive() ;
+			$this->user = null ;
+		}
+	}
+	/** Destructor
+	 * 
+	 */ 
+	public function __destruct()
+	{
+		if ( $this->user === null )
+		{
+			unset $_SESSION['user-id'] ;
+		}
+		else
+		{
+			$_SESSION['user-id'] = $this->user->getId() ;
+		}
 	}
 	
 }

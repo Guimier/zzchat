@@ -13,11 +13,17 @@ class CliContextTest extends ClassTester
 	{
 		$context = new CliContext( array(
 				'<file.php>',
+				'-f',
 				'foo1',
 				'--bar',
 				'--baz=qux',
 				'foo2'
 		) ) ;
+		
+		$this->assertTrue(
+			$context->getBooleanParameter( null, 'f' ),
+			'Flag “f” is present'
+		) ;
 		
 		$this->assertEquals(
 			$context->getParameter( 0, null ),

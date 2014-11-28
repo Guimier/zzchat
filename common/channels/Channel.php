@@ -222,6 +222,17 @@ class Channel
 				
 	}
 		
-	
-	
+	/** Check if the current file of the channel is full or not.
+	 * 
+	 * @param File $file The file which is tested.
+	 * 
+	 * @return Boolean : true if full, false otherwise.
+	 */ 
+	public function isFull( $file )
+	{
+		$config = Configuration::getInstance() ;
+		$fileContent = $config->loadJson( $file ) ;
+		 
+		return count( $fileContent ) >= $config->getValue( 'channel.maxnum' ) ; 
+	}
 }

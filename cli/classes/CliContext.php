@@ -40,7 +40,16 @@ class CliContext extends Context
 				/* All arguments following -- are unnamed ones. */
 				$forceUnnamed = true ;
 			}
-			else if ( preg_match( '/--[\w-]+=.+/', $arg ) )
+			else if ( preg_match( '/^-\w$/', $arg ) )
+			{
+				/* Named non-empty parameter. */
+				$chars = substr( $arg, 1 ) ;
+				foreach ( str_split( $chars ) as $char )
+				{
+					$this->addNamedParameter( $char, '' ) ;
+				}
+			}
+			else if ( preg_match( '/^--[\w-]+=.+$/', $arg ) )
 			{
 				/* Named non-empty parameter. */
 				$arg = substr( $arg, 2 ) ;
@@ -99,6 +108,16 @@ class CliContext extends Context
 		}
 		
 		return $value ;
+	}
+
+	/** Get a boolean parameter.
+	 * @param string $key Name of the parameter.
+	 * @param string $more Shortcut (for example 'h' for '-h')
+	 */
+	public function getBooleanParameter( $key, $more = null )
+	{
+		return ( $more !== null && array_key_exists( $more, $this->params ) ) ||
+			parent::getBooleanParameter( $key, null ) ;
 	}
 	
 }

@@ -20,3 +20,6 @@ find \
 
 # Data files must be readable and writable by anybody.
 chmod -R a+rw 'local/data'
+
+# Scripts must be executable by the owner (only).
+chmod u+x,go-x cli/*.php

@@ -11,7 +11,7 @@ class Languages
 	{
 		if ( self::$instance === null )
 		{
-			self::$instance = new Languages() ;
+			self::$instance = new Languages( 'default/languages' ) ;
 		}
 		
 		return self::$instance ;
@@ -19,15 +19,29 @@ class Languages
 
 /******************************************************************************/
 
-
-	/** The known languages. */
-	private $known = array( 'en', 'fr' ) ;
+	/** Relative path to the messages’ directory. */
+	private $dir ;
+	
+	/** List of known languages. */
+	private $known ;
 	
 	/** Lists of messages.
 	 * Associative arrays with language codes as keys and associatives array
 	 * of messages as values.
 	 */
 	private $messages = array() ;
+	
+	/** Constructor.
+	 * 
+	 * @param string $dir Relative path to the directory where messages are.
+	 */
+	protected function __construct( $dir )
+	{
+		$this->dir = $dir ;
+		$this->known = Configuration::getInstance()->loadJson(
+			"$dir/list.json"
+		) ;
+	}
 
 	/** do we know about a specific language?
 	 * @param string $language Language code.
@@ -44,19 +58,12 @@ class Languages
 	{
 		if ( $this->languageIsKnown( $language ) && ! array_key_exists( $language, $this->messages ) )
 		{
-			$file = Configuration::getInstance()->getRootDir()
-				. '/default/languages/' . $language . '.json' ;
-			
-			$array = file_exists( $file )
-				? json_decode( file_get_contents( $file ), true )
-				: null ;
-			
-			if ( $array === null )
-			{
-				$array = array() ;
-			}
-			
-			$this->messages[$language] = $array ;
+			$this->messages[$language] = Configuration
+				::getInstance()
+				->loadJson(
+					$this->dir . '/' . $language . '.json',
+					array()
+				) ;
 		}
 	}
 
@@ -132,24 +139,77 @@ class Languages
 		return $this->replaceArguments( $raw, $arguments ) ;
 	}
 	
+	/** Filter an array by prefix.
+	 * @param array $array Original array.
+	 * @param array $excludes List of prefixes to exclude from the output.
+	 */
+	private function filter( array $array, array $excludes )
+	{
+		if ( count( $excludes ) > 0 )
+		{
+			$res = array() ;
+		
+			foreach ( $array as $key => $value )
+			{
+				$i = 0 ;
+				while (
+					$i < count( $excludes ) &&
+					$include = ( strpos( $key, $excludes[$i] ) !== 0 )
+				)
+				{
+					$i++ ;
+				}
+			
+				if ( $include )
+				{
+					$res[$key] = $value ;
+				}
+			}
+		}
+		else
+		{
+			$res = $array ;
+		}
+		
+		return $res ;
+			
+	}
+	
 	/** Get all messages in a language.
 	 * @param string $language Language code.
 	 * @param boolean $withDefault Insert english messages if not available.
+	 * @param array $excludes List of prefixes to exclude from the output.
 	 */
-	public function getAllMessages( $language, $withDefault )
+	public function getAllMessages( $language, $withDefault, array $excludes = array() )
 	{
 		$res = array() ;
 		
 		if ( $this->languageIsKnown( $language ) )
 		{
 			$this->loadLanguage( $language ) ;
-			$res += $this->messages[$language] ;
+			$res += $this->filter(
+				$this->messages[$language],
+				$excludes
+			) ;
 		}
 		
 		if ( $withDefault )
 		{
 			$this->loadLanguage( 'en' ) ;
-			$res += $this->messages['en'] ;
+			$res += $this->filter( $this->messages['en'], $excludes ) ;
+		}
+		
+		return $res ;
+	}
+	
+	/** Get all known languages with their names. */
+	public function getAllLanguages()
+	{
+		$res = array() ;
+		
+		foreach ( $this->known as $lang )
+		{
+			$res[$lang] = $this->getMessage( $lang, "lang.$lang" ) ;
 		}
 		
 		return $res ;
