@@ -1,0 +1,131 @@
+@charset "utf-8" ;
+
+html.page-login
+{
+	height : 100% ;
+}
+
+.page-login #nojs,
+.page-login #login-error
+{
+	color : orange ;
+}
+
+
+.page-login #nojs
+{
+	font-size : 1.2em ;
+}
+
+.page-login body 
+{
+	font-family : vinerHandItc ;
+	background-color : black ;
+	background-image : url( "../img/greek-temple.jpg" ) ;
+	background-repeat : no-repeat ;
+	background-position : center ;
+	background-size : auto 100% ;
+	background-attachment : fixed ;
+	height : 100% ;
+	text-align : center ;
+	font-size : 1vmax ;
+}
+
+.page-login #container
+{
+	position : relative ;
+	height : 100% ;
+}
+
+.page-login .strut,
+.page-login #login
+{
+    /* On permet à ces éléments de s’aligner verticalement */
+    display : inline-block ;
+    vertical-align : middle ;
+}
+
+.page-login .strut 
+{
+    /* Hauteur de la fenètre, par rapport à laquelle les éléments vont être alignés */
+    height : 100% ;
+}
+
+.page-login #login
+{
+	position : relative ;
+	background-color : black ;
+	color : white ;
+	padding : 1vmax ;
+	border-radius : 0.25em ;
+	heigth : auto ;
+}
+
+.page-login #myform
+{
+	width : auto ;
+}
+
+.page-login #footer
+{
+	margin-bottom : 1vmax ;
+	margin-right : 1vmax ;
+	text-align : left ;
+	font-size : 0.75vmax ;
+}
+
+.page-login #menu
+{
+	position : absolute ;
+	top : 0 ;
+	right : 0 ;
+	text-align : right ;
+	width : 50% ;
+	margin-top : 1vmax ;
+	margin-right : 1vmax ;
+}
+
+.page-login #btn
+{
+	font-family : vinerHandItc ;
+	margin-top : 1vmax ;
+	height : 2vmax ;
+	font-size : 1vmax ;
+	background-color : black ;
+	box-shadow : none ;
+	border : solid ;
+	border-color : white ;
+	border-width : 0.25vmax ;
+	color : white ;
+	border-radius : 0.25em ;
+}
+
+.page-login #btn:hover
+{
+	background-color : grey ;
+	cursor : pointer ;
+}
+
+.page-login #btn:active
+{
+	border : inset ;
+}
+
+.page-login #loginLabel
+{
+}
+
+.page-login #pseudo
+{
+	margin-top : 1vmax ;
+	height : 1vmax ;	
+	width : 12vmax ;
+}
+
+.page-login #menuint
+{
+	font-family : vinerHandItc ;
+	height : 2vmax ;		
+	width : auto ;
+	font-size : 1vmax ;
+}

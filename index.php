@@ -9,12 +9,14 @@ function sendConfiguration()
 	
 	$config = Configuration::getInstance() ;
 	$langs = Languages::getInstance() ;
+	$user = Context::getCanonical()->getUser() ;
 	
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
 		'language' => $config->getValue( 'user.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
-		'peoplerate' => $config->getValue( 'ajaxrate.people' )
+		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
+		'user' => $user instanceof User ? $user->getName() : null
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
@@ -23,7 +25,7 @@ function sendConfiguration()
 }
 
 ?><!DOCTYPE html>
-<html>
+<html class="page-login">
 	<head>
 		<!-- Meta information -->
 		<title></title>
@@ -32,7 +34,21 @@ function sendConfiguration()
 		<link rel="shortcut icon" type="image/png" href="web/img/favicon.png" />
 	
 		<!-- Styles -->
-		<link rel="stylesheet" media="screen" href="web/css/chat.css" type="text/css" />
+		<link
+			rel="stylesheet" media="screen" type="text/css"
+			id="css-common"
+			href="web/css/common.css"
+		/>
+		<link
+			rel="stylesheet" media="screen" type="text/css"
+			id="css-login"
+			href="web/css/login.css"
+		/>
+		<link
+			rel="stylesheet" media="screen" type="text/css"
+			id="css-chat"
+			href="web/css/chat.css"
+		/>
 	
 		<!-- Scripts -->
 	

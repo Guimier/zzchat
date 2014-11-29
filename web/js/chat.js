@@ -26,6 +26,7 @@
 		// We are now logged in as <data>
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
+		initChatPage() ;
 	}
 
 	/**
@@ -138,14 +139,33 @@
 			) ;
 	}
 
+	function initLoginPage()
+	{
+		$( '#login' ).html( $createForm() ) ;
+	}
+
+	function initChatPage()
+	{
+		$( 'html' )
+			.removeClass( 'page-login' )
+			.addClass( 'page-chat' ) ;
+	}
+
 	function init()
 	{
 		$( '#nojs' ).remove() ;
 		/*Génération du choix des langues :*/
 		$( '#menu' ).html( $createMenuLang() ) ;
-		/*Génération : on remplace ce qui est désigné par l'ID dans le html par ce qui suit
-		Appel de $createForm pour batir le formulaire de login.*/
-		$( '#login' ).html( $createForm() ) ;
+		
+		if ( configuration.get( 'user' ) === null )
+		{
+			initLoginPage() ;
+		}
+		else
+		{
+			initChatPage() ;
+		}
+		
 		$( '#footer' ).trHtml( "web.footer" ) ;
 	}
 
