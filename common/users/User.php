@@ -84,8 +84,7 @@ class User
 			throw new UserNameAlreadyTakenException( $userName ) ;
 		}
 		
-		$lastidFile = $config->getDataDir( 'users' ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
+		$id = $config->incrementCounter( 'lastuser' ) ;
 		
 		$config->saveJson(
 			self::getUserFile( $id ),

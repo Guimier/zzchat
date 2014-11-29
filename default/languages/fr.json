@@ -20,6 +20,7 @@
 	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
 	"exceptions.notloggedinuser": "Impossible de déconnecter un utilisateur non connecté",
 	"exceptions.usernametooshirt": "Le nom d’utilisateur « ${username} » est trop court",
+	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

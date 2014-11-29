@@ -19,6 +19,7 @@
 	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
 	"exceptions.notloggedinuser": "Cannot log out if not logged in",
 	"exceptions.usernametooshirt": "User name “${username}” is too short",
+	"exceptions.nosuchuser": "No user has id “${userid}”",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
