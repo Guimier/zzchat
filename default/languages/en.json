@@ -1,7 +1,6 @@
 {
 	"lang.en": "English",
 	"lang.fr": "French",
-	
 	"cli.help": "Agora command line help.",
 	"cli.help.common": "Common arguments for all scripts (optional)",
 	"cli.help.common.help": "Show this help and exit.",
@@ -15,6 +14,10 @@
 	"exceptions.badcall": "“${method}” called with wrong argument(s)",
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
 	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
+	"exceptions.notloggedinuser": "You need to be logged in to be able to log out",
+	"exceptions.useralreadyinactive": "The user whose id is “${userid}” is already inactive",
+	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
+	"exceptions.notloggedinuser": "No user with the “${userid}” id",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

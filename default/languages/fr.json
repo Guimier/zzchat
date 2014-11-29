@@ -15,6 +15,10 @@
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
 	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
+	"exceptions.notloggedinuser": "Utilisateur non connecté !",
+	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
+	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
+	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
