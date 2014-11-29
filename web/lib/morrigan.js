@@ -318,7 +318,7 @@ $.widget( "morrigan.morrigan_editor", {
             view: {
                 activeBackground: '#aaa',
                 inactiveBackground: '#eee',
-                title: 'Bold',
+                title: 'morrigan.bold',
                 classes: 'fa fa-bold'
             },
             onClickHandler: function (editor, action) {
@@ -334,7 +334,7 @@ $.widget( "morrigan.morrigan_editor", {
             view: {
                 activeBackground: '#aaa',
                 inactiveBackground: '#eee',
-                title: 'Italy',
+                title: 'morrigan.italy',
                 classes: 'fa fa-italic'
             },
             onClickHandler: function (editor, action) {
@@ -348,7 +348,7 @@ $.widget( "morrigan.morrigan_editor", {
         strike: {
             name: 'strike',
             view: {
-                title: 'Strike',
+                title: 'morrigan.strike',
                 activeBackground: '#aaa',
                 inactiveBackground: '#eee',
                 classes: 'fa fa-strikethrough'
@@ -364,7 +364,7 @@ $.widget( "morrigan.morrigan_editor", {
         unLink: {
             name: 'unLink',
             view: {
-                title: 'Unlink',
+                title: 'morrigan.unlink',
                 activeBackground: '#aaa',
                 inactiveBackground: '#eee',
                 classes: 'fa fa-unlink'
@@ -378,7 +378,7 @@ $.widget( "morrigan.morrigan_editor", {
             view: {
                 activeBackground: '#aaa',
                 inactiveBackground: '#eee',
-                title: 'Link',
+                title: 'morrigan.link',
                 classes: 'fa fa-link'
             },
             popup: {
@@ -876,7 +876,7 @@ $.widget( "morrigan.morrigan_editor", {
             _formToolboxItem = function (config) {
                 var dropdown, dropdownItem;
                 var item = $('<a></a>');
-                if (config.view.title) item.attr('title', config.view.title);
+                if (config.view.title) item.trAttr('title', config.view.title);
                 if (config.view.classes) item.addClass(config.view.classes);
                 if (config.view.disabledIcon) item.css("background", config.view.disabledIcon);
                 if (config.view.text) item.append($('<span></span>').text(config.view.text).addClass('mrge-action-text'));

@@ -14,5 +14,15 @@
 	"cli.help.required": "Required arguments",
 	
 	"cli.messages": "This script allows retrieving translations.",
-	"cli.messages.defaults": "Replace missing messages by their english equivalent."
+	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
+	
+	"morrigan.bold": "Bold",
+	"morrigan.italy": "Italic",
+	"morrigan.strike": "Strike",
+	"morrigan.link": "Link",
+	"morrigan.unlink": "Unlink",
+	"morrigan.smiley-x": "Red X",
+	"morrigan.smiley-v": "Green V",
+	"morrigan.smiley-o": "Orange square"
+	
 }

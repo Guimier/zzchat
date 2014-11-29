@@ -9,7 +9,8 @@
 	window.morrigan = {} ;
 
 	/**
-	 * @property {Array} smileys List of available smileys
+	 * List of available smileys.
+	 * @property {Array} smileys
 	 */
 	morrigan.smileys = [
 		'smiley-x',
@@ -39,7 +40,7 @@
 			view: {
 				activeBackground: '#aaa',
 				inactiveBackground: '#eee',
-				title: 'smiley-name…',
+				title: 'morrigan.' + smiley,
 				classes: 'smiley ' + smiley
 			},
 		
