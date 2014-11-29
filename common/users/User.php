@@ -53,6 +53,16 @@ class Users
 		}
 	}
 	
+	/** 
+	*
+	*
+	*
+	*/
+	public function isActiveNow()
+	{
+		$this->userData['last-action'] = time() ;
+	}
+	
 	/** Get a user by id.
 	 * 
 	 * @param int $userId The id to look for.
