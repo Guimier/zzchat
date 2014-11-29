@@ -8,5 +8,5 @@ require_once dirname( __DIR__ ) . '/ClassTester.php' ;
  */
 class ChannelTest extends ClassTester
 {
-	
+	public function test__() {}
 }
