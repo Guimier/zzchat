@@ -98,14 +98,12 @@ class WebContext extends Context
 			$this->user = null ;
 		}
 	}
-	/** Destructor
-	 * 
-	 */ 
+	/** Destructor */ 
 	public function __destruct()
 	{
 		if ( $this->user === null )
 		{
-			unset $_SESSION['user-id'] ;
+			unset ( $_SESSION['user-id'] ) ;
 		}
 		else
 		{

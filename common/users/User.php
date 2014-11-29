@@ -38,7 +38,19 @@ class Users
 		
 	public function isNowInactive()
 	{
-		
+		if ( ! $this->isActive )
+		{
+			throw new UserAlreadyInactiveException( $this->id ) ;
+		}
+		else
+		{
+			$config = Configuration::getInstance() ;
+			$activeUsers = loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+			
+			unset ( $activeUsers[$this->userData['name'] ) ;
+			
+			saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers) ;
+		}
 	}
 	
 	/** Get a user by id.
@@ -139,7 +151,11 @@ class Users
 	 */
 	public function isActive()
 	{
-		return time() - $this->userData['last-action'] < Configuration::getInstance()->getValue( 'user.inactivity' ) ;
+		$config = Configuration::getInstance() ;
+		$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+		return time() - $this->userData['last-action'] < Configuration::getInstance()->getValue( 'user.inactivity' ) 
+				&& array_key_exists( $this->userData['name'], $activeUsers ) ;
+	
 	}
 	
 	/** Get the id of the user.
