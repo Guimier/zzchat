@@ -32,7 +32,7 @@ class WebContext extends Context
 		{
 			$user = getUser( $_SESSION['user-id'] )
 			
-			if( $user->isActive() ) 
+			if ( $user->isActive() ) 
 			{
 				$this->user = $user ;
 			}

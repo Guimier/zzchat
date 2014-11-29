@@ -47,7 +47,7 @@ class Users
 			$config = Configuration::getInstance() ;
 			$activeUsers = loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
 			
-			unset ( $activeUsers[$this->userData['name'] ) ;
+			unset ( $activeUsers[$this->userData['name']] ) ;
 			
 			saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers) ;
 		}
