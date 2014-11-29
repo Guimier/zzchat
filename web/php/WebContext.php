@@ -95,7 +95,7 @@ class WebContext extends Context
 	 */ 
 	public function disconnect()
 	{
-		if ( $user === null )
+		if ( $this->user === null )
 		{
 			throw new NotLoggedInUserException() ;
 		}
