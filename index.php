@@ -17,7 +17,7 @@ function sendConfiguration()
 		'peoplerate' => $config->getValue( 'ajaxrate.people' )
 	) ;
 	
-	echo 'configuration.initialise( ' . json_encode( $jsConf ) . ' ) ;' ;
+	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
 	
 	echo '</script>' ;
 }

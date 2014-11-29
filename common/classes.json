@@ -10,6 +10,7 @@
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
+	"JSON": "common/JSON.php",
 	"Languages": "common/Languages.php",
 	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
 	"MessagesCommand": "cli/classes/MessagesCommand.php",
