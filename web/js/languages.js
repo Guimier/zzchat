@@ -1,7 +1,7 @@
 /**
  * Languages abstraction.
  * @module languages
- * @requires ajax
+ * @requires ajax, configuration
  */
 ( function ( $ ) {
 
@@ -17,7 +17,7 @@
 		 * @private
 		 * @property {String} current
 		 */
-		current = configuration.language, // Default value from configuration
+		current = configuration.get( 'language' ), // Value from configuration
 		
 		/**
 		 * Messages cache.

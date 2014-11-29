@@ -17,7 +17,7 @@ function sendConfiguration()
 		'peoplerate' => $config->getValue( 'ajaxrate.people' )
 	) ;
 	
-	echo 'var configuration = ' . json_encode( $jsConf ) . ' ;' ;
+	echo 'configuration.initialise( ' . json_encode( $jsConf ) . ' ) ;' ;
 	
 	echo '</script>' ;
 }
@@ -26,6 +26,7 @@ function sendConfiguration()
 <html>
 <head>
 	<title>Empty page</title>
+	<script src="web/js/configuration.js"></script>
 	<?php sendConfiguration() ; ?>
 
 	<script src="web/lib/jquery.js"></script>
