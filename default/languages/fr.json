@@ -2,10 +2,6 @@
 	"lang.en": "anglais",
 	"lang.fr": "français",
 	
-	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
-	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
-	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
-	
 	"cli.help": "Aide des lignes de commande Agora.",
 	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
@@ -14,5 +10,14 @@
 	"cli.help.required": "Arguments nécessaires",
 	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
-	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise."
+	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
+	
+	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
+	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
+	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
+	
+	"login.validate": "Entez dans l’agora",
+	"login.welcome": "Participant à l'agora, annoncez-vous :",
+	
+	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue"
 }

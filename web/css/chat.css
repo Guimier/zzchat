@@ -1,0 +1,130 @@
+@charset "utf-8" ;
+
+@font-face
+{
+	font-family : "vinerHandItc";
+	src : url( "../font/27990.ttf" ) format( "truetype" ) ;
+}
+
+html
+{
+	height : 100% ;
+}
+
+body 
+{
+	font-family : vinerHandItc ;
+	background-color : black ;
+	background-image : url( "../img/greek-temple.jpg" ) ;
+	background-repeat : no-repeat ;
+	background-position : center ;
+	background-size : auto 100% ;
+	background-attachment : fixed ;
+	margin : 0 ;
+	padding : 0 ;
+	height : 100% ;
+	text-align : center ;
+	font-size : 1vmax ;
+}
+
+
+#container
+{
+	position : relative ;
+	height : 100% ;
+}
+
+.strut, #login
+{
+    /* On permet à ces éléments de s’aligner verticalement */
+    display : inline-block ;
+    vertical-align : middle ;
+}
+.strut 
+{
+    /* Hauteur de la fenètre, par rapport à laquelle les éléments vont être alignés */
+    height : 100% ;
+}
+
+#login
+{
+	position : relative ;
+	background-color : black ;
+	color : white ;
+	padding : 1vmax ;
+	border-radius : 0.25em ;
+	heigth : auto ;
+}
+
+#myform
+{
+	width : auto ;
+}
+
+#footer
+{
+	position : absolute ;
+	color : white ;
+	bottom : 0 ;
+	right : 0 ;
+	margin-bottom : 1vmax ;
+	margin-right : 1vmax ;
+	text-align : left ;
+	font-size : 0.75vmax ;
+}
+
+#menu
+{
+	position : absolute ;
+	top : 0 ;
+	right : 0 ;
+	text-align : right ;
+	width : 50% ;
+	margin-top : 1vmax ;
+	margin-right : 1vmax ;
+}
+
+#btn
+{
+	font-family : vinerHandItc ;
+	margin-top : 1vmax ;
+	height : 2vmax ;
+	font-size : 1vmax ;
+	background-color : black ;
+	box-shadow : none ;
+	border : solid ;
+	border-color : white ;
+	border-width : 0.25vmax ;
+	color : white ;
+	border-radius : 0.25em ;
+}
+
+#btn:hover
+{
+	background-color : grey ;
+	cursor : pointer ;
+}
+
+#btn:active
+{
+	border : inset ;
+}
+
+#loginLabel
+{
+}
+
+#pseudo
+{
+	margin-top : 1vmax ;
+	height : 1vmax ;	
+	width : 12vmax ;
+}
+
+#menuint
+{
+	font-family : vinerHandItc ;
+	height : 2vmax ;		
+	width : auto ;
+	font-size : 1vmax ;
+}
