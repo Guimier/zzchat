@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="web/lib/jquery-ui.css" />
+		<link rel="stylesheet" href="web/lib/morrigan.css" />
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+		<script src="web/lib/jquery.js"></script>
+		<script src="web/lib/jquery-ui.js"></script>
+		<script src="web/js/morrigan.js"></script>
+		<script src="web/lib/morrigan.js"></script>
+	</head>
+	<body>
+		<div id="editable"></div>
+	</body>
+	<script>
+		editor = $( '#editable' ).morrigan_editor( {
+			iframeStyles: 'web/lib/morrigan-iframe.css',
+			toolbox: [
+				[
+					[ 'bold', 'italy', 'strike' ],
+					[ 'link', 'unLink' ],
+					morrigan.smileys
+				]
+			]
+		} ) ;
+	</script>
+</html>
