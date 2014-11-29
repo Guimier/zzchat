@@ -18,15 +18,6 @@
 		<div id="editable"></div>
 	</body>
 	<script>
-		editor = $( '#editable' ).morrigan_editor( {
-			iframeStyles: 'web/lib/morrigan-iframe.css',
-			toolbox: [
-				[
-					[ 'bold', 'italy', 'strike' ],
-					[ 'link', 'unLink' ],
-					morrigan.smileys
-				]
-			]
-		} ) ;
+		$( '#editable' ).wysiwyg( 'normal' ) ;
 	</script>
 </html>
