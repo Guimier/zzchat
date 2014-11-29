@@ -18,7 +18,8 @@
 	"exceptions.notloggedinuser": "Utilisateur non connecté !",
 	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
 	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
-	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
+	"exceptions.notloggedinuser": "Impossible de déconnecter un utilisateur non connecté",
+	"exceptions.usernametooshirt": "Le nom d’utilisateur « ${username} » est trop court",
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

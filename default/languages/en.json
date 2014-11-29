@@ -17,7 +17,8 @@
 	"exceptions.notloggedinuser": "You need to be logged in to be able to log out",
 	"exceptions.useralreadyinactive": "The user whose id is “${userid}” is already inactive",
 	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
-	"exceptions.notloggedinuser": "No user with the “${userid}” id",
+	"exceptions.notloggedinuser": "Cannot log out if not logged in",
+	"exceptions.usernametooshirt": "User name “${username}” is too short",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

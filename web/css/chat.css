@@ -6,10 +6,15 @@
 	src : url( "../font/27990.ttf" ) format( "truetype" ) ;
 }
 
+#nojs,
+#login-error
+{
+	color : orange ;
+}
+
 #nojs
 {
 	font-size : 1.2em ;
-	color : orange ;
 }
 
 html

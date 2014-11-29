@@ -1,6 +1,6 @@
 <?php
 
-class Users
+class User
 {
 	
 /***** Class *****/
@@ -18,14 +18,14 @@ class Users
 		
 		$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
 		
-		if ( array_key_exists( $name, $activeUser ) )
+		if ( array_key_exists( $name, $activeUsers ) )
 		{
 			$user = self::getUser( $activeUsers[$name] ) ;
-		}
-		
-		if ( ! $user->isActive() )
-		{
-			$user = null ;
+
+			if ( ! $user->isActive() )
+			{
+				$user = null ;
+			}
 		}
 		
 		return $user ;
@@ -73,6 +73,11 @@ class Users
 	public static function createUser( $userName )
 	{
 		$config = Configuration::getInstance() ; 
+		
+		if ( strlen( $userName ) < $config->getValue( 'user.minnamelength' ) )
+		{
+			throw new UserNameTooShortException( $userName ) ;
+		}
 		
 		if ( self::getActiveUser( $userName ) !== null )
 		{

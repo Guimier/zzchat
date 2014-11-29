@@ -127,7 +127,10 @@
 				var i ;
 				for ( i in parts )
 				{
-					parts[i].error( 'ajax:' + textStatus, parts[i].message ) ;
+					parts[i].error(
+						'ajax:' + textStatus,
+						parts[i].message
+					) ;
 				}
 			}
 		
@@ -144,7 +147,10 @@
 					}
 					else
 					{
-						parts[i].error( data[parts[i].name].error ) ;
+						parts[i].error(
+							data[parts[i].name].error,
+							data[parts[i].name].message
+						) ;
 					}
 				}
 			}
@@ -168,7 +174,7 @@
 	 * @param {string} name Sub-query name.
 	 * @param {Object} data Data to send.
 	 * @param {Function} [success] Callback on success. Called with the returned data.
-	 * @param {Function} [error] Callback on error. Called with error name.
+	 * @param {Function} [error] Callback on error. Called with error name and description.
 	 */
 	window.ajax.add = function ( method, name, data, success, error )
 	{
@@ -180,6 +186,26 @@
 		}
 		
 		queries[name].push( query ) ;
+	} ;
+	
+	/**
+	 * Send an Ajax sub-query.
+	 * Will wait for the next request if the automatic sending is on.
+	 * @method send
+	 * @param {string} method 'GET' or 'POST', depending on whet is needed.
+	 * @param {string} name Sub-query name.
+	 * @param {Object} data Data to send.
+	 * @param {Function} [success] Callback on success. Called with the returned data.
+	 * @param {Function} [error] Callback on error. Called with error name and description.
+	 */
+	window.ajax.send = function ( method, name, data, success, error )
+	{
+		this.add.apply( this, arguments ) ;
+		
+		if ( ! this.isAutomaticOn() )
+		{
+			this.sendNow() ;
+		}
 	} ;
 	
 	/**
