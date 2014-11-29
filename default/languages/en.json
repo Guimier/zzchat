@@ -6,12 +6,15 @@
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
 	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
 	
-	"cli.help": "Agora command line help.",
-	"cli.help.common": "Common arguments for all scripts (optional)",
+	"cli.help.common": "Common parameters",
 	"cli.help.common.help": "Show this help and exit.",
 	"cli.help.common.language": "Set language for the output.",
-	"cli.help.optional": "Optional arguments",
-	"cli.help.required": "Required arguments",
+	"cli.help.parameters": "Parameters",
+	"cli.help.scenarios": "Usage",
+	
+	"cli.citations": "Manage citations.",
+	"cli.citations.text": "Text of the citation.",
+	"cli.citations.author": "Author of the citation (if known).",
 	
 	"cli.messages": "This script allows retrieving translations.",
 	"cli.messages.defaults": "Replace missing messages by their english equivalent."

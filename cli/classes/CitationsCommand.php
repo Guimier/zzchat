@@ -7,15 +7,26 @@ class CitationsCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'desc' => 'cli.citations',
-			'actions' => array( '', 'add', 'show' ),
-			'optional' => array(
+			'description' => 'cli.citations',
+			'scenarios' => array(
+				'add' => array(
+					'description' => 'cli.citation.add',
+					'parameters' => array( 'text', 'author' )
+				),
+				'show' => array(
+					'description' => 'cli.citation.show',
+					'parameters' => array()
+				)
+			),
+			'parameters' => array(
 				'text' => array(
-					'desc' => 'cli.citations.text',
+					'required' => true,
+					'description' => 'cli.citations.text',
 					'type' => 'string'
 				),
 				'author' => array(
-					'desc' => 'cli.citations.author',
+					'required' => false,
+					'description' => 'cli.citations.author',
 					'type' => 'string'
 				)
 			)

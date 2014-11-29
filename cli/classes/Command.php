@@ -51,87 +51,122 @@ abstract class Command
 	abstract public function getDocumentation() ;
 
 	/** Show a list of parameters for a script.
-	 * @param string $title Name of a translated name for the description.
-	 * @param array $parameters Associative array of parameters.
+	 * @param string $name Name of the parameter.
+	 * @param array $param Associative array representing a parameter.
 	 *   Keys are the names, values are arrays containing:
 	 *   * `desc`: Name of a translated description
 	 *   * `type`: one of `boolean`, `string`, `array`
 	 *   * `alt`: only for boolean, one-char string for an alternative flag.
 	 */
-	private function showDocumentationPart( $title, array $parameters )
+	private function showParameterDocumentation( $name, $param )
 	{
-			ksort( $parameters ) ;
+		$format = "--$name" ;
 
-			$this->writeln() ;
-			$this->writeln( $this->getContext()->getMessage( $title ) ) ;
-
-		foreach ( $parameters as $key => $desc )
+		switch ( $param['type'] )
 		{
-			$format = "--$key" ;
+			case 'boolean' :
+				if ( array_key_exists( 'alt', $param ) )
+				{
+					$format = '-' . $param['alt'] . ", $format" ;
+				}
+				break ;
+			case 'string' :
+				$format .= '=<string>' ;
+				break ;
+			case 'array' :
+				$format .= '=<string>[,…]' ;
+				break ;
+			default :
+				$format .= '=???' ;
+		}
 
-			switch ( $desc['type'] )
+		$this->writeln( "\t$format" ) ;
+		$this->writeln( "\t\t" . $this->getContext()->getMessage( $param['description'] ) ) ;
+	}
+
+	/** Show a list of parameters for a script.
+	 * @param array $params Associative array representing of the parameters descriptions.
+	 */
+	private function showParametersDocumentation( $params )
+	{
+		ksort( $params ) ;
+		foreach ( $params as $name => $param )
+		{
+			$this->showParameterDocumentation( $name, $param ) ;
+		}
+	}
+
+	/** Show a title for the documentation.
+	 * @param string $title Name of the message used for the title.
+	 */
+	private function showDocumentationTitle( $title )
+	{
+		echo "\n" . strtoupper(
+			$this->getContext()->getMessage( $title )
+		) . "\n" ;
+	}
+
+	/**
+	 *
+	 */
+	private function showScenarios( $scenarios, $params )
+	{
+		$command = 'cli/' . $this->commandName . '.php' ;
+		
+		foreach ( $scenarios as $key => $desc )
+		{
+			echo "\t$command $key" ;
+			foreach ( $desc['parameters'] as $param )
 			{
-				case 'boolean' :
-					if ( array_key_exists( 'alt', $desc ) )
-					{
-						$format = '-' . $desc['alt'] . ", $format" ;
-					}
-					break ;
-				case 'string' :
-					$format .= '=<string>' ;
-					break ;
-				case 'array' :
-					$format .= '=<string>[,…]' ;
-					break ;
-				default :
-					$format .= '=???' ;
+				if ( $params[$param]['required'] )
+				{
+					echo " --$param" ;
+				}
+				else
+				{
+					echo " [--$param]" ;
+				}
 			}
-
-			$this->writeln( "\t$format" ) ;
-			$this->writeln( "\t\t" . $this->getContext()->getMessage( $desc['desc'] ) ) ;
+			echo "\n" ;
 		}
 	}
 
 	/** Show the documentation. */
 	protected function showDocumentation()
 	{
-		$context = $this->getContext() ;
 		$desc = $this->getDocumentation() ;
-
-		$this->writeln( $context->getMessage( 'cli.help' ) ) ;
-		$this->writeln() ;
-		$this->writeln( $context->getMessage( $desc['desc'] ) ) ;
-
-		if ( array_key_exists( 'required', $desc ) )
-		{
-			$this->showDocumentationPart(
-				'cli.help.required',
-				$desc['required']
-			) ;
-		}
-
-		if ( array_key_exists( 'optional', $desc ) )
-		{
-			$this->showDocumentationPart(
-				'cli.help.optional',
-				$desc['optional']
-			) ;
-		}
-
-		$this->showDocumentationPart(
-			'cli.help.common',
-			array(
-				'help' => array(
-					'type' => 'boolean',
-					'desc' => 'cli.help.common.help',
-					'alt' => 'h'
-				),
-				'language' => array(
-					'type' => 'string',
-					'desc' => 'cli.help.common.language'
-				)
-			)
+		$this->writeln(
+			$this->getContext()->getMessage( $desc['description'] )
 		) ;
+
+		$params = array_key_exists( 'parameters', $desc )
+			? $desc['parameters']
+			: array() ;
+
+		if ( array_key_exists( 'scenarios', $desc ) )
+		{
+			$this->showDocumentationTitle( 'cli.help.scenarios' ) ;
+			$this->showScenarios( $desc['scenarios'], $params) ;
+		}
+
+		if ( count( $params ) )
+		{
+			$this->showDocumentationTitle( 'cli.help.parameters' ) ;
+			$this->showParametersDocumentation( $params ) ;
+		}
+
+		$this->showDocumentationTitle( 'cli.help.common' ) ;
+		$this->showParametersDocumentation( array(
+			'help' => array(
+				'type' => 'boolean',
+				'description' => 'cli.help.common.help',
+				'alt' => 'h'
+			),
+			'language' => array(
+				'type' => 'string',
+				'description' => 'cli.help.common.language'
+			)
+		) ) ;
 	}
 
 	/** Get the context of execution. */
