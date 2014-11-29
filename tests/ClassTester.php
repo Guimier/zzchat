@@ -49,6 +49,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$dir = __DIR__ . '/' . $this->className ;
+		$this->load( 'JSON' );
 		$this->tryLoad( "$dir/placeholders.php" ) ;
 		$this->load( $this->className ) ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
@@ -114,4 +115,3 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	}
 
 }
-
