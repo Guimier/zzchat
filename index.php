@@ -67,7 +67,9 @@ function sendConfiguration()
             <!--Pour le centrage vertical-->
             <div class="strut"></div>
             <!--Formulaire-->
-            <div id="login"></div>
+            <div id="login">
+            	<span id="nojs"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
+            </div>
             <!--Changeons de langue-->
             <div id="menu"></div>
             <!--Footer-->

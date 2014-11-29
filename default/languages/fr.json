@@ -19,5 +19,6 @@
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
 	
-	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue"
+	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue",
+	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."
 }

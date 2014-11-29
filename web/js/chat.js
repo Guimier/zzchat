@@ -89,16 +89,18 @@
 			) ;
 	}
 
-	$(
-		function()
-		{
-			/*Génération du choix des langues :*/
-			$( '#menu' ).html( $createMenuLang() ) ;
-			/*Génération : on remplace ce qui est désigné par l'ID dans le html par ce qui suit
-			Appel de $createForm pour batir le formulaire de login.*/
-			$( '#login' ).html( $createForm() ) ;
-			$( '#footer' ).trHtml( "web.footer" ) ;
-		}
-	);
+	function init()
+	{
+		$( '#nojs' ).remove() ;
+		/*Génération du choix des langues :*/
+		$( '#menu' ).html( $createMenuLang() ) ;
+		/*Génération : on remplace ce qui est désigné par l'ID dans le html par ce qui suit
+		Appel de $createForm pour batir le formulaire de login.*/
+		$( '#login' ).html( $createForm() ) ;
+		$( '#footer' ).trHtml( "web.footer" ) ;
+	}
+
+	/* Run on page load */
+	$( init ) ;
 
 } ) ( jQuery ) ;

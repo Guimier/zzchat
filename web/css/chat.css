@@ -6,6 +6,12 @@
 	src : url( "../font/27990.ttf" ) format( "truetype" ) ;
 }
 
+#nojs
+{
+	font-size : 1.2em ;
+	color : orange ;
+}
+
 html
 {
 	height : 100% ;
