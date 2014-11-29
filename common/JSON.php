@@ -8,7 +8,7 @@ class JSON
 	 * @param mixed $data The value to encode.
 	 * @param number $jsonOpts Options passed to json_encode’s second parameter.
 	 */
-	public function encode( $data, $jsonOpts = 0 )
+	public static function encode( $data, $jsonOpts = 0 )
 	{
 		$opts = $jsonOpts ;
 		
@@ -23,7 +23,7 @@ class JSON
 	/** Get the value represented by a JSON string (with arrays).
 	 * @param string $string The JSON string.
 	 */
-	public function decode( $string )
+	public static function decode( $string )
 	{
 		return json_decode( $string, true ) ;
 	}
