@@ -30,7 +30,7 @@ class WebContext extends Context
 		session_start() ;
 		if ( array_key_exists( 'user-id', $_SESSION ) )
 		{
-			$user = getUser( $_SESSION['user-id'] )
+			$user = getUser( $_SESSION['user-id'] ) ;
 			
 			if( $user->isActive() ) 
 			{
@@ -105,7 +105,7 @@ class WebContext extends Context
 	{
 		if ( $this->user === null )
 		{
-			unset $_SESSION['user-id'] ;
+			unset ( $_SESSION['user-id'] ) ;
 		}
 		else
 		{
