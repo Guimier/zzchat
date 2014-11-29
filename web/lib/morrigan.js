@@ -21,10 +21,10 @@ $.widget( "morrigan.morrigan_editor", {
         popup: {
             actions: {
                 ok:{
-                    caption:'Ok'
+                    caption:'morrigan.ok'
                 },
                 cancel:{
-                    caption:'Cancel'
+                    caption:'morrigan.cancel'
                 }
             }
         },
@@ -382,9 +382,9 @@ $.widget( "morrigan.morrigan_editor", {
                 classes: 'fa fa-link'
             },
             popup: {
-                title: 'Add link',
+                title: 'morrigan.link.title',
                 height: '130px',
-                html: '<div class="mrge-option"><input type="text" placeholder=" URL" name="url"></div>',
+                html: '<div class="mrge-option"><input type="text" placeholder="URL" name="url"></div>',
                 actions: ['ok', 'cancel'],
                 onShow: function (element, editor) {
                     var prepareHref = function(linkUrl) {
@@ -1094,7 +1094,7 @@ $.widget( "morrigan.morrigan_editor", {
                 "<div class='mrge-clear'></div></div><div class='mrge-popup-content'><div class='mrge-popup-box-wrapper'></div></div>");
             var actionContainer = $("<div class='mrge-popup-actions'><div class='mrge-popup-box-wrapper'></div></div>");
             $.each(editor.options.popup.actions, function (key, value) {
-                var action = $("<div class='mrge-popup-" + key + " mrge-popup-btn'>" + this.caption + "</div>");
+                var action = $("<div class='mrge-popup-" + key + " mrge-popup-btn'></div>").trText(this.caption);
                 this.element = action;
                 actionContainer.children('.mrge-popup-box-wrapper').append(action);
             });
@@ -1137,7 +1137,7 @@ $.widget( "morrigan.morrigan_editor", {
             this.element.hide();
         };
         this._configure = function (config) {
-            this.element.find('.mrge-header-name').text(config.title);
+            this.element.find('.mrge-header-name').trText(config.title);
             this.element.find('.mrge-popup').height(config.height);
             var container = this.element.find('.mrge-popup-content .mrge-popup-box-wrapper');
             container.empty();
