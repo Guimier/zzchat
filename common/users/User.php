@@ -124,17 +124,15 @@ class User
 	 * @throw NoSuchUserException If there is no user whith this id.
 	 */
 	public function __construct( $userId )  
-	{	
+	{
 		$this->id = $userId ;
-		$raw = file_get_contents( $this->getUserFile( $userId ) ) ;
+		$this->userData =Configuration::getInstance()->loadJson(
+			$this->getUserFile( $userId )
+		) ;
 		
-		if ( $raw === null ) // err
+		if ( $this->userData === null )
 		{
 			throw new NoSuchUserException( $userId ) ;
-		}
-		else // charger données
-		{
-			$this->userData = json_decode( $raw, true ) ;
 		}
 	}
 	

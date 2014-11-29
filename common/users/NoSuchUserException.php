@@ -1,9 +1,12 @@
 <?php
 
-class NoSuchUserException extends Exception
+class NoSuchUserException extends AgoraUserException
 {
 	public function __construct( $id )
 	{
-		parent::__construct( 'exception.nosuchuser', array( 'userid' => $id ) );
+		parent::__construct(
+			'exception.nosuchuser',
+			array( 'userid' => $id )
+		);
 	}
 }

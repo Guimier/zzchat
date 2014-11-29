@@ -67,7 +67,7 @@ class Configuration
 	 */
 	public function getDataDir( $key )
 	{
-		return '/data/' . $key ;
+		return '/local/data/' . $key ;
 	}
 
 	/** Get the full path to a file.
