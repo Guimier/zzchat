@@ -93,10 +93,7 @@ class Configuration
 
 		if ( file_exists( $full ) )
 		{
-			$parsed = json_decode(
-				file_get_contents( $full ),
-				true
-			);
+			$parsed = JSON::decode( file_get_contents( $full ) );
 
 			if ( $parsed !== null )
 			{
@@ -115,7 +112,7 @@ class Configuration
 	{
 		file_put_contents(
 			$this->getFullPath( $file ),
-			json_encode( $value )
+			JSON::encode( $value )
 		) ;
 	}
 
