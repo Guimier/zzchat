@@ -67,7 +67,7 @@ class Configuration
 	 */
 	public function getDataDir( $key )
 	{
-		return '/data/' . $key ;
+		return '/local/data/' . $key ;
 	}
 
 	/** Get the full path to a file.
@@ -93,10 +93,7 @@ class Configuration
 
 		if ( file_exists( $full ) )
 		{
-			$parsed = json_decode(
-				file_get_contents( $full ),
-				true
-			);
+			$parsed = JSON::decode( file_get_contents( $full ) );
 
 			if ( $parsed !== null )
 			{
@@ -113,10 +110,9 @@ class Configuration
 	 */
 	public function saveJson( $file, $value )
 	{
-		file_put_contents(
-			$this->getFullPath( $file ),
-			json_encode( $value )
-		) ;
+		$full = $this->getFullPath( $file ) ;
+		file_put_contents( $full, JSON::encode( $value ) ) ;
+		chmod( $full, 0666 ) ;
 	}
 
 	/** Get the value of a counter and increment it.
@@ -125,7 +121,7 @@ class Configuration
 	 */
 	public function incrementCounter( $counter )
 	{
-		$full = $this->getFullPath( $file ) ;
+		$full = $this->getFullPath( "local/data/$counter.int" ) ;
 		$value = 1 + (int) file_get_contents( $full ) ;
 		file_put_contents( $full, $value ) ;
 		return $value ;

@@ -84,7 +84,9 @@ abstract class Context
 	{
 		$param = $this->getParameter( 'language' ) ;
 		
-		return ( $param === null ) ? 'en' : $param ;
+		return ( $param === null )
+			? Configuration::getInstance()->getValue( 'user.defaultlang' )
+			: $param ;
 	}
 	
 	/** Get a translated message.

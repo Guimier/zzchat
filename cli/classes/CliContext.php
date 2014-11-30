@@ -96,12 +96,7 @@ class CliContext extends Context
 	function getParameter( $key, $more = null )
 	{
 		$value = null ;
-		/*
-		$f = fopen( '/dev/tty', 'w' ) ;
-		fputs( $f, json_encode( $this->params ) ) ;
-		fputs( $f, "\n" ) ;
-		fclose( $f ) ;
-		*/
+		
 		if ( array_key_exists( $key, $this->params ) )
 		{
 			$value = $this->params[$key] ;

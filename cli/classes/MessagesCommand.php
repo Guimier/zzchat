@@ -29,7 +29,7 @@ class MessagesCommand extends Command
 			$defaults
 		) ;
 
-		$this->writeln( json_encode( $list ) ) ;
+		$this->writeln( JSON::encode( $list ) ) ;
 	}
 
 }

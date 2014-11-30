@@ -45,7 +45,7 @@ class Channel
 		
 		if ( ! array_key_exists( $channelId, $channels ) )
 		{
-			$channels[$channelId] = new User( $channelId ) ; 
+			$channels[$channelId] = new Channel( $channelId ) ; 
 		}
 		
 		return $channels[$channelId] ; 
@@ -101,7 +101,7 @@ class Channel
 	
 	private static function getPostsFile( $fileId ) 
 	{
-		return  $config->getDataDir( 'posts' ) . '/' . $FileId . '.json' ;
+		return  $config->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
 	
 	
@@ -109,6 +109,9 @@ class Channel
 	
 	/** The id of the channel */
 	private $id = -1 ;
+	
+	/** The array which contains the files which contain the posts of the channel */
+	private $files = array() ;
 	
 	/** The array which contains the data concerning the channel. */
 	private $channelData = null ;
@@ -178,6 +181,11 @@ class Channel
 		return $this->channelData['creator'] ;
 	}
 	
+	/** Get the id of the file where the next post has to be put.
+	* 
+	* @return The id of the file we need to insert the new post.
+	*/
+	
 	public function getInsertFile()
 	{
 		$postFileId = null ;
@@ -214,12 +222,16 @@ class Channel
 			'hidden' => false,
 			'content' => $content			 
 		) ;
+		$post = new Post ;
+		$post->postData = $data ;
 		
 		$postingFileId = $this->getInsertFile() ;
-		$postingFile = self::getPostsFile( $postingFile ) ;
+		$postingFile = self::getPostsFile( $postingFileId ) ;
+		$posts = $config->loadJson( $postingFile ) ;
+		$posts[] = $data ;
+		$config->saveJson( $postingFile,$posts ) ;
 		
-		file_put_contents( $postingFile, $config->loadJson(  ) ) ;
-				
+		return 	$post ;
 	}
 		
 	/** Check if the current file of the channel is full or not.
@@ -235,4 +247,67 @@ class Channel
 		 
 		return count( $fileContent ) >= $config->getValue( 'channel.maxnum' ) ; 
 	}
+	
+	/** Get the last posts which have been posted for a while.
+	*
+	* @param time $beginning
+	*
+	* @return An array with all the posts posted since the beginning.
+	*/
+	public function lastPosts( $beginning )
+	{
+		$config = Configuration::getInstance() ;
+		$lenght = count( $this->files ) ;
+		$currentFile = $lenght ;
+		$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+		$currentPost = count( $postsFile ) ;
+		while ( $postsFile[$currentPost]['date'] >= $begining  && $currentFile > 0 )
+		{
+			if ( $currentPost > 0 )
+			{
+				$currentPost = $currentPost - 1 ;
+			}
+			else
+			{
+				$currentFile = $currentFile - 1 ;
+				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+				$currentPost = count( $postsFile ) ;	
+			}
+		}
+		
+		$lastPosts = array() ;
+		
+		if ( $postsFile[$currentPost]['date'] < $beginning )
+		{
+			if ( $currentPosts  = count( $postsFile ) )
+			{
+				$currentFile = $currentFile + 1 ;
+				$currentPost = 0 ;
+			}
+			else
+			{
+				$currentPost = $currentPost + 1 ;
+			}
+		}
+		
+		while ( $currentFile < $lenght || $currentPost < count( $config->loadJson( $this->files[$lenght], array() ) ) )
+		{
+			if ( $currentPost < count( $currentFile ) )
+			{
+				$lastPosts[] = $postsFile[$currentPost] ;
+				$currentPost = $currentPost + 1 ;
+			}
+			else
+			{
+				$lastPosts[] = $postsFile[$currentPost] ;
+				$currentFile = $currentFile + 1 ;
+				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+				$currentPost = 0 ;	
+			}
+		}
+	
+		return $lastPosts ;
+	}	
+	
 }
+

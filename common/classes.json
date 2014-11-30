@@ -12,9 +12,13 @@
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
+	"JSON": "common/JSON.php",
 	"Languages": "common/Languages.php",
+	"LoginAjaxQueryPart": "web/php/ajax/LoginAjaxQueryPart.php",
+	"LogoutAjaxQueryPart": "web/php/ajax/LogoutAjaxQueryPart.php",
 	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
 	"MessagesCommand": "cli/classes/MessagesCommand.php",
+	"NoNameGivenException": "web/php/exceptions/NoNameGivenException.php",
 	"NoSuchChannelException": "common/channels/NoSuchChannelException.php",
 	"NoSuchConfigurationKeyException": "common/exceptions/NoSuchConfigurationKeyException.php",
 	"NoSuchQueryPartException": "web/php/ajax/NoSuchQueryPartException.php",
@@ -22,7 +26,12 @@
 	"NotLoggedInUserException": "common/users/NotLoggedInUserException.php",
 	"Post": "common/posts/Post.php",
 	"UserAlreadyInactiveException": "common/users/UserAlreadyInactiveException.php",
+<<<<<<< HEAD
+=======
+	"User": "common/users/User.php",
+>>>>>>> origin/guimier-connexion
 	"UserNameAlreadyTakenException": "common/users/UserNameAlreadyTakenException.php",
-	"Users": "common/users/User.php",
-	"WebContext": "web/php/WebContext.php"
+	"UserNameTooShortException": "common/users/UserNameTooShortException.php",
+	"WebContext": "web/php/WebContext.php",
+	"WhoamiAjaxQueryPart": "web/php/ajax/WhoamiAjaxQueryPart.php"
 }

@@ -1,6 +1,6 @@
 <?php
 
-class Users
+class User
 {
 	
 /***** Class *****/
@@ -18,14 +18,14 @@ class Users
 		
 		$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
 		
-		if ( array_key_exists( $name, $activeUser ) )
+		if ( array_key_exists( $name, $activeUsers ) )
 		{
 			$user = self::getUser( $activeUsers[$name] ) ;
-		}
-		
-		if ( ! $user->isActive() )
-		{
-			$user = null ;
+
+			if ( ! $user->isActive() )
+			{
+				$user = null ;
+			}
 		}
 		
 		return $user ;
@@ -96,13 +96,17 @@ class Users
 	{
 		$config = Configuration::getInstance() ; 
 		
+		if ( strlen( $userName ) < $config->getValue( 'user.minnamelength' ) )
+		{
+			throw new UserNameTooShortException( $userName ) ;
+		}
+		
 		if ( self::getActiveUser( $userName ) !== null )
 		{
 			throw new UserNameAlreadyTakenException( $userName ) ;
 		}
 		
-		$lastidFile = $config->getDataDir( 'users' ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
+		$id = $config->incrementCounter( 'lastuser' ) ;
 		
 		$config->saveJson(
 			self::getUserFile( $id ),
@@ -141,17 +145,15 @@ class Users
 	 * @throw NoSuchUserException If there is no user whith this id.
 	 */
 	public function __construct( $userId )  
-	{	
+	{
 		$this->id = $userId ;
-		$raw = file_get_contents( $this->getUserFile( $userId ) ) ;
+		$this->userData =Configuration::getInstance()->loadJson(
+			$this->getUserFile( $userId )
+		) ;
 		
-		if ( $raw === null ) // err
+		if ( $this->userData === null )
 		{
 			throw new NoSuchUserException( $userId ) ;
-		}
-		else // charger données
-		{
-			$this->userData = json_decode( $raw, true ) ;
 		}
 	}
 	
