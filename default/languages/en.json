@@ -35,6 +35,7 @@
 	"exceptions.nosuchuser": "No user has id “${userid}”",
 	"exceptions.nosuchchannel": "No channel has id “${id}”",
 	"exceptions.inactivechannel": "The channel #${id} is inactive",
+	"exception.climissingparameter": "Missing “${param}” parameter",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
