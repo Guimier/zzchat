@@ -9,6 +9,10 @@
 	"exceptions.illegalelement": "Élément <${element}> interdit",
 	"exceptions.illegalattribute": "Attribut « ${attribute} » interdit sur les éléments <${element}>",
 	"exceptions.illegalattributevalue": "L’attribut « ${attribute} » ne peut pas contenir « ${value} » sur les éléments <${element}>",
+	"exceptions.notloggedinuser": "Utilisateur non connecté !",
+	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
+	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
+	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
 	
 	"citations.anonymous": "Anonyme",
 	"citations.quotation": "« ${content} »",

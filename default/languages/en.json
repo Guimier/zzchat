@@ -9,6 +9,10 @@
 	"exceptions.illegalelement": "Element <${element}> not allowed",
 	"exceptions.illegalattribute": "Attribute “${attribute}” not allowed on <${element}> elements",
 	"exceptions.illegalattributevalue": "Attribute “${attribute}” cannot contain “${value}” on <${element}> elements",
+	"exceptions.notloggedinuser": "You need to be logged in to be able to log out",
+	"exceptions.useralreadyinactive": "The user whose id is “${userid}” is already inactive",
+	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
+	"exceptions.notloggedinuser": "No user with the “${userid}” id",
 	
 	"citations.anonymous": "Anonymous",
 	"citations.quotation": "“${content}”",
