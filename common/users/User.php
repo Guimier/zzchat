@@ -124,7 +124,7 @@ class User
 							) ;
 		$config->saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers ) ;
 		
-		) ;
+		
 		
 		return self::getUser( $id ) ;
 	}
