@@ -20,7 +20,7 @@ class User
 		
 		if ( array_key_exists( $name, $activeUsers ) )
 		{
-			$user = self::getUser( $activeUsers[$name] ) ;
+			$user = self::getUser( $activeUsers[$name]->getId() ) ;
 
 			if ( ! $user->isActive() )
 			{
@@ -53,11 +53,7 @@ class User
 		}
 	}
 	
-	/** 
-	*
-	*
-	*
-	*/
+	/** Make an User active.	*/
 	public function isActiveNow()
 	{
 		$this->userData['last-action'] = time() ;
@@ -113,17 +109,17 @@ class User
 			array(
 				'name' => $userName,
 				'last-action' => time()				
-				)
-			) ;
+		)
+		) ;
 		
-		$activeUsers = loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+		$activeUsersFile = $config->getDataDir( 'users' ) . '/active.json' ;
+		$activeUsers = $config->loadJson( $activeUsersFile, array() ) ;
 		
 		$activeUsers[] = array(
-								'name' => $userName,
-								'last-action' => time()
-							) ;
-		$config->saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers ) ;
-		
+							'name' => $userName,
+							'id' => $id
+		) ;
+		$config->saveJson( $activeUsersFile, $activeUsers ) ;
 		
 		
 		return self::getUser( $id ) ;
