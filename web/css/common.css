@@ -6,16 +6,24 @@
 	src : url( "../font/27990.ttf" ) format( "truetype" ) ;
 }
 
+html
+{
+	height : 100% ;	
+}
+
 #footer
 {
 	position : absolute ;
 	color : white ;
 	bottom : 0 ;
 	right : 0 ;
+	font-size : 0.75vmax ;
 }
 
 body
 {
 	margin : 0 ;
 	padding : 0 ;
+	height : 100% ;
 }
+

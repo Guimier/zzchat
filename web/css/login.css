@@ -1,10 +1,5 @@
 @charset "utf-8" ;
 
-html.page-login
-{
-	height : 100% ;
-}
-
 .page-login #nojs,
 .page-login #login-error
 {
@@ -14,7 +9,7 @@ html.page-login
 
 .page-login #nojs
 {
-	font-size : 1.2em ;
+	font-size : 1.2vmax ;
 }
 
 .page-login body 
@@ -26,7 +21,6 @@ html.page-login
 	background-position : center ;
 	background-size : auto 100% ;
 	background-attachment : fixed ;
-	height : 100% ;
 	text-align : center ;
 	font-size : 1vmax ;
 }
@@ -40,14 +34,14 @@ html.page-login
 .page-login .strut,
 .page-login #login
 {
-    /* On permet à ces éléments de s’aligner verticalement */
+    /* On permet Ã  ces Ã©lÃ©ments de sâ€™aligner verticalement */
     display : inline-block ;
     vertical-align : middle ;
 }
 
 .page-login .strut 
 {
-    /* Hauteur de la fenètre, par rapport à laquelle les éléments vont être alignés */
+    /* Hauteur de la fenÃ¨tre, par rapport Ã  laquelle les Ã©lÃ©ments vont Ãªtre alignÃ©s */
     height : 100% ;
 }
 
@@ -71,7 +65,6 @@ html.page-login
 	margin-bottom : 1vmax ;
 	margin-right : 1vmax ;
 	text-align : left ;
-	font-size : 0.75vmax ;
 }
 
 .page-login #menu
@@ -129,3 +122,5 @@ html.page-login
 	width : auto ;
 	font-size : 1vmax ;
 }
+
+
