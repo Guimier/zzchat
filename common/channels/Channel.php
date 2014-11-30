@@ -206,6 +206,8 @@ class Channel
 	 */
 	public function addPost( $user, $content )
 	{
+		HTML::checkInput( $content ) ;
+
 		$config = Configuration::getInstance() ;
 		
 		$data = array(
