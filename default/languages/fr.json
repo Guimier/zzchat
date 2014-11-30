@@ -5,13 +5,21 @@
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
 	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
+	"exception.climissingparameter": "Paramètre « ${param} » manquant",
 	
-	"cli.help": "Aide des lignes de commande Agora.",
-	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
+	"citations.anonymous": "Anonyme",
+	"citations.quotation": "« ${content} »",
+	
+	"cli.help.common": "Paramètres communs",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
-	"cli.help.common.language": "Définit le language de l’affichage.",
-	"cli.help.optional": "Arguments facultatifs",
-	"cli.help.required": "Arguments nécessaires",
+	"cli.help.common.language": "Définit la langue d’affichage.",
+	"cli.help.parameters": "Paramètres",
+	"cli.help.scenarios": "Utilisation",
+	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
+	
+	"cli.citations": "Gérer les citations",
+	"cli.citations.text": "Texte de la citation.",
+	"cli.citations.author": "Auteur de la citation (si connu).",
 	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
 	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise."

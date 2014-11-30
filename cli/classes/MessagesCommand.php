@@ -8,10 +8,10 @@ class MessagesCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'desc' => 'cli.messages',
-			'optional' => array(
+			'description' => 'cli.messages',
+			'parameters' => array(
 				'defaults' => array(
-					'desc' => 'cli.messages.defaults',
+					'description' => 'cli.messages.defaults',
 					'type' => 'boolean',
 					'alt' => 'd'
 				)
@@ -22,10 +22,9 @@ class MessagesCommand extends Command
 	/** See Command::execute. */
 	protected function execute()
 	{
-		$context = $this->getContext() ;
-		$defaults = $context->getBooleanParameter( 'defaults', 'd' ) ;
+		$defaults = $this->getParameter( 'defaults' ) ;
 		$list = Languages::getInstance()->getAllMessages(
-			$context->getLanguage(),
+			$this->getContext()->getLanguage(),
 			$defaults
 		) ;
 
