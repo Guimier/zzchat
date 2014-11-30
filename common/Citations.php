@@ -50,6 +50,19 @@ class Citations
 		return $res ;
 	}
 
+	/** Get a citation.
+	 * @param number $id Indentifiant of the citation.
+	 */
+	public function get( $id )
+	{
+		if ( ! array_key_exists( $id, $this->list ) )
+		{
+			throw new BadCallException() ;
+		}
+		
+		return $this->list[$id] ;
+	}
+
 	/** Get all citations. */
 	public function getAll()
 	{
@@ -67,6 +80,21 @@ class Citations
 			'author' => $author
 		) ;
 
+		$this->edited = true ;
+	}
+
+	/** Remove a citation.
+	 * @param number $id Identifiant of the citation (key in getAll output).
+	 */
+	public function remove( $id )
+	{
+		if ( ! array_key_exists( $id, $this->list ) )
+		{
+			throw new BadCallException() ;
+		}
+		
+		unset( $this->list[$id] ) ;
+		$this->list = array_values( $this->list );
 		$this->edited = true ;
 	}
 

@@ -33,7 +33,7 @@ class CitationsCommand extends Command
 				),
 				'id' => array(
 					'description' => 'cli.citations.id',
-					'type' => 'string'
+					'type' => 'array'
 				)
 			)
 		) ;
@@ -49,26 +49,58 @@ class CitationsCommand extends Command
 		$cits->add( $text, $author ) ;
 	}
 	
-	/** Show all citations */
+	/** Show a citation.
+	 * @param number $id Identifiant of the citation.
+	 * @param array $cit Representation of the citation.
+	 */
+	private function showCitation( $id, $cit )
+	{
+		$this->writeln(
+			"$id] "
+			. $this->getContext()->getMessage(
+				'citations.quotation',
+				array( 'content' => $cit['text'] )
+			)
+			. ' — '
+			. ( $cit['author'] === null
+				? $this->getContext()->getMessage( 'citations.anonymous' )
+				: $cit['author']
+			)
+		) ;
+	}
+	
+	/** Show all or some citations */
 	protected function execute_show()
 	{
 		$cits = new Citations() ;
 		$raw = $cits->getAll() ;
+		$ids = $this->getContext()->getArrayParameter( 'id' ) ;
 		
-		foreach ( $raw as $i => $cit )
+		if ( $ids === null )
 		{
-			$this->writeln(
-				"$i] "
-				. $this->getContext()->getMessage(
-					'citations.quotation',
-					array( 'content' => $cit['text'] )
-				)
-				. ' — '
-				. ( $cit['author'] === null
-					? $this->getContext()->getMessage( 'citations.anonymous' )
-					: $cit['author']
-				)
-			) ;
+			foreach ( $raw as $id => $cit )
+			{
+				$this->showCitation( $id, $cit ) ;
+			}
+		}
+		else
+		{
+			foreach ( $ids as $id )
+			{
+				$this->showCitation( $id, $cits->get( $id ) ) ;
+			}
+		}
+	}
+	
+	/** Remove a citation */
+	protected function execute_rm()
+	{
+		$cits = new Citations() ;
+		$ids = $this->getContext()->getArrayParameter( 'id' ) ;
+		
+		foreach ( $ids as $id )
+		{
+			$cits->remove( $id ) ;
 		}
 	}
 	
