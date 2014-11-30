@@ -32,6 +32,8 @@
 	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
 	"exceptions.usernametooshort": "Le nom d’utilisateur « ${username} » est trop court",
 	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
+	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",
+	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

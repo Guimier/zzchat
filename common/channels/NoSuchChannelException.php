@@ -1,9 +1,9 @@
 <?php
 
-class NoSuchChannelException extends Exception
+class NoSuchChannelException extends AgoraUserException
 {
 	public function __construct( $id )
 	{
-		parent::__construct( "Unknown channel $id" );
+		parent::__construct( 'exceptions.nosuchchannel', array( 'id' => $id ) );
 	}
 }

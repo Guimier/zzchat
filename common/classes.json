@@ -21,6 +21,7 @@
 	"IllegalAttributeException": "common/html/IllegalAttributeException.php",
 	"IllegalAttributeValueException": "common/html/IllegalAttributeValueException.php",
 	"IllegalElementException": "common/html/IllegalElementException.php",
+	"InactiveChannelException": "common/channels/InactiveChannelException.php",
 	"JSON": "common/JSON.php",
 	"Languages": "common/Languages.php",
 	"LoginAjaxQueryPart": "web/php/ajax/LoginAjaxQueryPart.php",

@@ -32,6 +32,8 @@
 	"exceptions.notloggedinuser": "Cannot log out if not logged in",
 	"exceptions.usernametooshort": "User name “${username}” is too short",
 	"exceptions.nosuchuser": "No user has id “${userid}”",
+	"exceptions.nosuchchannel": "No channel has id “${id}”",
+	"exceptions.inactivechannel": "The channel #${id} is inactive",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

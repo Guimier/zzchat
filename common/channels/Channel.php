@@ -45,7 +45,7 @@ class Channel
 		
 		if ( ! array_key_exists( $channelId, $channels ) )
 		{
-			$channels[$channelId] = new User( $channelId ) ; 
+			$channels[$channelId] = new Channel( $channelId ) ;
 		}
 		
 		return $channels[$channelId] ; 
@@ -94,14 +94,14 @@ class Channel
 	 * 
 	 * @return The File of the channel.
 	 */
-	private static function getChannelFile( $userId )
+	private static function getChannelFile( $channelId )
 	{
 		return Configuration::getInstance()->getDataDir( 'channels' ) . '/' . $channelId . '.json' ;
 	}
 	
 	private static function getPostsFile( $fileId ) 
 	{
-		return  $config->getDataDir( 'posts' ) . '/' . $FileId . '.json' ;
+		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $FileId . '.json' ;
 	}
 	
 	
@@ -117,15 +117,13 @@ class Channel
 	public function __construct( $channelId )
 	{
 		$this->id = $channelId ;
-		$raw = file_get_contents( $this->getChannelFile( $channelId ) ) ;
+		$this->channelData = Configuration::getInstance()->loadJson(
+			$this->getChannelFile( $channelId )
+		) ;
 		
-		if ( $raw === null ) // err
+		if ( $this->channelData === null )
 		{
-			throw new NoSuchChannelException( $userId ) ;
-		}
-		else // charger données
-		{
-			$this->channelData = json_decode( $raw, true ) ;
+			throw new NoSuchChannelException( $channelId ) ;
 		}
 	}
 	
@@ -135,7 +133,7 @@ class Channel
 	 */
 	public function isActive()
 	{
-		return time() - $this->channelData['last-action'] < Configuration::getInstance()->getValue( 'channel.inactivity' ) ;
+		return time() - $this->channelData['last-action'] < Configuration::getInstance()->getValue( 'channels.inactivity' ) ;
 	}
 	
 	/** Get the id of the channel.
@@ -188,7 +186,8 @@ class Channel
 		}
 		else
 		{
-			$postFileId = Configuration::getInstance()->getCounter( Configuration::getInstance()->getDataDir( 'posts' ) . '/lastid.int' ) ;
+			$config = Configuration::getInstance() ;
+			$postFileId = $config->incrementCounter( $config->getDataDir( 'posts' ) . '/lastid.int' ) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
 			$this->files[] = $postFileId ;
 		}
@@ -204,8 +203,18 @@ class Channel
 	 * 
 	 * @return The Post which has been added.
 	 */
-	public function addPost( $user, $content )
+	public function addPost( User $user, $content )
 	{
+		if ( ! is_string( $content ) )
+		{
+			throw new BadCallException() ;
+		}
+		
+		if ( ! $this->isActive() )
+		{
+			throw new InactiveChannelException( $this->id ) ;
+		}
+		
 		HTML::checkInput( $content ) ;
 
 		$config = Configuration::getInstance() ;
