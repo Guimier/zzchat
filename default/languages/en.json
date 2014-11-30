@@ -22,7 +22,7 @@
 	"exceptions.badcall": "“${method}” called with wrong argument(s)",
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
 	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
-	"exception.climissingparameter": "Missing “${param}” parameter",
+	"exceptions.climissingparameter": "Missing “${param}” parameter",
 	"exceptions.illegalelement": "Element <${element}> not allowed",
 	"exceptions.illegalattribute": "Attribute “${attribute}” not allowed on <${element}> elements",
 	"exceptions.illegalattributevalue": "Attribute “${attribute}” cannot contain “${value}” on <${element}> elements",
