@@ -29,7 +29,7 @@ abstract class Command
 		}
 		catch ( Exception $e )
 		{
-			echo $e->getMessage() ;
+			self::errln( $e->getMessage() ) ;
 			exit ( 1 ) ;
 		}
 	}
@@ -41,7 +41,11 @@ abstract class Command
 	}
 
 	/** Executable part of the command line. */
-	abstract protected function execute() ;
+	protected function execute()
+	{
+		$method = $this->getMethod() ;
+		$this->$method() ;
+	}
 
 	/** Get formated documentation.
 	 * @return Associative array describing the commandline.
@@ -49,6 +53,37 @@ abstract class Command
 	 *   * Key `desc` must contain the name of a translated description for the commandline.
 	 */
 	abstract public function getDocumentation() ;
+
+	/**
+	 *
+	 */
+	private function noSuchAction()
+	{
+		$this->writeln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
+		$this->writeln( '--------------------' ) ;
+		$this->showDocumentation() ;
+	}
+
+	/**
+	 *
+	 */
+	private function getMethod()
+	{
+		$firstParam = $this->getContext()->getParameter( 0 ) ;
+		$doc = $this->getDocumentation() ;
+		$method = 'noSuchAction' ;
+		
+		if (
+			$firstParam !== null
+			&& array_key_exists( 'scenarios', $doc )
+			&& array_key_exists( $firstParam, $doc['scenarios'] )
+		)
+		{
+			$method = "execute_$firstParam" ;
+		}
+		
+		return $method ;
+	}
 
 	/** Show a list of parameters for a script.
 	 * @param string $name Name of the parameter.
@@ -101,9 +136,10 @@ abstract class Command
 	 */
 	private function showDocumentationTitle( $title )
 	{
-		echo "\n" . strtoupper(
+		$this->writeln() ;
+		$this->writeln( strtoupper(
 			$this->getContext()->getMessage( $title )
-		) . "\n" ;
+		) );
 	}
 
 	/**
@@ -115,19 +151,19 @@ abstract class Command
 		
 		foreach ( $scenarios as $key => $desc )
 		{
-			echo "\t$command $key" ;
+			$scenario = "\t$command $key" ;
 			foreach ( $desc['parameters'] as $param )
 			{
 				if ( $params[$param]['required'] )
 				{
-					echo " --$param" ;
+					$scenario .= " --$param" ;
 				}
 				else
 				{
-					echo " [--$param]" ;
+					$scenario .= " [--$param]" ;
 				}
 			}
-			echo "\n" ;
+			$this->writeln( $scenario ) ;
 		}
 	}
 
@@ -179,7 +215,7 @@ abstract class Command
 	/** Print a line on the console.
 	 * @param string [$message=''] Message to print.
 	 */
-	protected function writeln( $message = '' )
+	protected static function writeln( $message = '' )
 	{
 		echo "$message\n" ;
 	}
@@ -187,7 +223,7 @@ abstract class Command
 	/** Print a line on stderr.
 	 * @param string $message Error or warning message.
 	 */
-	protected function errln( $message )
+	protected static function errln( $message )
 	{
 		fwrite( STDERR, "$message\n" ) ;
 	}

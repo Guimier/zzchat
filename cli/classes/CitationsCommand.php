@@ -16,6 +16,10 @@ class CitationsCommand extends Command
 				'show' => array(
 					'description' => 'cli.citation.show',
 					'parameters' => array()
+				),
+				'rm' => array(
+					'description' => 'cli.citation.rm',
+					'parameters' => array( 'id' )
 				)
 			),
 			'parameters' => array(
@@ -28,23 +32,53 @@ class CitationsCommand extends Command
 					'required' => false,
 					'description' => 'cli.citations.author',
 					'type' => 'string'
+				),
+				'id' => array(
+					'required' => true,
+					'description' => 'cli.citations.id',
+					'type' => 'string'
 				)
 			)
 		) ;
 	}
-
-	/** See Command::execute. */
-	protected function execute()
+	
+	/** Add a citation */
+	protected function execute_add()
 	{
-		$context = $this->getContext() ;
-		$defaults = $context->getBooleanParameter( 'defaults', 'd' ) ;
-		$list = Languages::getInstance()->getAllMessages(
-			$context->getLanguage(),
-			$defaults
-		) ;
-
-		$this->writeln( json_encode( $list ) ) ;
+		$text = $this->getContext()->getParameter( 'text' ) ;
+		$author = $this->getContext()->getParameter( 'author' ) ;
+		
+		if ( $text === null )
+		{
+			throw new CliMissingParameterException( 'text' ) ;
+		}
+		
+		$cits = new Citations() ;
+		$cits->add( $text, $author ) ;
 	}
-
+	
+	/** Show all citations */
+	protected function execute_show()
+	{
+		$cits = new Citations() ;
+		$raw = $cits->getAll() ;
+		
+		foreach ( $raw as $i => $cit )
+		{
+			$this->writeln(
+				"$i] "
+				. $this->getContext()->getMessage(
+					'citations.quotation',
+					array( 'content' => $cit['text'] )
+				)
+				. ' — '
+				. ( $cit['author'] === null
+					? $this->getContext()->getMessage( 'citations.anonymous' )
+					: $cit['author']
+				)
+			) ;
+		}
+	}
+	
 }
 

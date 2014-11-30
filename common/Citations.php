@@ -58,7 +58,7 @@ class Citations
 
 	/** Add a citation.
 	 * @param string $text The citation.
-	 * @param string $author The author of the citation.
+	 * @param string $author The author of the citation (may be null).
 	 */
 	public function add( $text, $author )
 	{

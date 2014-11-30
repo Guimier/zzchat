@@ -10,6 +10,7 @@
 	"CitationsCommand": "cli/classes/CitationsCommand.php",
 	"Citations": "common/Citations.php",
 	"CliContext": "cli/classes/CliContext.php",
+	"CliMissingParameterException": "cli/classes/CliMissingParameterException.php",
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
