@@ -30,7 +30,6 @@
 	"exceptions.notloggedinuser": "Utilisateur non connecté !",
 	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
 	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
-	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
 	"exceptions.usernametooshort": "Le nom d’utilisateur « ${username} » est trop court",
 	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
 	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",

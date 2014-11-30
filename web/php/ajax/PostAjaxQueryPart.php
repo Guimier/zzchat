@@ -5,6 +5,8 @@ class PostAjaxQueryPart extends AjaxQueryPart
 	
 	public function execute()
 	{
+		$user = $this->loggedInOnly() ;
+		
 		$channel = Channel::getChannel( $this->getParameter( 'channel' ) ) ;
 		
 		$content = $this->getParameter( 'content' ) ;
@@ -13,7 +15,7 @@ class PostAjaxQueryPart extends AjaxQueryPart
 			throw new WebMissingParameterException( 'content' ) ;
 		}
 		
-		$channel->addPost( Context::getCanonical()->getUser(), $content ) ;
+		$channel->addPost( $user, $content ) ;
 	}
 	
 }

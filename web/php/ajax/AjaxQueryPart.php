@@ -40,4 +40,20 @@ abstract class AjaxQueryPart
 		return $this->context->getBooleanParameter( $this->prefix . '_' . $key, $selector ) ;
 	}
 	
+	/** This request may be executed only if logged in.
+	 * @return the current user.
+	 * @throws NotLoggedInUserException If the user is not logged in.
+	 */
+	protected function loggedInOnly()
+	{
+		$user = Context::getCanonical()->getUser() ;
+		
+		if ( $user === null )
+		{
+			throw new NotLoggedInUserException() ;
+		}
+		
+		return $user ;
+	}
+	
 }

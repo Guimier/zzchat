@@ -5,6 +5,8 @@ class CreateChannelAjaxQueryPart extends AjaxQueryPart
 	
 	public function execute()
 	{
+		$user = $this->loggedInOnly() ;
+	
 		$content = $this->getParameter( 'name' ) ;
 		if ( $content === null )
 		{
@@ -19,11 +21,7 @@ class CreateChannelAjaxQueryPart extends AjaxQueryPart
 		
 		$content = $this->getParameter( 'type' ) ;
 		
-		$channel = Channel::createChannel(
-			$name, $title,
-			Context::getCanonical()->getUser(),
-			$type
-		) ; 
+		$channel = Channel::createChannel( $name, $title, $user, $type ) ;
 		
 		return $channel->getId() ;
 	}

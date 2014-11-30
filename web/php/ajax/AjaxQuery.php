@@ -120,8 +120,7 @@ class AjaxQuery
 		return $opts ;
 	}
 	
-	/** Expose te result of the query to the client.
-	 */
+	/** Expose the result of the query to the client. */
 	public function show()
 	{
 		header( 'Content-Type: application/json; charset=UTF-8' ) ;
