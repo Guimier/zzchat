@@ -87,10 +87,7 @@ class User
 		$activeUsersFile = $config->getDataDir( 'users' ) . '/active.json' ;
 		$activeUsers = $config->loadJson( $activeUsersFile, array() ) ;
 		
-		$activeUsers[] = array(
-							'name' => $userName,
-							'id' => $id
-		) ;
+		$activeUsers[$userName] = $id ;
 		$config->saveJson( $activeUsersFile, $activeUsers ) ;
 		
 		
