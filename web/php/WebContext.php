@@ -30,9 +30,9 @@ class WebContext extends Context
 		session_start() ;
 		if ( array_key_exists( 'user-id', $_SESSION ) )
 		{
-			$user = getUser( $_SESSION['user-id'] ) ;
+			$user = User::getUser( $_SESSION['user-id'] ) ;
 			
-			if ( $user->isActive() ) 
+			if( $user->isActive() )
 			{
 				$this->user = $user ;
 			}
@@ -71,24 +71,31 @@ class WebContext extends Context
 		return $value ;
 	}
 	
+	/** Get the current user.
+	 * @codeCoverageIgnore Getter.
+	 */
+	public function getUser()
+	{
+		return $this->user ;
+	}
 	
 	/**	Create and connect an user with the name in parameter.
 	 * 
 	 * @param string $userName The name of the user.
 	 * 
 	 */ 
-	function connect( $userName )
+	public function connect( $userName )
 	{
-		$this->user = Users::createUser( $userName ) ;	
+		$this->user = User::createUser( $userName ) ;
 	}
 	
 	/**	Disconnect an user with the name in parameter.
 	 * 
 	 * @throw NotLoggedInUserException If no user is associated to the session.
 	 */ 
-	function disconnect()
+	public function disconnect()
 	{
-		if ( $user === null )
+		if ( $this->user === null )
 		{
 			throw new NotLoggedInUserException() ;
 		}
@@ -98,7 +105,8 @@ class WebContext extends Context
 			$this->user = null ;
 		}
 	}
-	/** Destructor */ 
+
+	/** Destructor. */ 
 	public function __destruct()
 	{
 		if ( $this->user === null )

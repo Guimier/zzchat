@@ -25,8 +25,8 @@ class ConfigurationTest extends ClassTester
 		
 		$this->assertEquals(
 			$config->getDataDir( 'someKey' ),
-			'/data/someKey',
-			'Data subdirectories are in “data” directory.'
+			'/local/data/someKey',
+			'Data subdirectories are in “local/data” directory.'
 		) ;
 	}
 	
