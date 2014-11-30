@@ -1,5 +1,4 @@
 <?php
-
 /** The context of the web query. */
 class WebContext extends Context
 {
@@ -51,9 +50,7 @@ class WebContext extends Context
 		{
 			$more = self::BOTH ;
 		}
-
 		$value = null ;
-
 		if (
 			$more & self::POST &&
 			array_key_exists( $key, $this->postParams )
@@ -67,7 +64,6 @@ class WebContext extends Context
 		{
 			$value = $this->getParams[$key] ;
 		}
-
 		return $value ;
 	}
 	
@@ -105,12 +101,8 @@ class WebContext extends Context
 			$this->user = null ;
 		}
 	}
-<<<<<<< HEAD
-	/** Destructor */ 
-=======
 	
 	/** Destructor. */
->>>>>>> origin/guimier-connexion
 	public function __destruct()
 	{
 		if ( $this->user === null )
@@ -124,4 +116,3 @@ class WebContext extends Context
 	}
 	
 }
-
