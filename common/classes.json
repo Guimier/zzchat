@@ -26,10 +26,7 @@
 	"NotLoggedInUserException": "common/users/NotLoggedInUserException.php",
 	"Post": "common/posts/Post.php",
 	"UserAlreadyInactiveException": "common/users/UserAlreadyInactiveException.php",
-<<<<<<< HEAD
-=======
 	"User": "common/users/User.php",
->>>>>>> origin/guimier-connexion
 	"UserNameAlreadyTakenException": "common/users/UserNameAlreadyTakenException.php",
 	"UserNameTooShortException": "common/users/UserNameTooShortException.php",
 	"WebContext": "web/php/WebContext.php",

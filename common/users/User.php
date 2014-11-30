@@ -45,7 +45,7 @@ class User
 		else
 		{
 			$config = Configuration::getInstance() ;
-			$activeUsers = loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+			$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
 			
 			unset ( $activeUsers[$this->userData['name']] ) ;
 			
@@ -113,7 +113,17 @@ class User
 			array(
 				'name' => $userName,
 				'last-action' => time()				
-			)
+				)
+			) ;
+		
+		$activeUsers = loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+		
+		$activeUsers[] = array(
+								'name' => $userName,
+								'last-action' => time()
+							) ;
+		$config->saveJson( $activeUsers ) ;
+		
 		) ;
 		
 		return self::getUser( $id ) ;
