@@ -122,7 +122,7 @@ class User
 								'name' => $userName,
 								'last-action' => time()
 							) ;
-		$config->saveJson( $activeUsers ) ;
+		$config->saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers ) ;
 		
 		) ;
 		
