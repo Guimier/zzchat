@@ -8,7 +8,7 @@ counters=( lastchannel lastuser lastpostfile )
 
 #############################
 
-rm -r "$data"
+rm -r "$data" 2>/dev/null
 mkdir "$data"
 
 for dir in "${datadirs[@]}"
