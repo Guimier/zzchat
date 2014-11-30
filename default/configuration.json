@@ -2,7 +2,7 @@
 	"ajaxrate.newposts": 2,
 	"ajaxrate.people": 60,
 	"channels.maxnum": 100,
-	"channels.style": "theater",
+	"channels.defaulttype": "theater",
 	"channels.inactivity": 604800,
 	"channels.postlength": 1024,
 	"channels.filelength": 100,

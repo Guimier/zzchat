@@ -19,11 +19,11 @@ class Channel
 		if ( array_key_exists( $name, $activeChannel ) )
 		{
 			$channel = self::getChannel( $activeChannel[$name] ) ;
-		}
 		
-		if ( ! $channel->isActive() )
-		{
-			$channel = null ;
+			if ( ! $channel->isActive() )
+			{
+				$channel = null ;
+			}
 		}
 		
 		return $channel ;
@@ -56,12 +56,12 @@ class Channel
 	 * @param string $channelName The name of the channel which is created.
 	 * @param string $channelTitle The title of the channel which is created.
 	 * @param User $channelCreator The User who has created this channel.
-	 *  
+	 * 
 	 * @return The Channel instance.
 	 */
-	public static function createChannel( $channelName, $channelTitle, User $channelCreator, $type ) 
+	public static function createChannel( $channelName, $channelTitle, User $channelCreator, $type )
 	{
-		$config = Configuration::getInstance() ; 
+		$config = Configuration::getInstance() ;
 		
 		if ( self::getActiveChannel( $channelName ) !== null )
 		{
@@ -77,10 +77,12 @@ class Channel
 				'name' => $channelName,
 				'title' => $channelTitle,
 				'creator' => $channelCreator->getId(),
-				'type' => $type,
+				'type' => $type !== null
+					? $type
+					: $config->getValue( 'channels.defaulttype' ),
 				'creation' => time(),
 				'last-action' => time(),
-				'files' => array()				
+				'files' => array()
 			)
 		) ;
 		

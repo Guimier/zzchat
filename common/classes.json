@@ -17,6 +17,7 @@
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
+	"CreateChannelAjaxQueryPart": "web/php/ajax/CreateChannelAjaxQueryPart.php",
 	"HTML": "common/html/HTML.php",
 	"IllegalAttributeException": "common/html/IllegalAttributeException.php",
 	"IllegalAttributeValueException": "common/html/IllegalAttributeValueException.php",
