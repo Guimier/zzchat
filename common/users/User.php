@@ -21,7 +21,7 @@ class User
 		
 		if ( array_key_exists( $name, $activeUsers ) )
 		{
-			$user = self::getUser( $activeUsers[$name]->getId() ) ;
+			$user = self::getUser( $activeUsers[$name] ) ;
 
 			if ( ! $user->isActive() )
 			{
