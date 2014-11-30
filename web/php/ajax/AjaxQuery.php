@@ -52,6 +52,31 @@ class AjaxQuery
 		return $queryPart->execute() ;
 	}
 	
+	private function getExceptionResult( Exception $e )
+	{
+		$user = $e instanceof AgoraUserException ;
+		
+		$result = array(
+			'success' => false,
+			'type' => $user ? 'user' : 'internal'
+		) ;
+		
+		$debug = Configuration::getInstance()->getValue( 'debug' ) ;
+		
+		if ( $user || $debug )
+		{
+			$result['error'] = get_class( $e ) ;
+			$result['message'] = $e->getMessage() ;
+		}
+		
+		if ( $debug )
+		{
+			$result['trace'] = $e->getTrace() ;
+		}
+		
+		return $result ;
+	}
+	
 	/** Execute all parts of the query. */
 	public function execute()
 	{
@@ -68,24 +93,11 @@ class AjaxQuery
 					$result['data'] = $data ;
 				}
 			}
-			catch ( AgoraUserException $e )
-			{
-				$result = array(
-					'success' => false,
-					'error' => get_class( $e ),
-					'message' => $e->getMessage(),
-					'type' => 'user'
-				) ;
-			}
 			catch ( Exception $e )
 			{
-				$result = array(
-					'success' => false,
-					'error' => get_class( $e ),
-					'message' => $e->getMessage(),
-					'type' => 'internal'
-				) ;
+				$result = $this->getExceptionResult( $e ) ;
 			}
+			
 			$this->result[$part] = $result ;
 		}
 	}
