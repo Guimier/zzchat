@@ -8,5 +8,6 @@
 	"channels.filelength": 100,
 	"user.maxpostrate": 20,
 	"user.defaultlang": "en",
-	"user.inactivity": 86400
+	"user.inactivity": 86400,
+	"user.minnamelength": 4
 }

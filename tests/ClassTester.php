@@ -114,4 +114,24 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		return $this->getRootDir() . '/' . $this->getRelDataDir() ;
 	}
 
+/***** Testing changing files *****/
+
+	private $copiedFiles = array() ;
+	
+	public function copyDataFile( $src, $dest )
+	{
+		copy( $this->getTestDataDir() . "/$src", $this->getTestDataDir() . "/$dest" ) ;
+		$this->copiedFiles[] = $dest ;
+	}
+	
+	public function deleteDataFiles()
+	{
+		$dir = $this->getTestDataDir() ;
+		
+		foreach ( $this->copiedFiles as $file )
+		{
+			delete( "$dir/$file" ) ;
+		}
+	}
+
 }

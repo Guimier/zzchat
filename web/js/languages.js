@@ -229,7 +229,7 @@
 			}
 			else
 			{
-				waiters.push( callback ) ;
+				waiters[language].push( callback ) ;
 			}
 		}
 	}

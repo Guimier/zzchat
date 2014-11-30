@@ -2,11 +2,6 @@
 	"lang.en": "English",
 	"lang.fr": "French",
 	
-	"exceptions.badcall": "“${method}” called with wrong argument(s)",
-	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
-	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
-	"exception.climissingparameter": "Missing “${param}” parameter",
-	
 	"citations.anonymous": "Anonymous",
 	"citations.quotation": "“${content}”",
 	
@@ -22,5 +17,22 @@
 	"cli.citations.author": "Author of the citation (if known).",
 	
 	"cli.messages": "This script allows retrieving translations.",
-	"cli.messages.defaults": "Replace missing messages by their english equivalent."
+	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
+	
+	"exceptions.badcall": "“${method}” called with wrong argument(s)",
+	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
+	"exceptions.nosuchquerypart": "“${partname}” query part does not exist",
+	"exceptions.notloggedinuser": "You need to be logged in to be able to log out",
+	"exceptions.useralreadyinactive": "The user whose id is “${userid}” is already inactive",
+	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
+	"exceptions.notloggedinuser": "Cannot log out if not logged in",
+	"exceptions.usernametooshirt": "User name “${username}” is too short",
+	"exceptions.nosuchuser": "No user has id “${userid}”",
+	"exception.climissingparameter": "Missing “${param}” parameter",
+	
+	"login.validate": "Enter agora",
+	"login.welcome": "Say who you are",
+	
+	"web.footer": "Agora ZZ © 2014, All Rights Reserved.<br/>Created by Lucien Guimier, Damien Teyssier and Guilhem Drogue",
+	"web.nojs": "You need to enable JavaScript to use Agora."
 }
