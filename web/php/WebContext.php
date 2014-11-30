@@ -30,15 +30,9 @@ class WebContext extends Context
 		session_start() ;
 		if ( array_key_exists( 'user-id', $_SESSION ) )
 		{
-<<<<<<< HEAD
-			$user = getUser( $_SESSION['user-id'] ) ;
-			
-			if ( $user->isActive() ) 
-=======
 			$user = User::getUser( $_SESSION['user-id'] ) ;
 			
 			if( $user->isActive() )
->>>>>>> origin/guimier-connexion
 			{
 				$this->user = $user ;
 			}
