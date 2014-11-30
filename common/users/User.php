@@ -21,7 +21,7 @@ class User
 		
 		if ( array_key_exists( $name, $activeUsers ) )
 		{
-			$user = self::getUser( $activeUsers[$name] ) ;
+			$user = self::getUser( $activeUsers[$name]->getId() ) ;
 
 			if ( ! $user->isActive() )
 			{
@@ -84,6 +84,16 @@ class User
 			)
 		) ;
 		
+		$activeUsersFile = $config->getDataDir( 'users' ) . '/active.json' ;
+		$activeUsers = $config->loadJson( $activeUsersFile, array() ) ;
+		
+		$activeUsers[] = array(
+							'name' => $userName,
+							'id' => $id
+		) ;
+		$config->saveJson( $activeUsersFile, $activeUsers ) ;
+		
+		
 		return self::getUser( $id ) ;
 	}
 	
@@ -98,7 +108,7 @@ class User
 	}
 	
 	
-/**** Instances ****/
+/***** Instances *****/
 	
 	/** The id of the user. */
 	private $id = -1 ;
