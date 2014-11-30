@@ -101,6 +101,8 @@
 			
 			var $editor = this.morrigan_editor( {
 				iframeStyles: 'web/lib/morrigan-iframe.css',
+				width: 'auto',
+				height: '100px',
 				toolbox: [ toolbox ]
 			} ) ;
 			
