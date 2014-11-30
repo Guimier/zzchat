@@ -92,6 +92,7 @@
 		<echo message="Building JS documentation…"/>
 		<exec executable="yuidoc">
 			<arg value="${js-src}" />
+			<arg value="--no-color" />
 			<arg value="-o" /> <arg value="${js-doc-dir}" />
 		</exec>
 	</target>
