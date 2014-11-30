@@ -32,16 +32,12 @@ class Channel
 		return $channel ;
 	}
 	
-	
-	
-	
 	/** Get a channel by id.
 	 * 
 	 * @param int $channelId The id to look for.
 	 * 
 	 * @return The Channel instance.
 	 */
-	
 	public static function getChannel( $channelId )
 	{
 		static $channels = array() ;
@@ -92,18 +88,21 @@ class Channel
 		return self::getChannel( $id ) ;
 	}
 	
-	
-	
 	/** Get the file of the channel by id.
 	 * @param int $channelId The id of the channel whose file is searched.
 	 * 
-	 * @return The File of the channel.
+	 * @return The file of the channel.
 	 */
 	private static function getChannelFile( $channelId )
 	{
 		return Configuration::getInstance()->getDataDir( 'channels' ) . '/' . $channelId . '.json' ;
 	}
 	
+	/** Get the file of a posts list by id.
+	 * @param int $fileId The id of the file.
+	 * 
+	 * @return The relative path to the file.
+	 */
 	private static function getPostsFile( $fileId )
 	{
 		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
@@ -114,11 +113,11 @@ class Channel
 	/** The id of the channel */
 	private $id = -1 ;
 	
-	/** The array which contains the files which contain the posts of the channel */
-	private $files = array() ;
-	
 	/** The array which contains the data concerning the channel. */
 	private $channelData = null ;
+	
+	/** The data have been edited */
+	private $modified = false ;
 	
 	/** Constructor of channel instance */
 	public function __construct( $channelId )
@@ -131,6 +130,20 @@ class Channel
 		if ( $this->channelData === null )
 		{
 			throw new NoSuchChannelException( $channelId ) ;
+		}
+	}
+	
+	/** Destructor.
+	 * Save the data if modified.
+	 */
+	public function __destruct()  
+	{
+		if ( $this->modified )
+		{
+			Configuration::getInstance()->saveJson(
+				$this->getChannelFile( $this->id ),
+				$this->channelData
+			) ;
 		}
 	}
 	
@@ -190,17 +203,19 @@ class Channel
 	public function getInsertFile()
 	{
 		$postFileId = null ;
-		$counter = count( $this->files ) ;
-		if ( $counter !== 0 && ! $this->isFull( $this->files[$counter] ) )
+		$files = & $this->channelData['files'] ;
+		$lastIndex = count( $files ) - 1 ;
+		if ( $lastIndex >= 0 && ! $this->isFull( $files[$lastIndex] ) )
 		{
-			$postFileId = $this->files[$counter] ;
+			$postFileId = $files[$lastIndex] ;
 		}
 		else
 		{
 			$config = Configuration::getInstance() ;
 			$postFileId = $config->incrementCounter( 'lastpostfile' ) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
-			$this->files[] = $postFileId ;
+			$files[] = $postFileId ;
+			$this->modified = true ;
 		}
 		
 		return $postFileId ;
@@ -246,16 +261,16 @@ class Channel
 		
 	/** Check if the current file of the channel is full or not.
 	 * 
-	 * @param File $file The file which is tested.
+	 * @param string $fileId The id of the tested file.
 	 * 
 	 * @return Boolean : true if full, false otherwise.
 	 */
-	public function isFull( $file )
+	public function isFull( $fileId )
 	{
 		$config = Configuration::getInstance() ;
-		$fileContent = $config->loadJson( $file ) ;
+		$fileContent = $config->loadJson( self::getPostsFile( $fileId ) ) ;
 		
-		return count( $fileContent ) >= $config->getValue( 'channel.maxnum' ) ;
+		return count( $fileContent ) >= $config->getValue( 'channels.filelength' ) ;
 	}
 	
 	/** Get the last posts which have been posted for a while.
