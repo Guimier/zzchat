@@ -72,7 +72,7 @@ class Channel
 		}
 		
 		$lastidFile = $config->getDataDir( 'channels' ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
+		$id = $config->incrementCounter( 'lastchannel' ) ;
 		
 		$config->saveJson(
 			self::getChannelFile( $id ),
@@ -106,7 +106,7 @@ class Channel
 	
 	private static function getPostsFile( $fileId )
 	{
-		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $FileId . '.json' ;
+		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
 	
 /***** Instances *****/
@@ -198,7 +198,7 @@ class Channel
 		else
 		{
 			$config = Configuration::getInstance() ;
-			$postFileId = $config->incrementCounter( $config->getDataDir( 'posts' ) . '/lastid.int' ) ;
+			$postFileId = $config->incrementCounter( 'lastpostfile' ) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
 			$this->files[] = $postFileId ;
 		}
@@ -231,7 +231,7 @@ class Channel
 		$config = Configuration::getInstance() ;
 		
 		$data = array(
-			'owner' => $user,
+			'owner' => $user->getId(),
 			'date' => time(),
 			'hidden' => false,
 			'content' => $content
