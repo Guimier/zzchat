@@ -11,30 +11,27 @@ class CitationsCommand extends Command
 			'scenarios' => array(
 				'add' => array(
 					'description' => 'cli.citation.add',
-					'parameters' => array( 'text', 'author' )
+					'parameters' => array( '+text', 'author' )
 				),
 				'show' => array(
 					'description' => 'cli.citation.show',
-					'parameters' => array()
+					'parameters' => array( 'id' )
 				),
 				'rm' => array(
 					'description' => 'cli.citation.rm',
-					'parameters' => array( 'id' )
+					'parameters' => array( '+id' )
 				)
 			),
 			'parameters' => array(
 				'text' => array(
-					'required' => true,
 					'description' => 'cli.citations.text',
 					'type' => 'string'
 				),
 				'author' => array(
-					'required' => false,
 					'description' => 'cli.citations.author',
 					'type' => 'string'
 				),
 				'id' => array(
-					'required' => true,
 					'description' => 'cli.citations.id',
 					'type' => 'string'
 				)
@@ -47,11 +44,6 @@ class CitationsCommand extends Command
 	{
 		$text = $this->getContext()->getParameter( 'text' ) ;
 		$author = $this->getContext()->getParameter( 'author' ) ;
-		
-		if ( $text === null )
-		{
-			throw new CliMissingParameterException( 'text' ) ;
-		}
 		
 		$cits = new Citations() ;
 		$cits->add( $text, $author ) ;

@@ -40,7 +40,9 @@ abstract class Command
 		$this->commandName = $commandName ;
 	}
 
-	/** Executable part of the command line. */
+	/** Executable part of the command line.
+	 * Override if you don’t want auto-splitting.
+	 */
 	protected function execute()
 	{
 		$method = $this->getMethod() ;
@@ -54,9 +56,7 @@ abstract class Command
 	 */
 	abstract public function getDocumentation() ;
 
-	/**
-	 *
-	 */
+	/** Say the action was not found and display the documentation. */
 	private function noSuchAction()
 	{
 		$this->writeln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
@@ -64,8 +64,44 @@ abstract class Command
 		$this->showDocumentation() ;
 	}
 
-	/**
-	 *
+	/** Check whether a parameter is required, according to the documentation.
+	 * @param string $parameter Parameter call in documentation.
+	 */
+	private function isRequiredParameter( $parameter )
+	{
+		return $parameter[0] === '+' ;
+	}
+
+	/** Get the parameter name from the documentation format.
+	 * @param string $parameter Parameter call in documentation.
+	 */
+	private function getParameterName( $parameter )
+	{
+		return $parameter[0] === '+'
+			? substr( $parameter, 1 )
+			: $parameter ;
+	}
+
+	/** Check all required parameters are present.
+	 * @param array $parameters List of expected parameters.
+	 */
+	private function checkParameters( $parameters )
+	{
+		foreach ( $parameters as $param )
+		{
+			$name = $this->getParameterName( $param ) ;
+			if (
+				$this->isRequiredParameter( $param )
+				&& $this->getContext()->getParameter( $name ) === null
+			)
+			{
+				throw new CliMissingParameterException( $name ) ;
+			}
+		}
+	}
+
+	/** Get the name of the method to call (auto-splitted commands).
+	 * Will check wether the require parameter are present.
 	 */
 	private function getMethod()
 	{
@@ -80,6 +116,9 @@ abstract class Command
 		)
 		{
 			$method = "execute_$firstParam" ;
+			$this->checkParameters(
+				$doc['scenarios'][$firstParam]['parameters']
+			) ;
 		}
 		
 		return $method ;
@@ -142,8 +181,9 @@ abstract class Command
 		) );
 	}
 
-	/**
-	 *
+	/** Show usage scenarios.
+	 * @param array $scenarios Scenarios list.
+	 * @param array $params Parameters list.
 	 */
 	private function showScenarios( $scenarios, $params )
 	{
@@ -154,13 +194,14 @@ abstract class Command
 			$scenario = "\t$command $key" ;
 			foreach ( $desc['parameters'] as $param )
 			{
-				if ( $params[$param]['required'] )
+				$name = $this->getParameterName( $param ) ;
+				if ( $this->isRequiredParameter( $param ) )
 				{
-					$scenario .= " --$param" ;
+					$scenario .= " --$name" ;
 				}
 				else
 				{
-					$scenario .= " [--$param]" ;
+					$scenario .= " [--$name]" ;
 				}
 			}
 			$this->writeln( $scenario ) ;

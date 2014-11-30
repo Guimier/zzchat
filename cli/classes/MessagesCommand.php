@@ -12,7 +12,6 @@ class MessagesCommand extends Command
 			'parameters' => array(
 				'defaults' => array(
 					'description' => 'cli.messages.defaults',
-					'required' => false,
 					'type' => 'boolean',
 					'alt' => 'd'
 				)
