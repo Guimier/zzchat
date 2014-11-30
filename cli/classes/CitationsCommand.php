@@ -42,8 +42,8 @@ class CitationsCommand extends Command
 	/** Add a citation */
 	protected function execute_add()
 	{
-		$text = $this->getContext()->getParameter( 'text' ) ;
-		$author = $this->getContext()->getParameter( 'author' ) ;
+		$text = $this->getParameter( 'text' ) ;
+		$author = $this->getParameter( 'author' ) ;
 		
 		$cits = new Citations() ;
 		$cits->add( $text, $author ) ;
@@ -74,7 +74,7 @@ class CitationsCommand extends Command
 	{
 		$cits = new Citations() ;
 		$raw = $cits->getAll() ;
-		$ids = $this->getContext()->getArrayParameter( 'id' ) ;
+		$ids = $this->getParameter( 'id' ) ;
 		
 		if ( $ids === null )
 		{
@@ -96,7 +96,7 @@ class CitationsCommand extends Command
 	protected function execute_rm()
 	{
 		$cits = new Citations() ;
-		$ids = $this->getContext()->getArrayParameter( 'id' ) ;
+		$ids = $this->getParameter( 'id' ) ;
 		
 		foreach ( $ids as $id )
 		{

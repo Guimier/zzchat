@@ -22,10 +22,9 @@ class MessagesCommand extends Command
 	/** See Command::execute. */
 	protected function execute()
 	{
-		$context = $this->getContext() ;
-		$defaults = $context->getBooleanParameter( 'defaults', 'd' ) ;
+		$defaults = $this->getParameter( 'defaults' ) ;
 		$list = Languages::getInstance()->getAllMessages(
-			$context->getLanguage(),
+			$this->getContext()->getLanguage(),
 			$defaults
 		) ;
 

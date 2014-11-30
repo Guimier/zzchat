@@ -269,4 +269,33 @@ abstract class Command
 		fwrite( STDERR, "$message\n" ) ;
 	}
 
+	/** Get a parameter (type from documentation).
+	 * @param string $name Parameter name.
+	 */
+	protected function getParameter( $name )
+	{
+		$doc = $this->getDocumentation() ;
+		$desc = $doc['parameters'][$name] ;
+		$context = $this->getContext() ;
+		$res = null ;
+		
+		switch ( $desc['type'] )
+		{
+			case 'string':
+				$res = $context->getParameter( $name ) ;
+				break ;
+			case 'array':
+				$res = $context->getArrayParameter( $name ) ;
+				break ;
+			case 'boolean':
+				$res = array_key_exists( 'alt', $desc )
+					? $context->getBooleanParameter( $name, $desc['alt'] )
+					: $context->getBooleanParameter( $name ) ; ;
+				break ;
+		}
+		
+		return $res ;
+	}
+
 }
+
