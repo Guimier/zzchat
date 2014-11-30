@@ -34,11 +34,13 @@
 	"NoSuchQueryPartException": "web/php/ajax/NoSuchQueryPartException.php",
 	"NoSuchUserException": "common/users/NoSuchUserException.php",
 	"NotLoggedInUserException": "common/users/NotLoggedInUserException.php",
+	"PostAjaxQueryPart": "web/php/ajax/PostAjaxQueryPart.php",
 	"Post": "common/posts/Post.php",
 	"UserAlreadyInactiveException": "common/users/UserAlreadyInactiveException.php",
 	"User": "common/users/User.php",
 	"UserNameAlreadyTakenException": "common/users/UserNameAlreadyTakenException.php",
 	"UserNameTooShortException": "common/users/UserNameTooShortException.php",
 	"WebContext": "web/php/WebContext.php",
+	"WebMissingParameterException": "web/php/exceptions/WebMissingParameterException.php",
 	"WhoamiAjaxQueryPart": "web/php/ajax/WhoamiAjaxQueryPart.php"
 }

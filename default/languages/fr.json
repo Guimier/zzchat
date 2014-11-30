@@ -23,6 +23,7 @@
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
 	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
 	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.webmissingparameter": "Paramètre « ${param} » manquant",
 	"exceptions.illegalelement": "Élément <${element}> interdit",
 	"exceptions.illegalattribute": "Attribut « ${attribute} » interdit sur les éléments <${element}>",
 	"exceptions.illegalattributevalue": "L’attribut « ${attribute} » ne peut pas contenir « ${value} » sur les éléments <${element}>",
