@@ -26,6 +26,7 @@
 		// We are now logged in as <data>
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
+		localStorage.setItem( 'lastname', data ) ;
 		initChatPage() ;
 	}
 
@@ -88,6 +89,7 @@
 					name: 'pseudo',
 					type: 'text'
 				} )
+				.val( localStorage.getItem( 'lastname' ) )
 			)
 			.append( '<br>' )
 			.append( $( '<input>' )
