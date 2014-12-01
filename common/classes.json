@@ -1,5 +1,4 @@
 {
-	"AddPostAjaxQueryPart": "web/php/ajax/AddPostAjaxQueryPart.php",
 	"AgoraException": "common/exceptions/AgoraException.php",
 	"AgoraInternalException": "common/exceptions/AgoraInternalException.php",
 	"AgoraUserException": "common/exceptions/AgoraUserException.php",
@@ -26,7 +25,7 @@
 	"InactiveChannelException": "common/channels/InactiveChannelException.php",
 	"JSON": "common/JSON.php",
 	"Languages": "common/Languages.php",
-	"LastPostAjaxQueryPart": "web/php/ajax/LastPostAjaxQueryPart.php",
+	"LastPostAjaxQueryPart": "web/php/ajax/LastPostsAjaxQueryPart.php",
 	"LoginAjaxQueryPart": "web/php/ajax/LoginAjaxQueryPart.php",
 	"LogoutAjaxQueryPart": "web/php/ajax/LogoutAjaxQueryPart.php",
 	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
