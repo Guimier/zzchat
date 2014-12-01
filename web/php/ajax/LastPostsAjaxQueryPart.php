@@ -5,7 +5,7 @@ class LastPostAjaxQueryPart extends AjaxQueryPart
 	
 	public function execute()
 	{
-		$channelList[] = Channel::getChannel( $this->getArrayParameter( 'channelList' )[] ) ;
+		$channelList = Channel::getChannel( $this->getArrayParameter( 'channelList' ) ) ;
 		
 		$content = $this->getParameter( 'beginning' ) ;
 		if ( $content === null )
