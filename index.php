@@ -16,7 +16,7 @@ function sendConfiguration()
 		'language' => $config->getValue( 'user.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
 		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
-		'user' => 'aa' // $user instanceof User ? $user->getName() : null
+		'user' => $user instanceof User ? $user->getName() : null
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
