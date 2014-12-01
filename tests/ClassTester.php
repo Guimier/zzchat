@@ -49,9 +49,21 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$dir = __DIR__ . '/' . $this->className ;
+		$this->load( 'JSON' );
 		$this->tryLoad( "$dir/placeholders.php" ) ;
 		$this->load( $this->className ) ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
+	}
+
+	/** Conditionnaly skip a test.
+	 * @param boolean $bool Whether or not to skip the test.
+	 */
+	public function skipIf( $bool )
+	{
+		if ( $bool )
+		{
+			$this->markTestIncomplete();
+		}
 	}
 
 /***** Partial autoloading *****/
@@ -71,6 +83,16 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		}
 		self::$autoloader->load( $className ) ;
 	}
+	
+	/** Load the Configuration class and initiate it. */
+	public static function loadConfiguration()
+	{
+		self::load( 'Configuration' ) ;
+		Configuration::setInstance(
+			self::getRootDir(),
+			null, null
+		) ;
+	}
 
 /***** Paths *****/
 
@@ -80,11 +102,36 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		return dirname( __DIR__ ) ;
 	}
 
+	/** Get relative path to the directory where test data is. */
+	public function getRelDataDir()
+	{
+		return 'tests/' . $this->className . '/data' ;
+	}
+
 	/** Get full path to the directory where test data is. */
 	public function getTestDataDir()
 	{
-		return $this->getRootDir() . '/tests/' . $this->className . '/data' ;
+		return $this->getRootDir() . '/' . $this->getRelDataDir() ;
+	}
+
+/***** Testing changing files *****/
+
+	private $copiedFiles = array() ;
+	
+	public function copyDataFile( $src, $dest )
+	{
+		copy( $this->getTestDataDir() . "/$src", $this->getTestDataDir() . "/$dest" ) ;
+		$this->copiedFiles[] = $dest ;
+	}
+	
+	public function deleteDataFiles()
+	{
+		$dir = $this->getTestDataDir() ;
+		
+		foreach ( $this->copiedFiles as $file )
+		{
+			delete( "$dir/$file" ) ;
+		}
 	}
 
 }
-

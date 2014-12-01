@@ -28,6 +28,9 @@ EXCLUDE_PATTERNS       = */doc/index.php */**/placeholders.php */**/extenders.ph
 SOURCE_BROWSER         = YES
 VERBATIM_HEADERS       = NO
 
+# PHPUnit integration
+ALIASES += codeCoverageIgnore="@warning Not tracked for code coverage reports."
+
 # HTML output
 GENERATE_HTML          = YES
 HTML_OUTPUT            = .

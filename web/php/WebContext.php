@@ -4,15 +4,19 @@
 class WebContext extends Context
 {
 	
-	/** Parameter selection in #getParameter: only POST */
-	const POST = 1 ;
-	/** Parameter selection in #getParameter: POST or GET */
-	const BOTH = 2 ;
+	/** Parameter selection in #getParameter: search in POST data. */
+	const GET = 1 ;
+	/** Parameter selection in #getParameter: search in GET data. */
+	const POST = 2 ;
+	/** Parameter selection in #getParameter: search in both POST or GET data. */
+	const BOTH = 3 ;
 	
 	/** Array of GET parameters ($_GET). */
 	private $getParams ;
 	/** Array of POST parameters ($_POST). */
 	private $postParams ;
+	/* Current User. */
+	private $user = null ;
 	
 	/** Constructor.
 	 * @param array $getParams Array of GET parameters ($_GET).
@@ -22,11 +26,22 @@ class WebContext extends Context
 	{
 		$this->getParams = $getParams ;
 		$this->postParams = $postParams ;
+		
+		session_start() ;
+		if ( array_key_exists( 'user-id', $_SESSION ) )
+		{
+			$user = User::getUser( $_SESSION['user-id'] ) ;
+			
+			if( $user->isActive() )
+			{
+				$this->user = $user ;
+			}
+		}
 	}
 	
 	/** Get a parameter.
 	 * @param string $key Name of the parameter.
-	 * @param [$more] Which parameter to get, one of #POST, #GET and #BOTH.
+	 * @param int [$more] Which parameter to get, one of #POST, #GET and #BOTH.
 	 *   In case BOTH, POST parameter takes priority over GET one.
 	 * @throw BadCallException Thrown if $more is not valid
 	 */
@@ -38,31 +53,70 @@ class WebContext extends Context
 		}
 
 		$value = null ;
-		
-		switch ( $more )
-		{
-			case self::BOTH :
-				if ( array_key_exists( $key, $this->getParams ) )
-				{
-					$value = $this->getParams[$key] ;
-				}
-				// No break: POST may override.
 
-			case self::POST :
-				if ( array_key_exists( $key, $this->postParams ) )
-				{
-					$value = $this->postParams[$key] ;
-				}
-			
-				break ;
-			
-			// @codeCoverageIgnoreStart
-			default:
-				throw new BadCallException() ;
-			// @codeCoverageIgnoreStop
+		if (
+			$more & self::POST &&
+			array_key_exists( $key, $this->postParams )
+		)
+		{
+			$value = $this->postParams[$key] ;
+		} else if (
+			$more & self::GET &&
+			array_key_exists( $key, $this->getParams )
+		)
+		{
+			$value = $this->getParams[$key] ;
 		}
-		
+
 		return $value ;
+	}
+	
+	/** Get the current user.
+	 * @codeCoverageIgnore Getter.
+	 */
+	public function getUser()
+	{
+		return $this->user ;
+	}
+	
+	/**	Create and connect an user with the name in parameter.
+	 * 
+	 * @param string $userName The name of the user.
+	 * 
+	 */ 
+	public function connect( $userName )
+	{
+		$this->user = User::createUser( $userName ) ;
+	}
+	
+	/**	Disconnect an user with the name in parameter.
+	 * 
+	 * @throw NotLoggedInUserException If no user is associated to the session.
+	 */ 
+	public function disconnect()
+	{
+		if ( $this->user === null )
+		{
+			throw new NotLoggedInUserException() ;
+		}
+		else
+		{
+			$this->user->isNowInactive() ;
+			$this->user = null ;
+		}
+	}
+	
+	/** Destructor. */
+	public function __destruct()
+	{
+		if ( $this->user === null )
+		{
+			unset ( $_SESSION['user-id'] ) ;
+		}
+		else
+		{
+			$_SESSION['user-id'] = $this->user->getId() ;
+		}
 	}
 	
 }

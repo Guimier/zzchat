@@ -90,35 +90,30 @@ class AjaxQuery
 		}
 	}
 	
-	/** Get JSON options. */
+	/** Get JSON options.
+	 * @codeCoverageIgnore Non-required functionality depending on PHP version.
+	 */
 	private function jsonOptions()
 	{
-		$opts = 0 ;
-		
-		if ( defined( 'JSON_UNESCAPED_UNICODE' ) )
-		{
-			$opts |= JSON_UNESCAPED_UNICODE ;
-		}
-
 		$indent = $this
 			->context
 			->getBooleanParameter( 'indent' ) ;
 
+		$opts = 0 ;
 		if ( $indent && defined( 'JSON_PRETTY_PRINT' ) )
 		{
-			$opts |= JSON_PRETTY_PRINT ;
+			$opts = JSON_PRETTY_PRINT ;
 		}
 		
 		return $opts ;
 	}
 	
 	/** Expose te result of the query to the client.
-	 * @codeCoverageIgnore
 	 */
 	public function show()
 	{
 		header( 'Content-Type: application/json; charset=UTF-8' ) ;
-		echo json_encode( $this->result, $this->jsonOptions() ) ;
+		echo JSON::encode( $this->result, $this->jsonOptions() ) ;
 	}
 	
 }

@@ -1,0 +1,4 @@
+<?php
+
+ClassTester::loadConfiguration() ;
+
