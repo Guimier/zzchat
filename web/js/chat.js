@@ -105,10 +105,10 @@
 			)
 	}
 
-	function $createMenuLang()
+	function createMenuLang()
 	{
 		var
-			$select = $( '<select>' ),
+			$select = $( '#menuint' ),
 			$option,
 			langList = configuration.get( 'languages' ),
 			current = languages.getCurrent() ;
@@ -127,18 +127,12 @@
 			$select.append( $option ) ;
 		}
 	
-		return $( '<form>' )
+		$select
 			.attr( {
-				id: 'listLang',
-				name: 'listLang'
+				id: 'menuint',
+				name: 'menuint'
 			} )
-			.html( $select
-				.attr( {
-					id: 'menuint',
-					name: 'menuint'
-				} )
-				.change( onLanguageChange )
-			) ;
+			.change( onLanguageChange ) ;
 	}
 
 	function initLoginPage()
@@ -151,13 +145,15 @@
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
+		$( '#hello' ).trText( 'menu.hello', { user: configuration.get( 'user' ) } ) ;
 	}
 
 	function init()
 	{
 		$( '#nojs' ).remove() ;
 		/*Génération du choix des langues :*/
-		$( '#menu' ).html( $createMenuLang() ) ;
+		createMenuLang() ;
+		$( '#disconnect' ).trAttr( 'value', 'menu.logout' ) ;
 		
 		if ( configuration.get( 'user' ) === null )
 		{

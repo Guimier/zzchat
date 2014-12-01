@@ -23,17 +23,7 @@
 	padding-bottom : 1em ;
 	padding-right : 1em ;
 	padding-left : 1em ;
-}
-
-.page-chat #menu
-{
-	position : absolute ;
-	width : 20% ;
-	heigth : 10% ;
-	top : 1vmax ;
-	right : 1vmax ;
-	background-color : black ;
-	text-align: : right ;
+	font-size : 1vmin ;
 }
 
 .page-chat #headband
@@ -46,17 +36,49 @@
 	background-repeat : no-repeat ;
 	background-position : left ;
 	background-size : auto 100% ;
+	display : flex ;
+	flex-direction : row ;
 }
 
-.page-chat #quote
+.page-chat #agora
+{
+	height : 100% ;
+	flex : 1 ;
+}
+
+.page-chat #quoteBlock
 {
 	position : relative ;
 	height : 100% ;
-	width : 50% ;
-	float : right ;
 	color : white ;
-	font-family : vinerHandItc ;
-	font-size : 2vmax ;
+	flex : 2 ;
+}
+
+.page-chat #commands
+{
+	height : auto ;
+	text-align: right ;
+}
+
+.page-chat #hello
+{
+	position : relative ;
+	margin-right : 1px ;
+	margin-top : 2px ;
+}
+
+.page-chat #disconnect
+{
+	position : relative ;
+	margin-right : 1px ;
+	margin-top : 2px ;
+}
+
+.page-chat #menuint
+{
+	position : relative ;
+	margin-right : 2px ;
+	margin-top : 2px ;
 }
 
 .page-chat .messages
@@ -69,10 +91,10 @@
 	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
-	border-syze : 1vmax ;
+	border-width : 1px ;
 	
 	box-sizing : border-box ;
-	flex : 2 ;
+	flex : 1 ;
 	
 }
 
@@ -84,10 +106,10 @@
 	background-color : black ;
 	border-color : white ;
 	border-style : solid ;
-	border-syze : 1vmax ;
+	border-width : 1px ;
 	
 	box-sizing : border-box ;
-	flex : 1 ;
+	height : 140px ;
 	
 }
 
@@ -102,11 +124,11 @@
 	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
-	border-syze : 1vmax ;
+	border-width : 1px ;
 	box-sizing : border-box ;
 }
 	
-.page-chat #channels
+.page-chat #channels-list
 {
 	position : relative ;
 	float : left ;
@@ -117,7 +139,7 @@
 	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
-	border-syze : 1vmax ;
+	border-width : 1px ;
 	box-sizing : border-box ;
 }
 
@@ -131,7 +153,7 @@
 	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
-	border-syze : 1vmax ;
+	border-width : 1px ;
 	box-sizing : border-box ;
 }
 
@@ -151,12 +173,25 @@
 	display : flex ;
 }
 
-.page-chat .currentChannel
+.page-chat #channels
 {
 	display : inline-block ;
 	height : 100% ;
 	flex : 1 ;
+}
+
+.page-chat .channel
+{
+	display : none ;
+	height : 100% ;
+	width : 100% ;
+}
+
+.page-chat .currentChannel
+{
 	display : flex ;
+	height : 100% ;
+	width : 100% ;
 }
 
 .page-chat .channelCore
