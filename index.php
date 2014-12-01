@@ -69,8 +69,17 @@ function sendConfiguration()
                 <div id="quote"></div>
             </div>
             <div id="container2">
-                <!--Annonces-->
-                <div id="notices"></div>
+<?php
+
+$noticeFile = Configuration::getInstance()->getRootDir() . '/local/notice.html' ;
+
+if ( file_exists( $noticeFile ) )
+{
+	echo '<div id="notices">' ;
+	echo file_get_contents( $noticeFile ) ;
+	echo '</div>' ;
+}
+?>
                 <!--Chat-->
                 <div id="chat">
                 	<!--Canaux-->
