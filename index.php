@@ -16,7 +16,7 @@ function sendConfiguration()
 		'language' => $config->getValue( 'user.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
 		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
-		'user' => $user instanceof User ? $user->getName() : null
+		'user' => 'aa' // $user instanceof User ? $user->getName() : null
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
@@ -65,8 +65,18 @@ function sendConfiguration()
         <div id="container">
         	<!--Bandeau-->
             <div id="headband">
+				<div id="agora"></div>
                 <!--Citations-->
-                <div id="quote"></div>
+                <div id="quoteBlock">
+					<div id="commands">
+						<span id="hello"></span>
+						<input id="disconnect" type="button"></input>
+						<!--Changeons de langue-->
+						<select id="menuint"></select>	
+					</div>
+					<div id="quote"></div>
+					<div id="author"></div>
+				</div>
             </div>
             <div id="container2">
                 <!--Annonces-->
@@ -74,17 +84,19 @@ function sendConfiguration()
                 <!--Chat-->
                 <div id="chat">
                 	<!--Canaux-->
-                    <div id="channels"></div>
-                    <div class="currentChannel">
-                        <div class="channelCore">
-                            <!--Messages-->
-                            <div class="messages"></div>
-                            <!--WYSIWYG-->
-                            <div class="wysiwyg"></div>
-                        </div>
-                        <!--Presents-->
-                        <div class="presents"></div>
-                    </div>
+                    <div id="channels-list"></div>
+                    <div id="channels">
+						<div class="channel currentChannel">
+							<div class="channelCore">
+								<!--Messages-->
+								<div class="messages"></div>
+								<!--WYSIWYG-->
+								<div class="wysiwyg"></div>
+							</div>
+							<!--Presents-->
+							<div class="presents"></div>
+						</div>
+					</div>
                 </div>
             </div>
             <!--Pour le centrage vertical-->
@@ -93,8 +105,6 @@ function sendConfiguration()
             <div id="login">
             	<span id="nojs"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
             </div>
-            <!--Changeons de langue-->
-            <div id="menu"></div>
             <!--Footer-->
             <div id="footer"></div>
       	</div>

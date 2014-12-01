@@ -1,6 +1,6 @@
 {
-	"lang.en": "anglais",
-	"lang.fr": "français",
+	"lang.en": "Anglais",
+	"lang.fr": "Français",
 	
 	"cli.help": "Aide des lignes de commande Agora.",
 	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
@@ -24,6 +24,9 @@
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
+	
+	"menu.logout": "Se déconnecter",
+	"menu.hello": "Bonjour, ${user} !",
 	
 	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue",
 	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."
