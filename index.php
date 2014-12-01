@@ -16,7 +16,7 @@ function sendConfiguration()
 		'language' => $config->getValue( 'user.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
 		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
-		'user' => 'aa' // $user instanceof User ? $user->getName() : null
+		'user' => $user instanceof User ? $user->getName() : null
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
@@ -95,17 +95,17 @@ if ( file_exists( $noticeFile ) )
                 	<!--Canaux-->
                     <div id="channels-list"></div>
                     <div id="channels">
-						<div class="channel currentChannel">
-							<div class="channelCore">
-								<!--Messages-->
-								<div class="messages"></div>
-								<!--WYSIWYG-->
-								<div class="wysiwyg"></div>
-							</div>
-							<!--Presents-->
-							<div class="presents"></div>
-						</div>
-					</div>
+			<div class="channel currentChannel">
+				<div class="channelCore">
+					<!--Messages-->
+					<div class="messages"></div>
+					<!--WYSIWYG-->
+					<div class="wysiwyg"></div>
+				</div>
+				<!--Presents-->
+				<div class="presents"></div>
+				</div>
+			</div>
                 </div>
             </div>
             <!--Pour le centrage vertical-->

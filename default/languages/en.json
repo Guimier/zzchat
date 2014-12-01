@@ -2,8 +2,9 @@
 	"lang.en": "English",
 	"lang.fr": "French",
 	
-	"citations.anonymous": "Anonymous",
-	"citations.quotation": "“${content}”",
+	"quotations.anonymous": "— Anonymous",
+	"quotations.quote": "“${content}”",
+	"quotations.author": "— ${name}",
 	
 	"cli.help.common": "Common parameters",
 	"cli.help.common.help": "Show this help and exit.",
@@ -12,9 +13,9 @@
 	"cli.help.scenarios": "Usage",
 	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want it in the documentation below?",
 	
-	"cli.citations": "Manage citations.",
-	"cli.citations.text": "Text of the citation.",
-	"cli.citations.author": "Author of the citation (if known).",
+	"cli.quotations": "Manage quotations.",
+	"cli.quotations.text": "Text of the quotation.",
+	"cli.quotations.author": "Author of the quotation (if known).",
 	
 	"cli.messages": "This script allows retrieving translations.",
 	"cli.messages.defaults": "Replace missing messages by their english equivalent.",

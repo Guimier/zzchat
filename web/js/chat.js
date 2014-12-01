@@ -45,6 +45,28 @@
 			.show() ;
 	}
 
+	function gotQuotation( desc )
+	{
+		$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
+
+		$( '#author' ).trText(
+			desc.author === null
+				? 'quotations.anonymous'
+				: 'quotations.author',
+			{ name: desc.author }
+		) ;
+	}
+
+	function newQuotation()
+	{
+		ajax.add(
+			'GET',
+			'quotation',
+			null,
+			gotQuotation
+		) ;
+	}
+
 	/**
 	 * @method onLoginSubmit
 	 * @private
@@ -57,7 +79,8 @@
 		var username = $( '#pseudo' ).val() ;
 		
 		$( this ).addClass( 'login-waiting' ) ;
-		
+
+		newQuotation() ;
 		ajax.send(
 			'POST',
 			'login',
@@ -135,6 +158,13 @@
 			.change( onLanguageChange ) ;
 	}
 
+	function logout()
+	{
+		ajax.stop() ;
+		ajax.send( 'POST', 'logout' ) ;
+		initLoginPage() ;
+	}
+
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
@@ -142,6 +172,7 @@
 
 	function initChatPage()
 	{
+		ajax.start( 2 ) ;
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
@@ -151,6 +182,7 @@
 	function init()
 	{
 		$( '#nojs' ).remove() ;
+		$( '#disconnect' ).click( logout ) ;
 		/*Génération du choix des langues :*/
 		createMenuLang() ;
 		$( '#disconnect' ).trAttr( 'value', 'menu.logout' ) ;
@@ -161,6 +193,7 @@
 		}
 		else
 		{
+			newQuotation() ;
 			initChatPage() ;
 		}
 		

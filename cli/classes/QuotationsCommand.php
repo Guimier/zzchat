@@ -1,78 +1,80 @@
 <?php
 
-class CitationsCommand extends Command
+class QuotationsCommand extends Command
 {
 
 	/** See Command::getDocumentation. */
 	public function getDocumentation()
 	{
 		return array(
-			'description' => 'cli.citations',
+			'description' => 'cli.quotations',
 			'scenarios' => array(
 				'add' => array(
-					'description' => 'cli.citation.add',
+					'description' => 'cli.quotation.add',
 					'parameters' => array( '+text', 'author' )
 				),
 				'show' => array(
-					'description' => 'cli.citation.show',
+					'description' => 'cli.quotation.show',
 					'parameters' => array( 'id' )
 				),
 				'rm' => array(
-					'description' => 'cli.citation.rm',
+					'description' => 'cli.quotation.rm',
 					'parameters' => array( '+id' )
 				)
 			),
 			'parameters' => array(
 				'text' => array(
-					'description' => 'cli.citations.text',
+					'description' => 'cli.quotation.text',
 					'type' => 'string'
 				),
 				'author' => array(
-					'description' => 'cli.citations.author',
+					'description' => 'cli.quotation.author',
 					'type' => 'string'
 				),
 				'id' => array(
-					'description' => 'cli.citations.id',
+					'description' => 'cli.quotation.id',
 					'type' => 'array'
 				)
 			)
 		) ;
 	}
 	
-	/** Add a citation */
+	/** Add a quotation. */
 	protected function execute_add()
 	{
 		$text = $this->getParameter( 'text' ) ;
 		$author = $this->getParameter( 'author' ) ;
 		
-		$cits = new Citations() ;
+		$cits = new Quotations() ;
 		$cits->add( $text, $author ) ;
 	}
 	
-	/** Show a citation.
-	 * @param number $id Identifiant of the citation.
-	 * @param array $cit Representation of the citation.
+	/** Show a quotation.
+	 * @param number $id Identifiant of the quotation.
+	 * @param array $cit Representation of the quotation.
 	 */
-	private function showCitation( $id, $cit )
+	private function showQuotation( $id, $cit )
 	{
+		$context = $this->getContext() ;
+		
 		$this->writeln(
 			"$id] "
-			. $this->getContext()->getMessage(
-				'citations.quotation',
+			. $context->getMessage(
+				'quotations.quote',
 				array( 'content' => $cit['text'] )
 			)
-			. ' — '
-			. ( $cit['author'] === null
-				? $this->getContext()->getMessage( 'citations.anonymous' )
-				: $cit['author']
+			. ' '
+			. $context->getMessage(
+				$cit['author'] === null ? 'quotations.anonymous' : 'quotations.author',
+				array( 'name' => $cit['author'] )
 			)
 		) ;
 	}
 	
-	/** Show all or some citations */
+	/** Show all or some quotations. */
 	protected function execute_show()
 	{
-		$cits = new Citations() ;
+		$cits = new Quotations() ;
 		$raw = $cits->getAll() ;
 		$ids = $this->getParameter( 'id' ) ;
 		
@@ -80,22 +82,22 @@ class CitationsCommand extends Command
 		{
 			foreach ( $raw as $id => $cit )
 			{
-				$this->showCitation( $id, $cit ) ;
+				$this->showQuotation( $id, $cit ) ;
 			}
 		}
 		else
 		{
 			foreach ( $ids as $id )
 			{
-				$this->showCitation( $id, $cits->get( $id ) ) ;
+				$this->showQuotation( $id, $cits->get( $id ) ) ;
 			}
 		}
 	}
 	
-	/** Remove a citation */
+	/** Remove a quotation. */
 	protected function execute_rm()
 	{
-		$cits = new Citations() ;
+		$cits = new Quotations() ;
 		$ids = $this->getParameter( 'id' ) ;
 		
 		foreach ( $ids as $id )

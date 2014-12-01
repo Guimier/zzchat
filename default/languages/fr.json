@@ -2,8 +2,9 @@
 	"lang.en": "Anglais",
 	"lang.fr": "Français",
 	
-	"citations.anonymous": "Anonyme",
-	"citations.quotation": "« ${content} »",
+	"quotations.anonymous": "— Anonyme",
+	"quotations.quotation": "« ${content} »",
+	"quotations.author": "— ${name}",
 	
 	"cli.help.common": "Paramètres communs",
 	"cli.help": "Aide des lignes de commande Agora.",
@@ -14,9 +15,9 @@
 	"cli.help.scenarios": "Utilisation",
 	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
 	
-	"cli.citations": "Gérer les citations",
-	"cli.citations.text": "Texte de la citation.",
-	"cli.citations.author": "Auteur de la citation (si connu).",
+	"cli.quotations": "Gérer les citations",
+	"cli.quotations.text": "Texte de la citation.",
+	"cli.quotations.author": "Auteur de la citation (si connu).",
 	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
 	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
