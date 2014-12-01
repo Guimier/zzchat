@@ -64,21 +64,28 @@ function sendConfiguration()
         <!--Container-->
         <div id="container">
         	<!--Bandeau-->
-            <div id="headband"></div>
-            <!--Citations-->
-            <div id="quote"></div>
-            <!--Annonces-->
-            <div id="notices"></div>
-            <!--Chat-->
-            <div id="chat">
- 				<!--Presents-->
-                <div id="presents"></div>
-            	<!--Messages-->
-                <div id="messages"></div>
-                <!--WYSIWYG-->
-                <div id="wysiwyg"></div>
-                <!--Canaux-->
-       		    <div id="channels"></div>
+            <div id="headband">
+                <!--Citations-->
+                <div id="quote"></div>
+            </div>
+            <div id="container2">
+                <!--Annonces-->
+                <div id="notices"></div>
+                <!--Chat-->
+                <div id="chat">
+                	<!--Canaux-->
+                    <div id="channels"></div>
+                    <div class="currentChannel">
+                        <div class="channelCore">
+                            <!--Messages-->
+                            <div class="messages"></div>
+                            <!--WYSIWYG-->
+                            <div class="wysiwyg"></div>
+                        </div>
+                        <!--Presents-->
+                        <div class="presents"></div>
+                    </div>
+                </div>
             </div>
             <!--Pour le centrage vertical-->
             <div class="strut"></div>
