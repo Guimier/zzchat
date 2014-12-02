@@ -105,7 +105,7 @@
 	 */
 	function $createForm()
 	{
-		return $form = $( '<form>' )
+		return $( '<form>' )
 			.attr( 'id', 'loginForm' )
 			.submit( onLoginSubmit )
 			.append( $( '<label>' )
@@ -135,7 +135,7 @@
 			.append( $( '<p>' )
 				.hide()
 				.attr( 'id', 'login-error' )
-			)
+			) ;
 	}
 
 	function createMenuLang()

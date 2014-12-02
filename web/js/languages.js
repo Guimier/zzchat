@@ -280,7 +280,7 @@
 		
 		if ( Object.keys( data ).length > 0 )
 		{
-			stringValue = JSON.stringify( data )
+			stringValue = JSON.stringify( data ) ;
 			classMgr = 'addClass' ;
 		}
 		
