@@ -21,12 +21,12 @@
 	 * @todo Load the talk interface
 	 * @param {String} data The name, as returned by the server.
 	 */
-	function loginSuccess( data )
+	function loginSuccess( name )
 	{
-		// We are now logged in as <data>
+		configuration.setLocal( 'user', name ) ;
+		localStorage.setItem( 'lastname', name ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
-		localStorage.setItem( 'lastname', data ) ;
 		initChatPage() ;
 	}
 
@@ -47,14 +47,17 @@
 
 	function gotQuotation( desc )
 	{
-		$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
+		if ( desc !== null )
+		{
+			$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
 
-		$( '#author' ).trText(
-			desc.author === null
-				? 'quotations.anonymous'
-				: 'quotations.author',
-			{ name: desc.author }
-		) ;
+			$( '#author' ).trText(
+				desc.author === null
+					? 'quotations.anonymous'
+					: 'quotations.author',
+				{ name: desc.author }
+			) ;
+		}
 	}
 
 	function newQuotation()
@@ -162,12 +165,17 @@
 	{
 		ajax.stop() ;
 		ajax.send( 'POST', 'logout' ) ;
+		configuration.returnToDefault( 'name' ) ;
 		initLoginPage() ;
 	}
 
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
+		ajax.stop() ;
+		$( 'html' )
+			.addClass( 'page-login' )
+			.removeClass( 'page-chat' ) ;
 	}
 
 	function initChatPage()

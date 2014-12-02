@@ -31,7 +31,7 @@ class Quotations
 	}
 
 	/** Get a random quotation.
-	 * Returns false if no quotation is available.
+	 * Returns null if no quotation is available.
 	 */
 	public function getRandom()
 	{
@@ -39,7 +39,7 @@ class Quotations
 
 		if ( $last < 0 )
 		{
-			$res = false ;
+			$res = null ;
 		}
 		else
 		{
