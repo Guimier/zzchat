@@ -41,15 +41,14 @@
 	/**
 	 * @method loginError
 	 * @private
-	 * @param {String} errName Error name.
-	 * @param {String} message Error message.
+	 * @param {AjaxError} err Error.
 	 */
-	function loginError( errName, message )
+	function loginError( err )
 	{
-		// We are now logged in as <data>
+		console.log( err ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' )
-			.text( message )
+			.trText( err.msgName, err.msgArgs )
 			.show() ;
 	}
 
