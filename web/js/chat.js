@@ -4,6 +4,14 @@
  */
 ( function ( $ ) {
 	
+	var
+		/**
+		 * Current user
+		 * @property {String} user
+		 * @private
+		 */
+		user = configuration.get( 'user' ); 
+	
 	/**
 	 * @method onLanguageChange
 	 * @private
@@ -23,7 +31,7 @@
 	 */
 	function loginSuccess( name )
 	{
-		configuration.setLocal( 'user', name ) ;
+		user = name ;
 		localStorage.setItem( 'lastname', name ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
@@ -165,7 +173,7 @@
 	{
 		ajax.stop() ;
 		ajax.send( 'POST', 'logout' ) ;
-		configuration.returnToDefault( 'name' ) ;
+		user = null ;
 		initLoginPage() ;
 	}
 
@@ -184,7 +192,7 @@
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
-		$( '#hello' ).trText( 'menu.hello', { user: configuration.get( 'user' ) } ) ;
+		$( '#hello' ).trText( 'menu.hello', { user: user } ) ;
 	}
 
 	function init()

@@ -35,7 +35,8 @@
 	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
 	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
-	"exception.climissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.usernamealredytaken": "Le nom « ${username} » est déjà pris",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
