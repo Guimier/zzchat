@@ -5,7 +5,7 @@ class WhoamiAjaxQueryPart extends AjaxQueryPart
 	
 	public function execute()
 	{
-		$user = Context::getCanonical()->getUser() ;
+		$user = $this->getContext()->getUser() ;
 		return $user instanceof User ? $user->getName() : null ;
 	}
 	

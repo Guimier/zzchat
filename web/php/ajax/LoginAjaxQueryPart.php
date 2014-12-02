@@ -12,7 +12,7 @@ class LoginAjaxQueryPart extends AjaxQueryPart
 			throw new NoNameGivenException() ;
 		}
 		
-		Context::getCanonical()->connect( $name ) ;
+		$this->getContext()->connect( $name ) ;
 		
 		return $name ;
 	}

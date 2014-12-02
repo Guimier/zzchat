@@ -19,6 +19,12 @@ abstract class AjaxQueryPart
 		$this->context = $context ;
 	}
 	
+	/** Get the context. */
+	protected function getContext()
+	{
+		return $this->context ;
+	}
+	
 	/** Answer the query. */
 	abstract public function execute() ;
 	
