@@ -1,10 +1,11 @@
 #!/bin/bash
 # Initialise data
 
-data=local/data
+declare    data=local/data
 
-datadirs=( users channels posts )
-counters=( lastchannel lastuser lastpostfile )
+declare -a datadirs=( users channels posts )
+declare -a counters=( lastchannel lastuser lastpostfile )
+declare -a empty=( users/activeusers channels/activechannels )
 
 #############################
 
@@ -23,6 +24,9 @@ do
 	chmod a+rw "$data/$counter.int"
 done
 
-echo '[]' > "$data/activechannels.json"
-chmod a+rw "$data/activechannels.json"
+for path in "${empty[@]}"
+do
+	echo '{}' > "$data/$path.json"
+	chmod a+rw "$data/$path.json"
+done
 
