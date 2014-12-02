@@ -88,9 +88,9 @@
 	box-shadow : none ;
 	border : solid ;
 	border-color : white ;
-	border-width : 0.25vmax ;
+	border-width : 4px ;
 	color : white ;
-	border-radius : 0.25em ;
+	border-radius : 2px ;
 }
 
 .page-login #btn:hover
@@ -104,6 +104,33 @@
 	border : inset ;
 }
 
+.page-login #menuint
+{
+	position : absolute ;
+	right : 0 ;
+	font-family : vinerHandItc ;
+	height : 2vmax ;		
+	width : auto ;
+	font-size : 1vmax ;
+	margin-top : 2px ;
+	margin-right : 2px ;
+	
+	background-color : black ;
+	box-shadow : none ;
+	border : solid ;
+	border-color : white ;
+	border-width : 4px ;
+	color : white ;
+	border-radius : 2px ;
+	
+}
+
+.page-login #menuint option
+{
+	background-color : white ;
+	color : black ;
+}
+
 .page-login #loginLabel
 {
 }
@@ -115,10 +142,77 @@
 	width : 12vmax ;
 }
 
-.page-login #menuint
+.page-login #hello
 {
-	font-family : vinerHandItc ;
-	height : 2vmax ;		
-	width : auto ;
-	font-size : 1vmax ;
+	display : none ;
+}
+
+.page-login #disconnect
+{
+	display : none ;
+}
+
+.page-login #agora
+{
+	display : none ;
+}
+
+.page-login #hello
+{
+	display : none ;
+}
+
+.page-login .messages
+{
+	display : none ;
+}
+
+.page-login .wysiwyg
+{
+	display : none ;	
+}
+
+.page-login #notices
+{
+	display : none ;
+}
+	
+.page-login #channels-list
+{
+	display : none ;
+}
+
+.page-login .presents
+{
+	display : none ;
+}
+
+.page-login #container2
+{
+	display : none ;
+}
+
+.page-login #chat
+{
+	display : none ;
+}
+
+.page-login #channels
+{
+	display : none ;
+}
+
+.page-login .channel
+{
+	display : none ;
+}
+
+.page-login .currentChannel
+{
+	display : none ;
+}
+
+.page-login .channelCore
+{
+	display : none ;
 }

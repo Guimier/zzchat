@@ -37,7 +37,7 @@
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	"exception.climissingparameter": "Paramètre « ${param} » manquant",
 	
-	"login.validate": "Entez dans l’agora",
+	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
 
 	"menu.logout": "Se déconnecter",
