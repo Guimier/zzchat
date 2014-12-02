@@ -2,12 +2,22 @@
 	"lang.en": "Anglais",
 	"lang.fr": "Français",
 	
+	"quotations.anonymous": "— Anonyme",
+	"quotations.quotation": "« ${content} »",
+	"quotations.author": "— ${name}",
+	
+	"cli.help.common": "Paramètres communs",
 	"cli.help": "Aide des lignes de commande Agora.",
 	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
-	"cli.help.common.language": "Définit le language de l’affichage.",
-	"cli.help.optional": "Arguments facultatifs",
-	"cli.help.required": "Arguments nécessaires",
+	"cli.help.common.language": "Définit la langue d’affichage.",
+	"cli.help.parameters": "Paramètres",
+	"cli.help.scenarios": "Utilisation",
+	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
+	
+	"cli.quotations": "Gérer les citations",
+	"cli.quotations.text": "Texte de la citation.",
+	"cli.quotations.author": "Auteur de la citation (si connu).",
 	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
 	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
@@ -21,6 +31,7 @@
 	"exceptions.notloggedinuser": "Impossible de déconnecter un utilisateur non connecté",
 	"exceptions.usernametooshirt": "Le nom d’utilisateur « ${username} » est trop court",
 	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
+	"exception.climissingparameter": "Paramètre « ${param} » manquant",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

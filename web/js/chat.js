@@ -21,9 +21,10 @@
 	 * @todo Load the talk interface
 	 * @param {String} data The name, as returned by the server.
 	 */
-	function loginSuccess( data )
+	function loginSuccess( name )
 	{
-		// We are now logged in as <data>
+		configuration.setLocal( 'user', name ) ;
+		localStorage.setItem( 'lastname', name ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
 		initChatPage() ;
@@ -44,6 +45,31 @@
 			.show() ;
 	}
 
+	function gotQuotation( desc )
+	{
+		if ( desc !== null )
+		{
+			$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
+
+			$( '#author' ).trText(
+				desc.author === null
+					? 'quotations.anonymous'
+					: 'quotations.author',
+				{ name: desc.author }
+			) ;
+		}
+	}
+
+	function newQuotation()
+	{
+		ajax.add(
+			'GET',
+			'quotation',
+			null,
+			gotQuotation
+		) ;
+	}
+
 	/**
 	 * @method onLoginSubmit
 	 * @private
@@ -56,7 +82,8 @@
 		var username = $( '#pseudo' ).val() ;
 		
 		$( this ).addClass( 'login-waiting' ) ;
-		
+
+		newQuotation() ;
 		ajax.send(
 			'POST',
 			'login',
@@ -88,6 +115,7 @@
 					name: 'pseudo',
 					type: 'text'
 				} )
+				.val( localStorage.getItem( 'lastname' ) )
 			)
 			.append( '<br>' )
 			.append( $( '<input>' )
@@ -133,13 +161,26 @@
 			.change( onLanguageChange ) ;
 	}
 
+	function logout()
+	{
+		ajax.stop() ;
+		ajax.send( 'POST', 'logout' ) ;
+		configuration.returnToDefault( 'name' ) ;
+		initLoginPage() ;
+	}
+
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
+		ajax.stop() ;
+		$( 'html' )
+			.addClass( 'page-login' )
+			.removeClass( 'page-chat' ) ;
 	}
 
 	function initChatPage()
 	{
+		ajax.start( 2 ) ;
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
@@ -149,6 +190,7 @@
 	function init()
 	{
 		$( '#nojs' ).remove() ;
+		$( '#disconnect' ).click( logout ) ;
 		/*Génération du choix des langues :*/
 		createMenuLang() ;
 		$( '#disconnect' ).trAttr( 'value', 'menu.logout' ) ;
@@ -159,6 +201,7 @@
 		}
 		else
 		{
+			newQuotation() ;
 			initChatPage() ;
 		}
 		

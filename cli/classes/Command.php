@@ -29,7 +29,7 @@ abstract class Command
 		}
 		catch ( Exception $e )
 		{
-			echo $e->getMessage() ;
+			self::errln( $e->getMessage() ) ;
 			exit ( 1 ) ;
 		}
 	}
@@ -40,8 +40,14 @@ abstract class Command
 		$this->commandName = $commandName ;
 	}
 
-	/** Executable part of the command line. */
-	abstract protected function execute() ;
+	/** Executable part of the command line.
+	 * Override if you don’t want auto-splitting.
+	 */
+	protected function execute()
+	{
+		$method = $this->getMethod() ;
+		$this->$method() ;
+	}
 
 	/** Get formated documentation.
 	 * @return Associative array describing the commandline.
@@ -50,88 +56,194 @@ abstract class Command
 	 */
 	abstract public function getDocumentation() ;
 
+	/** Say the action was not found and display the documentation. */
+	private function noSuchAction()
+	{
+		$this->writeln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
+		$this->writeln( '--------------------' ) ;
+		$this->showDocumentation() ;
+	}
+
+	/** Check whether a parameter is required, according to the documentation.
+	 * @param string $parameter Parameter call in documentation.
+	 */
+	private function isRequiredParameter( $parameter )
+	{
+		return $parameter[0] === '+' ;
+	}
+
+	/** Get the parameter name from the documentation format.
+	 * @param string $parameter Parameter call in documentation.
+	 */
+	private function getParameterName( $parameter )
+	{
+		return $parameter[0] === '+'
+			? substr( $parameter, 1 )
+			: $parameter ;
+	}
+
+	/** Check all required parameters are present.
+	 * @param array $parameters List of expected parameters.
+	 */
+	private function checkParameters( $parameters )
+	{
+		foreach ( $parameters as $param )
+		{
+			$name = $this->getParameterName( $param ) ;
+			if (
+				$this->isRequiredParameter( $param )
+				&& $this->getContext()->getParameter( $name ) === null
+			)
+			{
+				throw new CliMissingParameterException( $name ) ;
+			}
+		}
+	}
+
+	/** Get the name of the method to call (auto-splitted commands).
+	 * Will check wether the require parameter are present.
+	 */
+	private function getMethod()
+	{
+		$firstParam = $this->getContext()->getParameter( 0 ) ;
+		$doc = $this->getDocumentation() ;
+		$method = 'noSuchAction' ;
+		
+		if (
+			$firstParam !== null
+			&& array_key_exists( 'scenarios', $doc )
+			&& array_key_exists( $firstParam, $doc['scenarios'] )
+		)
+		{
+			$method = "execute_$firstParam" ;
+			$this->checkParameters(
+				$doc['scenarios'][$firstParam]['parameters']
+			) ;
+		}
+		
+		return $method ;
+	}
+
 	/** Show a list of parameters for a script.
-	 * @param string $title Name of a translated name for the description.
-	 * @param array $parameters Associative array of parameters.
+	 * @param string $name Name of the parameter.
+	 * @param array $param Associative array representing a parameter.
 	 *   Keys are the names, values are arrays containing:
 	 *   * `desc`: Name of a translated description
 	 *   * `type`: one of `boolean`, `string`, `array`
 	 *   * `alt`: only for boolean, one-char string for an alternative flag.
 	 */
-	private function showDocumentationPart( $title, array $parameters )
+	private function showParameterDocumentation( $name, $param )
 	{
-			ksort( $parameters ) ;
+		$format = "--$name" ;
 
-			$this->writeln() ;
-			$this->writeln( $this->getContext()->getMessage( $title ) ) ;
-
-		foreach ( $parameters as $key => $desc )
+		switch ( $param['type'] )
 		{
-			$format = "--$key" ;
+			case 'boolean' :
+				if ( array_key_exists( 'alt', $param ) )
+				{
+					$format = '-' . $param['alt'] . ", $format" ;
+				}
+				break ;
+			case 'string' :
+				$format .= '=<string>' ;
+				break ;
+			case 'array' :
+				$format .= '=<string>[,…]' ;
+				break ;
+			default :
+				$format .= '=???' ;
+		}
 
-			switch ( $desc['type'] )
+		$this->writeln( "\t$format" ) ;
+		$this->writeln( "\t\t" . $this->getContext()->getMessage( $param['description'] ) ) ;
+	}
+
+	/** Show a list of parameters for a script.
+	 * @param array $params Associative array representing of the parameters descriptions.
+	 */
+	private function showParametersDocumentation( $params )
+	{
+		ksort( $params ) ;
+		foreach ( $params as $name => $param )
+		{
+			$this->showParameterDocumentation( $name, $param ) ;
+		}
+	}
+
+	/** Show a title for the documentation.
+	 * @param string $title Name of the message used for the title.
+	 */
+	private function showDocumentationTitle( $title )
+	{
+		$this->writeln() ;
+		$this->writeln( strtoupper(
+			$this->getContext()->getMessage( $title )
+		) );
+	}
+
+	/** Show usage scenarios.
+	 * @param array $scenarios Scenarios list.
+	 * @param array $params Parameters list.
+	 */
+	private function showScenarios( $scenarios, $params )
+	{
+		$command = 'cli/' . $this->commandName . '.php' ;
+		
+		foreach ( $scenarios as $key => $desc )
+		{
+			$scenario = "\t$command $key" ;
+			foreach ( $desc['parameters'] as $param )
 			{
-				case 'boolean' :
-					if ( array_key_exists( 'alt', $desc ) )
-					{
-						$format = '-' . $desc['alt'] . ", $format" ;
-					}
-					break ;
-				case 'string' :
-					$format .= '=<string>' ;
-					break ;
-				case 'array' :
-					$format .= '=<string>[,…]' ;
-					break ;
-				default :
-					$format .= '=???' ;
+				$name = $this->getParameterName( $param ) ;
+				if ( $this->isRequiredParameter( $param ) )
+				{
+					$scenario .= " --$name" ;
+				}
+				else
+				{
+					$scenario .= " [--$name]" ;
+				}
 			}
-
-			$this->writeln( "\t$format" ) ;
-			$this->writeln( "\t\t" . $this->getContext()->getMessage( $desc['desc'] ) ) ;
+			$this->writeln( $scenario ) ;
 		}
 	}
 
 	/** Show the documentation. */
 	protected function showDocumentation()
 	{
-		$context = $this->getContext() ;
 		$desc = $this->getDocumentation() ;
-
-		$this->writeln( $context->getMessage( 'cli.help' ) ) ;
-		$this->writeln() ;
-		$this->writeln( $context->getMessage( $desc['desc'] ) ) ;
-
-		if ( array_key_exists( 'required', $desc ) )
-		{
-			$this->showDocumentationPart(
-				'cli.help.required',
-				$desc['required']
-			) ;
-		}
-
-		if ( array_key_exists( 'optional', $desc ) )
-		{
-			$this->showDocumentationPart(
-				'cli.help.optional',
-				$desc['optional']
-			) ;
-		}
-
-		$this->showDocumentationPart(
-			'cli.help.common',
-			array(
-				'help' => array(
-					'type' => 'boolean',
-					'desc' => 'cli.help.common.help',
-					'alt' => 'h'
-				),
-				'language' => array(
-					'type' => 'string',
-					'desc' => 'cli.help.common.language'
-				)
-			)
+		$this->writeln(
+			$this->getContext()->getMessage( $desc['description'] )
 		) ;
+
+		$params = array_key_exists( 'parameters', $desc )
+			? $desc['parameters']
+			: array() ;
+
+		if ( array_key_exists( 'scenarios', $desc ) )
+		{
+			$this->showDocumentationTitle( 'cli.help.scenarios' ) ;
+			$this->showScenarios( $desc['scenarios'], $params) ;
+		}
+
+		if ( count( $params ) )
+		{
+			$this->showDocumentationTitle( 'cli.help.parameters' ) ;
+			$this->showParametersDocumentation( $params ) ;
+		}
+
+		$this->showDocumentationTitle( 'cli.help.common' ) ;
+		$this->showParametersDocumentation( array(
+			'help' => array(
+				'type' => 'boolean',
+				'description' => 'cli.help.common.help',
+				'alt' => 'h'
+			),
+			'language' => array(
+				'type' => 'string',
+				'description' => 'cli.help.common.language'
+			)
+		) ) ;
 	}
 
 	/** Get the context of execution. */
@@ -144,7 +256,7 @@ abstract class Command
 	/** Print a line on the console.
 	 * @param string [$message=''] Message to print.
 	 */
-	protected function writeln( $message = '' )
+	protected static function writeln( $message = '' )
 	{
 		echo "$message\n" ;
 	}
@@ -152,9 +264,38 @@ abstract class Command
 	/** Print a line on stderr.
 	 * @param string $message Error or warning message.
 	 */
-	protected function errln( $message )
+	protected static function errln( $message )
 	{
 		fwrite( STDERR, "$message\n" ) ;
 	}
 
+	/** Get a parameter (type from documentation).
+	 * @param string $name Parameter name.
+	 */
+	protected function getParameter( $name )
+	{
+		$doc = $this->getDocumentation() ;
+		$desc = $doc['parameters'][$name] ;
+		$context = $this->getContext() ;
+		$res = null ;
+		
+		switch ( $desc['type'] )
+		{
+			case 'string':
+				$res = $context->getParameter( $name ) ;
+				break ;
+			case 'array':
+				$res = $context->getArrayParameter( $name ) ;
+				break ;
+			case 'boolean':
+				$res = array_key_exists( 'alt', $desc )
+					? $context->getBooleanParameter( $name, $desc['alt'] )
+					: $context->getBooleanParameter( $name ) ; ;
+				break ;
+		}
+		
+		return $res ;
+	}
+
 }
+

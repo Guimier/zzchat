@@ -137,13 +137,21 @@
 			/* Success callback. */
 			function success( data )
 			{
-				var i ;
+				var i, partData ;
 				
 				for ( i in parts )
 				{
-					if ( data[parts[i].name].success )
+					partData = data[parts[i].name] ;
+					if ( partData.success )
 					{
-						parts[i].success( data[parts[i].name].data ) ;
+						if ( typeof partData.data === 'undefined' )
+						{
+							parts[i].success( null ) ;
+						}
+						else
+						{
+							parts[i].success( partData.data ) ;
+						}
 					}
 					else
 					{
