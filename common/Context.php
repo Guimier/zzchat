@@ -57,6 +57,9 @@ abstract class Context
 	 */
 	abstract public function getParameter( $key, $more = null ) ;
 
+	/** Get the current user. */
+	abstract public function getUser() ;
+
 	/** Get the boolean value of a parameter.
 	 * @param string $key Name of the parameter.
 	 * @param $more May be used by subclasses for selection precision (for example GET/POST), may be null.

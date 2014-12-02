@@ -7,8 +7,6 @@
 	"quotations.author": "— ${name}",
 	
 	"cli.help.common": "Paramètres communs",
-	"cli.help": "Aide des lignes de commande Agora.",
-	"cli.help.common": "Arguments communs à tous les scripts (facultatifs)",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
 	"cli.help.common.language": "Définit la langue d’affichage.",
 	"cli.help.parameters": "Paramètres",
@@ -25,20 +23,26 @@
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
 	"exceptions.nosuchquerypart": "Requête partielle « ${partname} » inconnue",
+	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.webmissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.illegalelement": "Élément <${element}> interdit",
+	"exceptions.illegalattribute": "Attribut « ${attribute} » interdit sur les éléments <${element}>",
+	"exceptions.illegalattributevalue": "L’attribut « ${attribute} » ne peut pas contenir « ${value} » sur les éléments <${element}>",
 	"exceptions.notloggedinuser": "Utilisateur non connecté !",
 	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
 	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
-	"exceptions.notloggedinuser": "Impossible de déconnecter un utilisateur non connecté",
-	"exceptions.usernametooshirt": "Le nom d’utilisateur « ${username} » est trop court",
+	"exceptions.usernametooshort": "Le nom d’utilisateur « ${username} » est trop court",
 	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
+	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",
+	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	"exception.climissingparameter": "Paramètre « ${param} » manquant",
 	
 	"login.validate": "Entez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
-	
+
 	"menu.logout": "Se déconnecter",
 	"menu.hello": "Bonjour, ${user} !",
-	
-	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue",
+
+	"web.footer": "Agora ZZ © 2014, Tous droits reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue.",
 	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."
 }

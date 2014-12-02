@@ -4,6 +4,7 @@ class User
 {
 	
 /***** Class *****/
+
 	/** Get an active user by name.
 	 * 
 	 * @param string $name The name to look for.
@@ -31,16 +32,6 @@ class User
 		return $user ;
 	}
 	
-	/** Put an user inactive
-	 *  
-	 * @throw UserAlreadyInactiveException If the user is already inactive. 
-	 */ 
-		
-	public function isNowInactive()
-	{
-		
-	}
-	
 	/** Get a user by id.
 	 * 
 	 * @param int $userId The id to look for.
@@ -59,8 +50,6 @@ class User
 		
 		return $users[$userId] ; 
 	}
-	
-	
 	
 	/** Create a user.
 	 * 
@@ -90,9 +79,17 @@ class User
 			self::getUserFile( $id ),
 			array(
 				'name' => $userName,
-				'last-action' => time()				
+				'last-action' => time(),
+				'logged-out' => false
 			)
 		) ;
+		
+		$activeUsersFile = $config->getDataDir( 'users' ) . '/active.json' ;
+		$activeUsers = $config->loadJson( $activeUsersFile, array() ) ;
+		
+		$activeUsers[$userName] = $id ;
+		$config->saveJson( $activeUsersFile, $activeUsers ) ;
+		
 		
 		return self::getUser( $id ) ;
 	}
@@ -108,7 +105,7 @@ class User
 	}
 	
 	
-/**** Instances ****/
+/***** Instances *****/
 	
 	/** The id of the user. */
 	private $id = -1 ;
@@ -116,7 +113,10 @@ class User
 	/** The array which contains the data concerning the user. */
 	private $userData = null ;
 	
-	/** Constructor
+	/** The data have been edited */
+	private $modified = false ;
+	
+	/** Constructor.
 	 * 
 	 * @param int $userId The id of the User which is built.
 	 * 
@@ -125,7 +125,7 @@ class User
 	public function __construct( $userId )  
 	{
 		$this->id = $userId ;
-		$this->userData =Configuration::getInstance()->loadJson(
+		$this->userData = Configuration::getInstance()->loadJson(
 			$this->getUserFile( $userId )
 		) ;
 		
@@ -135,13 +135,69 @@ class User
 		}
 	}
 	
+	/** Destructor.
+	 * Save the data if modified.
+	 */
+	public function __destruct()  
+	{
+		if ( $this->modified )
+		{
+			Configuration::getInstance()->saveJson(
+				$this->getUserFile( $this->id ),
+				$this->userData
+			) ;
+		}
+	}
+	
+	/** Change a key in the data array.
+	 * @param string $key The key to change.
+	 * @param mixed $value The new value.
+	 */
+	private function setValue( $key, $value )
+	{
+		$this->userData[$key] = $value ;
+		$this->modified = true ;
+	}
+	
 	/** Check whether the user is active or not.
 	 * 
 	 * @return True if the user is active, false otherwise. 
 	 */
 	public function isActive()
 	{
-		return time() - $this->userData['last-action'] < Configuration::getInstance()->getValue( 'user.inactivity' ) ;
+		$config = Configuration::getInstance() ;
+		return time() - $this->userData['last-action'] < $config->getValue( 'user.inactivity' ) 
+			&& ! $this->userData['loged-out'] ;
+	
+	}
+	
+	/** Put an user inactive
+	 *  
+	 * @throw UserAlreadyInactiveException If the user is already inactive. 
+	 */
+	public function isNowInactive()
+	{
+		if ( ! $this->isActive() )
+		{
+			throw new UserAlreadyInactiveException( $this->id ) ;
+		}
+		else
+		{
+			$this->setValue( 'logged-out', true ) ;
+			
+			$config = Configuration::getInstance() ;
+			$activeUsers = $config->loadJson( $config->getDataDir( 'users' ) . '/active.json', array() ) ;
+			
+			unset ( $activeUsers[$this->userData['name']] ) ;
+			
+			$config->saveJson( $config->getDataDir( 'users' ) . '/active.json', $activeUsers) ;
+		}
+	}
+	
+	/** Remember the user is active just now. */
+	public function isActiveNow()
+	{
+		$this->setValue( 'last-action', time() ) ;
 	}
 	
 	/** Get the id of the user.

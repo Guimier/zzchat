@@ -2,12 +2,13 @@
 	"ajaxrate.newposts": 2,
 	"ajaxrate.people": 60,
 	"channels.maxnum": 100,
-	"channels.style": "theater",
+	"channels.defaulttype": "theater",
 	"channels.inactivity": 604800,
 	"channels.postlength": 1024,
 	"channels.filelength": 100,
 	"user.maxpostrate": 20,
 	"user.defaultlang": "en",
 	"user.inactivity": 86400,
-	"user.minnamelength": 4
+	"user.minnamelength": 4,
+	"debug": false
 }

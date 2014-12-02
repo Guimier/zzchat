@@ -115,4 +115,12 @@ class CliContext extends Context
 			parent::getBooleanParameter( $key, null ) ;
 	}
 	
+	/** Get the current user.
+	 * Nobody just now, but could be a special user in the future.
+	 */
+	public function getUser()
+	{
+		return null ;
+	}
+	
 }
