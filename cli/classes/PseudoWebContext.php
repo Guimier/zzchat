@@ -29,7 +29,7 @@ class PseudoWebContext extends WebContext
 	 */
 	public function getUser()
 	{
-		return null ;
+		return $this->trueContext->getUser() ;
 	}
 	
 	/** Create and connect an user with the name in parameter.

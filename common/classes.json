@@ -13,6 +13,7 @@
 	"CheckhtmlCommand": "cli/classes/CheckhtmlCommand.php",
 	"CliContext": "cli/classes/CliContext.php",
 	"CliMissingParameterException": "cli/classes/CliMissingParameterException.php",
+	"CliUser": "cli/classes/CliUser.php",
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",

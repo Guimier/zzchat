@@ -120,7 +120,7 @@ class CliContext extends Context
 	 */
 	public function getUser()
 	{
-		return null ;
+		return new CliUser() ;
 	}
 	
 }
