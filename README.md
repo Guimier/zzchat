@@ -14,5 +14,5 @@ Please note that Agora uses PHP sessions. You should not install it on a server 
 
 Directories documentation is maintained as `README.md` files.
 
-Code documentation is maintained in Doxygen (PHP) and YUIdoc (JavaScript) in comments. You can run `ant doc-php` to build the PHP documentation and `ant doc-js` for the JavaScript one. You can run `ant doc` if you want to build both. They will be created as HTML files in the `doc` directory.
+Code documentation is maintained in Doxygen (PHP) and YUIdoc (JavaScript) syntaxes in comments. You can run `ant doc-php` to build the PHP documentation and `ant doc-js` for the JavaScript one. You can run `ant doc` if you want to build both. They will be created as HTML files in the `doc` directory.
 
