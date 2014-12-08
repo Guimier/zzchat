@@ -4,6 +4,14 @@
  */
 ( function ( $ ) {
 	
+	var
+		/**
+		 * Current user
+		 * @property {String} user
+		 * @private
+		 */
+		user = configuration.get( 'user' ); 
+	
 	/**
 	 * @method onLanguageChange
 	 * @private
@@ -21,9 +29,10 @@
 	 * @todo Load the talk interface
 	 * @param {String} data The name, as returned by the server.
 	 */
-	function loginSuccess( data )
+	function loginSuccess( name )
 	{
-		// We are now logged in as <data>
+		user = name ;
+		localStorage.setItem( 'lastname', name ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
 		initChatPage() ;
@@ -32,16 +41,40 @@
 	/**
 	 * @method loginError
 	 * @private
-	 * @param {String} errName Error name.
-	 * @param {String} message Error message.
+	 * @param {AjaxError} err Error.
 	 */
-	function loginError( errName, message )
+	function loginError( err )
 	{
-		// We are now logged in as <data>
+		console.log( err ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' )
-			.text( message )
+			.trText( err.msgName, err.msgArgs )
 			.show() ;
+	}
+
+	function gotQuotation( desc )
+	{
+		if ( desc !== null )
+		{
+			$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
+
+			$( '#author' ).trText(
+				desc.author === null
+					? 'quotations.anonymous'
+					: 'quotations.author',
+				{ name: desc.author }
+			) ;
+		}
+	}
+
+	function newQuotation()
+	{
+		ajax.add(
+			'GET',
+			'quotation',
+			null,
+			gotQuotation
+		) ;
 	}
 
 	/**
@@ -56,7 +89,8 @@
 		var username = $( '#pseudo' ).val() ;
 		
 		$( this ).addClass( 'login-waiting' ) ;
-		
+
+		newQuotation() ;
 		ajax.send(
 			'POST',
 			'login',
@@ -71,7 +105,7 @@
 	 */
 	function $createForm()
 	{
-		return $form = $( '<form>' )
+		return $( '<form>' )
 			.attr( 'id', 'loginForm' )
 			.submit( onLoginSubmit )
 			.append( $( '<label>' )
@@ -88,6 +122,7 @@
 					name: 'pseudo',
 					type: 'text'
 				} )
+				.val( localStorage.getItem( 'lastname' ) )
 			)
 			.append( '<br>' )
 			.append( $( '<input>' )
@@ -100,7 +135,7 @@
 			.append( $( '<p>' )
 				.hide()
 				.attr( 'id', 'login-error' )
-			)
+			) ;
 	}
 
 	function createMenuLang()
@@ -133,22 +168,36 @@
 			.change( onLanguageChange ) ;
 	}
 
+	function logout()
+	{
+		ajax.stop() ;
+		ajax.send( 'POST', 'logout' ) ;
+		user = null ;
+		initLoginPage() ;
+	}
+
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
+		ajax.stop() ;
+		$( 'html' )
+			.addClass( 'page-login' )
+			.removeClass( 'page-chat' ) ;
 	}
 
 	function initChatPage()
 	{
+		ajax.start( 2 ) ;
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
-		$( '#hello' ).trText( 'menu.hello', { user: configuration.get( 'user' ) } ) ;
+		$( '#hello' ).trText( 'menu.hello', { user: user } ) ;
 	}
 
 	function init()
 	{
 		$( '#nojs' ).remove() ;
+		$( '#disconnect' ).click( logout ) ;
 		/*Génération du choix des langues :*/
 		createMenuLang() ;
 		$( '#disconnect' ).trAttr( 'value', 'menu.logout' ) ;
@@ -159,6 +208,7 @@
 		}
 		else
 		{
+			newQuotation() ;
 			initChatPage() ;
 		}
 		

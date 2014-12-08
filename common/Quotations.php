@@ -1,10 +1,10 @@
 <?php
 
-/** Citations manager. */
-class Citations
+/** Quotations manager. */
+class Quotations
 {
 
-	const FILENAME = 'local/citations.json' ;
+	const FILENAME = 'local/quotations.json' ;
 
 	private $list ;
 	private $edited = false ;
@@ -30,8 +30,8 @@ class Citations
 		}
 	}
 
-	/** Get a random citation.
-	 * Returns false if no citation is available.
+	/** Get a random quotation.
+	 * Returns null if no quotation is available.
 	 */
 	public function getRandom()
 	{
@@ -39,7 +39,7 @@ class Citations
 
 		if ( $last < 0 )
 		{
-			$res = false ;
+			$res = null ;
 		}
 		else
 		{
@@ -50,8 +50,8 @@ class Citations
 		return $res ;
 	}
 
-	/** Get a citation.
-	 * @param number $id Indentifiant of the citation.
+	/** Get a quotation.
+	 * @param number $id Indentifiant of the quotation.
 	 */
 	public function get( $id )
 	{
@@ -63,15 +63,15 @@ class Citations
 		return $this->list[$id] ;
 	}
 
-	/** Get all citations. */
+	/** Get all quotations. */
 	public function getAll()
 	{
 		return $this->list ;
 	}
 
-	/** Add a citation.
-	 * @param string $text The citation.
-	 * @param string $author The author of the citation (may be null).
+	/** Add a quotation.
+	 * @param string $text The quotation.
+	 * @param string $author The author of the quotation (may be null).
 	 */
 	public function add( $text, $author )
 	{
@@ -83,8 +83,8 @@ class Citations
 		$this->edited = true ;
 	}
 
-	/** Remove a citation.
-	 * @param number $id Identifiant of the citation (key in getAll output).
+	/** Remove a quotation.
+	 * @param number $id Identifiant of the quotation (key in getAll output).
 	 */
 	public function remove( $id )
 	{

@@ -67,6 +67,11 @@ class AjaxQuery
 		{
 			$result['error'] = get_class( $e ) ;
 			$result['message'] = $e->getMessage() ;
+			
+			if ( $e instanceof AgoraException )
+			{
+				$result['struct'] = $e->getMessageStructure() ;
+			}
 		}
 		
 		if ( $debug )
@@ -120,8 +125,7 @@ class AjaxQuery
 		return $opts ;
 	}
 	
-	/** Expose te result of the query to the client.
-	 */
+	/** Expose the result of the query to the client. */
 	public function show()
 	{
 		header( 'Content-Type: application/json; charset=UTF-8' ) ;

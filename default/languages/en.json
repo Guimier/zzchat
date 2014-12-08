@@ -2,8 +2,9 @@
 	"lang.en": "English",
 	"lang.fr": "French",
 	
-	"citations.anonymous": "Anonymous",
-	"citations.quotation": "“${content}”",
+	"quotations.anonymous": "— Anonymous",
+	"quotations.quote": "“${content}”",
+	"quotations.author": "— ${name}",
 	
 	"cli.help.common": "Common parameters",
 	"cli.help.common.help": "Show this help and exit.",
@@ -12,9 +13,9 @@
 	"cli.help.scenarios": "Usage",
 	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want it in the documentation below?",
 	
-	"cli.citations": "Manage citations.",
-	"cli.citations.text": "Text of the citation.",
-	"cli.citations.author": "Author of the citation (if known).",
+	"cli.quotations": "Manage quotations.",
+	"cli.quotations.text": "Text of the quotation.",
+	"cli.quotations.author": "Author of the quotation (if known).",
 	
 	"cli.messages": "This script allows retrieving translations.",
 	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
@@ -27,21 +28,21 @@
 	"exceptions.illegalelement": "Element <${element}> not allowed",
 	"exceptions.illegalattribute": "Attribute “${attribute}” not allowed on <${element}> elements",
 	"exceptions.illegalattributevalue": "Attribute “${attribute}” cannot contain “${value}” on <${element}> elements",
-	"exceptions.notloggedinuser": "You need to be logged in to be able to log out",
-	"exceptions.useralreadyinactive": "The user whose id is “${userid}” is already inactive",
-	"exceptions.usernamealreadytaken": "The user name “${username}” is already taken",
-	"exceptions.notloggedinuser": "Cannot log out if not logged in",
-	"exceptions.usernametooshort": "User name “${username}” is too short",
-	"exceptions.nosuchuser": "No user has id “${userid}”",
-	"exceptions.nosuchchannel": "No channel has id “${id}”",
+	"exceptions.notloggedinuser": "Not logged in",
+	"exceptions.entityalreadyinactive": "The entity whose id is “${id}” is already inactive",
+	"exceptions.entitynamealreadytaken": "The entity name “${name}” is already taken",
+	"exceptions.entitynametooshort": "Entity name “${name}” is too short",
+	"exceptions.nosuchentity": "No entity has id “${id}”",
 	"exceptions.inactivechannel": "The channel #${id} is inactive",
+	"exceptions.climissingparameter": "Missing “${param}” parameter",
+	"exceptions.entitynamealredytaken": "The name “${name}” is already in use",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
-	
+
 	"menu.logout": "Log out",
 	"menu.hello": "Hello, ${user}!",
-	
-	"web.footer": "Agora ZZ © 2014, All Rights Reserved.<br/>Created by Lucien Guimier, Damien Teyssier and Guilhem Drogue",
+
+	"web.footer": "Agora ZZ © 2014, All rights reserved.<br/>Created by Lucien Guimier, Damien Teyssier and Guilhem Drogue.",
 	"web.nojs": "You need to enable JavaScript to use Agora."
 }

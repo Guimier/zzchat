@@ -2,8 +2,9 @@
 	"lang.en": "Anglais",
 	"lang.fr": "Français",
 	
-	"citations.anonymous": "Anonyme",
-	"citations.quotation": "« ${content} »",
+	"quotations.anonymous": "— Anonyme",
+	"quotations.quotation": "« ${content} »",
+	"quotations.author": "— ${name}",
 	
 	"cli.help.common": "Paramètres communs",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
@@ -12,9 +13,9 @@
 	"cli.help.scenarios": "Utilisation",
 	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
 	
-	"cli.citations": "Gérer les citations",
-	"cli.citations.text": "Texte de la citation.",
-	"cli.citations.author": "Auteur de la citation (si connu).",
+	"cli.quotations": "Gérer les citations",
+	"cli.quotations.text": "Texte de la citation.",
+	"cli.quotations.author": "Auteur de la citation (si connu).",
 	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
 	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
@@ -28,20 +29,20 @@
 	"exceptions.illegalattribute": "Attribut « ${attribute} » interdit sur les éléments <${element}>",
 	"exceptions.illegalattributevalue": "L’attribut « ${attribute} » ne peut pas contenir « ${value} » sur les éléments <${element}>",
 	"exceptions.notloggedinuser": "Utilisateur non connecté !",
-	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
-	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
-	"exceptions.notloggedinuser": "Aucun utilisateur posédant l'id “${userid}”",
-	"exceptions.usernametooshort": "Le nom d’utilisateur « ${username} » est trop court",
-	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
-	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",
+	"exceptions.entityalreadyinactive": "L'entité dont l'id est “${id}” est déjà inactive",
+	"exceptions.entitynamealreadytaken": "Le nom d'entité « ${name} » est déjà utilisé",
+	"exceptions.entitynametooshort": "Le nom d’entité « ${name} » est trop court",
+	"exceptions.nosuchentity": "Aucune entité ne porte le numéro « ${id} »",
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
+	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
+	"exceptions.entitynamealredytaken": "Le nom « ${name} » est déjà pris",
 	
-	"login.validate": "Entez dans l’agora",
+	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
-	
+
 	"menu.logout": "Se déconnecter",
 	"menu.hello": "Bonjour, ${user} !",
-	
-	"web.footer": "Agora ZZ © 2014, Tous droits Reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue",
+
+	"web.footer": "Agora ZZ © 2014, Tous droits reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue.",
 	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."
 }

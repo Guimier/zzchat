@@ -32,16 +32,12 @@ class Channel
 		return $channel ;
 	}
 	
-	
-	
-	
 	/** Get a channel by id.
 	 * 
 	 * @param int $channelId The id to look for.
 	 * 
 	 * @return The Channel instance.
 	 */
-	
 	public static function getChannel( $channelId )
 	{
 		static $channels = array() ;
@@ -51,7 +47,7 @@ class Channel
 			$channels[$channelId] = new Channel( $channelId ) ;
 		}
 		
-		return $channels[$channelId] ; 
+		return $channels[$channelId] ;
 	}
 	
 	/** Create a channel.
@@ -77,7 +73,7 @@ class Channel
 		}
 		
 		$lastidFile = $config->getDataDir( 'channels' ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
+		$id = $config->incrementCounter( 'lastchannel' ) ;
 		
 		$config->saveJson(
 			self::getChannelFile( $id ),
@@ -97,30 +93,30 @@ class Channel
 		return self::getChannel( $id ) ;
 	}
 	
-	
-	
 	/** Get the file of the channel by id.
-	 * @param int $channelId The id of the channel whose file is searched.  
+	 * @param int $channelId The id of the channel whose file is searched.
 	 * 
-	 * @return The File of the channel.
+	 * @return The file of the channel.
 	 */
 	private static function getChannelFile( $channelId )
 	{
 		return Configuration::getInstance()->getDataDir( 'channels' ) . '/' . $channelId . '.json' ;
 	}
 	
-	private static function getPostsFile( $fileId ) 
+	/** Get the file of a posts list by id.
+	 * @param int $fileId The id of the file.
+	 * 
+	 * @return The relative path to the file.
+	 */
+	private static function getPostsFile( $fileId )
 	{
-		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $FileId . '.json' ;
+		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
 	
 /***** Instances *****/
 	
 	/** The id of the channel */
 	private $id = -1 ;
-	
-	/** The array which contains the files which contain the posts of the channel */
-	private $files = array() ;
 	
 	/** The array which contains the data concerning the channel. */
 	private $channelData = null ;
@@ -151,14 +147,18 @@ class Channel
 		{
 			Configuration::getInstance()->saveJson(
 				$this->getChannelFile( $this->id ),
+<<<<<<< HEAD
 				$this->cData
+=======
+				$this->channelData
+>>>>>>> origin/master
 			) ;
 		}
 	}
 	
 	/** Check whether the channel is active or not.
 	 * 
-	 * @return True if the channel is active, false otherwise. 
+	 * @return True if the channel is active, false otherwise.
 	 */
 	public function isActive()
 	{
@@ -169,7 +169,7 @@ class Channel
 	 * 
 	 * @return The id of the Channel instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getId()
 	{
 		return $this->id ;
@@ -179,7 +179,7 @@ class Channel
 	 * 
 	 * @return The name of the Channel instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getName()
 	{
 		return $this->channelData['name'] ;
@@ -189,7 +189,7 @@ class Channel
 	 * 
 	 * @return The title of the Channel instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getTitle()
 	{
 		return $this->channelData['title'] ;
@@ -209,21 +209,22 @@ class Channel
 	* 
 	* @return The id of the file we need to insert the new post.
 	*/
-	
 	public function getInsertFile()
 	{
 		$postFileId = null ;
-		$counter = count( $this->files ) ;
-		if ( $counter !== 0 && ! $this->isFull( $this->files[$counter] ) )
+		$files = & $this->channelData['files'] ;
+		$lastIndex = count( $files ) - 1 ;
+		if ( $lastIndex >= 0 && ! $this->isFull( $files[$lastIndex] ) )
 		{
-			$postFileId = $this->files[$counter] ;
+			$postFileId = $files[$lastIndex] ;
 		}
 		else
 		{
 			$config = Configuration::getInstance() ;
-			$postFileId = $config->incrementCounter( $config->getDataDir( 'posts' ) . '/lastid.int' ) ;
+			$postFileId = $config->incrementCounter( 'lastpostfile' ) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
-			$this->files[] = $postFileId ;
+			$files[] = $postFileId ;
+			$this->modified = true ;
 		}
 		
 		return $postFileId ;
@@ -232,7 +233,7 @@ class Channel
 	
 	/** Add post on the channel.
 	 * 
-	 * @param User $user The User who adds this post. 
+	 * @param User $user The User who adds this post.
 	 * @param string $content The content of the post.
 	 * 
 	 * @return The Post which has been added.
@@ -254,35 +255,31 @@ class Channel
 		$config = Configuration::getInstance() ;
 		
 		$data = array(
-			'owner' => $user,
+			'owner' => $user->getId(),
 			'date' => time(),
 			'hidden' => false,
-			'content' => $content			 
+			'content' => $content
 		) ;
-		$post = new Post ;
-		$post->postData = $data ;
 		
 		$postingFileId = $this->getInsertFile() ;
 		$postingFile = self::getPostsFile( $postingFileId ) ;
 		$posts = $config->loadJson( $postingFile ) ;
 		$posts[] = $data ;
-		$config->saveJson( $postingFile,$posts ) ;
-		
-		return 	$post ;
+		$config->saveJson( $postingFile, $posts ) ;
 	}
 		
 	/** Check if the current file of the channel is full or not.
 	 * 
-	 * @param File $file The file which is tested.
+	 * @param string $fileId The id of the tested file.
 	 * 
 	 * @return Boolean : true if full, false otherwise.
-	 */ 
-	public function isFull( $file )
+	 */
+	public function isFull( $fileId )
 	{
 		$config = Configuration::getInstance() ;
-		$fileContent = $config->loadJson( $file ) ;
-		 
-		return count( $fileContent ) >= $config->getValue( 'channel.maxnum' ) ; 
+		$fileContent = $config->loadJson( self::getPostsFile( $fileId ) ) ;
+		
+		return count( $fileContent ) >= $config->getValue( 'channels.filelength' ) ;
 	}
 	
 	/** Get the last posts which have been posted for a while.
@@ -308,7 +305,7 @@ class Channel
 			{
 				$currentFile = $currentFile - 1 ;
 				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
-				$currentPost = count( $postsFile ) ;	
+				$currentPost = count( $postsFile ) ;
 			}
 		}
 		
@@ -339,7 +336,7 @@ class Channel
 				$lastPosts[] = $postsFile[$currentPost] ;
 				$currentFile = $currentFile + 1 ;
 				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
-				$currentPost = 0 ;	
+				$currentPost = 0 ;
 			}
 		}
 	

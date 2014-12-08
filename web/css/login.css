@@ -80,28 +80,16 @@
 
 .page-login #btn
 {
-	font-family : vinerHandItc ;
 	margin-top : 1vmax ;
 	height : 2vmax ;
 	font-size : 1vmax ;
-	background-color : black ;
-	box-shadow : none ;
-	border : solid ;
-	border-color : white ;
-	border-width : 0.25vmax ;
-	color : white ;
-	border-radius : 0.25em ;
 }
 
-.page-login #btn:hover
+.page-login #commands
 {
-	background-color : grey ;
-	cursor : pointer ;
-}
-
-.page-login #btn:active
-{
-	border : inset ;
+	position : absolute ;
+	top: 0 ;
+	right : 0 ;
 }
 
 .page-login #loginLabel
@@ -115,11 +103,17 @@
 	width : 12vmax ;
 }
 
-.page-login #menuint
+.page-login #hello,
+.page-login #disconnect,
+.page-login #agora,
+.page-login #hello,
+.page-login #notices,
+.page-login #channels-list,
+.page-login #container2,
+.page-login #chat,
+.page-login #channels,
+.page-login #author,
+.page-login #quote
 {
-	font-family : vinerHandItc ;
-	height : 2vmax ;		
-	width : auto ;
-	font-size : 1vmax ;
+	display : none ;
 }
-

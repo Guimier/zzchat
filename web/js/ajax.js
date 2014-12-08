@@ -7,6 +7,45 @@
  */
  ( function ( $ ) {
 
+/**
+ * Ajax exceptions.
+ * @class AjaxError
+ * @param {String} parsedMessage Parsed message.
+ * @param {String} type Exception type ('AjaxError' or PHP’s class name).
+ * @param {String} structMessage Message’s structure.
+ * @param {Boolean} internal Whether the error is internal or was caused by the user.
+ */
+	function AjaxError( parsedMessage, type, structMessage, internal )
+	{
+		/**
+		 * Parsed message.
+		 * @property {String} message
+		 */
+		var err = new Error( parsedMessage ) ;
+		/**
+		 * Exception type ('AjaxError' or PHP’s class name).
+		 * @property {String} type
+		 */
+		err.type = type ;
+		/**
+		 * Message’s name.
+		 * @property {String} msgName
+		 */
+		err.msgName = structMessage.message ;
+		/**
+		 * Message’s arguments.
+		 * @property {String} msgArgs
+		 */
+		err.msgArgs = structMessage.arguments ;
+		/**
+		 * Whether the error is internal or was caused by the user.
+		 * @property {Boolean} internal
+		 */
+		err.internal = internal ;
+		
+		return err ;
+	}
+
 /** Ajax abstraction interface.
  * @class ajax
  * @static
@@ -124,33 +163,43 @@
 			/* Error callback. */
 			function error( jqXHR, textStatus )
 			{
-				var i ;
+				var i, err ;
 				for ( i in parts )
 				{
-					parts[i].error(
-						'ajax:' + textStatus,
-						parts[i].message
-					) ;
+					err = new Error( 'ajax:' + textStatus ) ;
+					err.internal = true ;
+					err.type = 'AjaxError' ;
+					parts[i].error( err ) ;
 				}
 			}
 		
 			/* Success callback. */
 			function success( data )
 			{
-				var i ;
+				var i, partData ;
 				
 				for ( i in parts )
 				{
-					if ( data[parts[i].name].success )
+					partData = data[parts[i].name] ;
+					if ( partData.success )
 					{
-						parts[i].success( data[parts[i].name].data ) ;
+						if ( typeof partData.data === 'undefined' )
+						{
+							parts[i].success( null ) ;
+						}
+						else
+						{
+							parts[i].success( partData.data ) ;
+						}
 					}
 					else
 					{
-						parts[i].error(
-							data[parts[i].name].error,
-							data[parts[i].name].message
-						) ;
+						parts[i].error( AjaxError(
+							partData.message, 
+							partData.error,
+							partData.struct,
+							partData.type !== 'user'
+						) ) ;
 					}
 				}
 			}
@@ -174,7 +223,7 @@
 	 * @param {string} name Sub-query name.
 	 * @param {Object} data Data to send.
 	 * @param {Function} [success] Callback on success. Called with the returned data.
-	 * @param {Function} [error] Callback on error. Called with error name and description.
+	 * @param {Function} [error] Callback on error. Called with an AjaxError object.
 	 */
 	window.ajax.add = function ( method, name, data, success, error )
 	{
@@ -314,11 +363,11 @@
 		 * Error callback.
 		 * @property {Function} error
 		 */
-		error: function ( errName )
+		error: function ( err )
 		{
 			if ( console && $.isFunction( console.error ) )
 			{
-				console.error( 'Error on query part “' + this.name + '”: ' + errName ) ;
+				console.error( 'Error on query part “' + this.name + '”: ' + err.message ) ;
 			}
 		}
 		

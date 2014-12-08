@@ -16,7 +16,7 @@ function sendConfiguration()
 		'language' => $config->getValue( 'user.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
 		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
-		'user' => 'aa' // $user instanceof User ? $user->getName() : null
+		'user' => $user instanceof User ? $user->getName() : null
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
@@ -79,24 +79,33 @@ function sendConfiguration()
 				</div>
             </div>
             <div id="container2">
-                <!--Annonces-->
-                <div id="notices"></div>
+<?php
+
+$noticeFile = Configuration::getInstance()->getRootDir() . '/local/notice.html' ;
+
+if ( file_exists( $noticeFile ) )
+{
+	echo '<div id="notices">' ;
+	echo file_get_contents( $noticeFile ) ;
+	echo '</div>' ;
+}
+?>
                 <!--Chat-->
                 <div id="chat">
                 	<!--Canaux-->
                     <div id="channels-list"></div>
                     <div id="channels">
-						<div class="channel currentChannel">
-							<div class="channelCore">
-								<!--Messages-->
-								<div class="messages"></div>
-								<!--WYSIWYG-->
-								<div class="wysiwyg"></div>
-							</div>
-							<!--Presents-->
-							<div class="presents"></div>
-						</div>
-					</div>
+			<div class="channel currentChannel">
+				<div class="channelCore">
+					<!--Messages-->
+					<div class="messages"></div>
+					<!--WYSIWYG-->
+					<div class="wysiwyg"></div>
+				</div>
+				<!--Presents-->
+				<div class="presents"></div>
+				</div>
+			</div>
                 </div>
             </div>
             <!--Pour le centrage vertical-->

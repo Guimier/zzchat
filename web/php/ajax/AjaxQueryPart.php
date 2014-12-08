@@ -19,6 +19,12 @@ abstract class AjaxQueryPart
 		$this->context = $context ;
 	}
 	
+	/** Get the context. */
+	protected function getContext()
+	{
+		return $this->context ;
+	}
+	
 	/** Answer the query. */
 	abstract public function execute() ;
 	
@@ -48,4 +54,20 @@ abstract class AjaxQueryPart
 	{
 		return $this->context->getArrayParameter( $this->prefix . '_' . $key, $selector ) ;
 	}
-}
+
+	/** This request may be executed only if logged in.
+	 * @return the current user.
+	 * @throws NotLoggedInUserException If the user is not logged in.
+	 */
+	protected function loggedInOnly()
+	{
+		$user = Context::getCanonical()->getUser() ;
+		
+		if ( $user === null )
+		{
+			throw new NotLoggedInUserException() ;
+		}
+		
+		return $user ;
+	}
+
