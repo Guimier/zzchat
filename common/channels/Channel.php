@@ -71,6 +71,11 @@ class Channel
 			throw new ChannelNameAlreadyTakenException( $channelName ) ;
 		}
 		
+		if ( illegalCharacter( $channelData ) )
+		{
+			throw new IllegalCharacterException( $channelData ) ; 
+		}
+		
 		$lastidFile = $config->getDataDir( 'channels' ) . '/lastid.int' ;
 		$id = $config->incrementCounter( $lastIdFile ) ;
 		
@@ -120,6 +125,9 @@ class Channel
 	/** The array which contains the data concerning the channel. */
 	private $channelData = null ;
 	
+	/** The data have been edited */
+	private $modified = false ;
+	
 	/** Constructor of channel instance */
 	public function __construct( $channelId )
 	{
@@ -131,6 +139,20 @@ class Channel
 		if ( $this->channelData === null )
 		{
 			throw new NoSuchChannelException( $channelId ) ;
+		}
+	}
+	
+	/** Destructor.
+	 * Save the data if modified.
+	 */
+	public function __destruct()  
+	{
+		if ( $this->modified )
+		{
+			Configuration::getInstance()->saveJson(
+				$this->getChannelFile( $this->id ),
+				$this->cData
+			) ;
 		}
 	}
 	
