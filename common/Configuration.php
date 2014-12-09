@@ -107,7 +107,7 @@ class Configuration
 	/** Get specific configuration value.
 	 * @throws NoSuchConfigurationKeyException Thrown if the value does not exist.
 	 */
-	public function getValue( $key )
+	public static function getValue( $key )
 	{
 		if ( ! array_key_exists( $key, self::$defaultConfig ) )
 		{
