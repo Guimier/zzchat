@@ -70,4 +70,5 @@ abstract class AjaxQueryPart
 		
 		return $user ;
 	}
-
+	
+}

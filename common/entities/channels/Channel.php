@@ -156,7 +156,7 @@ class Channel extends Entity
 	public function lastPosts( $beginning )
 	{
 		$config = Configuration::getInstance() ;
-		$files = $this->getValue( 'files')
+		$files = $this->getValue( 'files') ;
 		$lenght = count( $files ) ;
 		$currentFile = $lenght ;
 		$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
