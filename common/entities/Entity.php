@@ -172,7 +172,7 @@ abstract class Entity
 	 * @param string $key The key to change.
 	 * @param mixed $value The new value.
 	 */
-	private function getValue( $key, $value )
+	private function getValue( $key )
 	{
 		return $this->data[$key] ;
 	}
@@ -184,9 +184,7 @@ abstract class Entity
 	public function isActive()
 	{
 		$config = Configuration::getInstance() ;
-		return time() - $this->data['last-action'] < $config->getValue( self::getEntityType() . '.inactivity' ) 
-			&& ! $this->data['loged-out'] ;
-	
+		return time() - $this->data['last-action'] < $config->getValue( self::getEntityType() . '.inactivity' ) ;	
 	}
 	
 	/** Put an entity inactive
@@ -239,6 +237,5 @@ abstract class Entity
 	public function getName()
 	{
 		return $this->data['name'] ;
-	}
-	
+	}	
 }
