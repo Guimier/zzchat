@@ -15,7 +15,11 @@ find \
 	-exec chmod go+r-w,u+rw {} \;
 
 find \
-	-name '*.js' \
+	web/js web/css web/img web/font/ web/lib \
+	-exec chmod go+r-w,u+rw {} \;
+
+find \
+	-name '*.css' \
 	-exec chmod go+r-w,u+rw {} \;
 
 # Data files must be readable and writable by anybody.
