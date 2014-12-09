@@ -54,7 +54,7 @@ abstract class AjaxQueryPart
 	{
 		return $this->context->getArrayParameter( $this->prefix . '_' . $key, $selector ) ;
 	}
-
+	
 	/** This request may be executed only if logged in.
 	 * @return the current user.
 	 * @throws NotLoggedInUserException If the user is not logged in.
