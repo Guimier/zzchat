@@ -34,7 +34,7 @@
 	"NoSuchUserException": "common/users/NoSuchUserException.php",
 	"NotLoggedInUserException": "common/users/NotLoggedInUserException.php",
 	"PostAjaxQueryPart": "web/php/ajax/PostAjaxQueryPart.php",
-	"Post": "common/posts/Post.php",
+	"Post": "common/channels/Post.php",
 	"PseudoWebContext": "cli/classes/PseudoWebContext.php",
 	"QuotationAjaxQueryPart": "web/php/ajax/QuotationAjaxQueryPart.php",
 	"QuotationsCommand": "cli/classes/QuotationsCommand.php",
