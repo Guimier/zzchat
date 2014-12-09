@@ -13,7 +13,7 @@ spl_autoload_register( array(
 	'load'
 ) ) ;
 
-Configuration::setInstance(
+Configuration::initiate(
 	$root,
 	'default/configuration.json',
 	'local/configuration.json'
