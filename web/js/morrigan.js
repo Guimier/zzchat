@@ -102,14 +102,14 @@
 			var $editor = this.morrigan_editor( {
 				iframeStyles: 'web/lib/morrigan-iframe.css',
 				width: 'auto',
-				height: '100px',
+				height: '140px',
 				toolbox: [ toolbox ]
 			} ) ;
 			
 			$( $editor.find( '.mrge-content-iframe' )[0].contentDocument )
 				.find( 'html' )
 				.on( 'keypress', function ( evt ) {
-					if ( evt.which === 13 )
+					if ( evt.which === 13 && ! evt.shiftKey )
 					{
 						$editor.trigger( 'enter', {
 							content: $editor.morrigan_editor( 'html' )

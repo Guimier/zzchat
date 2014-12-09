@@ -34,6 +34,22 @@ function sendConfiguration()
 		<link rel="shortcut icon" type="image/png" href="web/img/favicon.png" />
 	
 		<!-- Styles -->
+		<link 
+			rel="stylesheet" media="screen" type="text/css"
+			href="web/lib/jquery-ui.css" 
+		/>
+		<link 
+			rel="stylesheet" media="screen" type="text/css"
+			href="web/lib/morrigan.css" 
+		/>
+		<link
+			rel="stylesheet" media="screen" type="text/css"
+			href="web/css/morrigan.css" 
+		/>
+		<link 
+			rel="stylesheet" media="screen" type="text/css"
+			href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" 
+		/>
 		<link
 			rel="stylesheet" media="screen" type="text/css"
 			id="css-common"
@@ -52,12 +68,16 @@ function sendConfiguration()
 	
 		<!-- Scripts -->
 	
-		<script src="web/js/configuration.js"></script>
-		<?php sendConfiguration() ; ?>
+		
 
 		<script src="web/lib/jquery.js"></script>
+		<script src="web/lib/jquery-ui.js"></script>
+		<script src="web/js/configuration.js"></script>
+		<?php sendConfiguration() ; ?>
 		<script src="web/js/ajax.js"></script>
 		<script src="web/js/languages.js"></script>
+		<script src="web/js/morrigan.js"></script>
+		<script src="web/lib/morrigan.js"></script>
 		<script src="web/js/chat.js"></script>
 	</head>
 	<body>
@@ -117,6 +137,9 @@ if ( file_exists( $noticeFile ) )
             <!--Footer-->
             <div id="footer"></div>
       	</div>
+	<script>
+		setTimeout( function(){ $( '.wysiwyg' ).wysiwyg( 'normal' ) ; }, 1000 ) ;
+	</script>
 	</body>
 </html>
 

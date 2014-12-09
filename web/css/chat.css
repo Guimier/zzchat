@@ -109,7 +109,6 @@
 	border-width : 1px ;
 	
 	box-sizing : border-box ;
-	height : 140px ;
 	
 }
 
@@ -201,3 +200,31 @@
 	display : flex ;
 	flex-direction : column ;
 }
+
+.page-chat .mrge-content
+{
+	background-color : white ;
+}
+
+.page-chat .mrge-toolbox
+{
+	background-color : grey ;
+}
+
+.page-chat .morrigan-editor .mrge-toolbox .mrge-disabled
+{
+	background-color : red ;
+	color : black ;
+}
+
+.morrigan-editor .mrge-toolbox .mrge-action 
+{
+	background-color : red ;
+	color : black ;
+}
+
+.morrigan-editor .mrge-toolbox .mrge-action.mrge-active
+{
+	background-color : green ;
+}
+

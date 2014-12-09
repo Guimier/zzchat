@@ -565,11 +565,11 @@ $.widget( "morrigan.morrigan_editor", {
 
             };
             this.setActiveIcon = function () {
-                this.element.css('background-color', config.view.activeBackground).addClass('mrge-active');
+                this.element.addClass('mrge-active');
                 this.activeState = true;
             };
             this.setInactiveIcon = function () {
-                this.element.css('background-color', config.view.inactiveBackground).removeClass('mrge-active');
+                this.element.removeClass('mrge-active');
                 this.activeState = false;
             };
         }
