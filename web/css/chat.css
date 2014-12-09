@@ -54,33 +54,6 @@
 	flex : 2 ;
 }
 
-.page-chat #commands
-{
-	height : auto ;
-	text-align: right ;
-}
-
-.page-chat #hello
-{
-	position : relative ;
-	margin-right : 1px ;
-	margin-top : 2px ;
-}
-
-.page-chat #disconnect
-{
-	position : relative ;
-	margin-right : 1px ;
-	margin-top : 2px ;
-}
-
-.page-chat #menuint
-{
-	position : relative ;
-	margin-right : 2px ;
-	margin-top : 2px ;
-}
-
 .page-chat .messages
 {
 	position : relative ;
