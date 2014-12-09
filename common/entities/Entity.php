@@ -202,7 +202,7 @@ abstract class Entity
 			$this->setValue( 'logged-out', true ) ;
 			
 			$config = Configuration::getInstance() ;
-			$activeFile =  $config->getDataDir( self::getEntityType() ) . '/active.json'
+			$activeFile = $config->getDataDir( self::getEntityType() ) . '/active.json' ;
 			
 			$activeEntities = $config->loadJson( $activeFile, array() ) ;
 			
