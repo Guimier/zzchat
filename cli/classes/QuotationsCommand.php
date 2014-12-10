@@ -10,29 +10,29 @@ class QuotationsCommand extends Command
 			'description' => 'cli.quotations',
 			'scenarios' => array(
 				'add' => array(
-					'description' => 'cli.quotation.add',
+					'description' => 'cli.quotations.add',
 					'parameters' => array( '+text', 'author' )
 				),
 				'show' => array(
-					'description' => 'cli.quotation.show',
+					'description' => 'cli.quotations.show',
 					'parameters' => array( 'id' )
 				),
 				'rm' => array(
-					'description' => 'cli.quotation.rm',
+					'description' => 'cli.quotations.rm',
 					'parameters' => array( '+id' )
 				)
 			),
 			'parameters' => array(
 				'text' => array(
-					'description' => 'cli.quotation.text',
+					'description' => 'cli.quotations.text',
 					'type' => 'string'
 				),
 				'author' => array(
-					'description' => 'cli.quotation.author',
+					'description' => 'cli.quotations.author',
 					'type' => 'string'
 				),
 				'id' => array(
-					'description' => 'cli.quotation.id',
+					'description' => 'cli.quotations.id',
 					'type' => 'array'
 				)
 			)

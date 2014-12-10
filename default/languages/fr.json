@@ -6,6 +6,12 @@
 	"quotations.quotation": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
+	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
+	
+	"cli.checkhtml": "Moyen simple de tester une entrée HTML avec les règles de validation.",
+	
+	"cli.entities.id": "Liste des identifiants concernés.",
+	
 	"cli.help.common": "Paramètres communs",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
 	"cli.help.common.language": "Définit la langue d’affichage.",
@@ -13,12 +19,20 @@
 	"cli.help.scenarios": "Utilisation",
 	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
 	
-	"cli.quotations": "Gérer les citations",
-	"cli.quotations.text": "Texte de la citation.",
-	"cli.quotations.author": "Auteur de la citation (si connu).",
-	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
 	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
+	
+	"cli.quotations": "Gérer les citations",
+	"cli.quotations.add": "Ajouter une citation.",
+	"cli.quotations.author": "Auteur de la citation (si connu).",
+	"cli.quotations.id": "List d’identifiants de citations à montrer ou à supprimer.",
+	"cli.quotations.rm": "Supprimer des citations.",
+	"cli.quotations.show": "Afficher les citations (toutes par défaut).",
+	"cli.quotations.text": "Texte de la citation.",
+	
+	"cli.users": "Outil de gestion des utilisateurs.",
+	"cli.users.eject": "Déconnecter de force un utilisateur.",
+	"cli.users.show": "Lister les utilisateurs actifs.",
 	
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
@@ -29,14 +43,14 @@
 	"exceptions.illegalattribute": "Attribut « ${attribute} » interdit sur les éléments <${element}>",
 	"exceptions.illegalattributevalue": "L’attribut « ${attribute} » ne peut pas contenir « ${value} » sur les éléments <${element}>",
 	"exceptions.notloggedinuser": "Utilisateur non connecté !",
-	"exceptions.useralreadyinactive": "L'utilisateur dont l'id est “${userid}” est déjà inactif",
-	"exceptions.usernamealreadytaken": "Le nom d’utilisateur « ${username} » est déjà utilisé",
-	"exceptions.usernametooshort": "Le nom d’utilisateur « ${username} » est trop court",
-	"exceptions.nosuchuser": "Aucun utilisateur ne porte le numéro « ${userid} »",
-	"exceptions.nosuchchannel": "Aucun canal ne porte le numéro « ${id} »",
+	"exceptions.entityalreadyinactive": "L'entité dont l'id est “${id}” est déjà inactive",
+	"exceptions.entitynamealreadytaken": "Le nom d'entité « ${name} » est déjà utilisé",
+	"exceptions.entitynametooshort": "Le nom d’entité « ${name} » est trop court",
+	"exceptions.nosuchentity": "Aucune entité ne porte le numéro « ${id} »",
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
-	"exceptions.usernamealredytaken": "Le nom « ${username} » est déjà pris",
+	"exceptions.entitynamealredytaken": "Le nom « ${name} » est déjà pris",
+	"exceptions.containsillegalcharacter": "Le nom « ${name} » contient des charactères non autorisés",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

@@ -84,14 +84,15 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		self::$autoloader->load( $className ) ;
 	}
 	
-	/** Load the Configuration class and initiate it. */
-	public static function loadConfiguration()
+	/** Load the Configuration class and initiate it.
+	 * @param string [$default] Default configuration file.
+	 */
+	public static function loadConfiguration(
+		$default = 'default/configuration.json'
+	)
 	{
 		self::load( 'Configuration' ) ;
-		Configuration::setInstance(
-			self::getRootDir(),
-			null, null
-		) ;
+		Configuration::initiate( self::getRootDir(), $default, null ) ;
 	}
 
 /***** Paths *****/

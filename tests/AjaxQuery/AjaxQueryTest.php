@@ -30,7 +30,7 @@ class AjaxQueryTest extends ClassTester
 		{
 			$expected = 
 <<<JSON
-{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"error":"GenericAgoraUserException","message":"baz","type":"user"},"throwingInternal":{"success":false,"error":"GenericException","message":"baz","type":"internal"},"nonexistant":{"success":false,"error":"NoSuchQueryPartException","message":"nonexistant","type":"user"}}
+{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"baz"},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"nonexistant"}}
 JSON
 			;
 		}
@@ -38,7 +38,7 @@ JSON
 		{
 			$expected = 
 <<<JSON
-{"working":{"success":true,"data":["foo","\u00df","\u00d7"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"error":"GenericAgoraUserException","message":"baz","type":"user"},"throwingInternal":{"success":false,"error":"GenericException","message":"baz","type":"internal"},"nonexistant":{"success":false,"error":"NoSuchQueryPartException","message":"nonexistant","type":"user"}}
+{"working":{"success":true,"data":["foo","\u00df","\u00d7"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"baz"},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"nonexistant"}}
 JSON
 			;
 		}

@@ -7,19 +7,19 @@ class CreateChannelAjaxQueryPart extends AjaxQueryPart
 	{
 		$user = $this->loggedInOnly() ;
 	
-		$content = $this->getParameter( 'name' ) ;
-		if ( $content === null )
+		$name = $this->getParameter( 'name' ) ;
+		if ( $name === null )
 		{
 			throw new WebMissingParameterException( 'name' ) ;
 		}
 		
-		$content = $this->getParameter( 'title' ) ;
-		if ( $content === null )
+		$title = $this->getParameter( 'title' ) ;
+		if ( $title === null )
 		{
 			throw new WebMissingParameterException( 'title' ) ;
 		}
 		
-		$content = $this->getParameter( 'type' ) ;
+		$type = $this->getParameter( 'type' ) ;
 		
 		$channel = Channel::createChannel( $name, $title, $user, $type ) ;
 		

@@ -3,69 +3,38 @@
 class Configuration
 {
 
-	/** The only instance. */
-	private static $instance = null ;
+	private static $root = null ;
 
-	/** Get the only instance. */
+	/** Get the only instance.
+	 * @deprecated Use this as a static class instead.
+	 */
 	public static function getInstance()
 	{
-		if ( self::$instance === null )
-		{
-			/* Exception since AgoraException depends on Configuration. */
-			return new Exception( 'No instance of Configuration.' ) ;
-		}
-		
-		return self::$instance ;
+		return new Configuration() ;
 	}
 
-	/** Set the only instance.
+	/** Initiate the configuration.
 	 * @param string $root Full path to the root directory of Agora.
-	 * @param string $defaultConfig Relative path to the default configuration.
-	 * @param string $adminConfig Relative path to the configuration the administrator may change.
+	 * @param string $defaultConfigRelativePath Relative path to the default configuration.
+	 * @param string $localConfigRelativePath Relative path to the configuration the administrator may change.
 	 */
-	public static function setInstance( $root, $defaultConfig, $adminConfig )
+	public static function initiate( $root, $defaultConfigRelativePath, $localConfigRelativePath )
 	{
-		if ( self::$instance !== null )
-		{
-			/* Exception since AgoraException depends on Languages. */
-			return new Exception( 'Double instanciation of Configuration.' ) ;
-		}
-		
-		self::$instance = new Configuration( $root, $defaultConfig, $adminConfig ) ;
-		
-		return self::$instance ;
+		self::$root = $root ;
+		self::$defaultConfig = self::loadJson( $defaultConfigRelativePath, array() ) ;
+		self::$localConfig = self::loadJson( $localConfigRelativePath, array() ) ;
 	}
-
-/******************************************************************************/
-
-	/** Constructor.
-	 * @param string $root Full path to the root directory of Agora.
-	 * @param string $defaultConfig Relative path to the default configuration.
-	 * @param string $adminConfig Relative path to the configuration the administrator may change.
-	 */
-	private function __construct( $root, $defaultConfig, $adminConfig )
-	{
-		/* Path */
-		$this->root = $root ;
-		/* Configuration */
-		$this->loadConfiguration( $defaultConfig, $adminConfig );
-	}
-
-/***** Path *****/
-
-	/** Root directory path. */
-	private $root = null;
 
 	/** Get root repository path. */
-	public function getRootDir()
+	public static function getRootDir()
 	{
-		return $this->root ;
+		return self::$root ;
 	}
 
 	/** Get specific data directory path (relative).
 	 * @return Full path to a specific data directory.
 	 */
-	public function getDataDir( $key )
+	public static function getDataDir( $key )
 	{
 		return '/local/data/' . $key ;
 	}
@@ -74,9 +43,9 @@ class Configuration
 	 * @param string $relative Relative path to the file.
 	 * @return $full Full path to the file.
 	 */
-	public function getFullPath( $relative )
+	public static function getFullPath( $relative )
 	{
-		return $this->getRootDir() . '/' . $relative ;
+		return self::getRootDir() . '/' . $relative ;
 	}
 
 /***** File reading/writing *****/
@@ -85,11 +54,11 @@ class Configuration
 	 * @param string $file Relative path to the file.
 	 * @param [$default=null] Default value if the file does not exist or contains invalid JSON.
 	 */
-	public function loadJson( $file, $default = null )
+	public static function loadJson( $file, $default = null )
 	{
 		$res = $default ;
 
-		$full = $this->getFullPath( $file ) ;
+		$full = self::getFullPath( $file ) ;
 
 		if ( file_exists( $full ) )
 		{
@@ -104,24 +73,30 @@ class Configuration
 		return $res ;
 	}
 
-	/** Save inot a JSON file a value.
+	/** Save a value into a JSON file.
 	 * @param string $file Relative path to the file.
 	 * @param $value The value to save.
 	 */
-	public function saveJson( $file, $value )
+	public static function saveJson( $file, $value )
 	{
-		$full = $this->getFullPath( $file ) ;
+		$full = self::getFullPath( $file ) ;
+		$setRights = ! file_exists( $full ) ;
+
 		file_put_contents( $full, JSON::encode( $value ) ) ;
-		chmod( $full, 0666 ) ;
+
+		if ( $setRights )
+		{
+			chmod( $full, 0666 ) ;
+		}
 	}
 
 	/** Get the value of a counter and increment it.
 	 * @param string $counter Relative path to the counter file.
 	 * @return The saved value.
 	 */
-	public function incrementCounter( $counter )
+	public static function incrementCounter( $counter )
 	{
-		$full = $this->getFullPath( "local/data/$counter.int" ) ;
+		$full = self::getFullPath( $counter ) ;
 		$value = 1 + (int) file_get_contents( $full ) ;
 		file_put_contents( $full, $value ) ;
 		return $value ;
@@ -129,60 +104,30 @@ class Configuration
 
 /***** Configuration *****/
 
-	/** Configuration.
-	 * The initial values are the default ones; they will be overridden on construction by
-	 * any key in /config/global.json whose type matches the one given here.
-	 */
-	private $configuration = array() ;
-	
-	/** Merge an array into another, selecting only keys with matching types.
-	 *
-	 * @param array $src Source array.
-	 * @param array &$dest Destination array.
-	 */
-	private function mergeTypedArrays( $src, &$dest )
-	{
-		foreach ( $src as $key => $val )
-		{
-			if ( array_key_exists( $key, $dest ) && gettype( $val ) == gettype( $dest[$key] ) )
-			{
-				$dest[$key] = $val ;
-			}
-		}
-		
-	}
+	/** Default configuration. */
+	private static $defaultConfig = array() ;
 
-	/** Load configuration
-	 * This method reads both configuration.json files and override default values with local ones when types match.
-	 * @param string $defaultConfig Relative path to the default configuration.
-	 * @param string $adminConfig Relative path to the configuration the administrator may change.
-	 */
-	private function loadConfiguration( $defaultConfig, $adminConfig )
-	{
-		$this->configuration = $this->loadJson( $defaultConfig ) ;
-
-		$changes = $this->loadJson( $adminConfig ) ;
-
-		if ( $changes !== null )
-		{
-			$this->mergeTypedArrays(
-				$changes,
-				$this->configuration
-			) ;
-		}
-	}
+	/** Local configuration. */
+	private static $localConfig = array() ;
 	
 	/** Get specific configuration value.
 	 * @throws NoSuchConfigurationKeyException Thrown if the value does not exist.
 	 */
-	public function getValue( $key )
+	public static function getValue( $key )
 	{
-		if ( ! array_key_exists( $key, $this->configuration ) )
+		if ( ! array_key_exists( $key, self::$defaultConfig ) )
 		{
 			throw new NoSuchConfigurationKeyException( $key ) ;
 		}
 		
-		return $this->configuration[$key] ;
+		$res = self::$defaultConfig[$key] ;
+		
+		if ( array_key_exists( $key, self::$localConfig ) && gettype( self::$localConfig[$key] ) === gettype( $res ) )
+		{
+			$res = self::$localConfig[$key] ;
+		}
+		
+		return $res ;
 	}
 
 }

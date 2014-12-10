@@ -16,6 +16,9 @@ class HTML
 		'strike' => array(),
 		'a' => array(
 			'href' => '#^https?://#'
+		),
+		'img' => array(
+			'src' => '#^web/img/smiley-\w+\.png$#'
 		)
 	) ;
 	
@@ -43,17 +46,24 @@ class HTML
 		}
 	}
 
+	private static function checkChildren( DOMElement $elem = null )
+	{
+		if ( $elem !== null )
+		{
+			$nodes = $elem->getElementsByTagName( '*' ) ;
+			foreach ( $nodes as $node )
+			{
+				self::checkNode( $node ) ;
+			}
+		}
+	}
+
 	public static function checkInput( $html )
 	{
 		$dd = new DOMDocument() ;
 		$dd->loadHTML( $html ) ;
-		$body = $dd->getElementsByTagName( 'body' )->item( 0 ) ;
-
-		$nodes = $body->getElementsByTagName( '*' ) ;
-		foreach ( $nodes as $node )
-		{
-			self::checkNode( $node ) ;
-		}
+		self::checkChildren( $dd->getElementsByTagName( 'head' )->item( 0 ) ) ;
+		self::checkChildren( $dd->getElementsByTagName( 'body' )->item( 0 ) ) ;
 	}
 
 }

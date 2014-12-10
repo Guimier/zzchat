@@ -7,15 +7,14 @@ function sendConfiguration()
 {
 	echo '<script>' ;
 	
-	$config = Configuration::getInstance() ;
 	$langs = Languages::getInstance() ;
 	$user = Context::getCanonical()->getUser() ;
 	
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
-		'language' => $config->getValue( 'user.defaultlang' ),
-		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
-		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
+		'language' => Configuration::getValue( 'users.defaultlang' ),
+		'newpostsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
+		'peoplerate' => Configuration::getValue( 'ajaxrate.people' ),
 		'user' => $user instanceof User ? $user->getName() : null
 	) ;
 	
@@ -81,7 +80,7 @@ function sendConfiguration()
             <div id="container2">
 <?php
 
-$noticeFile = Configuration::getInstance()->getRootDir() . '/local/notice.html' ;
+$noticeFile = Configuration::getRootDir() . '/local/notice.html' ;
 
 if ( file_exists( $noticeFile ) )
 {

@@ -8,7 +8,7 @@ class AjaxCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'desc' => 'cli.ajax'
+			'description' => 'cli.ajax'
 		) ;
 	}
 

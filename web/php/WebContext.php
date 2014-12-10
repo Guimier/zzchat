@@ -29,7 +29,7 @@ class WebContext extends Context
 		session_start() ;
 		if ( array_key_exists( 'user-id', $_SESSION ) )
 		{
-			$user = User::getUser( $_SESSION['user-id'] ) ;
+			$user = User::getEntity( $_SESSION['user-id'] ) ;
 			
 			if( $user->isActive() )
 			{

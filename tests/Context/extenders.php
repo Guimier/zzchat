@@ -16,5 +16,7 @@ class _Context extends Context {
 		}
 	}
 	
+	public function getUser() {}
+	
 }
 

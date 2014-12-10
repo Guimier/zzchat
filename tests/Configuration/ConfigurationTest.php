@@ -9,9 +9,11 @@ require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 class ConfigurationTest extends ClassTester
 {
 	
-	private function getInstance()
+	public function setUp()
 	{
-		return Configuration::setInstance(
+		parent::setUp() ;
+		
+		Configuration::initiate(
 			$this->getTestDataDir(),
 			'default.json',
 			'local.json'
@@ -21,10 +23,8 @@ class ConfigurationTest extends ClassTester
 	/** Test of pathes given. */
 	public function testPathes()
 	{
-		$config = $this->getInstance() ;
-		
 		$this->assertEquals(
-			$config->getDataDir( 'someKey' ),
+			Configuration::getDataDir( 'someKey' ),
 			'/local/data/someKey',
 			'Data subdirectories are in “local/data” directory.'
 		) ;
@@ -33,22 +33,20 @@ class ConfigurationTest extends ClassTester
 	/** Test of configuration access. */
 	public function testConfigurationAccess()
 	{
-		$config = $this->getInstance() ;
-		
 		$this->assertEquals(
-			$config->getValue( 'existant-defaultonly' ),
+			Configuration::getValue( 'existant-defaultonly' ),
 			123456,
 			'Default value must be given if not overriden.'
 		) ;
 		
 		$this->assertEquals(
-			$config->getValue( 'existant-redefined' ),
+			Configuration::getValue( 'existant-redefined' ),
 			963852,
 			'Values must be overriden if types match.'
 		) ;
 		
 		$this->assertEquals(
-			$config->getValue( 'existant-badtype' ),
+			Configuration::getValue( 'existant-badtype' ),
 			789123,
 			'Values must be not overriden if types don’t match.'
 		) ;
@@ -59,9 +57,7 @@ class ConfigurationTest extends ClassTester
 	 */
 	public function testConfigurationDefinedBadKeyAccess()
 	{
-		$config = $this->getInstance() ;
-		
-		$config->getValue( 'nonexistant-defined' ) ;
+		Configuration::getValue( 'nonexistant-defined' ) ;
 	}
 	
 	/** Test of bad configuration access when the key has not been defined by the administrator.
@@ -69,9 +65,7 @@ class ConfigurationTest extends ClassTester
 	 */
 	public function testConfigurationBadKeyAccess()
 	{
-		$config = $this->getInstance() ;
-		
-		$config->getValue( 'nonexistant-nondefined' ) ;
+		Configuration::getValue( 'nonexistant-nondefined' ) ;
 	}
 }
 
