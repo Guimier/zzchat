@@ -86,7 +86,10 @@ class Channel extends Entity
 		else
 		{
 			$config = Configuration::getInstance() ;
-			$postFileId = $config->incrementCounter( 'lastpostfile' ) ;
+			$postFileId = $config->incrementCounter(
+				Configuration::getDataDir( 'posts' )
+				. '/lastpostfile.int'
+			) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
 			$files[] = $postFileId ;
 			$this->setValue( 'files', $files ) ;

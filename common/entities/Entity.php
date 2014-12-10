@@ -26,7 +26,7 @@ abstract class Entity
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
-			$user = self::getUser( $activeEntities[$name]->getId() ) ;
+			$entity = self::getEntity( $activeEntities[$name]->getId() ) ;
 
 			if ( ! $entity->isActive() )
 			{
@@ -45,7 +45,7 @@ abstract class Entity
 	{
 		$config = Configuration::getInstance() ;
 		
-		$activeEntities = $config->loadJson( $config->getDataDir( self::getEntityType() ) . '/active.json', array() ) ;
+		$activeEntities = $config->loadJson( $config->getDataDir( static::getEntityType() ) . '/active.json', array() ) ;
 		
 		return $activeEntities ;
 	}
@@ -88,7 +88,7 @@ abstract class Entity
 			throw new ContainsIllegalCharacterException( $name ) ;
 		}
 		
-		if ( strlen( $name ) < $config->getValue( self::getEntityType() . '.minnamelength' ) )
+		if ( strlen( $name ) < $config->getValue( static::getEntityType() . '.minnamelength' ) )
 		{
 			throw new EntityNameTooShortException( $name ) ;
 		}
@@ -98,24 +98,20 @@ abstract class Entity
 			throw new EntityNameAlreadyTakenException( $name ) ;
 		}
 		
-		$lastidFile = $config->getDataDir( self::getEntityType() ) . '/lastid.int' ;
+		$lastIdFile = $config->getDataDir( static::getEntityType() ) . '/lastid.int' ;
 		$id = $config->incrementCounter( $lastIdFile ) ;
 		
 		$data = array( 'name' => $name ) ;
 		$data += $initialArray ;
 		
 		$config->saveJson(
-			self::getEntitiesFile( $id ),
+			self::getEntityFile( $id ),
 			$data
 		) ;
 		
-		$activeEntitiesFile = $config->getDataDir( self::getEntityType() ) . '/active.json' ;
+		$activeEntitiesFile = $config->getDataDir( static::getEntityType() ) . '/active.json' ;
 		$activeEntities = $config->loadJson( $activeEntitiesFile, array() ) ;
-		
-		$activeEntities[] = array(
-							'name' => $name,
-							'id' => $id
-		) ;
+		$activeEntities[$name] = $id ;
 		$config->saveJson( $activeEntitiesFile, $activeEntities ) ;
 		
 		
@@ -218,8 +214,6 @@ abstract class Entity
 		}
 		else
 		{
-			$this->setValue( 'logged-out', true ) ;
-			
 			$config = Configuration::getInstance() ;
 			$activeFile = $config->getDataDir( static::getEntityType() ) . '/active.json' ;
 			

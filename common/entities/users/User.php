@@ -44,5 +44,11 @@ class User Extends Entity
 		
 		
 		return self::getUser( $id ) ;
-	}	
+	}
+
+	public function isNowInactive()
+	{
+		parent::isNowInactive() ;
+		$this->setValue( 'logged-out', true ) ;
+	}
 }

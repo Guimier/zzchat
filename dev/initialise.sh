@@ -4,7 +4,7 @@
 declare    data=local/data
 
 declare -a datadirs=( users channels posts )
-declare -a empty=( users/activeusers channels/activechannels )
+declare -a empty=( users/active channels/active )
 
 #############################
 
