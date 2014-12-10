@@ -4,9 +4,13 @@ abstract class Entity
 {
 	/** Get the name of the directory of the object. 
 	 * 
+	 * @warning Child classes MUST override this method.
 	 * @return The name of the directory.
 	 */
-	abstract protected static function getEntityType() ;
+	protected static function getEntityType()
+	{
+		return null ;
+	}
 	
 /***** Class *****/
 
