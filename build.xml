@@ -56,7 +56,7 @@
 <!-- Test rules -->
 
 	<!-- Run all tests. -->
-	<target name="test" depends="test-php">
+	<target name="test" depends="test-php,test-js">
 		<!-- Dependencies do anything we need here. -->
 	</target>
 
@@ -69,6 +69,16 @@
 			<arg value="--test-suffix" /> <arg value="Test.php" />
 			<arg value="--process-isolation" />
 			<arg value="${php-tests-location}" />
+		</exec>
+	</target>
+
+	<!-- Run JavaScript syntax checks. -->
+	<target name="test-js">
+		<echo message="Running JavaScript syntax checks…"/>
+		<!-- Run tests. -->
+		<exec executable="jshint" failonerror="true" >
+			<arg value="-c" /> <arg value="dev/jshint.json" />
+			<arg value="web/js" />
 		</exec>
 	</target>
 	

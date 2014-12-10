@@ -1,4 +1,6 @@
 ( function ( $ ) {
+
+'use strict' ;
 	
 	var openChannels = {} ;
 	
@@ -36,14 +38,13 @@
 	
 		
 	Channel.prototype = {
-	
-			$element: null,
-			$tab = null
+		$element: null,
+		$tab: null
 	} ;
 	
 	window.channels = {} ;
 	
-	channels.openChannel = function ( name )
+	window.channels.openChannel = function ( name )
 	{
 		ajax.send(
 			'GET',

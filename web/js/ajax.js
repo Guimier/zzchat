@@ -1,5 +1,3 @@
-/* global language */
-
 /**
  * Ajax abstraction.
  * @module ajax
@@ -7,15 +5,17 @@
  */
  ( function ( $ ) {
 
+'use strict' ;
+
 /**
  * Ajax exceptions.
- * @class AjaxError
+ * @class ajaxError
  * @param {String} parsedMessage Parsed message.
- * @param {String} type Exception type ('AjaxError' or PHP’s class name).
+ * @param {String} type Exception type ('ajaxError' or PHP’s class name).
  * @param {String} structMessage Message’s structure.
  * @param {Boolean} internal Whether the error is internal or was caused by the user.
  */
-	function AjaxError( parsedMessage, type, structMessage, internal )
+	function ajaxError( parsedMessage, type, structMessage, internal )
 	{
 		/**
 		 * Parsed message.
@@ -23,7 +23,7 @@
 		 */
 		var err = new Error( parsedMessage ) ;
 		/**
-		 * Exception type ('AjaxError' or PHP’s class name).
+		 * Exception type ('ajaxError' or PHP’s class name).
 		 * @property {String} type
 		 */
 		err.type = type ;
@@ -120,12 +120,15 @@
 			part,
 			/* Index. */
 			i,
-			/* Data to send */
-			data = {
-				language: languages.getCurrent()
-			},
-			/* HTTP methos. */
-			method = 'GET' ;
+			/* jQuery.ajax parameter */
+			ajaxParam = {
+				url: 'ajax.php',
+				type: 'GET',
+				data: {
+					language: languages.getCurrent()
+				},
+				dataType: 'json'
+			} ;
 		
 		for ( i in queries )
 		{
@@ -134,18 +137,18 @@
 				part = queries[i].shift() ;
 				if ( part.method === 'POST' )
 				{
-					method = part.method ;
+					ajaxParam.method = 'POST' ;
 				}
 				parts.push( part ) ;
-				extendPrefixed( part.data, data, part.name + '_' ) ;
+				extendPrefixed( part.data, ajaxParam.data, part.name + '_' ) ;
 			}
 		}
 		
 		if ( parts.length > 0 )
 		{
-			data.query = parts.map( function ( part ) { return part.name ; } ) ;
+			ajaxParam.data.query = parts.map( function ( part ) { return part.name ; } ) ;
 		
-			data = objectMap( data, function ( elem ) {
+			ajaxParam.data = objectMap( ajaxParam.data, function ( elem ) {
 				var res = elem ;
 				
 				if (  $.isArray( elem ) )
@@ -161,20 +164,20 @@
 			} ) ;
 			
 			/* Error callback. */
-			function error( jqXHR, textStatus )
+			ajaxParam.error = function ( jqXHR, textStatus )
 			{
 				var i, err ;
 				for ( i in parts )
 				{
 					err = new Error( 'ajax:' + textStatus ) ;
 					err.internal = true ;
-					err.type = 'AjaxError' ;
+					err.type = 'ajaxError' ;
 					parts[i].error( err ) ;
 				}
-			}
+			} ;
 		
 			/* Success callback. */
-			function success( data )
+			ajaxParam.success = function ( data )
 			{
 				var i, partData ;
 				
@@ -194,7 +197,7 @@
 					}
 					else
 					{
-						parts[i].error( AjaxError(
+						parts[i].error( ajaxError(
 							partData.message, 
 							partData.error,
 							partData.struct,
@@ -202,16 +205,9 @@
 						) ) ;
 					}
 				}
-			}
+			} ;
 		
-			$.ajax( {
-				url: 'ajax.php',
-				type: method,
-				data: data,
-				dataType: 'json',
-				success: success,
-				error: error
-			} ) ;
+			$.ajax( ajaxParam ) ;
 		}
 	}
 	
@@ -223,7 +219,7 @@
 	 * @param {string} name Sub-query name.
 	 * @param {Object} data Data to send.
 	 * @param {Function} [success] Callback on success. Called with the returned data.
-	 * @param {Function} [error] Callback on error. Called with an AjaxError object.
+	 * @param {Function} [error] Callback on error. Called with an ajaxError object.
 	 */
 	window.ajax.add = function ( method, name, data, success, error )
 	{
@@ -247,7 +243,7 @@
 	 * @param {Function} [success] Callback on success. Called with the returned data.
 	 * @param {Function} [error] Callback on error. Called with error name and description.
 	 */
-	window.ajax.send = function ( method, name, data, success, error )
+	window.ajax.send = function ( method, name, data, success, error ) // jshint ignore:line
 	{
 		this.add.apply( this, arguments ) ;
 		
@@ -310,7 +306,7 @@
 	{
 		if ( method !== 'GET' && method !== 'POST' )
 		{
-			throw new Exception( 'AjaxQueryBadMethod' ) ;
+			throw new Error( 'AjaxQueryBadMethod' ) ;
 		}
 		
 		this.method = method ;

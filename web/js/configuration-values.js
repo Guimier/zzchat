@@ -9,7 +9,8 @@
 /**
  * List of available languages.
  *
- * Associative array: Keys are the languages codes, values are the name of the language in the language.
+ * Associative array: Keys are the languages codes, values are the name of the
+ * language in the language.
  * @property {Object} languages
  */
 
