@@ -1,54 +1,19 @@
 <?php
 
-class Channel
+class Channel extends Entity
 {
 
 /***** Class *****/
 
-	/** Get an active channel by name.
-	 * 
-	 * @param string $name The name to look for.
-	 * 
-	 * @return The Channel instance or null.
+	/** Put the type of the Entity at channels
+	 * @return string The type channels. 
 	 */
-	public static function getActiveChannel( $name )
+	protected static function getEntityType()
 	{
-		$channel = null ;
-		
-		$config = Configuration::getInstance() ;
-		
-		$activeChannels = $config->loadJson( $config->getDataDir( 'channels' ) . '/active.json', array() ) ;
-		
-		if ( array_key_exists( $name, $activeChannel ) )
-		{
-			$channel = self::getChannel( $activeChannel[$name] ) ;
-		
-			if ( ! $channel->isActive() )
-			{
-				$channel = null ;
-			}
-		}
-		
-		return $channel ;
+		return 'channels' ;	
 	}
+
 	
-	/** Get a channel by id.
-	 * 
-	 * @param int $channelId The id to look for.
-	 * 
-	 * @return The Channel instance.
-	 */
-	public static function getChannel( $channelId )
-	{
-		static $channels = array() ;
-		
-		if ( ! array_key_exists( $channelId, $channels ) )
-		{
-			$channels[$channelId] = new Channel( $channelId ) ;
-		}
-		
-		return $channels[$channelId] ;
-	}
 	
 	/** Create a channel.
 	 * 
@@ -60,20 +25,9 @@ class Channel
 	 */
 	public static function createChannel( $channelName, $channelTitle, User $channelCreator, $type )
 	{
-		$config = Configuration::getInstance() ;
-		
-		if ( self::getActiveChannel( $channelName ) !== null )
-		{
-			throw new ChannelNameAlreadyTakenException( $channelName ) ;
-		}
-		
-		$lastidFile = $config->getDataDir( 'channels' ) . '/lastid.int' ;
-		$id = $config->incrementCounter( 'lastchannel' ) ;
-		
-		$config->saveJson(
-			self::getChannelFile( $id ),
+		return parent::createEntity(
+			$channelName,
 			array(
-				'name' => $channelName,
 				'title' => $channelTitle,
 				'creator' => $channelCreator->getId(),
 				'type' => $type !== null
@@ -84,20 +38,8 @@ class Channel
 				'files' => array()
 			)
 		) ;
+	}
 		
-		return self::getChannel( $id ) ;
-	}
-	
-	/** Get the file of the channel by id.
-	 * @param int $channelId The id of the channel whose file is searched.
-	 * 
-	 * @return The file of the channel.
-	 */
-	private static function getChannelFile( $channelId )
-	{
-		return Configuration::getInstance()->getDataDir( 'channels' ) . '/' . $channelId . '.json' ;
-	}
-	
 	/** Get the file of a posts list by id.
 	 * @param int $fileId The id of the file.
 	 * 
@@ -105,77 +47,9 @@ class Channel
 	 */
 	private static function getPostsFile( $fileId )
 	{
-		return  Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
+		return Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
-	
-/***** Instances *****/
-	
-	/** The id of the channel */
-	private $id = -1 ;
-	
-	/** The array which contains the data concerning the channel. */
-	private $channelData = null ;
-	
-	/** The data have been edited */
-	private $modified = false ;
-	
-	/** Constructor of channel instance */
-	public function __construct( $channelId )
-	{
-		$this->id = $channelId ;
-		$this->channelData = Configuration::getInstance()->loadJson(
-			$this->getChannelFile( $channelId )
-		) ;
 		
-		if ( $this->channelData === null )
-		{
-			throw new NoSuchChannelException( $channelId ) ;
-		}
-	}
-	
-	/** Destructor.
-	 * Save the data if modified.
-	 */
-	public function __destruct()  
-	{
-		if ( $this->modified )
-		{
-			Configuration::getInstance()->saveJson(
-				$this->getChannelFile( $this->id ),
-				$this->channelData
-			) ;
-		}
-	}
-	
-	/** Check whether the channel is active or not.
-	 * 
-	 * @return True if the channel is active, false otherwise.
-	 */
-	public function isActive()
-	{
-		return time() - $this->channelData['last-action'] < Configuration::getInstance()->getValue( 'channels.inactivity' ) ;
-	}
-	
-	/** Get the id of the channel.
-	 * 
-	 * @return The id of the Channel instance.
-	 * @codeCoverageIgnore
-	 */
-	public function getId()
-	{
-		return $this->id ;
-	}
-	
-	/** Get the name of the channel.
-	 * 
-	 * @return The name of the Channel instance.
-	 * @codeCoverageIgnore
-	 */
-	public function getName()
-	{
-		return $this->channelData['name'] ;
-	}
-	
 	/** Get the title of the channel.
 	 * 
 	 * @return The title of the Channel instance.
@@ -183,7 +57,7 @@ class Channel
 	 */
 	public function getTitle()
 	{
-		return $this->channelData['title'] ;
+		return $this->getValue( 'title' ) ;
 	}
 	
 	/** Get the creator of the channel.
@@ -193,7 +67,7 @@ class Channel
 	 */
 	public function getCreator()
 	{
-		return $this->channelData['creator'] ;
+		return $this->getValue( 'creator' )  ;
 	}
 	
 	/** Get the id of the file where the next post has to be put.
@@ -203,7 +77,7 @@ class Channel
 	public function getInsertFile()
 	{
 		$postFileId = null ;
-		$files = & $this->channelData['files'] ;
+		$files = $this->getValue( 'files' ) ;
 		$lastIndex = count( $files ) - 1 ;
 		if ( $lastIndex >= 0 && ! $this->isFull( $files[$lastIndex] ) )
 		{
@@ -215,7 +89,7 @@ class Channel
 			$postFileId = $config->incrementCounter( 'lastpostfile' ) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
 			$files[] = $postFileId ;
-			$this->modified = true ;
+			$this->setValue( 'files', $files ) ;
 		}
 		
 		return $postFileId ;
@@ -282,9 +156,10 @@ class Channel
 	public function lastPosts( $beginning )
 	{
 		$config = Configuration::getInstance() ;
-		$lenght = count( $this->files ) ;
+		$files = $this->getValue( 'files') ;
+		$lenght = count( $files ) ;
 		$currentFile = $lenght ;
-		$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+		$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
 		$currentPost = count( $postsFile ) ;
 		while ( $postsFile[$currentPost]['date'] >= $begining  && $currentFile > 0 )
 		{
@@ -295,7 +170,7 @@ class Channel
 			else
 			{
 				$currentFile = $currentFile - 1 ;
-				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+				$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
 				$currentPost = count( $postsFile ) ;
 			}
 		}
@@ -315,7 +190,7 @@ class Channel
 			}
 		}
 		
-		while ( $currentFile < $lenght || $currentPost < count( $config->loadJson( $this->files[$lenght], array() ) ) )
+		while ( $currentFile < $lenght || $currentPost < count( $config->loadJson( $files[$lenght], array() ) ) )
 		{
 			if ( $currentPost < count( $currentFile ) )
 			{
@@ -326,7 +201,7 @@ class Channel
 			{
 				$lastPosts[] = $postsFile[$currentPost] ;
 				$currentFile = $currentFile + 1 ;
-				$postsFile = $config->loadJson( $this->files[$currentFile], array() ) ;
+				$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
 				$currentPost = 0 ;
 			}
 		}

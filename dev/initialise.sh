@@ -4,7 +4,6 @@
 declare    data=local/data
 
 declare -a datadirs=( users channels posts )
-declare -a counters=( lastchannel lastuser lastpostfile )
 declare -a empty=( users/activeusers channels/activechannels )
 
 #############################
@@ -16,12 +15,9 @@ for dir in "${datadirs[@]}"
 do
 	mkdir "$data/$dir" 2>/dev/null
 	chmod a+rwx "$data/$dir"
-done
-
-for counter in "${counters[@]}"
-do
-	printf '0' > "$data/$counter.int"
-	chmod a+rw "$data/$counter.int"
+	
+	printf '0' > "$data/$dir/lastid.int"
+	chmod a+rw "$data/$dir/lastid.int"
 done
 
 for path in "${empty[@]}"
