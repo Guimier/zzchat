@@ -6,6 +6,12 @@
 	"quotations.quote": "“${content}”",
 	"quotations.author": "— ${name}",
 	
+	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",
+	
+	"cli.checkhtml": "Simple way to run test HTML input against validation rules.",
+	
+	"cli.entities.id": "List of concerned identifiants.",
+	
 	"cli.help.common": "Common parameters",
 	"cli.help.common.help": "Show this help and exit.",
 	"cli.help.common.language": "Set language for the output.",
@@ -13,12 +19,20 @@
 	"cli.help.scenarios": "Usage",
 	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want it in the documentation below?",
 	
-	"cli.quotations": "Manage quotations.",
-	"cli.quotations.text": "Text of the quotation.",
-	"cli.quotations.author": "Author of the quotation (if known).",
-	
 	"cli.messages": "This script allows retrieving translations.",
 	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
+	
+	"cli.quotations": "Manage quotations.",
+	"cli.quotations.add": "Add a quotation.",
+	"cli.quotations.author": "Author of the quotation (if known).",
+	"cli.quotations.id": "List of identifiants to show/delete.",
+	"cli.quotations.rm": "Delete quotations",
+	"cli.quotations.show": "Show quotations (all by default).",
+	"cli.quotations.text": "Text of the quotation.",
+	
+	"cli.users": "Users management tool.",
+	"cli.users.eject": "Force loggout of a user.",
+	"cli.users.show": "List active users.",
 	
 	"exceptions.badcall": "“${method}” called with wrong argument(s)",
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",

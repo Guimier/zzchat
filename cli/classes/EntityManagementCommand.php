@@ -4,32 +4,39 @@
 abstract class EntityManagementCommand extends Command
 {
 	
-	/* Get the entity class name.
+	/** Get the entity class name.
 	 * @return The class name as a string.
 	 */
 	abstract protected function getEntityClass() ;
 
-	/** See Command::getDocumentation. */
-	public function getDocumentation()
+	/** Merge partial child documentation with parent one.
+	 * @param array $exten Extension of the parent documentation
+	 *    * Values in `scenarios` array will be used as scenarios descriptions.
+	 *    * Value at `description` will be used as global description.
+	 */
+	protected function buildDocumentation( array $exten )
 	{
 		return array(
+			'description' => $exten['description'],
 			'scenarios' => array(
 				'eject' => array(
+					'description' => $exten['scenarios']['eject'],
 					'parameters' => array( '+id' )
 				),
 				'show' => array(
+					'description' => $exten['scenarios']['show'],
 					'parameters' => array()
 				)
 			),
 			'parameters' => array(
 				'id' => array(
-					'description' => 'cli.quotation.id',
+					'description' => 'cli.entities.id',
 					'type' => 'array'
 				)
 			)
 		) ;
 	}
-	
+
 	/** Eject an entity. */
 	protected function execute_eject()
 	{
