@@ -15,7 +15,7 @@ class User Extends Entity
 	
 	public function isActive()
 	{
-		return parent::isActive() && ! $this->getValue( 'loged-out' ) ;
+		return parent::isActive() && ! $this->getValue( 'logged-out' ) ;
 	}
 	
 	/** Create a user.

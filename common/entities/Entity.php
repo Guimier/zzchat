@@ -22,7 +22,7 @@ abstract class Entity
 		
 		$config = Configuration::getInstance() ;
 		
-		$activeEntities = $config->loadJson( $config->getDataDir( self::getEntityType() ) . '/active.json', array() ) ;
+		$activeEntities = $config->loadJson( $config->getDataDir( static::getEntityType() ) . '/active.json', array() ) ;
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
@@ -63,7 +63,8 @@ abstract class Entity
 		
 		if ( ! array_key_exists( $entityId, $entities ) )
 		{
-			$entities[$entityId] = new Entity( $entityId ) ; 
+			$class = get_called_class() ;
+			$entities[$entityId] = new $class( $entityId ) ; 
 		}
 		
 		return $entities[$entityId] ; 
@@ -128,7 +129,7 @@ abstract class Entity
 	 */
 	private static function getEntityFile( $entityId )
 	{
-		return Configuration::getInstance()->getDataDir( self::getEntityType ) . '/' . $entityId . '.json' ;
+		return Configuration::getInstance()->getDataDir( static::getEntityType() ) . '/' . $entityId . '.json' ;
 	}
 	
 	
@@ -156,7 +157,7 @@ abstract class Entity
 			$this->getEntityFile( $entityId )
 		) ;
 		
-		if ( $this->Data === null )
+		if ( $this->data === null )
 		{
 			throw new NoSuchEntityException( $entityId ) ;
 		}
@@ -180,7 +181,7 @@ abstract class Entity
 	 * @param string $key The key to change.
 	 * @param mixed $value The new value.
 	 */
-	private function setValue( $key, $value )
+	protected function setValue( $key, $value )
 	{
 		$this->data[$key] = $value ;
 		$this->modified = true ;
@@ -190,7 +191,7 @@ abstract class Entity
 	 * @param string $key The key to change.
 	 * @param mixed $value The new value.
 	 */
-	private function getValue( $key )
+	protected function getValue( $key )
 	{
 		return $this->data[$key] ;
 	}
@@ -202,7 +203,7 @@ abstract class Entity
 	public function isActive()
 	{
 		$config = Configuration::getInstance() ;
-		return time() - $this->data['last-action'] < $config->getValue( self::getEntityType() . '.inactivity' ) ;	
+		return time() - $this->data['last-action'] < $config->getValue( static::getEntityType() . '.inactivity' ) ;	
 	}
 	
 	/** Put an entity inactive
@@ -220,7 +221,7 @@ abstract class Entity
 			$this->setValue( 'logged-out', true ) ;
 			
 			$config = Configuration::getInstance() ;
-			$activeFile = $config->getDataDir( self::getEntityType() ) . '/active.json' ;
+			$activeFile = $config->getDataDir( static::getEntityType() ) . '/active.json' ;
 			
 			$activeEntities = $config->loadJson( $activeFile, array() ) ;
 			

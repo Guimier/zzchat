@@ -76,12 +76,13 @@ class Configuration
 	/** Save a value into a JSON file.
 	 * @param string $file Relative path to the file.
 	 * @param $value The value to save.
+	 * @todo Check when chmod may work.
 	 */
 	public static function saveJson( $file, $value )
 	{
 		$full = self::getFullPath( $file ) ;
 		file_put_contents( $full, JSON::encode( $value ) ) ;
-		chmod( $full, 0666 ) ;
+		# chmod( $full, 0666 ) ;
 	}
 
 	/** Get the value of a counter and increment it.
