@@ -36,6 +36,7 @@
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
 	"exceptions.entitynamealredytaken": "Le nom « ${name} » est déjà pris",
+	"exceptions.containsillegalcharacter": "Le nom « ${name} » contient des charactères non autorisés",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

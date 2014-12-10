@@ -37,6 +37,19 @@ abstract class Entity
 		return $entity ;
 	}
 	
+	/** Get active entities.
+	 *  
+	 * @return The list of the entities which are active.
+	 */
+	public static function getActiveEntities() 
+	{
+		$config = Configuration::getInstance() ;
+		
+		$activeEntities = $config->loadJson( $config->getDataDir( self::getEntityType() ) . '/active.json', array() ) ;
+		
+		return $activeEntities ;
+	}
+	
 	/** Get an entity by id.
 	 * 
 	 * @param int $entityId The id to look for.
@@ -68,6 +81,11 @@ abstract class Entity
 	protected static function createEntity( $name, $initialArray )
 	{
 		$config = Configuration::getInstance() ; 
+		
+		if ( self::containsIllegalCharacter( $name ) )
+		{
+			throw new ContainsIllegalCharacterException( $name ) ;
+		}
 		
 		if ( strlen( $name ) < $config->getValue( self::getEntityType() . '.minnamelength' ) )
 		{
@@ -237,5 +255,17 @@ abstract class Entity
 	public function getName()
 	{
 		return $this->data['name'] ;
-	}	
+	}
+	
+	/** Send error if the string contains illegal characters.
+	 * 
+	 * @param string $name
+	 * 
+	 * @return bool true: there is illegal characters, false otherwise.
+	 */ 
+	 public function containsIllegalCharacter( $name )
+	 {
+		 return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
+	 }
+	 
 }

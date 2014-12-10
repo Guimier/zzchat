@@ -15,6 +15,7 @@
 	"CliUser": "cli/classes/CliUser.php",
 	"Command": "cli/classes/Command.php",
 	"Configuration": "common/Configuration.php",
+	"ContainsIllegalCharacterException": "common/entities/ContainsIllegalCharacterException.php",
 	"Context": "common/Context.php",
 	"CreateChannelAjaxQueryPart": "web/php/ajax/CreateChannelAjaxQueryPart.php",
 	"EntityAlreadyInactiveException": "common/entities/EntityAlreadyInactiveException.php",

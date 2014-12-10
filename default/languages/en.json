@@ -36,6 +36,7 @@
 	"exceptions.inactivechannel": "The channel #${id} is inactive",
 	"exceptions.climissingparameter": "Missing “${param}” parameter",
 	"exceptions.entitynamealredytaken": "The name “${name}” is already in use",
+	"exceptions.containsillegalcharacter": "The name « ${name} » contains forbidden characters",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
