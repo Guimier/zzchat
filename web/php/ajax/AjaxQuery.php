@@ -61,7 +61,7 @@ class AjaxQuery
 			'type' => $user ? 'user' : 'internal'
 		) ;
 		
-		$debug = Configuration::getInstance()->getValue( 'debug' ) ;
+		$debug = Configuration::getValue( 'debug' ) ;
 		
 		if ( $user || $debug )
 		{

@@ -20,9 +20,10 @@ abstract class Entity
 	{
 		$entity = null ;
 		
-		$config = Configuration::getInstance() ;
-		
-		$activeEntities = $config->loadJson( $config->getDataDir( static::getEntityType() ) . '/active.json', array() ) ;
+		$activeEntities = Configuration::loadJson(
+			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
+			array()
+		) ;
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
@@ -43,9 +44,10 @@ abstract class Entity
 	 */
 	public static function getActiveEntities() 
 	{
-		$config = Configuration::getInstance() ;
-		
-		$activeEntities = $config->loadJson( $config->getDataDir( static::getEntityType() ) . '/active.json', array() ) ;
+		$activeEntities = Configuration::loadJson(
+			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
+			array()
+		) ;
 		
 		return $activeEntities ;
 	}
@@ -81,14 +83,12 @@ abstract class Entity
 	 */
 	protected static function createEntity( $name, $initialArray )
 	{
-		$config = Configuration::getInstance() ; 
-		
 		if ( self::containsIllegalCharacter( $name ) )
 		{
 			throw new ContainsIllegalCharacterException( $name ) ;
 		}
 		
-		if ( strlen( $name ) < $config->getValue( static::getEntityType() . '.minnamelength' ) )
+		if ( strlen( $name ) < Configuration::getValue( static::getEntityType() . '.minnamelength' ) )
 		{
 			throw new EntityNameTooShortException( $name ) ;
 		}
@@ -98,22 +98,21 @@ abstract class Entity
 			throw new EntityNameAlreadyTakenException( $name ) ;
 		}
 		
-		$lastIdFile = $config->getDataDir( static::getEntityType() ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
+		$lastIdFile = COnfiguration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
+		$id = Configuration::incrementCounter( $lastIdFile ) ;
 		
 		$data = array( 'name' => $name ) ;
 		$data += $initialArray ;
 		
-		$config->saveJson(
+		Configuration::saveJson(
 			self::getEntityFile( $id ),
 			$data
 		) ;
 		
-		$activeEntitiesFile = $config->getDataDir( static::getEntityType() ) . '/active.json' ;
-		$activeEntities = $config->loadJson( $activeEntitiesFile, array() ) ;
+		$activeEntitiesFile = Configuration::getDataDir( static::getEntityType() ) . '/active.json' ;
+		$activeEntities = Configuration::loadJson( $activeEntitiesFile, array() ) ;
 		$activeEntities[$name] = $id ;
-		$config->saveJson( $activeEntitiesFile, $activeEntities ) ;
-		
+		Configuration::saveJson( $activeEntitiesFile, $activeEntities ) ;
 		
 		return self::getEntity( $id ) ;
 	}
@@ -125,7 +124,7 @@ abstract class Entity
 	 */
 	private static function getEntityFile( $entityId )
 	{
-		return Configuration::getInstance()->getDataDir( static::getEntityType() ) . '/' . $entityId . '.json' ;
+		return Configuration::getDataDir( static::getEntityType() ) . '/' . $entityId . '.json' ;
 	}
 	
 	
@@ -149,7 +148,7 @@ abstract class Entity
 	public function __construct( $entityId )  
 	{
 		$this->id = $entityId ;
-		$this->data = Configuration::getInstance()->loadJson(
+		$this->data = Configuration::loadJson(
 			$this->getEntityFile( $entityId )
 		) ;
 		
@@ -166,7 +165,7 @@ abstract class Entity
 	{
 		if ( $this->modified )
 		{
-			Configuration::getInstance()->saveJson(
+			Configuration::saveJson(
 				$this->getEntityFile( $this->id ),
 				$this->data
 			) ;
@@ -198,8 +197,7 @@ abstract class Entity
 	 */
 	public function isActive()
 	{
-		$config = Configuration::getInstance() ;
-		return time() - $this->data['last-action'] < $config->getValue( static::getEntityType() . '.inactivity' ) ;	
+		return time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;	
 	}
 	
 	/** Put an entity inactive
@@ -214,14 +212,13 @@ abstract class Entity
 		}
 		else
 		{
-			$config = Configuration::getInstance() ;
-			$activeFile = $config->getDataDir( static::getEntityType() ) . '/active.json' ;
+			$activeFile = Configuration::getDataDir( static::getEntityType() ) . '/active.json' ;
 			
-			$activeEntities = $config->loadJson( $activeFile, array() ) ;
+			$activeEntities = Configuration::loadJson( $activeFile, array() ) ;
 			
 			unset ( $activeEntities[$this->data['name']] ) ;
 			
-			$config->saveJson( $activeFile, $activeEntities) ;
+			Configuration::saveJson( $activeFile, $activeEntities) ;
 		}
 	}
 	

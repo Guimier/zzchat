@@ -32,7 +32,7 @@ class Channel extends Entity
 				'creator' => $channelCreator->getId(),
 				'type' => $type !== null
 					? $type
-					: $config->getValue( 'channels.defaulttype' ),
+					: Configuration::getValue( 'channels.defaulttype' ),
 				'creation' => time(),
 				'last-action' => time(),
 				'files' => array()
@@ -47,7 +47,7 @@ class Channel extends Entity
 	 */
 	private static function getPostsFile( $fileId )
 	{
-		return Configuration::getInstance()->getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
+		return Configuration::getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
 		
 	/** Get the title of the channel.
@@ -85,8 +85,7 @@ class Channel extends Entity
 		}
 		else
 		{
-			$config = Configuration::getInstance() ;
-			$postFileId = $config->incrementCounter(
+			$postFileId = Configuration::incrementCounter(
 				Configuration::getDataDir( 'posts' )
 				. '/lastpostfile.int'
 			) ;
@@ -120,8 +119,6 @@ class Channel extends Entity
 		
 		HTML::checkInput( $content ) ;
 
-		$config = Configuration::getInstance() ;
-		
 		$data = array(
 			'owner' => $user->getId(),
 			'date' => time(),
@@ -131,9 +128,9 @@ class Channel extends Entity
 		
 		$postingFileId = $this->getInsertFile() ;
 		$postingFile = self::getPostsFile( $postingFileId ) ;
-		$posts = $config->loadJson( $postingFile ) ;
+		$posts = Configuration::loadJson( $postingFile ) ;
 		$posts[] = $data ;
-		$config->saveJson( $postingFile, $posts ) ;
+		Configuration::saveJson( $postingFile, $posts ) ;
 	}
 		
 	/** Check if the current file of the channel is full or not.
@@ -144,10 +141,11 @@ class Channel extends Entity
 	 */
 	public function isFull( $fileId )
 	{
-		$config = Configuration::getInstance() ;
-		$fileContent = $config->loadJson( self::getPostsFile( $fileId ) ) ;
+		$fileContent = Configuration::loadJson(
+			self::getPostsFile( $fileId )
+		) ;
 		
-		return count( $fileContent ) >= $config->getValue( 'channels.filelength' ) ;
+		return count( $fileContent ) >= Configuration::getValue( 'channels.filelength' ) ;
 	}
 	
 	/** Get the last posts which have been posted for a while.
@@ -158,12 +156,15 @@ class Channel extends Entity
 	*/
 	public function lastPosts( $beginning )
 	{
-		$config = Configuration::getInstance() ;
 		$files = $this->getValue( 'files') ;
 		$lenght = count( $files ) ;
 		$currentFile = $lenght ;
-		$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
+		$postsFile = Configuration::loadJson(
+			$files[$currentFile],
+			array()
+		) ;
 		$currentPost = count( $postsFile ) ;
+		
 		while ( $postsFile[$currentPost]['date'] >= $begining  && $currentFile > 0 )
 		{
 			if ( $currentPost > 0 )
@@ -173,7 +174,7 @@ class Channel extends Entity
 			else
 			{
 				$currentFile = $currentFile - 1 ;
-				$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
+				$postsFile = Configuration::loadJson( $files[$currentFile], array() ) ;
 				$currentPost = count( $postsFile ) ;
 			}
 		}
@@ -193,7 +194,12 @@ class Channel extends Entity
 			}
 		}
 		
-		while ( $currentFile < $lenght || $currentPost < count( $config->loadJson( $files[$lenght], array() ) ) )
+		while (
+			$currentFile < $lenght
+			|| $currentPost < count(
+				Configuration::loadJson( $files[$lenght], array() )
+			)
+		)
 		{
 			if ( $currentPost < count( $currentFile ) )
 			{
@@ -204,7 +210,7 @@ class Channel extends Entity
 			{
 				$lastPosts[] = $postsFile[$currentPost] ;
 				$currentFile = $currentFile + 1 ;
-				$postsFile = $config->loadJson( $files[$currentFile], array() ) ;
+				$postsFile = Configuration::loadJson( $files[$currentFile], array() ) ;
 				$currentPost = 0 ;
 			}
 		}

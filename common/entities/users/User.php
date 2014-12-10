@@ -36,11 +36,11 @@ class User Extends Entity
 			)
 		) ;
 		
-		$activeUsersFile = $config->getDataDir( 'users' ) . '/active.json' ;
-		$activeUsers = $config->loadJson( $activeUsersFile, array() ) ;
+		$activeUsersFile = Configuration::getDataDir( 'users' ) . '/active.json' ;
+		$activeUsers = Configuration::loadJson( $activeUsersFile, array() ) ;
 		
 		$activeUsers[$userName] = $id ;
-		$config->saveJson( $activeUsersFile, $activeUsers ) ;
+		Configuration::saveJson( $activeUsersFile, $activeUsers ) ;
 		
 		
 		return self::getUser( $id ) ;

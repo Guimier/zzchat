@@ -38,7 +38,7 @@ class Languages
 	protected function __construct( $dir )
 	{
 		$this->dir = $dir ;
-		$this->known = Configuration::getInstance()->loadJson(
+		$this->known = Configuration::loadJson(
 			"$dir/list.json"
 		) ;
 	}
