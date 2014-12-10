@@ -13,7 +13,7 @@ function sendConfiguration()
 	
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
-		'language' => $config->getValue( 'user.defaultlang' ),
+		'language' => $config->getValue( 'users.defaultlang' ),
 		'newpostsrate' => $config->getValue( 'ajaxrate.newposts' ),
 		'peoplerate' => $config->getValue( 'ajaxrate.people' ),
 		'user' => $user instanceof User ? $user->getName() : null
