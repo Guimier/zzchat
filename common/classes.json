@@ -18,6 +18,7 @@
 	"Configuration": "common/Configuration.php",
 	"Context": "common/Context.php",
 	"CreateChannelAjaxQueryPart": "web/php/ajax/CreateChannelAjaxQueryPart.php",
+	"EntityManagementCommand": "cli/classes/EntityManagementCommand.php",
 	"HTML": "common/html/HTML.php",
 	"IllegalAttributeException": "common/html/IllegalAttributeException.php",
 	"IllegalAttributeValueException": "common/html/IllegalAttributeValueException.php",
@@ -45,6 +46,7 @@
 	"User": "common/users/User.php",
 	"UserNameAlreadyTakenException": "common/users/UserNameAlreadyTakenException.php",
 	"UserNameTooShortException": "common/users/UserNameTooShortException.php",
+	"UsersCommand": "cli/classes/UsersCommand.php",
 	"WebContext": "web/php/WebContext.php",
 	"WebMissingParameterException": "web/php/exceptions/WebMissingParameterException.php",
 	"WhoamiAjaxQueryPart": "web/php/ajax/WhoamiAjaxQueryPart.php"

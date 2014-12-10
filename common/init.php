@@ -23,4 +23,3 @@ Context::setCanonical( php_sapi_name() == 'cli'
 	? new CliContext( $argv )
 	: new WebContext( $_GET, $_POST )
 ) ;
-
