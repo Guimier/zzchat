@@ -23,7 +23,13 @@ find \
 	-exec chmod go+r-w,u+rw {} \;
 
 # Data files must be readable and writable by anybody.
-chmod -R a+rw 'local/data'
+# We may not have enough rights to do this, depending on the configuration. Just ignore it.
+chmod -R a+rw 'local/data' 2>/dev/null
 
-# Scripts must be executable by the owner (only).
-chmod u+x,go-x cli/*.php
+# Scripts (and only scripts) must be executable by the owner (only).
+for file in cli/*
+do
+	[ -f  "$file" ] &&
+		grep -qF '#!/usr/bin/env php' "$file" &&
+		chmod u+x,go-x "$file"
+done
