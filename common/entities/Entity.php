@@ -14,13 +14,13 @@ abstract class Entity
 	
 /***** Class *****/
 
-	/** Get an active entity by name.
+	/** Get an active entity by its name.
 	 * 
 	 * @param string $name The name to look for.
 	 * 
 	 * @return The Entity instance or null.
 	 */
-	public static function getActiveEntity( $name )
+	public static function getByName( $name )
 	{
 		$entity = null ;
 		
@@ -31,7 +31,7 @@ abstract class Entity
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
-			$entity = self::getEntity( $activeEntities[$name]->getId() ) ;
+			$entity = self::getById( $activeEntities[$name] ) ;
 
 			if ( ! $entity->isActive() )
 			{
@@ -46,14 +46,30 @@ abstract class Entity
 	 *  
 	 * @return The list of the entities which are active.
 	 */
-	public static function getActiveEntities() 
+	public static function getAllActive() 
 	{
-		$activeEntities = Configuration::loadJson(
+		$list = Configuration::loadJson(
 			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
 			array()
 		) ;
 		
-		return $activeEntities ;
+		$class = get_called_class() ;
+		
+		$entities = array_map(
+			function ( $id ) use ( $class )
+			{
+				return $class::getById( $id ) ;
+			},
+			$list
+		) ;
+		
+		return array_filter(
+			$entities,
+			function ( Entity $entity )
+			{
+				return $entity->isActive() ;
+			}
+		) ;
 	}
 	
 	/** Get an entity by id.
@@ -63,7 +79,7 @@ abstract class Entity
 	 * @return The Entity instance.
 	 */
 	
-	public static function getEntity( $entityId )
+	public static function getById( $entityId )
 	{
 		static $entities = array() ;
 		
@@ -97,7 +113,7 @@ abstract class Entity
 			throw new EntityNameTooShortException( $name ) ;
 		}
 		
-		if ( self::getActiveEntity( $name ) !== null )
+		if ( self::getByName( $name ) !== null )
 		{
 			throw new EntityNameAlreadyTakenException( $name ) ;
 		}
@@ -118,7 +134,7 @@ abstract class Entity
 		$activeEntities[$name] = $id ;
 		Configuration::saveJson( $activeEntitiesFile, $activeEntities ) ;
 		
-		return self::getEntity( $id ) ;
+		return self::getById( $id ) ;
 	}
 	
 	/** Get the file of the entity by id.

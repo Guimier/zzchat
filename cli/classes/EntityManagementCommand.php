@@ -45,7 +45,7 @@ abstract class EntityManagementCommand extends Command
 		
 		foreach ( $ids as $id )
 		{
-			$entity = $class::getEntity( $id ) ;
+			$entity = $class::getById( $id ) ;
 			$entity->isNowInactive() ;
 		}
 	}
@@ -54,11 +54,11 @@ abstract class EntityManagementCommand extends Command
 	protected function execute_show()
 	{
 		$class = $this->getEntityClass() ;
-		$list = $class::getActiveEntities() ;
+		$list = $class::getAllActive() ;
 		
-		foreach ( $list as $name => $id )
+		foreach ( $list as $entity )
 		{
-			$this->writeln( "$id] $name" ) ;
+			$this->writeln( $entity->getId() . '] ' . $entity->getName() ) ;
 		}
 	}
 
