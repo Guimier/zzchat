@@ -69,8 +69,8 @@ abstract class Command
 	/** Say the action was not found and display the documentation. */
 	private function noSuchAction()
 	{
-		$this->writeln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
-		$this->writeln( '--------------------' ) ;
+		$this->errln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
+		$this->errln( '--------------------' ) ;
 		$this->showDocumentation() ;
 	}
 
