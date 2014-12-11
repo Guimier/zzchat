@@ -1,6 +1,6 @@
 <?php
 
-class LastPostAjaxQueryPart extends AjaxQueryPart
+class LastPostsAjaxQueryPart extends AjaxQueryPart
 {
 	
 	public function execute()

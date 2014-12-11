@@ -32,7 +32,7 @@
 	"InvalidConfigurationValueException": "common/exceptions/InvalidConfigurationValueException.php",
 	"JSON": "common/JSON.php",
 	"Languages": "common/Languages.php",
-	"LastPostAjaxQueryPart": "web/php/ajax/LastPostsAjaxQueryPart.php",
+	"LastPostsAjaxQueryPart": "web/php/ajax/LastPostsAjaxQueryPart.php",
 	"LoginAjaxQueryPart": "web/php/ajax/LoginAjaxQueryPart.php",
 	"LogoutAjaxQueryPart": "web/php/ajax/LogoutAjaxQueryPart.php",
 	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
