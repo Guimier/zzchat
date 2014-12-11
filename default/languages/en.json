@@ -45,7 +45,7 @@
 	"cli.help.common.language": "Set language for the output.",
 	"cli.help.parameters": "Parameters",
 	"cli.help.scenarios": "Usage",
-	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want it in the documentation below?",
+	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want in the documentation below?",
 	
 	"cli.messages": "This script allows retrieving translations.",
 	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
