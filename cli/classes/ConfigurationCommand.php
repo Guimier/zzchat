@@ -84,7 +84,7 @@ class ConfigurationCommand extends Command
 	protected function execute_set()
 	{
 		$key = $this->getParameter( 'key' ) ;
-		$value = JSON::decode( $this->getParameter( 'value' ) );
+		$value = JSON::decodeOrRaw( $this->getParameter( 'value' ) );
 		
 		if ( $value !== null )
 		{

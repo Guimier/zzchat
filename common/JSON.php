@@ -33,4 +33,19 @@ class JSON
 		return json_decode( $string, true ) ;
 	}
 
+	/** Get the JSON value if valid, the raw string instead.
+	 * @param string $string The (maybe) JSON string to decode.
+	 */
+	public static function decodeOrRaw( $string )
+	{
+		$res = self::decode( $string ) ;
+
+		if ( is_null( $res ) )
+		{
+			$res = $string ;
+		}
+
+		return $res ;
+	}
+
 }

@@ -14,7 +14,7 @@
 	"cli.configuration.param.describe": "Describe what each parameter is intended for.",
 	"cli.configuration.param.explain": "Explain where the value comes from.",
 	"cli.configuration.param.key": "The key to change or remove.",
-	"cli.configuration.param.value": "The value to set (formated in JSON).",
+	"cli.configuration.param.value": "The value to set (interpreted as JSON if possible).",
 	"cli.configuration.show": "Show the current configuration.",
 	"cli.configuration.set": "Set a local value.",
 	"cli.configuration.unset": "Remove any local key for a key.",
