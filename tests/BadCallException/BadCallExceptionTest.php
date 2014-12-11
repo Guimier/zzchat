@@ -1,11 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/**
- * Test for BadCallException.
- * @codeCoverageIgnore
- */
+/** Test for BadCallException. */
 class BadCallExceptionTest extends ClassTester
 {
 	

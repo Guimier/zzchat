@@ -1,11 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/**
- * Test for Configuration.
- * @codeCoverageIgnore
- */
+/** Test for Configuration. */
 class ConfigurationTest extends ClassTester
 {
 	

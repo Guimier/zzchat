@@ -1,8 +1,7 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/** Generic child class of Context.
- * @codeCoverageIgnore
- */
+/** Generic child class of Context. */
 class _Context extends Context {
 
 	public function getParameter( $key, $more = null )

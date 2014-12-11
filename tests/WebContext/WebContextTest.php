@@ -1,10 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for WebContext.
- * @codeCoverageIgnore
- */
+/** Test for WebContext. */
 class WebContextTest extends ClassTester
 {
 	
