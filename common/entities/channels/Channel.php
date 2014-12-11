@@ -6,14 +6,12 @@ class Channel extends Entity
 /***** Class *****/
 
 	/** Put the type of the Entity at channels
-	 * @return string The type channels. 
+	 * @return string The type channels.
 	 */
 	protected static function getEntityType()
 	{
-		return 'channels' ;	
+		return 'channels' ;
 	}
-
-	
 	
 	/** Create a channel.
 	 * 
@@ -23,7 +21,7 @@ class Channel extends Entity
 	 * 
 	 * @return The Channel instance.
 	 */
-	public static function createChannel( $channelName, $channelTitle, User $channelCreator, $type )
+	public static function create( $channelName, $channelTitle, User $channelCreator, $type )
 	{
 		return parent::createEntity(
 			$channelName,
@@ -39,7 +37,7 @@ class Channel extends Entity
 			)
 		) ;
 	}
-		
+	
 	/** Get the file of a posts list by id.
 	 * @param int $fileId The id of the file.
 	 * 
@@ -49,7 +47,7 @@ class Channel extends Entity
 	{
 		return Configuration::getDataDir( 'posts' ) . '/' . $fileId . '.json' ;
 	}
-		
+	
 	/** Get the title of the channel.
 	 * 
 	 * @return The title of the Channel instance.
@@ -86,8 +84,7 @@ class Channel extends Entity
 		else
 		{
 			$postFileId = Configuration::incrementCounter(
-				Configuration::getDataDir( 'posts' )
-				. '/lastpostfile.int'
+				Configuration::getDataDir( 'posts' ) . '/lastid.int'
 			) ;
 			file_put_contents( self::getPostsFile( $postFileId ) , '[]' ) ;
 			$files[] = $postFileId ;
@@ -96,7 +93,6 @@ class Channel extends Entity
 		
 		return $postFileId ;
 	}
-	
 	
 	/** Add post on the channel.
 	 * 
@@ -132,7 +128,7 @@ class Channel extends Entity
 		$posts[] = $data ;
 		Configuration::saveJson( $postingFile, $posts ) ;
 	}
-		
+	
 	/** Check if the current file of the channel is full or not.
 	 * 
 	 * @param string $fileId The id of the tested file.
@@ -214,9 +210,9 @@ class Channel extends Entity
 				$currentPost = 0 ;
 			}
 		}
-	
+		
 		return $lastPosts ;
-	}	
+	}
 	
 }
 

@@ -2,7 +2,7 @@
 
 abstract class Entity
 {
-	/** Get the name of the directory of the object. 
+	/** Get the name of the directory of the object.
 	 * 
 	 * @warning Child classes MUST override this method.
 	 * @return The name of the directory.
@@ -43,10 +43,10 @@ abstract class Entity
 	}
 	
 	/** Get active entities.
-	 *  
+	 * 
 	 * @return The list of the entities which are active.
 	 */
-	public static function getAllActive() 
+	public static function getAllActive()
 	{
 		$list = Configuration::loadJson(
 			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
@@ -86,13 +86,13 @@ abstract class Entity
 		if ( ! array_key_exists( $entityId, $entities ) )
 		{
 			$class = get_called_class() ;
-			$entities[$entityId] = new $class( $entityId ) ; 
+			$entities[$entityId] = new $class( $entityId ) ;
 		}
 		
-		return $entities[$entityId] ; 
+		return $entities[$entityId] ;
 	}
 	
-	/** Create a entity.
+	/** Create an entity (for use by children clases).
 	 * 
 	 * @param string $entityName The name of the entity which is created.
 	 * 
@@ -138,7 +138,7 @@ abstract class Entity
 	}
 	
 	/** Get the file of the entity by id.
-	 * @param int $entityId The id of the entity whose file is searched.  
+	 * @param int $entityId The id of the entity whose file is searched.
 	 * 
 	 * @return The File of the entity.
 	 */
@@ -165,7 +165,7 @@ abstract class Entity
 	 * 
 	 * @throw NoSuchEntityException If there is no entity with this id.
 	 */
-	public function __construct( $entityId )  
+	public function __construct( $entityId )
 	{
 		$this->id = $entityId ;
 		$this->data = Configuration::loadJson(
@@ -181,7 +181,7 @@ abstract class Entity
 	/** Destructor.
 	 * Save the data if modified.
 	 */
-	public function __destruct()  
+	public function __destruct()
 	{
 		if ( $this->modified )
 		{
@@ -213,16 +213,16 @@ abstract class Entity
 	
 	/** Check whether the entity is active or not.
 	 * 
-	 * @return True if the entity is active, false otherwise. 
+	 * @return True if the entity is active, false otherwise.
 	 */
 	public function isActive()
 	{
-		return time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;	
+		return time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;
 	}
 	
 	/** Put an entity inactive
-	 *  
-	 * @throw EntityAlreadyInactiveException If the entity is already inactive. 
+	 * 
+	 * @throw EntityAlreadyInactiveException If the entity is already inactive.
 	 */
 	public function isNowInactive()
 	{
@@ -252,7 +252,7 @@ abstract class Entity
 	 * 
 	 * @return The id of the Entity instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getId()
 	{
 		return $this->id ;
@@ -263,7 +263,7 @@ abstract class Entity
 	 * 
 	 * @return The name of the Entity instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getName()
 	{
 		return $this->data['name'] ;
@@ -274,10 +274,10 @@ abstract class Entity
 	 * @param string $name
 	 * 
 	 * @return bool true: there is illegal characters, false otherwise.
-	 */ 
-	 public function containsIllegalCharacter( $name )
-	 {
-		 return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
-	 }
-	 
+	 */
+	public function containsIllegalCharacter( $name )
+	{
+		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
+	}
+	
 }

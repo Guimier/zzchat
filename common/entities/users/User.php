@@ -1,21 +1,16 @@
 <?php
 
-class User Extends Entity
+class User extends Entity
 {
 	
 /***** Class *****/
 
 	/** Put the type of the Entity at users
-	 * @return string The type users. 
+	 * @return string The type users.
 	 */ 
 	protected static function getEntityType()
 	{
-		return 'users' ;	
-	}
-	
-	public function isActive()
-	{
-		return parent::isActive() && ! $this->getValue( 'logged-out' ) ;
+		return 'users' ;
 	}
 	
 	/** Create a user.
@@ -26,7 +21,7 @@ class User Extends Entity
 	 * 
 	 * @return The User instance.
 	 */
-	public static function createUser( $userName )
+	public static function create( $userName )
 	{
 		return parent::createEntity(
 			$userName,
@@ -35,15 +30,11 @@ class User Extends Entity
 				'logged-out' => false
 			)
 		) ;
-		
-		$activeUsersFile = Configuration::getDataDir( 'users' ) . '/active.json' ;
-		$activeUsers = Configuration::loadJson( $activeUsersFile, array() ) ;
-		
-		$activeUsers[$userName] = $id ;
-		Configuration::saveJson( $activeUsersFile, $activeUsers ) ;
-		
-		
-		return self::getUser( $id ) ;
+	}
+	
+	public function isActive()
+	{
+		return parent::isActive() && ! $this->getValue( 'logged-out' ) ;
 	}
 
 	public function isNowInactive()

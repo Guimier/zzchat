@@ -82,7 +82,7 @@ class WebContext extends Context
 	 */ 
 	public function connect( $userName )
 	{
-		$this->user = User::createUser( $userName ) ;
+		$this->user = User::create( $userName ) ;
 	}
 	
 	/**	Disconnect an user with the name in parameter.

@@ -21,7 +21,7 @@ class CreateChannelAjaxQueryPart extends AjaxQueryPart
 		
 		$type = $this->getParameter( 'type' ) ;
 		
-		$channel = Channel::createChannel( $name, $title, $user, $type ) ;
+		$channel = Channel::create( $name, $title, $user, $type ) ;
 		
 		return $channel->getId() ;
 	}
