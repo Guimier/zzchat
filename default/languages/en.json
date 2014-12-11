@@ -10,6 +10,34 @@
 	
 	"cli.checkhtml": "Simple way to run test HTML input against validation rules.",
 	
+	"cli.configuration": "Manage Agora configuration",
+	"cli.configuration.param.describe": "Describe what each parameter is intended for.",
+	"cli.configuration.param.explain": "Explain where the value comes from.",
+	"cli.configuration.param.key": "The key to change or remove.",
+	"cli.configuration.param.value": "The value to set (formated in JSON).",
+	"cli.configuration.show": "Show the current configuration.",
+	"cli.configuration.set": "Set a local value.",
+	"cli.configuration.unset": "Remove any local key for a key.",
+	
+	"cli.configuration.key": "(${type}) ${key} = ${val}",
+	"cli.configuration.key.compare": "default: ${default}; local: ${local}",
+	"cli.configuration.keys.ajaxrate.newposts": "Refresh rate for new posts in channels (refreshes per minute).",
+	"cli.configuration.keys.ajaxrate.people": "Refresh rate for active users in channels (refreshes per minute).",
+	"cli.configuration.keys.channels.defaulttype": "Default channel type.",
+	"cli.configuration.keys.channels.filelength": "Maximum number of post in one file.",
+	"cli.configuration.keys.channels.inactivity": "Number of seconds a channel may be innactive before it is declared inactive.",
+	"cli.configuration.keys.channels.minnamelength": "Minimum channel name length (octets).",
+	"cli.configuration.keys.channels.maxnamelength": "Maximum channel name length (octets).",
+	"cli.configuration.keys.channels.maxnum": "Maximum number of simultaneous active channels.",
+	"cli.configuration.keys.channels.postlength": "Maximum length (in octets) of a post, including tags.",
+	"cli.configuration.keys.debug": "Set this to “true” to turn on debug mode.",
+	"cli.configuration.keys.users.defaultlang": "Default language for the interface.",
+	"cli.configuration.keys.users.inactivity": "Number of seconds a user may be innactive before he is declared inactive.",
+	"cli.configuration.keys.users.maxpostrate": "Maximum number of posts a user may post on all channels in one minute.",
+	"cli.configuration.keys.users.minnamelength": "Minimum user name length (octets).",
+	"cli.configuration.keys.users.maxnamelength": "Maximum user name length (octets).",
+	"cli.configuration.keys.users.maxnum": "Maximum number of simultaneous active users.",
+	
 	"cli.entities.id": "List of concerned identifiants.",
 	
 	"cli.help.common": "Common parameters",
@@ -51,6 +79,7 @@
 	"exceptions.climissingparameter": "Missing “${param}” parameter",
 	"exceptions.entitynamealredytaken": "The name “${name}” is already in use",
 	"exceptions.containsillegalcharacter": "The name « ${name} » contains forbidden characters",
+	"exceptions.invalidconfigurationvalue": "Bad value given for configuration key “${key}”: ${expected} expected, ${given} given",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

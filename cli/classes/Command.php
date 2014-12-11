@@ -30,6 +30,10 @@ abstract class Command
 		catch ( Exception $e )
 		{
 			self::errln( $e->getMessage() ) ;
+			if ( Configuration::getValue( 'debug' ) )
+			{
+				echo JSON::encode( $e->getTrace(), true ) ;
+			}
 			exit ( 1 ) ;
 		}
 	}
