@@ -3,7 +3,7 @@
  * @file
  */
 
-/* Root directory of zzChat. */
+/* Root directory of Agora. */
 $root = dirname( __DIR__ ) ;
 
 /* Classes autoloading. */
@@ -23,3 +23,4 @@ Context::setCanonical( php_sapi_name() == 'cli'
 	? new CliContext( $argv )
 	: new WebContext( $_GET, $_POST )
 ) ;
+
