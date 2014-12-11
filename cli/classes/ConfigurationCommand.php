@@ -16,7 +16,7 @@ class ConfigurationCommand extends Command
 				),
 				'set' => array(
 					'description' => 'cli.configuration.set',
-					'parameters' => array( '+key', 'json' )
+					'parameters' => array( '+key', '+value' )
 				),
 				'unset' => array(
 					'description' => 'cli.configuration.unset',
