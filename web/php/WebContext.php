@@ -29,13 +29,17 @@ class WebContext extends Context
 		session_start() ;
 		if ( array_key_exists( 'user-id', $_SESSION ) )
 		{
-			$user = User::getById( $_SESSION['user-id'] ) ;
-			
-			if( $user->isActive() )
+			try
 			{
-				$this->user = $user ;
-				$user->isActiveNow() ;
+				$user = User::getById( $_SESSION['user-id'] ) ;
+
+				if( $user->isActive() )
+				{
+					$this->user = $user ;
+					$user->isActiveNow() ;
+				}
 			}
+			catch ( NoSuchEntityException $e ) {}
 		}
 	}
 	
