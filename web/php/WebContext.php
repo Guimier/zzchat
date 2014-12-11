@@ -34,6 +34,7 @@ class WebContext extends Context
 			if( $user->isActive() )
 			{
 				$this->user = $user ;
+				$user->isActiveNow() ;
 			}
 		}
 	}
