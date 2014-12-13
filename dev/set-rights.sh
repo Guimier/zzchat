@@ -15,6 +15,11 @@ find \
 	-exec chmod go+r-w,u+rw {} \;
 
 find \
+	common default \
+	-name '*.json' \
+	-exec chmod go+r-w,u+rw {} \;
+
+find \
 	web/js web/css web/img web/font/ web/lib \
 	-exec chmod go+r-w,u+rw {} \;
 
