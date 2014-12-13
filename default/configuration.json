@@ -1,4 +1,5 @@
 {
+	"language": "en",
 	"ajaxrate.newposts": 2,
 	"ajaxrate.people": 60,
 	"channels.minnamelength": 5,
@@ -9,7 +10,6 @@
 	"channels.postlength": 1024,
 	"channels.filelength": 100,
 	"users.maxpostrate": 20,
-	"users.defaultlang": "en",
 	"users.inactivity": 86400,
 	"users.minnamelength": 4,
 	"users.maxnamelength": 24,

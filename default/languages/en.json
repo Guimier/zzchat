@@ -31,7 +31,7 @@
 	"cli.configuration.keys.channels.maxnum": "Maximum number of simultaneous active channels.",
 	"cli.configuration.keys.channels.postlength": "Maximum length (in octets) of a post, including tags.",
 	"cli.configuration.keys.debug": "Set this to “true” to turn on debug mode.",
-	"cli.configuration.keys.users.defaultlang": "Default language for the interface.",
+	"cli.configuration.keys.language": "Default language for the interface.",
 	"cli.configuration.keys.users.inactivity": "Number of seconds a user may be innactive before he is declared inactive.",
 	"cli.configuration.keys.users.maxpostrate": "Maximum number of posts a user may post on all channels in one minute.",
 	"cli.configuration.keys.users.minnamelength": "Minimum user name length (octets).",
