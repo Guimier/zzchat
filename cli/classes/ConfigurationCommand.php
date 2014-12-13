@@ -65,7 +65,7 @@ class ConfigurationCommand extends Command
 			
 			if ( $describe )
 			{
-				$this->writeln( "\t" . $context->getMessage( "cli.configuration.keys.$key" ) ) ;
+				$this->writeln( "\t" . $context->getMessage( "configuration.$key" ) ) ;
 			}
 			
 			if ( $explain && array_key_exists( 'local', $values ) )

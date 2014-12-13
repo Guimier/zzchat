@@ -11,7 +11,7 @@ class MessagesAjaxQueryPart extends AjaxQueryPart
 		return Languages::getInstance()->getAllMessages(
 			$language,
 			$withDefaults,
-			array( 'cli.' )
+			array( 'cli.', 'configuration.' )
 		) ;
 	}
 	
