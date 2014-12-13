@@ -8,10 +8,8 @@ class MessagesCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'description' => 'cli.messages',
 			'parameters' => array(
 				'defaults' => array(
-					'description' => 'cli.messages.defaults',
 					'type' => 'boolean',
 					'alt' => 'd'
 				)

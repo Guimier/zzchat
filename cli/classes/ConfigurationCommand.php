@@ -8,36 +8,28 @@ class ConfigurationCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'description' => 'cli.configuration',
 			'scenarios' => array(
 				'show' => array(
-					'description' => 'cli.configuration.show',
 					'parameters' => array( 'describe', 'explain' )
 				),
 				'set' => array(
-					'description' => 'cli.configuration.set',
 					'parameters' => array( '+key', '+value' )
 				),
 				'unset' => array(
-					'description' => 'cli.configuration.unset',
 					'parameters' => array( '+key' )
 				)
 			),
 			'parameters' => array(
 				'describe' => array(
-					'description' => 'cli.configuration.param.describe',
 					'type' => 'boolean'
 				),
 				'explain' => array(
-					'description' => 'cli.configuration.param.explain',
 					'type' => 'boolean'
 				),
 				'key' => array(
-					'description' => 'cli.configuration.param.key',
 					'type' => 'string'
 				),
 				'value' => array(
-					'description' => 'cli.configuration.param.value',
 					'type' => 'string'
 				)
 			)

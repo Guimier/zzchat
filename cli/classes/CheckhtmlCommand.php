@@ -7,9 +7,7 @@ class CheckhtmlCommand extends Command
 	/** See Command::getDocumentation. */
 	public function getDocumentation()
 	{
-		return array(
-			'description' => 'cli.checkhtml'
-		) ;
+		return array() ;
 	}
 
 	/** See Command::execute. */

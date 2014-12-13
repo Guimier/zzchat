@@ -55,14 +55,14 @@ abstract class Command
 
 	/** Get formated documentation.
 	 * @return Associative array describing the command line.
-	 *    * Value at `description` (message name) is used as script global description.
-	 *    * `scenarios` may contain a list of scenarios (array keyed by scenarios names with arrays as values):
-	 *      * `description`: Name of a message describing the scenario.
+	 *    * Value at [`description`] (message name) is used as script global description.
+	 *    * [`scenarios`] may contain a list of scenarios (array keyed by scenarios names with arrays as values):
+	 *      * [`description`]: Name of a message describing the scenario.
 	 *      * `parameters`: Ordered array of used parameters (names which may be prefixed by `+` if the parameter is required).
-	 *    * `parameters` may contain a list of parameters (array keyed by arguments names with arrays as values):
-	 *      * `description`: Name of a translated description
+	 *    * [`parameters`] may contain a list of parameters (array keyed by arguments names with arrays as values):
+	 *      * [`description`]: Name of a translated description
 	 *      * `type`: one of `boolean`, `string`, `array`
-	 *      * `alt`: only for boolean, one-char string for an alternative flag.
+	 *      * [`alt`]: only for `boolean` type, one-char string for an alternative flag.
 	 */
 	abstract public function getDocumentation() ;
 
@@ -134,6 +134,18 @@ abstract class Command
 		return $method ;
 	}
 
+	/** Get the name of a documentation message.
+	 * @param string $type Type of object to document. One of 'parameter', 'scenario' and `null` (for scripts).
+	 * @param string $name Name of the object to describe (`null` for scripts).
+	 * @param array $base Description object which can contain an 'description' key, overriding default name.
+	 */
+	private function getDocumentationMessage( $type, $name, $base )
+	{
+		return array_key_exists( 'description', $base )
+			? $base['description']
+			: 'cli.' . $this->commandName . ( is_null( $type ) ? '' : ".$type.$name" ) ;
+	}
+
 	/** Show a list of parameters for a script.
 	 * @param string $name Name of the parameter.
 	 * @param array $param Associative array representing a parameter.
@@ -161,7 +173,9 @@ abstract class Command
 		}
 
 		$this->writeln( "\t$format" ) ;
-		$this->writeln( "\t\t" . $this->getContext()->getMessage( $param['description'] ) ) ;
+		$this->writeln( "\t\t" . $this->getContext()->getMessage(
+			$this->getDocumentationMessage( 'parameter', $name, $param )
+		) ) ;
 	}
 
 	/** Show a list of parameters for a script.
@@ -211,7 +225,7 @@ abstract class Command
 
 			$this->writeln( "\t" . implode( ' ', $parts ) ) ;
 			$this->writeln( "\t\t" . $this->getContext()->getMessage(
-				$desc['description']
+				$this->getDocumentationMessage( 'scenario', $key, $desc )
 			) ) ;
 		}
 	}
@@ -221,7 +235,7 @@ abstract class Command
 	{
 		$desc = $this->getDocumentation() ;
 		$this->writeln(
-			$this->getContext()->getMessage( $desc['description'] )
+			$this->getContext()->getMessage( $this->getDocumentationMessage( null, null, $desc ) )
 		) ;
 
 		$params = array_key_exists( 'parameters', $desc )

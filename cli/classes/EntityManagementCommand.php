@@ -9,28 +9,21 @@ abstract class EntityManagementCommand extends Command
 	 */
 	abstract protected function getEntityClass() ;
 
-	/** Merge partial child documentation with parent one.
-	 * @param array $exten Extension of the parent documentation
-	 *    * Values in `scenarios` array will be used as scenarios descriptions.
-	 *    * Value at `description` will be used as global description.
-	 */
-	protected function buildDocumentation( array $exten )
+	/** See Command::getDocumentation. */
+	public function getDocumentation()
 	{
 		return array(
-			'description' => $exten['description'],
 			'scenarios' => array(
 				'eject' => array(
-					'description' => $exten['scenarios']['eject'],
 					'parameters' => array( '+id' )
 				),
 				'show' => array(
-					'description' => $exten['scenarios']['show'],
 					'parameters' => array()
 				)
 			),
 			'parameters' => array(
 				'id' => array(
-					'description' => 'cli.entities.id',
+					'description' => 'cli.entities.parameter.id',
 					'type' => 'array'
 				)
 			)

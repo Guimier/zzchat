@@ -7,32 +7,25 @@ class QuotationsCommand extends Command
 	public function getDocumentation()
 	{
 		return array(
-			'description' => 'cli.quotations',
 			'scenarios' => array(
 				'add' => array(
-					'description' => 'cli.quotations.add',
 					'parameters' => array( '+text', 'author' )
 				),
 				'show' => array(
-					'description' => 'cli.quotations.show',
 					'parameters' => array( 'id' )
 				),
 				'rm' => array(
-					'description' => 'cli.quotations.rm',
 					'parameters' => array( '+id' )
 				)
 			),
 			'parameters' => array(
 				'text' => array(
-					'description' => 'cli.quotations.text',
 					'type' => 'string'
 				),
 				'author' => array(
-					'description' => 'cli.quotations.author',
 					'type' => 'string'
 				),
 				'id' => array(
-					'description' => 'cli.quotations.id',
 					'type' => 'array'
 				)
 			)

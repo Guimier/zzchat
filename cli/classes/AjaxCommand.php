@@ -7,9 +7,7 @@ class AjaxCommand extends Command
 	/** See Command::getDocumentation. */
 	public function getDocumentation()
 	{
-		return array(
-			'description' => 'cli.ajax'
-		) ;
+		return array() ;
 	}
 
 	/** See Command::execute. */
