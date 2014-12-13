@@ -69,7 +69,7 @@ function sendConfiguration()
                 <div id="quoteBlock">
 					<div id="commands">
 						<span id="hello"></span>
-						<input id="disconnect" type="button"></input>
+						<input id="disconnect" type="button">
 						<!--Changeons de langue-->
 						<select id="menuint"></select>	
 					</div>
