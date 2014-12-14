@@ -210,7 +210,7 @@
 	 */
 	function channelIsOppened( id )
 	{
-		return typeof opennedChannels[id] !== 'undefined' ;
+		return opennedChannels[id] instanceof Channel ;
 	}
 	
 	/**
@@ -270,7 +270,19 @@
 	 */
 	function getMetadata()
 	{
-		getChannelsData( Object.keys( opennedChannels ), gotChannelsData )
+		getChannelsData( Object.keys( opennedChannels ), gotChannelsData ) ;
+	}
+	
+	/**
+	 * Close a channel.
+	 * @method closeChannel
+	 * @private
+	 * @param {Number} id The channel’s identifiant.
+	 */
+	function closeChannel( id )
+	{
+		opennedChannels[id].remove() ;
+		delete opennedChannels[id] ;
 	}
 	
 	window.channels = {} ;
@@ -314,6 +326,8 @@
 		ajax.stop() ;
 		clearInterval( postsInterval ) ;
 		clearInterval( metaInterval ) ;
+		
+		$.each( opennedChannels, closeChannel ) ;
 	} ;
 	
 } ) ( jQuery ) ;
