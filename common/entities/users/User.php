@@ -41,7 +41,6 @@ class User extends Entity
 		return parent::createEntity(
 			$userName,
 			array(
-				'last-action' => time(),
 				'logged-out' => false
 			)
 		) ;

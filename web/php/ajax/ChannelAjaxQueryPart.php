@@ -34,6 +34,7 @@ class ChannelAjaxQueryPart extends AjaxQueryPart
 		
 		foreach ( $channels as $id => $channel )
 		{
+			$channel->isActiveNow( $this->getContext()->getUser() ) ;
 			$chanInfo[$id] = AjaxFormater::channel( $channel ) ;
 		}
 		

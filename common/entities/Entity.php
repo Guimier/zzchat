@@ -136,7 +136,10 @@ abstract class Entity
 		$lastIdFile = Configuration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
 		$id = Configuration::incrementCounter( $lastIdFile ) ;
 		
-		$data = array( 'name' => $name ) ;
+		$data = array(
+			'name' => $name,
+			'last-action' => time()
+		) ;
 		$data += $initialArray ;
 		
 		Configuration::saveJson(
@@ -214,6 +217,17 @@ abstract class Entity
 	protected function setValue( $key, $value )
 	{
 		$this->data[$key] = $value ;
+		$this->modified = true ;
+	}
+	
+	/** Set a value in an array stored in data.
+	 * @param string $key The key the data.
+	 * @param string $key The name in the array.
+	 * @param mixed $value The new value.
+	 */
+	protected function setArrayValue( $key, $name, $value )
+	{
+		$this->data[$key][$name] = $value ;
 		$this->modified = true ;
 	}
 	

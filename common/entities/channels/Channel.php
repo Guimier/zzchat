@@ -32,7 +32,6 @@ class Channel extends Entity
 					? $type
 					: Configuration::getValue( 'channels.defaulttype' ),
 				'creation' => time(),
-				'last-action' => time(),
 				'files' => array(),
 				'users' => array(
 					$channelCreator->getId() => time()
@@ -107,6 +106,15 @@ class Channel extends Entity
 		return $postFileId ;
 	}
 	
+	/** Notify activity by a user on this channel.
+	 * Of course, activity by a user means the channel is active.
+	 */
+	public function isActiveNow( User $user )
+	{
+		parent::isActiveNow() ;
+		$this->setArrayValue( 'users', $user->getId(), time() ) ;
+	}
+	
 	/** Add post on the channel.
 	 * 
 	 * @param User $user The User who adds this post.
@@ -116,6 +124,8 @@ class Channel extends Entity
 	 */
 	public function addPost( User $user, $content )
 	{
+		$this->isActiveNow( $user ) ;
+		
 		if ( ! is_string( $content ) )
 		{
 			throw new BadCallException() ;
