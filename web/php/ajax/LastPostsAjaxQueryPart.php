@@ -13,15 +13,16 @@ class LastPostsAjaxQueryPart extends AjaxQueryPart
 			throw new WebMissingParameterException( 'from' ) ;
 		}
 		
-		return array_map(
-			function ( $id )
-			{
-				return AjaxFormater::posts(
-					Channel::getById( $id )->lastPosts( $from )
-				) ;
-			},
-			$channels
-		) ;
+		$res = array() ;
+		
+		foreach ( $channels as $id )
+		{
+			$res[$id] = AjaxFormater::posts(
+				Channel::getById( $id )->lastPosts( $from )
+			) ;
+		}
+		
+		return $res ;
 	}
 	
 }
