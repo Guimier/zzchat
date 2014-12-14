@@ -58,7 +58,6 @@
 {
 	position : relative ;
 	
-	
 	color : white ;
 	background-color : black ;
 	overflow-y : scroll ;
@@ -68,7 +67,28 @@
 	
 	box-sizing : border-box ;
 	flex : 1 ;
-	
+}
+
+.page-chat .messages p
+{
+	margin : 0 ;
+}
+
+.page-chat .messages .speaker
+{
+	text-align : center ;
+}
+
+.page-chat .messages .message *
+{
+	display : inline ;
+}
+
+.page-chat .messages .message time
+{
+	display : inline-block ;
+	font-size : smaller ;
+	margin : 0 0.5em 0 0 ;
 }
 
 .page-chat .wysiwyg

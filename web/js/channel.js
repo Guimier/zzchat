@@ -17,7 +17,7 @@
 	{
 		var that = this ;
 		
-		$.extend( this, ajaxData ) ;
+		$.extend( this, data ) ;
 		
 		/* Add the tab. */
 		this.$tab = $( '<li>' )
@@ -34,12 +34,15 @@
 		/* Create the presents list. */
 		this.$presents = $( '<ul>' ).addClass( 'presents' ) ;
 		
+		/* Create the messages list. */
+		this.$posts = $( '<div>' ).addClass( 'messages' ) ;
+		
 		/* Add the body. */
 		this.$body = $( '<div>' )
 			.addClass( 'channel' )
 			.attr( 'id', 'channel-' + this.id )
 			.append( $( '<div>' ).addClass( 'channelCore' )
-				.append( $( '<div>' ).addClass( 'messages' ) )
+				.append( this.$posts )
 				.append( this.$wysiwyg )
 			)
 			.append( this.$presents ) ;
@@ -102,6 +105,20 @@
 		 * @private
 		 */
 		$tab: null,
+		
+		/**
+		 * The channel’s posts container.
+		 * @property {jQuery} $posts
+		 * @private
+		 */
+		$posts: null,
+		
+		/**
+		 * Identifiant of the last user who posted on this channel.
+		 * @property {Number} lastUser
+		 * @private
+		 */
+		lastUser: null,
 		
 		/**
 		 * Have the channel  been already shown.
@@ -172,6 +189,49 @@
 		{
 			$.extend( this, data ) ;
 			this.updatePresents() ;
+		},
+		
+		formatDate: function ( date )
+		{
+			return date.getHours() + ':' + date.getMinutes() ;
+		},
+		
+		$date: function ( date )
+		{
+			return $( '<time>' )
+				.text( this.formatDate( date ) ) ;
+		},
+		
+		/**
+		 * Display new ports.
+		 * @method newPosts
+		 * @param {Array} posts List of new posts.
+		 */
+		newPosts: function( posts )
+		{
+			var i, post ;
+			
+			for ( i = 0 ; i < posts.length ; ++ i )
+			{
+				post = posts[i] ;
+				
+				if ( post.owner.id != this.lastUser )
+				{
+					this.lastUser = post.owner.id ;
+					this.$posts.append( $( '<p>' )
+						.addClass( 'speaker' )
+						.text( post.owner.name )
+					) ;
+				}
+				
+				this.$posts.append( $( '<p>' )
+					.addClass( 'message' )
+					.html( post.content )
+					.prepend( this.$date(
+						new Date( post.date * 1000 )
+					) )
+				) ;
+			}
 		}
 		
 	} ;
@@ -202,7 +262,24 @@
 		 * @property metaInterval
 		 * @private
 		 */
-		metaInterval = 0 ;
+		metaInterval = 0,
+		
+		/**
+		 * Last date of update of new posts.
+		 * @property lastUpdateDate
+		 * @private
+		 */
+		lastUpdateDate = Infinity ;
+	
+	/**
+	 * List openned channels.
+	 * @method listChannels
+	 * @private
+	 */
+	function listChannels()
+	{
+		return Object.keys( opennedChannels ) ;
+	}
 	
 	/**
 	 * Know whether a channel has been openned.
@@ -235,6 +312,26 @@
 	}
 	
 	/**
+	 * Ajax callback for last posts load.
+	 * @method gotLastPosts
+	 * @private
+	 * @param {Object} data Data returned by the server.
+	 */
+	function gotLastPosts( data )
+	{
+		var i ;
+		lastUpdateDate = data.date ;
+		
+		for ( i in data.posts )
+		{
+			if ( channelIsOppened( i ) )
+			{
+				opennedChannels[i].newPosts( data.posts[i] ) ;
+			}
+		}
+	}
+	
+	/**
 	 * Ajax callback for channel data first load.
 	 * @method gotChannelsFirstData
 	 * @private
@@ -254,27 +351,6 @@
 		
 		/* Show the las one. */
 		opennedChannels[id].show() ;
-	}
-	
-	/**
-	 * Get meta information for some channels.
-	 * @method getChannelsData
-	 * @param {Number} ids List of channels identifiants.
-	 * @param {Function} callback Callback to call when data is available.
-	 */
-	function getChannelsData( ids, callback )
-	{
-		ajax.send( 'GET', 'channel', { id: ids }, callback ) ;
-	}
-	
-	/**
-	 * Get metadata to update channels.
-	 * @method getMetadata
-	 * @private
-	 */
-	function getMetadata()
-	{
-		getChannelsData( Object.keys( opennedChannels ), gotChannelsData ) ;
 	}
 	
 	/**
@@ -306,7 +382,7 @@
 			}
 		) ;
 		
-		getChannelsData( ids, gotChannelsFirstData ) ;
+		ajax.send( 'GET', 'channel', { id: ids }, gotChannelsFirstData ) ;
 	} ;
 	
 	/**
@@ -316,8 +392,30 @@
 	window.channels.start = function ()
 	{
 		ajax.start( 2 ) ;
-		postsInterval = setInterval( $.noop, configuration.get( 'postsrate' ) * 1000 ) ;
-		metaInterval = setInterval( getMetadata, configuration.get( 'metarate' ) * 1000 ) ;
+		
+		// Mhh… don’t believe the client!
+		lastUpdateDate = 0 // Math.floor( ( new Date ).getTime() / 1000 ) ;
+		
+		postsInterval = ajax.interval(
+			configuration.get( 'postsrate' ),
+			'GET', 'lastPosts',
+			function ()
+			{
+				return {
+					channels: listChannels(),
+					from: lastUpdateDate
+				} ;
+			},
+			gotLastPosts
+		) ;
+		
+		metaInterval = ajax.interval(
+			configuration.get( 'metarate' ),
+			'GET', 'channel',
+			function () { return { id: listChannels() } ; },
+			gotChannelsData
+		) ;
+		
 		this.open.apply( this, configuration.get( 'channels' ) ) ;
 	} ;
 	

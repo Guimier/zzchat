@@ -292,6 +292,47 @@
 	 * @method sendNow
 	 */
 	window.ajax.sendNow = runQuery ;
+	
+	/**
+	 * Send an Ajax sub-query at a fixed interval.
+	 * @method interval
+	 * @param {Number} seconds Seconds between each execution.
+	 * @param {String} method 'GET' or 'POST', depending on whet is needed.
+	 * @param {String} name Sub-query name.
+	 * @param {Function} [dataBuilder] Function building the data to send.
+	 * @param {Function} [success] Callback on success. Called with the returned data.
+	 * @param {Function} [error] Callback on error. Called with error name and description.
+	 * @return An interval handler. Stop this interval with `clearInterval`.
+	 */
+	window.ajax.interval = function ( seconds, method, name, dataBuilder, success, error ) // jshint ignore:line
+	{
+		var answered = true ;
+		
+		function callback( real )
+		{
+			return function () {
+				answered = true ;
+				real.apply( this, arguments ) ;
+			} ;
+		}
+		
+		return setInterval(
+			function ()
+			{
+				if ( answered )
+				{
+					answered = false ;
+					ajax.send(
+						method, name,
+						$.isFunction( dataBuilder ) ? dataBuilder() : {},
+						callback( success || $.noop ),
+						callback( error || $.noop )
+					) ;
+				}
+			},
+			seconds * 1000
+		) ;
+	} ;
 
 /**
  * Ajax query part.

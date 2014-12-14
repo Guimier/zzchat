@@ -22,7 +22,10 @@ class LastPostsAjaxQueryPart extends AjaxQueryPart
 			) ;
 		}
 		
-		return $res ;
+		return array(
+			'date' => time(),
+			'posts' => $res
+		) ;
 	}
 	
 }
