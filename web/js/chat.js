@@ -181,7 +181,7 @@
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
-		ajax.stop() ;
+		channels.stop() ;
 		$( 'html' )
 			.addClass( 'page-login' )
 			.removeClass( 'page-chat' ) ;
@@ -189,7 +189,7 @@
 
 	function initChatPage()
 	{
-		ajax.start( 2 ) ;
+		channels.start() ;
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;

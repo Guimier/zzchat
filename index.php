@@ -14,9 +14,10 @@ function sendConfiguration()
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
 		'language' => Configuration::getValue( 'language' ),
-		'newpostsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
-		'peoplerate' => Configuration::getValue( 'ajaxrate.people' ),
-		'user' => $user instanceof User ? $user->getName() : null
+		'postsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
+		'metarate' => Configuration::getValue( 'ajaxrate.people' ),
+		'user' => $user instanceof User ? $user->getName() : null,
+		'channels' => array()
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
