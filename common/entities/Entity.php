@@ -76,13 +76,21 @@ abstract class Entity
 		) ;
 	}
 	
+	/** Get a special entity by its id.
+	 * @param int $id The id to look for.
+	 */
+	protected static function getSpecial( $id )
+	{
+		/* At this level, we donâ€™t kow any special entity. */
+		throw new NoSuchEntityException( $entityId ) ;
+	}
+	
 	/** Get an entity by id.
 	 * 
 	 * @param int $entityId The id to look for.
 	 * 
 	 * @return The Entity instance.
 	 */
-	
 	public static function getById( $entityId )
 	{
 		static $entities = array() ;
@@ -90,7 +98,10 @@ abstract class Entity
 		if ( ! array_key_exists( $entityId, $entities ) )
 		{
 			$class = get_called_class() ;
-			$entities[$entityId] = new $class( $entityId ) ;
+			
+			$entities[$entityId] = $entityId < 0
+				? static::getSpecial( $entityId )
+				: new $class( $entityId ) ;
 		}
 		
 		return $entities[$entityId] ;
@@ -281,7 +292,7 @@ abstract class Entity
 	 */
 	public function containsIllegalCharacter( $name )
 	{
-		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
+		return ! preg_match( '#^[A-ZÃ‰ÃˆÃŠÃ€Ã™Ã‚ÃŽÃ”Ã›ÃÃ‹ÃœÃ–Ã‡a-zÃ©Ã¨ÃªÃ Ã¹Ã¢Ã®Ã´Ã»Ã¯Ã«Ã¼Ã¶Ã§\' -]*$#', $name ) ;
 	}
 	
 }

@@ -13,6 +13,21 @@ class User extends Entity
 		return 'users' ;
 	}
 	
+	/** Get a special entity by its id.
+	 * @param int $id The id to look for.
+	 */
+	protected static function getSpecial( $id )
+	{
+		if ( $id == -1 )
+		{
+			return new CliUser() ;
+		}
+		else
+		{
+			parent::getSpecial( $id ) ;
+		}
+	}
+	
 	/** Create a user.
 	 * 
 	 * @param string $userName The name of the user which is created.
