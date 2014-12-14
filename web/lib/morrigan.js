@@ -55,7 +55,7 @@ $.widget( "morrigan.morrigan_editor", {
     _blockManager: null,
     _options: {},
 
-    _actions: $.extend( ( window.morrigan_ext || {} ), {
+    _actions: $.extend( ( window.extendMorrigan || {} ), {
         video: {
             name: 'video',
             view: {

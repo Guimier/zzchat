@@ -3,6 +3,8 @@
  */
 ( function ( $ ) {
 
+'use strict' ;
+
 /**
  * @class morrigan-ext
  */
@@ -44,23 +46,24 @@
 				classes: 'smiley ' + smiley
 			},
 		
-			onClickHandler: function ( editor, action ) {
+			onClickHandler: function ( editor ) {
 				editor._window.document.execCommand(
 					'insertImage',
 					false,
 					getSmileyUrl( smiley )
 				);
 			}
-		}
+		} ;
 	}
 
-	window.morrigan_ext = {} ;
+	window.extendMorrigan = {} ;
 
-	var smiley, styles = '.smiley{background:no-repeat center}';
+	var i, smiley, styles = '.smiley{background:no-repeat center}' ;
+	
 	for ( i in smileys )
 	{
 		smiley = smileys[i] ;
-		morrigan_ext[smiley] = getSmileyInserter( smiley );
+		extendMorrigan[smiley] = getSmileyInserter( smiley ) ;
 		styles += '.' + smiley + '{background-image:url("' + getSmileyUrl( smiley ) + '")}' ;
 	}
 	
@@ -99,7 +102,7 @@
 					break ;
 			}
 			
-			var $editor = this.morrigan_editor( {
+			var $editor = this.morrigan_editor( { // jshint ignore:line
 				iframeStyles: 'web/lib/morrigan-iframe.css',
 				width: 'auto',
 				height: '140px',
@@ -112,9 +115,9 @@
 					if ( evt.which === 13 && ! evt.shiftKey )
 					{
 						$editor.trigger( 'enter', {
-							content: $editor.morrigan_editor( 'html' )
+							content: $editor.morrigan_editor( 'html' ) // jshint ignore:line
 						} ) ;
-						$editor.morrigan_editor( 'html', '' ) ;
+						$editor.morrigan_editor( 'html', '' ) ; // jshint ignore:line
 					}
 				} ) ;
 			

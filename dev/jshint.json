@@ -26,6 +26,7 @@
 	"devel" :true,
 	"predef": [
 		"jQuery",
+		"extendMorrigan",
 		"languages",
 		"ajax",
 		"configuration",
