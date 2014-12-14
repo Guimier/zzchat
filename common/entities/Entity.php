@@ -31,12 +31,16 @@ abstract class Entity
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
-			$entity = self::getById( $activeEntities[$name] ) ;
-
-			if ( ! $entity->isActive() )
+			try
 			{
-				$entity = null ;
+				$entity = self::getById( $activeEntities[$name] ) ;
+	
+				if ( ! $entity->isActive() )
+				{
+					$entity = null ;
+				}
 			}
+			catch ( NoSuchEntityException $e ) {}
 		}
 		
 		return $entity ;
@@ -117,8 +121,8 @@ abstract class Entity
 		{
 			throw new EntityNameAlreadyTakenException( $name ) ;
 		}
-		
-		$lastIdFile = COnfiguration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
+
+		$lastIdFile = Configuration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
 		$id = Configuration::incrementCounter( $lastIdFile ) ;
 		
 		$data = array( 'name' => $name ) ;
