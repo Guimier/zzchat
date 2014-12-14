@@ -32,6 +32,7 @@
 	"exceptions.entityalreadyinactive": "The entity whose id is “${id}” is already inactive",
 	"exceptions.entitynamealreadytaken": "The entity name “${name}” is already taken",
 	"exceptions.entitynametooshort": "Entity name “${name}” is too short",
+	"exceptions.entitynametoolong": "Entity name “${name}” is too long",
 	"exceptions.nosuchentity": "No entity has id “${id}”",
 	"exceptions.inactivechannel": "The channel #${id} is inactive",
 	"exceptions.climissingparameter": "Missing “${param}” parameter",

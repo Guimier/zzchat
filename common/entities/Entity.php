@@ -87,10 +87,18 @@ abstract class Entity
 			throw new ContainsIllegalCharacterException( $name ) ;
 		}
 		
+		
+		
 		if ( strlen( $name ) < $config->getValue( self::getEntityType() . '.minnamelength' ) )
 		{
 			throw new EntityNameTooShortException( $name ) ;
 		}
+		
+		if ( strlen( $name ) > $config->getValue( self::getEntityType() . '.maxnamelenght') )
+		{
+			throw new EntityNameTooLongException( $name ) ;
+		}		
+		 
 		
 		if ( self::getActiveEntity( $name ) !== null )
 		{
