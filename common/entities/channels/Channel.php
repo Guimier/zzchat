@@ -109,9 +109,9 @@ class Channel extends Entity
 	/** Notify activity by a user on this channel.
 	 * Of course, activity by a user means the channel is active.
 	 */
-	public function isActiveNow( User $user )
+	public function activatedBy( User $user )
 	{
-		parent::isActiveNow() ;
+		$this->isActiveNow() ;
 		$this->setArrayValue( 'users', $user->getId(), time() ) ;
 	}
 	
@@ -124,7 +124,7 @@ class Channel extends Entity
 	 */
 	public function addPost( User $user, $content )
 	{
-		$this->isActiveNow( $user ) ;
+		$this->activatedBy( $user ) ;
 		
 		if ( ! is_string( $content ) )
 		{
