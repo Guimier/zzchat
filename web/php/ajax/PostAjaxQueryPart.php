@@ -7,7 +7,9 @@ class PostAjaxQueryPart extends AjaxQueryPart
 	{
 		$user = $this->loggedInOnly() ;
 		
-		$channel = Channel::getChannel( $this->getParameter( 'channel', WebContext::POST ) ) ;
+		$channel = Channel::getById(
+			$this->getParameter( 'channel', WebContext::POST )
+		) ;
 		
 		$content = $this->getParameter( 'content', WebContext::POST ) ;
 		if ( $content === null )

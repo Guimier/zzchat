@@ -117,9 +117,10 @@
 				.on( 'keypress', function ( evt ) {
 					if ( evt.which === 13 && ! evt.shiftKey )
 					{
-						$editor.trigger( 'enter', {
-							content: $editor.morrigan_editor( 'html' ) // jshint ignore:line
-						} ) ;
+						$editor.trigger(
+							'enter',
+							$editor.morrigan_editor( 'html' ) // jshint ignore:line
+						) ;
 						$editor.morrigan_editor( 'html', '' ) ; // jshint ignore:line
 					}
 				} ) ;

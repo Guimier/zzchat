@@ -29,7 +29,9 @@
 		$( '#channels-list-actives' ).append( this.$tab ) ;
 		
 		/* Create the WYSIWYG surface. */
-		this.$wysiwyg = $( '<div>' ).addClass( 'wysiwyg' ) ;
+		this.$wysiwyg = $( '<div>' )
+			.addClass( 'wysiwyg' )
+			.on( 'enter', function () { that.onEnter.apply( that, arguments ) ; } );
 		
 		/* Create the presents list. */
 		this.$presents = $( '<ul>' ).addClass( 'presents' ) ;
@@ -189,6 +191,20 @@
 		{
 			$.extend( this, data ) ;
 			this.updatePresents() ;
+		},
+		
+		/**
+		 * TODO
+		 */
+		onEnter: function ( evt, content )
+		{
+			ajax.add(
+				'POST', 'post',
+				{
+					channel: this.id,
+					content: content
+				}
+			) ;
 		},
 		
 		formatDate: function ( date )
