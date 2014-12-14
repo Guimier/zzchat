@@ -198,66 +198,40 @@ class Channel extends Entity
 	*/
 	public function lastPosts( $beginning )
 	{
-		$files = $this->getValue( 'files') ;
-		$lenght = count( $files ) ;
-		$currentFile = $lenght ;
-		$postsFile = Configuration::loadJson(
-			$files[$currentFile],
-			array()
-		) ;
-		$currentPost = count( $postsFile ) ;
-		
-		while ( $postsFile[$currentPost]['date'] >= $begining  && $currentFile > 0 )
-		{
-			if ( $currentPost > 0 )
-			{
-				$currentPost = $currentPost - 1 ;
-			}
-			else
-			{
-				$currentFile = $currentFile - 1 ;
-				$postsFile = Configuration::loadJson( $files[$currentFile], array() ) ;
-				$currentPost = count( $postsFile ) ;
-			}
-		}
-		
 		$lastPosts = array() ;
 		
-		if ( $postsFile[$currentPost]['date'] < $beginning )
+		$files = $this->getValue( 'files') ;
+		$currentFile = count( $files ) ;
+		
+		$end = false ;
+		
+		while ( ! $end && $currentFile > 0 )
 		{
-			if ( $currentPosts  = count( $postsFile ) )
+			-- $currentFile ;
+			$posts = Configuration::loadJson(
+				self::getPostsFile( $files[$currentFile] ),
+				array()
+			) ;
+			
+			$currentPost = count( $posts ) ;
+			while ( ! $end && $currentPost > 0 )
 			{
-				$currentFile = $currentFile + 1 ;
-				$currentPost = 0 ;
-			}
-			else
-			{
-				$currentPost = $currentPost + 1 ;
+				-- $currentPost ;
+				
+				$post = new Post( $posts[$currentPost] ) ;
+				
+				if ( $post->getDate() > $beginning )
+				{
+					$lastPosts[] = $post ;
+				}
+				else
+				{
+					$end = true ;
+				}
 			}
 		}
 		
-		while (
-			$currentFile < $lenght
-			|| $currentPost < count(
-				Configuration::loadJson( $files[$lenght], array() )
-			)
-		)
-		{
-			if ( $currentPost < count( $currentFile ) )
-			{
-				$lastPosts[] = $postsFile[$currentPost] ;
-				$currentPost = $currentPost + 1 ;
-			}
-			else
-			{
-				$lastPosts[] = $postsFile[$currentPost] ;
-				$currentFile = $currentFile + 1 ;
-				$postsFile = Configuration::loadJson( $files[$currentFile], array() ) ;
-				$currentPost = 0 ;
-			}
-		}
-		
-		return $lastPosts ;
+		return array_reverse( $lastPosts ) ;
 	}
 	
 }
