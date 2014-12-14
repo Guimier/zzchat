@@ -117,18 +117,7 @@ function showNotice()
 					<div id="channels-list">
 						<ul id="channels-list-actives"></ul>
 					</div>
-					<div id="channels">
-						<div class="channel currentChannel">
-							<div class="channelCore">
-								<!--Messages-->
-								<div class="messages"></div>
-								<!--WYSIWYG-->
-								<div class="wysiwyg"></div>
-							</div>
-							<!--Presents-->
-							<div class="presents"></div>
-						</div>
-					</div>
+					<div id="channels"></div>
 				</div>
 			</div>
 			<!--Pour le centrage vertical-->
