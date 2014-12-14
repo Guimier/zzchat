@@ -21,6 +21,7 @@
 	"EntityAlreadyInactiveException": "common/entities/EntityAlreadyInactiveException.php",
 	"Entity": "common/entities/Entity.php",
 	"EntityNameAlreadyTakenException": "common/entities/EntityNameAlreadyTakenException.php",
+	"EntityNameTooLongException": "common/entities/EntityNameTooLongException.php",
 	"EntityNameTooShortException": "common/entities/EntityNameTooShortException.php",
 	"HTML": "common/html/HTML.php",
 	"IllegalAttributeException": "common/html/IllegalAttributeException.php",

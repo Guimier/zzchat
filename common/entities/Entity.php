@@ -69,6 +69,15 @@ abstract class Entity
 		return $entities[$entityId] ; 
 	}
 	
+	/* Replace the multiple occurence of spaces by only one space.
+	 * @param string $name The name that we want to normalize.
+	 * @return string The name normalized.
+	 */
+	 public static function normalize( $name )
+	 {
+		return preg_replace( " +", " ", str_replace( array( "\t", "\r", "\n" ), " ", trim( $name ) ) ) ;
+	 }
+	 
 	/** Create a entity.
 	 * 
 	 * @param string $entityName The name of the entity which is created.
@@ -87,7 +96,7 @@ abstract class Entity
 			throw new ContainsIllegalCharacterException( $name ) ;
 		}
 		
-		
+		$name = self::nomalize( $name ) ;  
 		
 		if ( strlen( $name ) < $config->getValue( self::getEntityType() . '.minnamelength' ) )
 		{
