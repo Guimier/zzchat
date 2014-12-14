@@ -1,6 +1,7 @@
 /**
  * @module control
  * @class control
+ * @static
  */
 ( function ( $ ) {
 

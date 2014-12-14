@@ -10,6 +10,7 @@
 /**
  * Ajax exceptions.
  * @class ajaxError
+ * @constructor
  * @param {String} parsedMessage Parsed message.
  * @param {String} type Exception type ('ajaxError' or PHP’s class name).
  * @param {String} structMessage Message’s structure.

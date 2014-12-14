@@ -10,9 +10,10 @@
 /**
  * @class Channel
  * @private
+ * @constructor
  * @param {Object} data Description of the channel as returned by Ajax `channel` query.
  */
-	function Channel( ajaxData )
+	function Channel( data )
 	{
 		var that = this ;
 		

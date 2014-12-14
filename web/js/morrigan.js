@@ -7,7 +7,8 @@
 'use strict' ;
 
 /**
- * @class morrigan-ext
+ * @class extendMorrigan
+ * @static
  */
 
 	/**
@@ -74,6 +75,7 @@
 
 /**
  * @class jQuery.wysiwyg
+ * @static
  */
 
 	$.extend( $.fn, {
