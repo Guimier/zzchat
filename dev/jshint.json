@@ -28,6 +28,7 @@
 		"jQuery",
 		"languages",
 		"ajax",
-		"configuration"
+		"configuration",
+		"channels"
 	]
 }

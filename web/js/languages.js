@@ -246,7 +246,7 @@
 	languages.$message = function ( message, args )
 	{
 		return $( '<span>' ).trText( message, args ) ;
-	}
+	} ;
 
 /**
  * jQuery extension for languages management.

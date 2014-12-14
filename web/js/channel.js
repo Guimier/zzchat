@@ -23,7 +23,7 @@
 			.click( function ( evt ) {
 				evt.preventDefault() ;
 				that.show() ;
-			} )
+			} ) ;
 		$( '#channels-list-actives' ).append( this.$tab ) ;
 		
 		/* Create the WYSIWYG surface. */
