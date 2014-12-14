@@ -1,6 +1,7 @@
 /**
  * Channels management.
  * @module channels
+ * @requires ajax, configuration
  */
 ( function ( $ ) {
 
@@ -48,7 +49,7 @@
 	
 	Channel.prototype = {
 	
-	/***** Inherited from Ajax answers. *****/
+	/*----- Inherited from Ajax answers. -----*/
 	
 		/**
 		 * The channel’s id.
@@ -78,7 +79,7 @@
 		 */
 		users: [],
 		
-	/***** JavaScript-specific. *****/
+	/*----- JavaScript-specific. -----*/
 	
 		/**
 		 * The channel’s main element.
@@ -183,21 +184,21 @@
 	var 
 		/**
 		 * Openned channels.
-		 * @param {Object} opennedChannels
+		 * @property {Object} opennedChannels
 		 * @private
 		 */
 		opennedChannels = {},
 		
 		/**
 		 * Interval reference for posts update.
-		 * @param postsInterval
+		 * @property postsInterval
 		 * @private
 		 */
 		postsInterval = 0 ,
 		
 		/**
 		 * Interval reference for metadata update.
-		 * @param metaInterval
+		 * @property metaInterval
 		 * @private
 		 */
 		metaInterval = 0 ;
@@ -267,6 +268,8 @@
 	
 	/**
 	 * Get metadata to update channels.
+	 * @method getMetadata
+	 * @private
 	 */
 	function getMetadata()
 	{

@@ -1,5 +1,6 @@
 /**
  * @module wysiwyg
+ * @requires configuration
  */
 ( function ( $ ) {
 
