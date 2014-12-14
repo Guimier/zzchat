@@ -45,7 +45,9 @@
 	}
 	
 	Channel.prototype = {
-		
+	
+	/***** Inherited from Ajax answers. *****/
+	
 		/**
 		 * The channel’s id.
 		 * @property {Number} id
@@ -67,6 +69,15 @@
 		 */
 		title: null,
 		
+		/**
+		 * The present users.
+		 * @property {Array} users
+		 * @private
+		 */
+		users: [],
+		
+	/***** JavaScript-specific. *****/
+	
 		/**
 		 * The channel’s main element.
 		 * @property {jQuery} $body
@@ -114,17 +125,29 @@
 			{
 				this.shown = true ;
 				this.$wysiwyg.wysiwyg( this.type ) ;
+				this.updatePresents() ;
 			}
 		},
 		
 		/**
-		 * Hide the channel.
-		 * @method hide
+		 * Update the list of the present users.
+		 * @method updatePresents
+		 * @private
 		 */
-		hide: function ()
+		updatePresents: function()
 		{
-			this.$body.removeClass( 'currentChannel' ) ;
-			this.$tab.removeClass( 'current' ) ;
+			var
+				$presents = $( [] ),
+				i ;
+			
+			for ( i in this.users )
+			{
+				$presents = $presents.add( $( '<li>' )
+					.text( this.users[i].name )
+				) ;
+			}
+			
+			this.$presents.html( $presents ) ;
 		}
 		
 	} ;

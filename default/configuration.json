@@ -9,6 +9,7 @@
 	"channels.inactivity": 604800,
 	"channels.postlength": 1024,
 	"channels.filelength": 100,
+	"channels.userinactivity": 10,
 	"users.maxpostrate": 20,
 	"users.inactivity": 86400,
 	"users.minnamelength": 4,

@@ -33,7 +33,10 @@ class Channel extends Entity
 					: Configuration::getValue( 'channels.defaulttype' ),
 				'creation' => time(),
 				'last-action' => time(),
-				'files' => array()
+				'files' => array(),
+				'users' => array(
+					$channelCreator->getId() => time()
+				)
 			)
 		) ;
 	}
@@ -152,6 +155,29 @@ class Channel extends Entity
 		) ;
 		
 		return count( $fileContent ) >= Configuration::getValue( 'channels.filelength' ) ;
+	}
+	
+	/** Get a list of the users on this channel.
+	 * @returns A list of User.
+	 */
+	public function getUsers()
+	{
+		$users = $this->getValue( 'users' ) ;
+		$res = array() ;
+		
+		foreach ( $users as $id => $lastAction )
+		{
+			if ( time() - $lastAction <= Configuration::getValue( 'channels.userinactivity' ) )
+			{
+				$user = User::getById( $id ) ;
+				if ( $user->isActive() )
+				{
+					$res[] = $user ;
+				}
+			}
+		}
+		
+		return $res ;
 	}
 	
 	/** Get the last posts which have been posted for a while.

@@ -13,7 +13,19 @@ class AjaxFormater
 			'id' => $channel->getId(),
 			'name' => $channel->getName(),
 			'title' => $channel->getTitle(),
-			'type' => $channel->getType()
+			'type' => $channel->getType(),
+			'users' => array_map( 'AjaxFormater::user', $channel->getUsers() )
+		) ;
+	}
+
+	/** Format data about a user.
+	 * @param User $user The user.
+	 */
+	public static function user( User $user )
+	{
+		return array(
+			'id' => $user->getId(),
+			'name' => $user->getName()
 		) ;
 	}
 
