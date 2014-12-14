@@ -236,6 +236,17 @@
 			}
 		}
 	}
+	
+	/**
+	 * Get a message to be inserted.
+	 * @method $message
+	 * @param {String} message Name of the message.
+	 * @param {Object} [args] Arguments for the message.
+	 */
+	languages.$message = function ( message, args )
+	{
+		return $( '<span>' ).trText( message, args ) ;
+	}
 
 /**
  * jQuery extension for languages management.

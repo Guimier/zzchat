@@ -86,6 +86,18 @@
 	"menu.logout": "Se déconnecter",
 	"menu.hello": "Bonjour, ${user} !",
 
+	"morrigan.ok": "Ok",
+	"morrigan.cancel": "Annuler",
+	"morrigan.bold": "Gras",
+	"morrigan.italy": "Italique",
+	"morrigan.strike": "Barré",
+	"morrigan.link": "Lien",
+	"morrigan.link.title": "Ajouter un lien",
+	"morrigan.unlink": "Supprimer les liens",
+	"morrigan.smiley-x": "X rouge",
+	"morrigan.smiley-v": "V vert",
+	"morrigan.smiley-o": "Carré orange",
+
 	"web.footer": "Agora ZZ © 2014, Tous droits reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue.",
 	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."
 }
