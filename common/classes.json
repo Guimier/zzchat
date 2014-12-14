@@ -3,6 +3,7 @@
 	"AgoraInternalException": "common/exceptions/AgoraInternalException.php",
 	"AgoraUserException": "common/exceptions/AgoraUserException.php",
 	"AjaxCommand": "cli/classes/AjaxCommand.php",
+	"AjaxFormater": "web/php/ajax/AjaxFormater.php",
 	"AjaxQueryPart": "web/php/ajax/AjaxQueryPart.php",
 	"AjaxQuery": "web/php/ajax/AjaxQuery.php",
 	"Autoloader": "common/Autoloader.php",

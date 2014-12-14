@@ -118,6 +118,8 @@
 .page-chat .presents
 {
 	position : relative ;
+	padding : 0;
+	margin : 0 ;
 	width : 10% ;
 	height : 100% ;
 	color : white ;
@@ -157,6 +159,16 @@
 	display : none ;
 	height : 100% ;
 	width : 100% ;
+}
+
+.page-chat #channels-list-actives li
+{
+	cursor: pointer ;
+}
+
+.page-chat #channels-list-actives .current
+{
+	color: #008800 ;
 }
 
 .page-chat .currentChannel

@@ -51,17 +51,27 @@ class Channel extends Entity
 	/** Get the title of the channel.
 	 * 
 	 * @return The title of the Channel instance.
-	 * @codeCoverageIgnore
+	 * @codeCoverageIgnore Getter.
 	 */
 	public function getTitle()
 	{
 		return $this->getValue( 'title' ) ;
 	}
 	
+	/** Get the type of the channel.
+	 * 
+	 * @return The type of the Channel instance.
+	 * @codeCoverageIgnore Getter.
+	 */
+	public function getType()
+	{
+		return $this->getValue( 'type' ) ;
+	}
+	
 	/** Get the creator of the channel.
 	 * 
 	 * @return The name of the User who has created the channel.
-	 * @codeCoverageIgnore
+	 * @codeCoverageIgnore Getter.
 	 */
 	public function getCreator()
 	{

@@ -80,8 +80,6 @@ function showNotice()
 		/>
 	
 		<!-- Scripts -->
-		<script src="web/js/configuration.js"></script>
-		<?php sendConfiguration() ; ?>
 		<script src="web/lib/jquery.js"></script>
 		<script src="web/lib/jquery-ui.js"></script>
 		<script src="web/js/configuration.js"></script>
@@ -90,6 +88,7 @@ function showNotice()
 		<script src="web/js/languages.js"></script>
 		<script src="web/js/morrigan.js"></script>
 		<script src="web/lib/morrigan.js"></script>
+		<script src="web/js/channel.js"></script>
 		<script src="web/js/chat.js"></script>
 	</head>
 	<body>
@@ -115,7 +114,9 @@ function showNotice()
 				<!--Chat-->
 				<div id="chat">
 					<!--Canaux-->
-					<div id="channels-list"></div>
+					<div id="channels-list">
+						<ul id="channels-list-actives"></ul>
+					</div>
 					<div id="channels">
 						<div class="channel currentChannel">
 							<div class="channelCore">
