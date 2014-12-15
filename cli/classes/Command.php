@@ -30,6 +30,10 @@ abstract class Command
 		catch ( Exception $e )
 		{
 			self::errln( $e->getMessage() ) ;
+			if ( Configuration::getValue( 'debug' ) )
+			{
+				echo JSON::encode( $e->getTrace(), true ) ;
+			}
 			exit ( 1 ) ;
 		}
 	}
@@ -50,17 +54,23 @@ abstract class Command
 	}
 
 	/** Get formated documentation.
-	 * @return Associative array describing the commandline.
-	 *   * Keys `required` and `optional` may contain a list of arguments (see showDocumentationPart for the format).
-	 *   * Key `desc` must contain the name of a translated description for the commandline.
+	 * @return Associative array describing the command line.
+	 *    * Value at [`description`] (message name) is used as script global description.
+	 *    * [`scenarios`] may contain a list of scenarios (array keyed by scenarios names with arrays as values):
+	 *      * [`description`]: Name of a message describing the scenario.
+	 *      * `parameters`: Ordered array of used parameters (names which may be prefixed by `+` if the parameter is required).
+	 *    * [`parameters`] may contain a list of parameters (array keyed by arguments names with arrays as values):
+	 *      * [`description`]: Name of a translated description
+	 *      * `type`: one of `boolean`, `string`, `array`
+	 *      * [`alt`]: only for `boolean` type, one-char string for an alternative flag.
 	 */
 	abstract public function getDocumentation() ;
 
 	/** Say the action was not found and display the documentation. */
 	private function noSuchAction()
 	{
-		$this->writeln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
-		$this->writeln( '--------------------' ) ;
+		$this->errln( $this->getContext()->getMessage( 'cli.help.nosuchaction' ) ) ;
+		$this->errln( '--------------------' ) ;
 		$this->showDocumentation() ;
 	}
 
@@ -101,7 +111,7 @@ abstract class Command
 	}
 
 	/** Get the name of the method to call (auto-splitted commands).
-	 * Will check wether the require parameter are present.
+	 * Will check wether the required parameters are present.
 	 */
 	private function getMethod()
 	{
@@ -124,13 +134,21 @@ abstract class Command
 		return $method ;
 	}
 
+	/** Get the name of a documentation message.
+	 * @param string $type Type of object to document. One of 'parameter', 'scenario' and `null` (for scripts).
+	 * @param string $name Name of the object to describe (`null` for scripts).
+	 * @param array $base Description object which can contain an 'description' key, overriding default name.
+	 */
+	private function getDocumentationMessage( $type, $name, $base )
+	{
+		return array_key_exists( 'description', $base )
+			? $base['description']
+			: 'cli.' . $this->commandName . ( is_null( $type ) ? '' : ".$type.$name" ) ;
+	}
+
 	/** Show a list of parameters for a script.
 	 * @param string $name Name of the parameter.
 	 * @param array $param Associative array representing a parameter.
-	 *   Keys are the names, values are arrays containing:
-	 *   * `desc`: Name of a translated description
-	 *   * `type`: one of `boolean`, `string`, `array`
-	 *   * `alt`: only for boolean, one-char string for an alternative flag.
 	 */
 	private function showParameterDocumentation( $name, $param )
 	{
@@ -155,7 +173,9 @@ abstract class Command
 		}
 
 		$this->writeln( "\t$format" ) ;
-		$this->writeln( "\t\t" . $this->getContext()->getMessage( $param['description'] ) ) ;
+		$this->writeln( "\t\t" . $this->getContext()->getMessage(
+			$this->getDocumentationMessage( 'parameter', $name, $param )
+		) ) ;
 	}
 
 	/** Show a list of parameters for a script.
@@ -187,24 +207,26 @@ abstract class Command
 	 */
 	private function showScenarios( $scenarios, $params )
 	{
-		$command = 'cli/' . $this->commandName . '.php' ;
+		$command = 'cli/' . $this->commandName ;
 		
 		foreach ( $scenarios as $key => $desc )
 		{
-			$scenario = "\t$command $key" ;
+			$parts = array( $command, $key ) ;
+
 			foreach ( $desc['parameters'] as $param )
 			{
-				$name = $this->getParameterName( $param ) ;
-				if ( $this->isRequiredParameter( $param ) )
+				$part = '--' . $this->getParameterName( $param ) ;
+				if ( ! $this->isRequiredParameter( $param ) )
 				{
-					$scenario .= " --$name" ;
+					$part = "[$part]" ;
 				}
-				else
-				{
-					$scenario .= " [--$name]" ;
-				}
+				$parts[] = $part ;
 			}
-			$this->writeln( $scenario ) ;
+
+			$this->writeln( "\t" . implode( ' ', $parts ) ) ;
+			$this->writeln( "\t\t" . $this->getContext()->getMessage(
+				$this->getDocumentationMessage( 'scenario', $key, $desc )
+			) ) ;
 		}
 	}
 
@@ -213,7 +235,7 @@ abstract class Command
 	{
 		$desc = $this->getDocumentation() ;
 		$this->writeln(
-			$this->getContext()->getMessage( $desc['description'] )
+			$this->getContext()->getMessage( $this->getDocumentationMessage( null, null, $desc ) )
 		) ;
 
 		$params = array_key_exists( 'parameters', $desc )
@@ -223,7 +245,7 @@ abstract class Command
 		if ( array_key_exists( 'scenarios', $desc ) )
 		{
 			$this->showDocumentationTitle( 'cli.help.scenarios' ) ;
-			$this->showScenarios( $desc['scenarios'], $params) ;
+			$this->showScenarios( $desc['scenarios'], $params ) ;
 		}
 
 		if ( count( $params ) )

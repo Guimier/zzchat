@@ -1,8 +1,7 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/** Placeholder for WebContext.
- * @codeCoverageIgnore
- */
+/** Placeholder for WebContext. */
 class WebContext
 {
 	function getParameter( $key, $more )

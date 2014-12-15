@@ -1,7 +1,6 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/** Placeholder for Parameters.
- * @codeCoverageIgnore
- */
+/** Placeholder for Parameters. */
 class Context {}
 

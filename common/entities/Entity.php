@@ -2,52 +2,87 @@
 
 abstract class Entity
 {
-	/** Get the name of the directory of the object. 
+	/** Get the name of the directory of the object.
 	 * 
+	 * @warning Child classes MUST override this method.
 	 * @return The name of the directory.
 	 */
-	abstract protected static function getEntityType() ;
+	protected static function getEntityType()
+	{
+		return null ;
+	}
 	
 /***** Class *****/
 
-	/** Get an active entity by name.
+	/** Get an active entity by its name.
 	 * 
 	 * @param string $name The name to look for.
 	 * 
 	 * @return The Entity instance or null.
 	 */
-	public static function getActiveEntity( $name )
+	public static function getByName( $name )
 	{
 		$entity = null ;
 		
-		$config = Configuration::getInstance() ;
-		
-		$activeEntities = $config->loadJson( $config->getDataDir( self::getEntityType() ) . '/active.json', array() ) ;
+		$activeEntities = Configuration::loadJson(
+			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
+			array()
+		) ;
 		
 		if ( array_key_exists( $name, $activeEntities ) )
 		{
-			$user = self::getUser( $activeEntities[$name]->getId() ) ;
-
-			if ( ! $entity->isActive() )
+			try
 			{
-				$entity = null ;
+				$entity = self::getById( $activeEntities[$name] ) ;
+	
+				if ( ! $entity->isActive() )
+				{
+					$entity = null ;
+				}
 			}
+			catch ( NoSuchEntityException $e ) {}
 		}
 		
 		return $entity ;
 	}
 	
 	/** Get active entities.
-	 *  
+	 * 
 	 * @return The list of the entities which are active.
 	 */
-	public static function getActiveEntities() 
+	public static function getAllActive()
 	{
-		$config = Configuration::getInstance() ;
+		$list = Configuration::loadJson(
+			Configuration::getDataDir( static::getEntityType() ) . '/active.json',
+			array()
+		) ;
 		
-		$activeEntities = $config->loadJson( $config->getDataDir( self::getEntityType() ) . '/active.json', array() ) ;
+		$class = get_called_class() ;
 		
-		return $activeEntities ;
+		$entities = array_map(
+			function ( $id ) use ( $class )
+			{
+				return $class::getById( $id ) ;
+			},
+			$list
+		) ;
+		
+		return array_filter(
+			$entities,
+			function ( Entity $entity )
+			{
+				return $entity->isActive() ;
+			}
+		) ;
+	}
+	
+	/** Get a special entity by its id.
+	 * @param int $id The id to look for.
+	 */
+	protected static function getSpecial( $id )
+	{
+		/* At this level, we donâ€™t kow any special entity. */
+		throw new NoSuchEntityException( $entityId ) ;
 	}
 	
 	/** Get an entity by id.
@@ -56,17 +91,20 @@ abstract class Entity
 	 * 
 	 * @return The Entity instance.
 	 */
-	
-	public static function getEntity( $entityId )
+	public static function getById( $entityId )
 	{
 		static $entities = array() ;
 		
 		if ( ! array_key_exists( $entityId, $entities ) )
 		{
-			$entities[$entityId] = new Entity( $entityId ) ; 
+			$class = get_called_class() ;
+			
+			$entities[$entityId] = $entityId < 0
+				? static::getSpecial( $entityId )
+				: new $class( $entityId ) ;
 		}
 		
-		return $entities[$entityId] ; 
+		return $entities[$entityId] ;
 	}
 	
 	/* Replace the multiple occurence of spaces by only one space.
@@ -78,7 +116,7 @@ abstract class Entity
 		return preg_replace( " +", " ", str_replace( array( "\t", "\r", "\n" ), " ", trim( $name ) ) ) ;
 	 }
 	 
-	/** Create a entity.
+	/** Create a entity (for use by children clases).
 	 * 
 	 * @param string $entityName The name of the entity which is created.
 	 * 
@@ -89,8 +127,6 @@ abstract class Entity
 	 */
 	protected static function createEntity( $name, $initialArray )
 	{
-		$config = Configuration::getInstance() ; 
-		
 		if ( self::containsIllegalCharacter( $name ) )
 		{
 			throw new ContainsIllegalCharacterException( $name ) ;
@@ -98,7 +134,7 @@ abstract class Entity
 		
 		$name = self::nomalize( $name ) ;  
 		
-		if ( strlen( $name ) < $config->getValue( self::getEntityType() . '.minnamelength' ) )
+		if ( strlen( $name ) < Configuration::getValue( self::getEntityType() . '.minnamelength' ) )
 		{
 			throw new EntityNameTooShortException( $name ) ;
 		}
@@ -109,43 +145,41 @@ abstract class Entity
 		}		
 		 
 		
-		if ( self::getActiveEntity( $name ) !== null )
+		if ( self::getByName( $name ) !== null )
 		{
 			throw new EntityNameAlreadyTakenException( $name ) ;
 		}
+
+		$lastIdFile = Configuration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
+		$id = Configuration::incrementCounter( $lastIdFile ) ;
 		
-		$lastidFile = $config->getDataDir( self::getEntityType() ) . '/lastid.int' ;
-		$id = $config->incrementCounter( $lastIdFile ) ;
-		
-		$data = array( 'name' => $name ) ;
+		$data = array(
+			'name' => $name,
+			'last-action' => time()
+		) ;
 		$data += $initialArray ;
 		
-		$config->saveJson(
-			self::getEntitiesFile( $id ),
+		Configuration::saveJson(
+			self::getEntityFile( $id ),
 			$data
 		) ;
 		
-		$activeEntitiesFile = $config->getDataDir( self::getEntityType() ) . '/active.json' ;
-		$activeEntities = $config->loadJson( $activeEntitiesFile, array() ) ;
+		$activeEntitiesFile = Configuration::getDataDir( static::getEntityType() ) . '/active.json' ;
+		$activeEntities = Configuration::loadJson( $activeEntitiesFile, array() ) ;
+		$activeEntities[$name] = $id ;
+		Configuration::saveJson( $activeEntitiesFile, $activeEntities ) ;
 		
-		$activeEntities[] = array(
-							'name' => $name,
-							'id' => $id
-		) ;
-		$config->saveJson( $activeEntitiesFile, $activeEntities ) ;
-		
-		
-		return self::getEntity( $id ) ;
+		return self::getById( $id ) ;
 	}
 	
 	/** Get the file of the entity by id.
-	 * @param int $entityId The id of the entity whose file is searched.  
+	 * @param int $entityId The id of the entity whose file is searched.
 	 * 
 	 * @return The File of the entity.
 	 */
 	private static function getEntityFile( $entityId )
 	{
-		return Configuration::getInstance()->getDataDir( self::getEntityType ) . '/' . $entityId . '.json' ;
+		return Configuration::getDataDir( static::getEntityType() ) . '/' . $entityId . '.json' ;
 	}
 	
 	
@@ -166,14 +200,14 @@ abstract class Entity
 	 * 
 	 * @throw NoSuchEntityException If there is no entity with this id.
 	 */
-	public function __construct( $entityId )  
+	public function __construct( $entityId )
 	{
 		$this->id = $entityId ;
-		$this->data = Configuration::getInstance()->loadJson(
+		$this->data = Configuration::loadJson(
 			$this->getEntityFile( $entityId )
 		) ;
 		
-		if ( $this->Data === null )
+		if ( $this->data === null )
 		{
 			throw new NoSuchEntityException( $entityId ) ;
 		}
@@ -182,11 +216,11 @@ abstract class Entity
 	/** Destructor.
 	 * Save the data if modified.
 	 */
-	public function __destruct()  
+	public function __destruct()
 	{
 		if ( $this->modified )
 		{
-			Configuration::getInstance()->saveJson(
+			Configuration::saveJson(
 				$this->getEntityFile( $this->id ),
 				$this->data
 			) ;
@@ -197,9 +231,20 @@ abstract class Entity
 	 * @param string $key The key to change.
 	 * @param mixed $value The new value.
 	 */
-	private function setValue( $key, $value )
+	protected function setValue( $key, $value )
 	{
 		$this->data[$key] = $value ;
+		$this->modified = true ;
+	}
+	
+	/** Set a value in an array stored in data.
+	 * @param string $key The key the data.
+	 * @param string $key The name in the array.
+	 * @param mixed $value The new value.
+	 */
+	protected function setArrayValue( $key, $name, $value )
+	{
+		$this->data[$key][$name] = $value ;
 		$this->modified = true ;
 	}
 	
@@ -207,24 +252,23 @@ abstract class Entity
 	 * @param string $key The key to change.
 	 * @param mixed $value The new value.
 	 */
-	private function getValue( $key )
+	protected function getValue( $key )
 	{
 		return $this->data[$key] ;
 	}
 	
 	/** Check whether the entity is active or not.
 	 * 
-	 * @return True if the entity is active, false otherwise. 
+	 * @return True if the entity is active, false otherwise.
 	 */
 	public function isActive()
 	{
-		$config = Configuration::getInstance() ;
-		return time() - $this->data['last-action'] < $config->getValue( self::getEntityType() . '.inactivity' ) ;	
+		return time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;
 	}
 	
 	/** Put an entity inactive
-	 *  
-	 * @throw EntityAlreadyInactiveException If the entity is already inactive. 
+	 * 
+	 * @throw EntityAlreadyInactiveException If the entity is already inactive.
 	 */
 	public function isNowInactive()
 	{
@@ -234,16 +278,13 @@ abstract class Entity
 		}
 		else
 		{
-			$this->setValue( 'logged-out', true ) ;
+			$activeFile = Configuration::getDataDir( static::getEntityType() ) . '/active.json' ;
 			
-			$config = Configuration::getInstance() ;
-			$activeFile = $config->getDataDir( self::getEntityType() ) . '/active.json' ;
-			
-			$activeEntities = $config->loadJson( $activeFile, array() ) ;
+			$activeEntities = Configuration::loadJson( $activeFile, array() ) ;
 			
 			unset ( $activeEntities[$this->data['name']] ) ;
 			
-			$config->saveJson( $activeFile, $activeEntities) ;
+			Configuration::saveJson( $activeFile, $activeEntities) ;
 		}
 	}
 	
@@ -257,7 +298,7 @@ abstract class Entity
 	 * 
 	 * @return The id of the Entity instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getId()
 	{
 		return $this->id ;
@@ -268,7 +309,7 @@ abstract class Entity
 	 * 
 	 * @return The name of the Entity instance.
 	 * @codeCoverageIgnore
-	 */ 
+	 */
 	public function getName()
 	{
 		return $this->data['name'] ;
@@ -279,10 +320,10 @@ abstract class Entity
 	 * @param string $name
 	 * 
 	 * @return bool true: there is illegal characters, false otherwise.
-	 */ 
-	 public function containsIllegalCharacter( $name )
-	 {
-		 return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
-	 }
-	 
+	 */
+	public function containsIllegalCharacter( $name )
+	{
+		return ! preg_match( '#^[A-ZÃ‰ÃˆÃŠÃ€Ã™Ã‚ÃÃ”Ã›ÃÃ‹ÃœÃ–Ã‡a-zÃ©Ã¨ÃªÃ Ã¹Ã¢Ã®Ã´Ã»Ã¯Ã«Ã¼Ã¶Ã§\' -]*$#', $name ) ;
+	}
+	
 }

@@ -1,8 +1,11 @@
 /**
  * @module control
  * @class control
+ * @static
  */
 ( function ( $ ) {
+
+'use strict' ;
 	
 	var
 		/**
@@ -18,6 +21,7 @@
 	 */
 	function onLanguageChange()
 	{
+		// jshint validthis: true
 		var lang = $( this ).val() ;
 		languages.change( lang ) ;
 		configuration.setLocal( 'language', lang ) ;
@@ -59,9 +63,7 @@
 			$( '#quote' ).trText( 'quotations.quote', { content: desc.text } ) ;
 
 			$( '#author' ).trText(
-				desc.author === null
-					? 'quotations.anonymous'
-					: 'quotations.author',
+				desc.author === null ? 'quotations.anonymous' : 'quotations.author',
 				{ name: desc.author }
 			) ;
 		}
@@ -84,6 +86,7 @@
 	 */
 	function onLoginSubmit( evt )
 	{
+		// jshint validthis: true
 		evt.preventDefault() ;
 	
 		var username = $( '#pseudo' ).val() ;
@@ -101,7 +104,7 @@
 	}
 
 	/*
-	 * On batit le formulaire pour la saisie du pseudonyme : method permet de spécifier la méthode utilisée pour passer les paramètres (post ou get), enctype donne le type du paramètre qui sera transmis, onsubmit réaliser une fonction à la soumission (içi vérifier la validité du pseudo).
+	 * On batit le formulaire pour la saisie du pseudonyme.
 	 */
 	function $createForm()
 	{
@@ -113,7 +116,7 @@
 					id: 'loginLabel',
 					'for': 'pseudo'
 				} )
-				.trText( "login.welcome" )
+				.trText( 'login.welcome' )
 			)
 			.append( '<br>' )
 			.append( $( '<input>' )
@@ -130,7 +133,7 @@
 					id: 'btn',
 					type: 'submit'
 				} )
-				.trAttr("value", "login.validate")
+				.trAttr( 'value', 'login.validate' )
 			)
 			.append( $( '<p>' )
 				.hide()
@@ -179,7 +182,7 @@
 	function initLoginPage()
 	{
 		$( '#login' ).html( $createForm() ) ;
-		ajax.stop() ;
+		channels.stop() ;
 		$( 'html' )
 			.addClass( 'page-login' )
 			.removeClass( 'page-chat' ) ;
@@ -187,7 +190,7 @@
 
 	function initChatPage()
 	{
-		ajax.start( 2 ) ;
+		channels.start() ;
 		$( 'html' )
 			.removeClass( 'page-login' )
 			.addClass( 'page-chat' ) ;
@@ -212,7 +215,7 @@
 			initChatPage() ;
 		}
 		
-		$( '#footer' ).trHtml( "web.footer" ) ;
+		$( '#footer' ).trHtml( 'web.footer' ) ;
 	}
 
 	/* Run on page load */

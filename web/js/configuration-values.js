@@ -9,16 +9,33 @@
 /**
  * List of available languages.
  *
- * Associative array: Keys are the languages codes, values are the name of the language in the language.
+ * Associative array: Keys are the languages codes, values are the name of the
+ * language in the language.
  * @property {Object} languages
  */
 
 /**
- * Period between two queries to search for new posts.
- * @property {Number} newpostsrate
+ * Language to use for the interface.
+ * @property {String} language
  */
 
 /**
- * Period between two queries to search for new people.
- * @property {Number} peoplerate
+ * Period between two queries to search for new posts.
+ * @property {Number} postsrate
  */
+
+/**
+ * Period between two queries to search for metadta about channels.
+ * @property {Number} metarate
+ */
+
+/**
+ * Name of the current user.
+ * @property {String|null} user
+ */
+
+/**
+ * List of openned channels.
+ * @property {Array} channels
+ */
+

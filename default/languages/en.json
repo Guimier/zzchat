@@ -6,19 +6,63 @@
 	"quotations.quote": "“${content}”",
 	"quotations.author": "— ${name}",
 	
+	"channels.new": "(${num}) ${name}",
+	
+	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",
+	
+	"cli.checkhtml": "Simple way to run test HTML input against validation rules.",
+	
+	"cli.configuration": "Manage Agora configuration",
+	"cli.configuration.parameter.describe": "Describe what each parameter is intended for.",
+	"cli.configuration.parameter.explain": "Explain where the value comes from.",
+	"cli.configuration.parameter.key": "The key to change or remove.",
+	"cli.configuration.parameter.value": "The value to set (interpreted as JSON if possible).",
+	"cli.configuration.scenario.show": "Show the current configuration.",
+	"cli.configuration.scenario.set": "Set a local value.",
+	"cli.configuration.scenario.unset": "Remove any local key for a key.",
+	"cli.configuration.key": "(${type}) ${key} = ${val}",
+	"cli.configuration.key.compare": "default: ${default}; local: ${local}",
+	
+	"cli.entities.parameter.id": "List of concerned identifiants.",
+	
 	"cli.help.common": "Common parameters",
 	"cli.help.common.help": "Show this help and exit.",
 	"cli.help.common.language": "Set language for the output.",
 	"cli.help.parameters": "Parameters",
 	"cli.help.scenarios": "Usage",
-	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want it in the documentation below?",
-	
-	"cli.quotations": "Manage quotations.",
-	"cli.quotations.text": "Text of the quotation.",
-	"cli.quotations.author": "Author of the quotation (if known).",
+	"cli.help.nosuchaction": "I don’t know how I could do what you’re asking for. Maybe will you find what you want in the documentation below?",
 	
 	"cli.messages": "This script allows retrieving translations.",
-	"cli.messages.defaults": "Replace missing messages by their english equivalent.",
+	"cli.messages.parameter.defaults": "Replace missing messages by their english equivalent.",
+	
+	"cli.quotations": "Manage quotations.",
+	"cli.quotations.parameter.author": "Author of the quotation (if known).",
+	"cli.quotations.parameter.id": "List of identifiants to show/delete.",
+	"cli.quotations.parameter.text": "Text of the quotation.",
+	"cli.quotations.scenario.add": "Add a quotation.",
+	"cli.quotations.scenario.rm": "Delete quotations",
+	"cli.quotations.scenario.show": "Show quotations (all by default).",
+	
+	"cli.users": "Users management tool.",
+	"cli.users.scenario.eject": "Force loggout of a user.",
+	"cli.users.scenario.show": "List active users.",
+	
+	"configuration.ajaxrate.newposts": "Refresh rate for new posts in channels (refreshes per minute).",
+	"configuration.ajaxrate.people": "Refresh rate for active users in channels (refreshes per minute).",
+	"configuration.channels.defaulttype": "Default channel type.",
+	"configuration.channels.filelength": "Maximum number of post in one file.",
+	"configuration.channels.inactivity": "Number of seconds a channel may be innactive before it is declared inactive.",
+	"configuration.channels.minnamelength": "Minimum channel name length (octets).",
+	"configuration.channels.maxnamelength": "Maximum channel name length (octets).",
+	"configuration.channels.maxnum": "Maximum number of simultaneous active channels.",
+	"configuration.channels.postlength": "Maximum length (in octets) of a post, including tags.",
+	"configuration.debug": "Set this to “true” to turn on debug mode.",
+	"configuration.language": "Default language for the interface.",
+	"configuration.users.inactivity": "Number of seconds a user may be innactive before he is declared inactive.",
+	"configuration.users.maxpostrate": "Maximum number of posts a user may post on all channels in one minute.",
+	"configuration.users.minnamelength": "Minimum user name length (octets).",
+	"configuration.users.maxnamelength": "Maximum user name length (octets).",
+	"configuration.users.maxnum": "Maximum number of simultaneous active users.",
 	
 	"exceptions.badcall": "“${method}” called with wrong argument(s)",
 	"exceptions.nosuchconfigurationkey": "Unknown configuration key “${key}”",
@@ -38,12 +82,25 @@
 	"exceptions.climissingparameter": "Missing “${param}” parameter",
 	"exceptions.entitynamealredytaken": "The name “${name}” is already in use",
 	"exceptions.containsillegalcharacter": "The name « ${name} » contains forbidden characters",
+	"exceptions.invalidconfigurationvalue": "Bad value given for configuration key “${key}”: ${expected} expected, ${given} given",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
 
 	"menu.logout": "Log out",
 	"menu.hello": "Hello, ${user}!",
+	
+	"morrigan.ok": "Ok",
+	"morrigan.cancel": "Cancel",
+	"morrigan.bold": "Bold",
+	"morrigan.italy": "Italic",
+	"morrigan.strike": "Strike",
+	"morrigan.link": "Link",
+	"morrigan.link.title": "Add link",
+	"morrigan.unlink": "Unlink",
+	"morrigan.smiley-x": "Red X",
+	"morrigan.smiley-v": "Green V",
+	"morrigan.smiley-o": "Orange square",
 
 	"web.footer": "Agora ZZ © 2014, All rights reserved.<br/>Created by Lucien Guimier, Damien Teyssier and Guilhem Drogue.",
 	"web.nojs": "You need to enable JavaScript to use Agora."

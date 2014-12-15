@@ -12,7 +12,7 @@ class Quotations
 	/** Constructor. */
 	public function __construct()
 	{
-		$this->list = Configuration::getInstance()->loadJson(
+		$this->list = Configuration::loadJson(
 			self::FILENAME,
 			array()
 		) ;
@@ -23,7 +23,7 @@ class Quotations
 	{
 		if ( $this->edited )
 		{
-			Configuration::getInstance()->saveJson(
+			Configuration::saveJson(
 				self::FILENAME,
 				$this->list
 			) ;

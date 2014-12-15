@@ -5,6 +5,8 @@
  */
 ( function ( $ ) {
 
+'use strict' ;
+
 /**
  * Languages management.
  * @class languages
@@ -38,24 +40,25 @@
 		/**
 		 * jQuery’s native $.fn.attr.
 		 * @private
-		 * @method core_attr
+		 * @method jQueryAttrMethod
 		 */
-		core_attr = $.fn.attr,
+		jQueryAttrMethod = $.fn.attr,
 
 		/**
 		 * jQuery’s native $.fn.text.
 		 * @private
-		 * @method core_text
+		 * @method jQueryTextMethod
 		 */
-		core_text = $.fn.text,
+		jQueryTextMethod = $.fn.text,
 
 		/**
 		 * jQuery’s native $.fn.html.
 		 * @private
-		 * @method core_html
+		 * @method jQueryHtmlMethod
 		 */
-		core_html = $.fn.html ;
+		jQueryHtmlMethod = $.fn.html ;
 
+	/* exported EXPORTED_LIB */
 	window.languages = {} ;
 	
 	/**
@@ -86,15 +89,15 @@
 			
 			if ( key !== '*' )
 			{
-				core_attr.call( $node, key, string ) ;
+				jQueryAttrMethod.call( $node, key, string ) ;
 			}
 			else if ( data[key].html )
 			{
-				core_html.call( $node, string ) ;
+				jQueryHtmlMethod.call( $node, string ) ;
 			}
 			else
 			{
-				core_text.call( $node, string ) ;
+				jQueryTextMethod.call( $node, string ) ;
 			}
 		}
 	}
@@ -233,6 +236,17 @@
 			}
 		}
 	}
+	
+	/**
+	 * Get a message to be inserted.
+	 * @method $message
+	 * @param {String} message Name of the message.
+	 * @param {Object} [args] Arguments for the message.
+	 */
+	languages.$message = function ( message, args )
+	{
+		return $( '<span>' ).trText( message, args ) ;
+	} ;
 
 /**
  * jQuery extension for languages management.
@@ -252,7 +266,7 @@
 		
 		try
 		{
-			translationData = JSON.parse( core_attr.call(
+			translationData = JSON.parse( jQueryAttrMethod.call(
 				$node,
 				'data-translation'
 			) ) ;
@@ -284,7 +298,7 @@
 			classMgr = 'addClass' ;
 		}
 		
-		core_attr.call( $node, 'data-translation', stringValue ) ;
+		jQueryAttrMethod.call( $node, 'data-translation', stringValue ) ;
 		$node[classMgr]( 'translation' ) ;
 	}
 	
@@ -330,7 +344,7 @@
 				current,
 				function ()
 				{
-					core_attr.call(
+					jQueryAttrMethod.call(
 						$this,
 						attrName,
 						getStringValue( data[attrName] )
@@ -352,7 +366,7 @@
 				deleteTranslation( $( this ), attr ) ;
 			}
 			
-			return core_attr.apply( this, arguments ) ;
+			return jQueryAttrMethod.apply( this, arguments ) ;
 		},
 		
 		/**
@@ -380,7 +394,7 @@
 				current,
 				function ()
 				{
-					core_text.call(
+					jQueryTextMethod.call(
 						$this,
 						getStringValue( data['*'] )
 					) ;
@@ -401,7 +415,7 @@
 				deleteTranslation( $( this ), '*' ) ;
 			}
 			
-			return core_text.apply( this, arguments ) ;
+			return jQueryTextMethod.apply( this, arguments ) ;
 		},
 		
 		/**
@@ -428,7 +442,7 @@
 			loadLanguage(
 				current,
 				function () {
-					core_html.call(
+					jQueryHtmlMethod.call(
 						$this,
 						getStringValue( data['*'] )
 					) ;
@@ -449,7 +463,7 @@
 				deleteTranslation( $( this ), '*' ) ;
 			}
 			
-			return core_html.apply( this, arguments ) ;
+			return jQueryHtmlMethod.apply( this, arguments ) ;
 		}
 		
 	} ) ;

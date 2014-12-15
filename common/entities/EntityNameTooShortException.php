@@ -1,6 +1,6 @@
 <?php
 
-class EntityNameTooShortException extends AgoraInternalException
+class EntityNameTooShortException extends AgoraUserException
 {
 	public function __construct( $name )
 	{

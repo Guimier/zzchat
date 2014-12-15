@@ -6,6 +6,8 @@
  */
 ( function () {
 
+'use strict' ;
+
 	var
 		/**
 		 * Have values been initialised?
@@ -31,7 +33,7 @@
 	{
 		if ( initialised )
 		{
-			throw new Exception( 'Configuration already filled' ) ;
+			throw new Error( 'Configuration already filled' ) ;
 		}
 		
 		initialised = true ;
@@ -41,7 +43,8 @@
 	/**
 	 * Get a configuration value.
 	 * @method get
-	 * @param {String} key The key of the value in the configuration (see configuration-values class).
+	 * @param {String} key The key of the value in the configuration
+	 *   (see configuration-values class).
 	 */
 	window.configuration.get = function ( key )
 	{
@@ -60,7 +63,8 @@
 	/**
 	 * Set a local (persistent) value for a single configuration value.
 	 * @method setLocal
-	 * @param {String} key The key of the value in the configuration (see configuration-values class).
+	 * @param {String} key The key of the value in the configuration
+	 *   (see configuration-values class).
 	 * @param value Value to store.
 	 */
 	window.configuration.setLocal = function ( key, value )
@@ -74,7 +78,8 @@
 	/**
 	 * Delete a local configuration value.
 	 * @method returnToDefault
-	 * @param {String} key The key of the value in the configuration (see configuration-values class).
+	 * @param {String} key The key of the value in the configuration
+	 *   (see configuration-values class).
 	 */
 	window.configuration.returnToDefault = function ( key )
 	{

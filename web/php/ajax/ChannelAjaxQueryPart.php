@@ -18,14 +18,14 @@ class ChannelAjaxQueryPart extends AjaxQueryPart
 			
 			foreach ( $ids as $id )
 			{
-				$channels[$id] = Channel::getChannel( $id ) ;
+				$channels[$id] = Channel::getById( $id ) ;
 			}
 		}
 		else
 		{
 			foreach ( $names as $name )
 			{
-				$channel = Channel::getActiveChannel( $name ) ;
+				$channel = Channel::getByName( $name ) ;
 				$channels[$channel->getId()] = $channel ;
 			}
 		}
@@ -34,10 +34,8 @@ class ChannelAjaxQueryPart extends AjaxQueryPart
 		
 		foreach ( $channels as $id => $channel )
 		{
-			$chanInfo[$id] = array(
-				'name' => $channel->getName(),
-				'title' => $channel->getTitle()
-			) ;
+			$channel->activatedBy( $this->getContext()->getUser() ) ;
+			$chanInfo[$id] = AjaxFormater::channel( $channel ) ;
 		}
 		
 		return $chanInfo ;

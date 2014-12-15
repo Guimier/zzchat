@@ -1,11 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/**
- * Test for AjaxQuery.
- * @codeCoverageIgnore
- */
+/** Test for AjaxQuery. */
 class AjaxQueryTest extends ClassTester
 {
 	

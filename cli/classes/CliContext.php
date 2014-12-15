@@ -120,7 +120,7 @@ class CliContext extends Context
 	 */
 	public function getUser()
 	{
-		return new CliUser() ;
+		return User::getById( -1 ) ;
 	}
 	
 }

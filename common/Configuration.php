@@ -3,8 +3,6 @@
 class Configuration
 {
 
-	private static $root = null ;
-
 	/** Get the only instance.
 	 * @deprecated Use this as a static class instead.
 	 */
@@ -23,8 +21,14 @@ class Configuration
 		self::$root = $root ;
 		self::$defaultConfig = self::loadJson( $defaultConfigRelativePath, array() ) ;
 		self::$localConfig = self::loadJson( $localConfigRelativePath, array() ) ;
+		self::$localFile = $localConfigRelativePath ;
 	}
 
+/***** Paths *****/
+
+	/** Full path to the root directory of Agora. */
+	private static $root = null ;
+	
 	/** Get root repository path. */
 	public static function getRootDir()
 	{
@@ -80,8 +84,14 @@ class Configuration
 	public static function saveJson( $file, $value )
 	{
 		$full = self::getFullPath( $file ) ;
+		$setRights = ! file_exists( $full ) ;
+
 		file_put_contents( $full, JSON::encode( $value ) ) ;
-		chmod( $full, 0666 ) ;
+
+		if ( $setRights )
+		{
+			chmod( $full, 0666 ) ;
+		}
 	}
 
 	/** Get the value of a counter and increment it.
@@ -90,7 +100,7 @@ class Configuration
 	 */
 	public static function incrementCounter( $counter )
 	{
-		$full = self::getFullPath( "local/data/$counter.int" ) ;
+		$full = self::getFullPath( $counter ) ;
 		$value = 1 + (int) file_get_contents( $full ) ;
 		file_put_contents( $full, $value ) ;
 		return $value ;
@@ -122,6 +132,93 @@ class Configuration
 		}
 		
 		return $res ;
+	}
+
+/***** Configuration management. *****/
+	
+	/** Local configuration relative path. */
+	private static $localFile ;
+
+	/** Get the state for a key.
+	 *
+	 * @param string $key The key whose state is wanted.
+	 *
+	 * @return An array fille with:
+	 *   * `default`: default value, as in `default/configuration.json`.
+	 *   * `local`: local value (only if defined), as in `local/configuration.json`.
+	 *   * `real`: value is use (i.e. the one returned by getValue).
+	 */
+	public static function getState( $key )
+	{
+		if ( ! array_key_exists( $key, self::$defaultConfig ) )
+		{
+			throw new NoSuchConfigurationKeyException( $key ) ;
+		}
+		
+		$res = array(
+			'default' => self::$defaultConfig[$key],
+			'real' => self::getValue( $key )
+		) ;
+			
+		if ( array_key_exists( $key, self::$localConfig ) )
+		{
+			$res['local'] = self::$localConfig[$key] ;
+		}
+		
+		return $res ;
+	}
+
+	/** Get all configuration keys.
+	 * @return An array indexed by configuration keys. Values are array, as returned by getState.
+	 */
+	public static function getGlobalState()
+	{
+		$res = array() ;
+		$keys = array_keys( self::$defaultConfig ) ;
+		
+		foreach ( $keys as $key )
+		{
+			$res[$key] = self::getState( $key ) ;
+		}
+		
+		return $res ;
+	}
+
+	/** Save the edited local configuration. */
+	public static function saveLocal()
+	{
+		self::saveJson( self::$localFile, self::$localConfig ) ;
+	}
+
+	/** Return to default for a given key.
+	 * @param string $key The key to delete from local configuration.
+	 */
+	public static function returnToDefault( $key )
+	{
+		unset( self::$localConfig[$key] ) ;
+	}
+
+	/** Chanve the value fo a given key.
+	 * @param string $key The key to change.
+	 * @param mixed $value The value to set.
+	 */
+	public static function setValue( $key, $value )
+	{
+		if ( ! array_key_exists( $key, self::$defaultConfig ) )
+		{
+			throw new NoSuchConfigurationKeyException( $key ) ;
+		}
+		
+		if ( gettype( $value ) !== gettype( self::$defaultConfig[$key] ) )
+		{
+			throw new InvalidConfigurationValueException(
+				$key,
+				gettype( self::$defaultConfig[$key] ),
+				gettype( $value )
+			) ;
+		}
+		
+		self::$localConfig[$key] = $value ;
 	}
 
 }

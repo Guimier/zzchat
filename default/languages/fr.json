@@ -6,6 +6,22 @@
 	"quotations.quotation": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
+	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
+	
+	"cli.checkhtml": "Moyen simple de tester une entrée HTML avec les règles de validation.",
+	
+	"cli.configuration": "Gérer la configuration d’Agora",
+	"cli.configuration.describe": "Décrire l’utilisation de chaque paramètre.",
+	"cli.configuration.parameter.explain": "Expliquer d’où vient la valeur.",
+	"cli.configuration.parameter.key": "La clé à modifier ou retirer.",
+	"cli.configuration.parameter.value": "La valeur à donner (interprété comme du JSON si possible).",
+	"cli.configuration.scenario.show": "Afficher la configuration actuelle.",
+	"cli.configuration.scenario.set": "Définir une valeur locale.",
+	"cli.configuration.scenario.unset": "Supprimer une valeur locale.",
+	"cli.configuration.key.compare": "Valeur par défaut : ${default} ; locale : ${local}",
+	
+	"cli.entities.parameter.id": "Liste des identifiants concernés.",
+	
 	"cli.help.common": "Paramètres communs",
 	"cli.help.common.help": "Affiche cette aide et quitte.",
 	"cli.help.common.language": "Définit la langue d’affichage.",
@@ -13,12 +29,37 @@
 	"cli.help.scenarios": "Utilisation",
 	"cli.help.nosuchaction": "Je ne sais pas comment faire ce que vous me demandez. Peut-être trouverez-vous ce que vous souhaitez dans la documentation ci-après ?",
 	
-	"cli.quotations": "Gérer les citations",
-	"cli.quotations.text": "Texte de la citation.",
-	"cli.quotations.author": "Auteur de la citation (si connu).",
-	
 	"cli.messages": "Ce script permet de récupérer des traductions.",
-	"cli.messages.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
+	"cli.messages.parameter.defaults": "Remplacer les traductions manquantes par leur version anglaise.",
+	
+	"cli.quotations": "Gérer les citations",
+	"cli.quotations.parameter.author": "Auteur de la citation (si connu).",
+	"cli.quotations.parameter.id": "Liste d’identifiants de citations à montrer ou à supprimer.",
+	"cli.quotations.parameter.text": "Texte de la citation.",
+	"cli.quotations.scenario.add": "Ajouter une citation.",
+	"cli.quotations.scenario.rm": "Supprimer des citations.",
+	"cli.quotations.scenario.show": "Afficher les citations (toutes par défaut).",
+	
+	"cli.users": "Outil de gestion des utilisateurs.",
+	"cli.users.scenario.eject": "Déconnecter de force un utilisateur.",
+	"cli.users.scenario.show": "Lister les utilisateurs actifs.",
+	
+	"configuration.ajaxrate.newposts": "Taux de rafraîchissement des nouveaux messages sur les canaux (rafraîchissements par minute).",
+	"configuration.ajaxrate.people": "Taux de rafraîchissement des utilisateurs actifs sur les canaux (rafraîchissements par minute).",
+	"configuration.channels.defaulttype": "Type de canal par défaut",
+	"configuration.channels.filelength": "Nombre maximum de messages dans un fichier.",
+	"configuration.channels.inactivity": "Nombre de secondes avant qu’un canal soit considéré comme inactif.",
+	"configuration.channels.minnamelength": "Longueur minimale d’un nom de canal (octets).",
+	"configuration.channels.maxnamelength": "Longueur maximale d’un nom de canal (octets).",
+	"configuration.channels.maxnum": "Nombre maximum de canaux actifs simultanément.",
+	"configuration.channels.postlength": "Longueur maximale des messages, balises incluses (octets).",
+	"configuration.language": "Langue par défaut de l’interface",
+	"configuration.debug": "Changez pour « true » pour activer le mode de débugage",
+	"configuration.users.inactivity": "Nombre de secondes avant qu’un utilisateur soit considéré comme inactif.",
+	"configuration.users.maxpostrate": "Nombre maximal de messages qu’un utilisateur peut poster pendant une minute.",
+	"configuration.users.minnamelength": "Longueur minimale d’un nom d’utilisateur (octets).",
+	"configuration.users.maxnamelength": "Longueur maximale d’un nom d’utilisateur (octets).",
+	"configuration.users.maxnum": "Nombre maximum d’utilisateurs actifs simultanément.",
 	
 	"exceptions.badcall": "Méthode « ${method} » appelée avec de mauvais arguments",
 	"exceptions.nosuchconfigurationkey": "Clé de configuration « ${key} » inconnue",
@@ -38,12 +79,25 @@
 	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
 	"exceptions.entitynamealredytaken": "Le nom « ${name} » est déjà pris",
 	"exceptions.containsillegalcharacter": "Le nom « ${name} » contient des charactères non autorisés",
+	"exceptions.invalidconfigurationvalue": "Mauvaise valeur pour la clé de configuration « ${key} » : ${expected} attendu, ${given} fourni",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
 
 	"menu.logout": "Se déconnecter",
 	"menu.hello": "Bonjour, ${user} !",
+
+	"morrigan.ok": "Ok",
+	"morrigan.cancel": "Annuler",
+	"morrigan.bold": "Gras",
+	"morrigan.italy": "Italique",
+	"morrigan.strike": "Barré",
+	"morrigan.link": "Lien",
+	"morrigan.link.title": "Ajouter un lien",
+	"morrigan.unlink": "Supprimer les liens",
+	"morrigan.smiley-x": "X rouge",
+	"morrigan.smiley-v": "V vert",
+	"morrigan.smiley-o": "Carré orange",
 
 	"web.footer": "Agora ZZ © 2014, Tous droits reservés.<br/>Créé par Lucien Guimier, Damien Teyssier et Guilhem Drogue.",
 	"web.nojs": "Vous devez activer JavaScript pour utiliser Agora."

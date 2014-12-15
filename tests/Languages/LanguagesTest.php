@@ -1,10 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for Languages.
- * @codeCoverageIgnore
- */
+/** Test for Languages. */
 class LanguagesTest extends ClassTester
 {
 	

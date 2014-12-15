@@ -3,7 +3,7 @@
  * @file
  */
 
-/* Root directory of zzChat. */
+/* Root directory of Agora. */
 $root = dirname( __DIR__ ) ;
 
 /* Classes autoloading. */

@@ -6,15 +6,20 @@ class JSON
 
 	/** Get a JSON string representation of a value.
 	 * @param mixed $data The value to encode.
-	 * @param number $jsonOpts Options passed to json_encode’s second parameter.
+	 * @param boolean [$indent] Whether or not to indent.
 	 */
-	public static function encode( $data, $jsonOpts = 0 )
+	public static function encode( $data, $indent = false )
 	{
-		$opts = $jsonOpts ;
+		$opts = 0 ;
 		
 		if ( defined( 'JSON_UNESCAPED_UNICODE' ) )
 		{
 			$opts |= JSON_UNESCAPED_UNICODE ;
+		}
+		
+		if ( $indent && defined( 'JSON_PRETTY_PRINT' ) )
+		{
+			$opts = JSON_PRETTY_PRINT ;
 		}
 		
 		return json_encode( $data, $opts ) ;
@@ -26,6 +31,21 @@ class JSON
 	public static function decode( $string )
 	{
 		return json_decode( $string, true ) ;
+	}
+
+	/** Get the JSON value if valid, the raw string instead.
+	 * @param string $string The (maybe) JSON string to decode.
+	 */
+	public static function decodeOrRaw( $string )
+	{
+		$res = self::decode( $string ) ;
+
+		if ( is_null( $res ) )
+		{
+			$res = $string ;
+		}
+
+		return $res ;
 	}
 
 }

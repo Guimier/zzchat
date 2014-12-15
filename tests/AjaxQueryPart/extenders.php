@@ -1,8 +1,7 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/** Generic child class of AjaxQueryPart
- * @codeCoverageIgnore
- */
+/** Generic child class of AjaxQueryPart. */
 class _AjaxQueryPart extends AjaxQueryPart
 {
 	public function execute() {}

@@ -1,12 +1,9 @@
 <?php
+// @codeCoverageIgnoreStart
 
-/** Placeholder for Configuration.
- * @codeCoverageIgnore
- */
+/** Placeholder for Configuration. */
 class Configuration {}
 
-/** Placeholder for Parameters.
- * @codeCoverageIgnore
- */
+/** Placeholder for Parameters. */
 class Parameters {}
 

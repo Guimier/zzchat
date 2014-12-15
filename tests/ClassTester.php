@@ -1,12 +1,11 @@
 <?php
+// @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/common/Autoloader.php' ;
 
 /** Helper for unit testing.
  * Will load the class, provide test data abstraction and load any exception
  * class the tested class needs.
- *
- * @codeCoverageIgnore
  */
 class ClassTester extends PHPUnit_Framework_TestCase
 {

@@ -58,7 +58,6 @@
 {
 	position : relative ;
 	
-	
 	color : white ;
 	background-color : black ;
 	overflow-y : scroll ;
@@ -68,7 +67,28 @@
 	
 	box-sizing : border-box ;
 	flex : 1 ;
-	
+}
+
+.page-chat .messages p
+{
+	margin : 0 ;
+}
+
+.page-chat .messages .speaker
+{
+	text-align : center ;
+}
+
+.page-chat .messages .message *
+{
+	display : inline ;
+}
+
+.page-chat .messages .message time
+{
+	display : inline-block ;
+	font-size : smaller ;
+	margin : 0 0.5em 0 0 ;
 }
 
 .page-chat .wysiwyg
@@ -82,7 +102,6 @@
 	border-width : 1px ;
 	
 	box-sizing : border-box ;
-	height : 140px ;
 	
 }
 
@@ -119,6 +138,8 @@
 .page-chat .presents
 {
 	position : relative ;
+	padding : 0;
+	margin : 0 ;
 	width : 10% ;
 	height : 100% ;
 	color : white ;
@@ -160,6 +181,21 @@
 	width : 100% ;
 }
 
+.page-chat #channels-list-actives li
+{
+	cursor: pointer ;
+}
+
+.page-chat #channels-list-actives .current
+{
+	color: #008800 ;
+}
+
+.page-chat #channels-list-actives .new
+{
+	color: #cc0000 ;
+}
+
 .page-chat .currentChannel
 {
 	display : flex ;
@@ -174,3 +210,31 @@
 	display : flex ;
 	flex-direction : column ;
 }
+
+.page-chat .mrge-content
+{
+	background-color : white ;
+}
+
+.page-chat .mrge-toolbox
+{
+	background-color : grey ;
+}
+
+.page-chat .morrigan-editor .mrge-toolbox .mrge-disabled
+{
+	background-color : red ;
+	color : black ;
+}
+
+.morrigan-editor .mrge-toolbox .mrge-action 
+{
+	background-color : red ;
+	color : black ;
+}
+
+.morrigan-editor .mrge-toolbox .mrge-action.mrge-active
+{
+	background-color : green ;
+}
+

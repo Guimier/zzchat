@@ -1,14 +1,19 @@
 {
+	"language": "en",
 	"ajaxrate.newposts": 2,
 	"ajaxrate.people": 60,
+	"channels.minnamelength": 5,
+	"channels.maxnamelength": 30,
 	"channels.maxnum": 100,
 	"channels.defaulttype": "theater",
 	"channels.inactivity": 604800,
 	"channels.postlength": 1024,
 	"channels.filelength": 100,
+	"channels.userinactivity": 10,
 	"users.maxpostrate": 20,
-	"users.defaultlang": "en",
 	"users.inactivity": 86400,
 	"users.minnamelength": 4,
+	"users.maxnamelength": 24,
+	"users.maxnum": 100,
 	"debug": false
 }

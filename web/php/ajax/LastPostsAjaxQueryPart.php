@@ -1,19 +1,31 @@
 <?php
 
-class LastPostAjaxQueryPart extends AjaxQueryPart
+class LastPostsAjaxQueryPart extends AjaxQueryPart
 {
 	
 	public function execute()
 	{
-		$channelList = Channel::getChannel( $this->getArrayParameter( 'channelList' ) ) ;
+		$channels = $this->getArrayParameter( 'channels' ) ;
 		
-		$content = $this->getParameter( 'beginning' ) ;
-		if ( $content === null )
+		$from = $this->getParameter( 'from' ) ;
+		if ( $from === null )
 		{
-			throw new WebMissingParameterException( 'beginning' ) ;
+			throw new WebMissingParameterException( 'from' ) ;
 		}
 		
-		$channel->lastPosts( $content ) ;
+		$res = array() ;
+		
+		foreach ( $channels as $id )
+		{
+			$res[$id] = AjaxFormater::posts(
+				Channel::getById( $id )->lastPosts( $from )
+			) ;
+		}
+		
+		return array(
+			'date' => time(),
+			'posts' => $res
+		) ;
 	}
 	
 }

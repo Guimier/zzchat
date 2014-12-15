@@ -15,18 +15,18 @@ class Post
 	
 	/** Get the user who write this post.
 	 * 
-	 * @return The owner of the post.
-	 * @codeCoverageIgnore
+	 * @return The User who owns the post.
+	 * @codeCoverageIgnore Getter
 	 */
 	public function getOwner()
 	{
-		return $this->postData['owner'] ;
+		return User::getById( $this->postData['owner'] ) ;
 	}
 	
 	/** Get the date of the post.
 	 *
 	 * @return The date of the post.
-	 * @codeCoverageIgnore
+	 * @codeCoverageIgnore Getter
 	 */ 
 	public function getDate()
 	{
