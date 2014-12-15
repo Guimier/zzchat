@@ -143,11 +143,15 @@ abstract class Entity
 		{
 			throw new EntityNameTooLongException( $name ) ;
 		}		
-		 
 		
 		if ( self::getByName( $name ) !== null )
 		{
 			throw new EntityNameAlreadyTakenException( $name ) ;
+		}
+		
+		if ( count( self::getAllActive() ) > Configuration::getValue( static::getEntityType() . '.maxnum' ) )
+		{
+			throw new TooManyEntitiesException() ;
 		}
 
 		$lastIdFile = Configuration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
