@@ -358,6 +358,24 @@
 		return openedChannels[id] instanceof Channel ;
 	}
 	
+	/**
+	 * Open a channel (callback for closed list).
+	 * @method openThis
+	 * @private
+	 */
+	function openThis()
+	{
+		// jshint validthis: true
+		channels.open(
+			$( this ).remove().attr( 'data-id' )
+		) ;
+	}
+	
+	/**
+	 * Update the list of closed active channels.
+	 * @method updateActiveChannels
+	 * @private
+	 */
 	function updateActiveChannels()
 	{
 		console.log( activeChannels ) ;
@@ -371,14 +389,7 @@
 				$channels = $channels.add( $( '<li>' )
 					.text( activeChannels[id] )
 					.attr( 'data-id', id )
-					.click(
-						function ()
-						{
-							channels.open(
-								$( this ).remove().attr( 'data-id' )
-							) ;
-						}
-					)
+					.click( openThis )
 				) ;
 			}
 		}
@@ -464,6 +475,7 @@
 		
 		/* Show the las one. */
 		openedChannels[id].show() ;
+		configuration.setLocal( 'channels', listOpenedChannels() ) ;
 	}
 	
 	/**
