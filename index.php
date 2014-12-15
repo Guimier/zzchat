@@ -113,7 +113,22 @@ if ( file_exists( $noticeFile ) )
                 <!--Chat-->
                 <div id="chat">
                 	<!--Canaux-->
-                    <div id="channels-list"></div>
+                    <div id="channels-list">
+						<div id="channels-inactives">
+							<input id="channels-new" type="button" value="Nouveau"></input>
+							<div id="channels-title">Canaux</div>
+							<ul id="channels-list-inactives">
+								<li>UN</li>
+								<li>DEUX</li>
+								<li>TROIS</li>
+							</ul>
+						</div>
+						<ul id="channels-list-actives">
+							<li>Canal Grande</li>
+							<li>Nom de canal beaucoup trop long</li>
+						</ul>
+						
+                    </div>
                     <div id="channels">
 			<div class="channel currentChannel">
 				<div class="channelCore">
