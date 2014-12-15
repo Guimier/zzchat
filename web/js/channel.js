@@ -20,8 +20,13 @@
 		$.extend( this, data ) ;
 		
 		/* Add the tab. */
+		this.$close = $( '<span>' )
+			.addClass( 'close' )
+			.click( function () { that.onClose.apply( that, arguments ) ; } ) ;
+		this.$name = $( '<span>' ).text( this.name ) ;
 		this.$tab = $( '<li>' )
-			.text( this.name )
+			.append( this.$close )
+			.append( this.$name )
 			.click( function ( evt ) {
 				evt.preventDefault() ;
 				that.show() ;
@@ -113,6 +118,20 @@
 		$tab: null,
 		
 		/**
+		 * The channel’s name container.
+		 * @property {jQuery} $name
+		 * @private
+		 */
+		$name: null,
+		
+		/**
+		 * The channel’s close button.
+		 * @property {jQuery} $close
+		 * @private
+		 */
+		$close: null,
+		
+		/**
 		 * The channel’s posts container.
 		 * @property {jQuery} $posts
 		 * @private
@@ -162,9 +181,9 @@
 			/* Only this channel’s tab is the current one. */
 			this.$tab.siblings().removeClass( 'current' ) ;
 			this.$tab
-				.text( this.name )
 				.removeClass( 'new' )
 				.addClass( 'current' ) ;
+			this.$name.text( this.name ) ;
 			this.unread = 0 ;
 			
 			/* Set up the WYSIWYG if not already done. */
@@ -217,9 +236,6 @@
 			this.updatePresents() ;
 		},
 		
-		/**
-		 * TODO
-		 */
 		onEnter: function ( evt, content )
 		{
 			ajax.add(
@@ -231,9 +247,15 @@
 			) ;
 		},
 		
+		onClose: function ( evt )
+		{
+			evt.stopPropagation() ;
+			close( this.id ) ;
+		},
+		
 		twoChars: function( num )
 		{
-			return num < 10 ? '0' + num : num ;  
+			return num < 10 ? '0' + num : num ;
 		},
 		
 		formatDate: function ( date )
@@ -283,9 +305,8 @@
 			if ( ! this.isVisible() && posts.length )
 			{
 				this.unread += posts.length ;
-				this.$tab
-					.trText( 'channels.new', { num: this.unread, name: this.name } )
-					.addClass( 'new' ) ;
+				this.$tab.addClass( 'new' ) ;
+				this.$name.trText( 'channels.new', { num: this.unread, name: this.name } ) ;
 			}
 		}
 		
@@ -368,7 +389,7 @@
 	function openThis()
 	{
 		// jshint validthis: true
-		channels.open(
+		open(
 			$( this ).remove().attr( 'data-id' )
 		) ;
 	}
@@ -380,8 +401,6 @@
 	 */
 	function updateActiveChannels()
 	{
-		console.log( activeChannels ) ;
-		
 		var id, $channels = $( [] ) ;
 		
 		for ( id in activeChannels )
@@ -492,14 +511,13 @@
 		delete openedChannels[id] ;
 	}
 	
-	window.channels = {} ;
-	
 	/**
 	 * Open channels.
 	 * @method open
+	 * @private
 	 * @param {Number} id* Id of a channel to open.
 	 */
-	window.channels.open = function ( /* id* */ )
+	function open( /* id* */ )
 	{
 		var ids = Array.prototype.filter.call(
 			arguments,
@@ -510,7 +528,47 @@
 		) ;
 		
 		ajax.send( 'GET', 'channel', { id: ids }, gotChannelsFirstData ) ;
-	} ;
+	}
+	
+	/**
+	 * Close channels.
+	 * @method close
+	 * @private
+	 * @param {Number} id* Id of a channel to close.
+	 */
+	function close( /* id* */ )
+	{
+		var i, list, showAnother = false ;
+		
+		for ( i = 0 ; i < arguments.length ; ++ i )
+		{
+			if ( channelIsOpened( arguments[i] ) )
+			{
+				if ( openedChannels[arguments[i]].isVisible() )
+				{
+					showAnother = true ;
+				}
+				closeChannel( arguments[i] ) ;
+			}
+		}
+		
+		list = listOpenedChannels() ;
+		configuration.setLocal( 'channels', list ) ;
+		
+		if ( showAnother )
+		{
+			if ( list.length > 0 )
+			{
+				openedChannels[list[0]].show() ; // We may be smarter here, but it works
+			}
+			else
+			{
+				open( -1 ) ; // Open the default channel
+			}
+		}
+	}
+	
+	window.channels = {} ;
 	
 	/**
 	 * Start chat.
@@ -557,7 +615,7 @@
 			gotChannelsData
 		) ;
 		
-		this.open.apply( this, configuration.get( 'channels' ) ) ;
+		open.apply( this, configuration.get( 'channels' ) ) ;
 	} ;
 	
 	/**

@@ -193,10 +193,35 @@
 	width : 100% ;
 }
 
+.page-chat #channels-list-actives,
+.page-chat #channels-list-inactives
+{
+	list-style-type : none ;
+	margin : 0 ;
+	padding : 0 ;
+}
+
 .page-chat #channels-list-actives li,
 .page-chat #channels-list-inactives li
 {
 	cursor: pointer ;
+	border-bottom : 1px solid #555 ;
+	padding : 0.1em 0.2em ;
+}
+
+/* The following two rules probably need complete rewrite, it is a quick hack. */
+
+.page-chat #channels-list-actives .close:before {
+	display : inline-block ;
+	vertical-align : middle ;
+	content : '×' ; /* OK, this is not a “close” character, but it is quite similar. */
+	margin : 0.25em ;
+	color : #f00 ;
+	font-weight : bold ;
+}
+
+.page-chat #channels-list-actives .close:hover:before {
+	color : #f33 ;
 }
 
 .page-chat #channels-list-actives .current
