@@ -13,8 +13,6 @@ class Channel extends Entity
 		return 'channels' ;	
 	}
 
-	
-	
 	/** Create a channel.
 	 * 
 	 * @param string $channelName The name of the channel which is created.
