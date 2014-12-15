@@ -143,7 +143,6 @@
 		/**
 		 * Is the channel visible ?
 		 * @method isVisible
-		 * @private
 		 */
 		isVisible: function ()
 		{
@@ -319,6 +318,19 @@
 		metaInterval = 0,
 		
 		/**
+		 * Interval reference for active channels update.
+		 * @property channelsInterval
+		 * @private
+		 */
+		channelsInterval = 0,
+		
+		/** List of active channels.
+		 * @property activeChannels
+		 * @private
+		 */
+		activeChannels = {},
+		
+		/**
 		 * Last date of update of new posts.
 		 * @property lastUpdateDate
 		 * @private
@@ -344,6 +356,53 @@
 	function channelIsOppened( id )
 	{
 		return opennedChannels[id] instanceof Channel ;
+	}
+	
+	function updateActiveChannels()
+	{
+		console.log( activeChannels ) ;
+		
+		var id, $channels = $( [] ) ;
+		
+		for ( id in activeChannels )
+		{
+			if ( ! channelIsOppened( id ) )
+			{
+				$channels = $channels.add( $( '<li>' )
+					.text( activeChannels[id] )
+					.attr( 'data-id', id )
+					.click(
+						function ()
+						{
+							channels.open(
+								$( this ).remove().attr( 'data-id' )
+							) ;
+						}
+					)
+				) ;
+			}
+		}
+		
+		$( '#channels-list-inactives' ).html( $channels ) ;
+	}
+	
+	/**
+	 * Ajax callback for active channels list load.
+	 * @method gotActiveChannels
+	 * @private
+	 * @param {Object} data Data returned by the server.
+	 */
+	function gotActiveChannels( data )
+	{
+		var id, channels = {} ;
+		
+		for ( id in data )
+		{
+			channels[data[id].id] = data[id].name ;
+		}
+		
+		activeChannels = channels ;
+		updateActiveChannels() ;
 	}
 	
 	/**
@@ -457,6 +516,15 @@
 		
 		// Mhh… don’t believe the client!
 		lastUpdateDate = 0 // Math.floor( ( new Date ).getTime() / 1000 ) ;
+		
+		channelsInterval = ajax.interval(
+			configuration.get( 'channelsrate' ),
+			'GET', 'activeChannels',
+			$.noop,
+			gotActiveChannels,
+			null,
+			true
+		) ;
 		
 		postsInterval = ajax.interval(
 			configuration.get( 'postsrate' ),

@@ -52,8 +52,9 @@
 	"cli.users.scenario.show": "Lister les utilisateurs actifs.",
 	
 	"configuration.ajax.backlog": "Secondes d’anciens messages montrés à l’ouverture d’un canal.",
-	"configuration.ajax.metarate": "Taux de rafraîchissement des utilisateurs actifs sur les canaux (rafraîchissements par minute).",
-	"configuration.ajax.postsrate": "Taux de rafraîchissement des nouveaux messages sur les canaux (rafraîchissements par minute).",
+	"configuration.ajax.channelsrate": "aux de rafraîchissement des canaux actifs (secondes entre deux rafraîchissements).",
+	"configuration.ajax.metarate": "Taux de rafraîchissement des utilisateurs actifs sur les canaux (secondes entre deux rafraîchissements).",
+	"configuration.ajax.postsrate": "Taux de rafraîchissement des nouveaux messages sur les canaux (secondes entre deux rafraîchissements).",
 	"configuration.channels.defaulttype": "Type de canal par défaut",
 	"configuration.channels.filelength": "Nombre maximum de messages dans un fichier.",
 	"configuration.channels.inactivity": "Nombre de secondes avant qu’un canal soit considéré comme inactif.",

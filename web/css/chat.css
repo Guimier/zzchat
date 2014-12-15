@@ -193,7 +193,8 @@
 	width : 100% ;
 }
 
-.page-chat #channels-list-actives li
+.page-chat #channels-list-actives li,
+.page-chat #channels-list-inactives li
 {
 	cursor: pointer ;
 }

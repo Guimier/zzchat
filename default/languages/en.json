@@ -54,8 +54,9 @@
 	"cli.users.scenario.show": "List active users.",
 	
 	"configuration.ajax.backlog": "Seconds of old posts shown when a user opens a channel.",
-	"configuration.ajax.metarate": "Refresh rate for active users in channels (refreshes per minute).",
-	"configuration.ajax.postsrate": "Refresh rate for new posts in channels (refreshes per minute).",
+	"configuration.ajax.channelsrate": "Refresh rate for active channels (seconds between refreshes).",
+	"configuration.ajax.metarate": "Refresh rate for active users in channels (seconds between refreshes).",
+	"configuration.ajax.postsrate": "Refresh rate for new posts in channels (seconds between refreshes).",
 	"configuration.channels.defaulttype": "Default channel type.",
 	"configuration.channels.filelength": "Maximum number of post in one file.",
 	"configuration.channels.inactivity": "Number of seconds a channel may be innactive before it is declared inactive.",

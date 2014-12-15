@@ -1,7 +1,8 @@
 {
 	"language": "en",
 	"ajax.postsrate": 2,
-	"ajax.metarate": 60,
+	"ajax.metarate": 10,
+	"ajax.channelsrate": 20,
 	"ajax.backlog": 0,
 	"channels.minnamelength": 5,
 	"channels.maxnamelength": 30,

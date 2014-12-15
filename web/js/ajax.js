@@ -302,36 +302,43 @@
 	 * @param {Function} [dataBuilder] Function building the data to send.
 	 * @param {Function} [success] Callback on success. Called with the returned data.
 	 * @param {Function} [error] Callback on error. Called with error name and description.
+	 * @param {Boolean} [startNow=false] Send the first request just now.
 	 * @return An interval handler. Stop this interval with `clearInterval`.
 	 */
-	window.ajax.interval = function ( seconds, method, name, dataBuilder, success, error ) // jshint ignore:line
+	window.ajax.interval = function ( seconds, method, name, dataBuilder, success, error, startNow ) // jshint ignore:line
 	{
 		var answered = true ;
 		
 		function callback( real )
 		{
-			return function () {
-				answered = true ;
-				real.apply( this, arguments ) ;
-			} ;
+			return $.isFunction( real )
+				? function () {
+					answered = true ;
+					real.apply( this, arguments ) ;
+				}
+				: null ;
 		}
 		
-		return setInterval(
-			function ()
+		function step()
+		{
+			if ( answered )
 			{
-				if ( answered )
-				{
-					answered = false ;
-					ajax.send(
-						method, name,
-						$.isFunction( dataBuilder ) ? dataBuilder() : {},
-						callback( success || $.noop ),
-						callback( error || $.noop )
-					) ;
-				}
-			},
-			seconds * 1000
-		) ;
+				answered = false ;
+				ajax.send(
+					method, name,
+					$.isFunction( dataBuilder ) ? dataBuilder() : {},
+					callback( success ),
+					callback( error )
+				) ;
+			}
+		}
+		
+		if ( startNow )
+		{
+			step() ;
+		}
+		
+		return setInterval( step, seconds * 1000 ) ;
 	} ;
 
 /**
