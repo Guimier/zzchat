@@ -16,6 +16,7 @@ class AjaxCommand extends Command
 		$query = new AjaxQuery( new PseudoWebContext( Context::getCanonical() ) ) ;
 		$query->execute() ;
 		$query->show() ;
+		$this->writeln() ;
 	}
 
 }
