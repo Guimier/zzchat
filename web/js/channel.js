@@ -130,6 +130,23 @@
 		shown: false,
 		
 		/**
+		 * Number of unread posts.
+		 * @property {Number} unread
+		 * @private
+		 */
+		unread: 0,
+		
+		/**
+		 * Is the channel visible ?
+		 * @method isVisible
+		 * @private
+		 */
+		isVisible: function ()
+		{
+			return this.$body.hasClass( 'currentChannel' ) ;
+		},
+		
+		/**
 		 * Show the channel.
 		 * @method show
 		 */
@@ -141,7 +158,11 @@
 			
 			/* Only this channel’s tab is the current one. */
 			this.$tab.siblings().removeClass( 'current' ) ;
-			this.$tab.addClass( 'current' ) ;
+			this.$tab
+				.text( this.name )
+				.removeClass( 'new' )
+				.addClass( 'current' ) ;
+			this.unread = 0 ;
 			
 			/* Set up the WYSIWYG if not already done. */
 			if ( ! this.shown )
@@ -247,6 +268,14 @@
 						new Date( post.date * 1000 )
 					) )
 				) ;
+			}
+			
+			if ( ! this.isVisible() && posts.length )
+			{
+				this.unread += posts.length ;
+				this.$tab
+					.trText( 'channels.new', { num: this.unread, name: this.name } )
+					.addClass( 'new' ) ;
 			}
 		}
 		

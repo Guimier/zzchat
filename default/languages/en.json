@@ -6,6 +6,8 @@
 	"quotations.quote": "“${content}”",
 	"quotations.author": "— ${name}",
 	
+	"channels.new": "(${num}) ${name}",
+	
 	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",
 	
 	"cli.checkhtml": "Simple way to run test HTML input against validation rules.",

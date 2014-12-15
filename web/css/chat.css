@@ -191,6 +191,11 @@
 	color: #008800 ;
 }
 
+.page-chat #channels-list-actives .new
+{
+	color: #cc0000 ;
+}
+
 .page-chat .currentChannel
 {
 	display : flex ;
