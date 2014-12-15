@@ -38,6 +38,10 @@
 		
 		/* Create the messages list. */
 		this.$posts = $( '<div>' ).addClass( 'messages' ) ;
+		this.$posts.append($( '<p>' )
+			.addClass( 'title' )
+			.text( this.title )
+		) ;
 		
 		/* Add the body. */
 		this.$body = $( '<div>' )

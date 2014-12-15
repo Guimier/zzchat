@@ -74,6 +74,15 @@
 	margin : 0 ;
 }
 
+.page-chat .messages .title
+{
+	margin : 0 0.5em 1em ;
+	padding : 0.5em 0.25em ;
+	color : #ddd ;
+	font-style : italic ;
+	border-bottom : 1px solid #ddd ;
+}
+
 .page-chat .messages .speaker
 {
 	text-align : center ;
