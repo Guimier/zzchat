@@ -8,7 +8,7 @@ declare -a empty=( users/active channels/active )
 
 #############################
 
-rm -r "$data" 2>/dev/null
+rm -rf "$data" 2>/dev/null
 mkdir "$data"
 
 for dir in "${datadirs[@]}"

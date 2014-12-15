@@ -220,7 +220,7 @@ class Channel extends Entity
 				
 				$post = new Post( $posts[$currentPost] ) ;
 				
-				if ( $post->getDate() > $beginning )
+				if ( $post->getDate() >= $beginning )
 				{
 					$lastPosts[] = $post ;
 				}
