@@ -26,3 +26,5 @@ do
 	chmod a+rw "$data/$path.json"
 done
 
+echo '{"name":null,"title":null,"creator":null,"type":null,"last-action":1418671148,"files":[],"users":{}}' > "$data/channels/-1.json"
+chmod a+rw "$data/channels/-1.json"

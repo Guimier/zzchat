@@ -6,6 +6,8 @@
 	"quotations.quote": "“${content}”",
 	"quotations.author": "— ${name}",
 	
+	"channels.default.name": "Welcome",
+	"channels.default.title": "Welcome to this chat!",
 	"channels.new": "(${num}) ${name}",
 	
 	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",

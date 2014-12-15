@@ -6,6 +6,9 @@
 	"quotations.quotation": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
+	"channels.default.name": "Bienvenue",
+	"channels.default.title": "Bienvenue et bon clavardage !",
+	
 	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
 	
 	"cli.checkhtml": "Moyen simple de tester une entrée HTML avec les règles de validation.",
