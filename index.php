@@ -14,8 +14,9 @@ function sendConfiguration()
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
 		'language' => Configuration::getValue( 'language' ),
-		'postsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
-		'metarate' => Configuration::getValue( 'ajaxrate.people' ),
+		'postsrate' => Configuration::getValue( 'ajax.postsrate' ),
+		'metarate' => Configuration::getValue( 'ajax.metarate' ),
+		'backlog' => Configuration::getValue( 'ajax.backlog' ),
 		'user' => $user instanceof User ? $user->getName() : null,
 		'channels' => array( -1 )
 	) ;

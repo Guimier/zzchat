@@ -22,6 +22,7 @@
 	"ContainsIllegalCharacterException": "common/entities/ContainsIllegalCharacterException.php",
 	"Context": "common/Context.php",
 	"CreateChannelAjaxQueryPart": "web/php/ajax/CreateChannelAjaxQueryPart.php",
+	"DateAjaxQueryPart": "web/php/ajax/DateAjaxQueryPart.php",
 	"DefaultChannel": "common/entities/channels/DefaultChannel.php",
 	"EntityAlreadyInactiveException": "common/entities/EntityAlreadyInactiveException.php",
 	"Entity": "common/entities/Entity.php",

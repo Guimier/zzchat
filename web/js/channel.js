@@ -441,6 +441,14 @@
 	 */
 	window.channels.start = function ()
 	{
+		var backlog = configuration.get( 'backlog' ) ;
+		ajax.send(
+			'GET', 'date', null,
+			/* Don’t believe the client. */
+			function ( date ) { lastUpdateDate = date - backlog ; },
+			/* OK, believe the client. */
+			function ( date ) { lastUpdateDate = $.now().getTime() / 1000 - backlog ; }
+		) ;
 		ajax.start( 2 ) ;
 		
 		// Mhh… don’t believe the client!
