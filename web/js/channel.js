@@ -227,10 +227,15 @@
 				}
 			) ;
 		},
-
+		
+		twoChars: function( num )
+		{
+			return num < 10 ? '0' + num : num ;  
+		},
+		
 		formatDate: function ( date )
 		{
-			return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
+			return this.twoChars( date.getHours() ) + ':' + this.twoChars( date.getMinutes() ) + ':' + this.twoChars( date.getSeconds() ) ;
 		},
 		
 		$date: function ( date )
