@@ -1,4 +1,5 @@
 {
+	"ActiveChannelsAjaxQueryPart": "web/php/ajax/ActiveChannelsAjaxQueryPart.php",
 	"AgoraException": "common/exceptions/AgoraException.php",
 	"AgoraInternalException": "common/exceptions/AgoraInternalException.php",
 	"AgoraUserException": "common/exceptions/AgoraUserException.php",

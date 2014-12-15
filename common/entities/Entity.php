@@ -67,13 +67,15 @@ abstract class Entity
 			$list
 		) ;
 		
-		return array_filter(
+		$filtered = array_filter(
 			$entities,
 			function ( Entity $entity )
 			{
 				return $entity->isActive() ;
 			}
 		) ;
+		
+		return array_values( $filtered ) ;
 	}
 	
 	/** Get a special entity by its id.

@@ -4,18 +4,40 @@
 class AjaxFormater
 {
 
+	/** Format data about multiple channels.
+	 * @param array $user The users.
+	 */
+	public static function channels( array $channels, $quick = true )
+	{
+		return array_map(
+			function ( $channel ) use ( $quick )
+			{
+				return AjaxFormater::channel( $channel, $quick ) ;
+			},
+			$channels
+		) ;
+	}
+	
 	/** Format data about a channel.
 	 * @param Channel $channel The channel.
 	 */
-	public static function channel( Channel $channel )
+	public static function channel( Channel $channel, $quick = false )
 	{
-		return array(
+		$res = array(
 			'id' => $channel->getId(),
-			'name' => $channel->getName(),
-			'title' => $channel->getTitle(),
-			'type' => $channel->getType(),
-			'users' => self::users( $channel->getUsers() )
+			'name' => $channel->getName()
 		) ;
+		
+		if ( ! $quick )
+		{
+			$res += array(
+				'title' => $channel->getTitle(),
+				'type' => $channel->getType(),
+				'users' => self::users( $channel->getUsers() )
+			) ;
+		}
+		
+		return $res ;
 	}
 
 	/** Format data about multiple users.
