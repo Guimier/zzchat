@@ -116,6 +116,11 @@ function showNotice()
 				<div id="chat">
 					<!--Canaux-->
 					<div id="channels-list">
+						<div id="channels-inactives">
+							<input id="channels-new" type="button" value="Nouveau">
+							<div id="channels-title">Canaux</div>
+							<ul id="channels-list-inactives"></ul>
+						</div>
 						<ul id="channels-list-actives"></ul>
 					</div>
 					<div id="channels"></div>

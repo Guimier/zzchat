@@ -133,6 +133,9 @@
 	border-style : solid ;
 	border-width : 1px ;
 	box-sizing : border-box ;
+	
+	display : flex ;
+	flex-direction : column-reverse ;
 }
 
 .page-chat .presents
@@ -237,4 +240,67 @@
 {
 	background-color : green ;
 }
+
+.page-chat #channels-inactives
+{
+	position : relative ;
+	background : green ;
+	width : 100% ;
+	height : 2vmax ;
+}
+
+.page-chat #channels-new
+{
+	display : none ;
+	width : 80% ;
+	margin-left : 10% ;
+	margin-right : 10% ;
+	margin-top : 2px ;
+}
+
+.page-chat #channels-title
+{
+	height : 100% ;
+	width : 100% ;
+	background-color : blue ;
+}
+
+.page-chat #channels-list-inactives
+{
+	display : none ;
+}
+
+.page-chat #channels-list-actives
+{
+	flex : 1 ;
+}
+
+.page-chat #channels-inactives:hover
+{
+	position : relative ;
+	background : green ;
+	width : 100% ;
+	height : 100% ;
+}
+
+.page-chat #channels-inactives:hover #channels-new
+{
+	display : block ;
+}
+
+.page-chat #channels-inactives:hover #channels-list-inactives
+{
+	display : block ;
+}
+
+.page-chat #channels-inactives:hover #channels-title
+{
+	display : none ;
+}
+
+.page-chat #channels-inactives:hover + #channels-list-actives
+{
+	display : none ;
+}
+
 
