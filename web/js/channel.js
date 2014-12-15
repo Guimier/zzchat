@@ -295,13 +295,13 @@
  * @static
  */
 	
-	var 
+	var
 		/**
-		 * Openned channels.
-		 * @property {Object} opennedChannels
+		 * Opened channels.
+		 * @property {Object} openedChannels
 		 * @private
 		 */
-		opennedChannels = {},
+		openedChannels = {},
 		
 		/**
 		 * Interval reference for posts update.
@@ -338,24 +338,24 @@
 		lastUpdateDate = Infinity ;
 	
 	/**
-	 * List openned channels.
-	 * @method listChannels
+	 * List opened channels.
+	 * @method listOpenedChannels
 	 * @private
 	 */
-	function listChannels()
+	function listOpenedChannels()
 	{
-		return Object.keys( opennedChannels ) ;
+		return Object.keys( openedChannels ) ;
 	}
 	
 	/**
-	 * Know whether a channel has been openned.
-	 * @method channelIsOppened
+	 * Know whether a channel has been opened.
+	 * @method channelIsOpened
 	 * @private
 	 * @param {Number} id The channel identifiant.
 	 */
-	function channelIsOppened( id )
+	function channelIsOpened( id )
 	{
-		return opennedChannels[id] instanceof Channel ;
+		return openedChannels[id] instanceof Channel ;
 	}
 	
 	function updateActiveChannels()
@@ -366,7 +366,7 @@
 		
 		for ( id in activeChannels )
 		{
-			if ( ! channelIsOppened( id ) )
+			if ( ! channelIsOpened( id ) )
 			{
 				$channels = $channels.add( $( '<li>' )
 					.text( activeChannels[id] )
@@ -417,9 +417,9 @@
 		
 		for ( id in data )
 		{
-			if ( channelIsOppened( id ) )
+			if ( channelIsOpened( id ) )
 			{
-				opennedChannels[id].updateData( data[id] ) ;
+				openedChannels[id].updateData( data[id] ) ;
 			}
 		}
 	}
@@ -437,9 +437,9 @@
 		
 		for ( i in data.posts )
 		{
-			if ( channelIsOppened( i ) )
+			if ( channelIsOpened( i ) )
 			{
-				opennedChannels[i].newPosts( data.posts[i] ) ;
+				openedChannels[i].newPosts( data.posts[i] ) ;
 			}
 		}
 	}
@@ -456,14 +456,14 @@
 		
 		for ( id in data )
 		{
-			if ( ! channelIsOppened( id ) )
+			if ( ! channelIsOpened( id ) )
 			{
-				opennedChannels[id] = new Channel( data[id] ) ;
+				openedChannels[id] = new Channel( data[id] ) ;
 			}
 		}
 		
 		/* Show the las one. */
-		opennedChannels[id].show() ;
+		openedChannels[id].show() ;
 	}
 	
 	/**
@@ -474,8 +474,8 @@
 	 */
 	function closeChannel( id )
 	{
-		opennedChannels[id].remove() ;
-		delete opennedChannels[id] ;
+		openedChannels[id].remove() ;
+		delete openedChannels[id] ;
 	}
 	
 	window.channels = {} ;
@@ -491,7 +491,7 @@
 			arguments,
 			function ( id )
 			{
-			 	return ! channelIsOppened( id ) ;
+			 	return ! channelIsOpened( id ) ;
 			}
 		) ;
 		
@@ -532,7 +532,7 @@
 			function ()
 			{
 				return {
-					channels: listChannels(),
+					channels: listOpenedChannels(),
 					from: lastUpdateDate
 				} ;
 			},
@@ -542,7 +542,7 @@
 		metaInterval = ajax.interval(
 			configuration.get( 'metarate' ),
 			'GET', 'channel',
-			function () { return { id: listChannels() } ; },
+			function () { return { id: listOpenedChannels() } ; },
 			gotChannelsData
 		) ;
 		
@@ -559,7 +559,7 @@
 		clearInterval( postsInterval ) ;
 		clearInterval( metaInterval ) ;
 		
-		$.each( opennedChannels, closeChannel ) ;
+		$.each( openedChannels, closeChannel ) ;
 	} ;
 	
 } ) ( jQuery ) ;
