@@ -31,7 +31,6 @@ class Channel extends Entity
 				'type' => $type !== null
 					? $type
 					: Configuration::getValue( 'channels.defaulttype' ),
-				'creation' => time(),
 				'files' => array(),
 				'users' => array(
 					$channelCreator->getId() => time()

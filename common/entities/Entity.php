@@ -155,7 +155,9 @@ abstract class Entity
 		
 		$data = array(
 			'name' => $name,
-			'last-action' => time()
+			'creation' => time(),
+			'last-action' => time(),
+			'ejected' => false
 		) ;
 		$data += $initialArray ;
 		
@@ -263,7 +265,14 @@ abstract class Entity
 	 */
 	public function isActive()
 	{
-		return time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;
+		return ! $this->getValue( 'ejected' )
+			&& time() - $this->data['last-action'] < Configuration::getValue( static::getEntityType() . '.inactivity' ) ;
+	}
+	
+	/** Eject an entity. */
+	public function eject()
+	{
+		$this->setValue( 'ejected', true ) ;
 	}
 	
 	/** Put an entity inactive

@@ -39,7 +39,7 @@ abstract class EntityManagementCommand extends Command
 		foreach ( $ids as $id )
 		{
 			$entity = $class::getById( $id ) ;
-			$entity->isNowInactive() ;
+			$entity->eject() ;
 		}
 	}
 	

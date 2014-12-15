@@ -17,7 +17,7 @@ function sendConfiguration()
 		'postsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
 		'metarate' => Configuration::getValue( 'ajaxrate.people' ),
 		'user' => $user instanceof User ? $user->getName() : null,
-		'channels' => array()
+		'channels' => array( 1, 2 )
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
