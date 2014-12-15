@@ -113,7 +113,7 @@ abstract class Entity
 	 */
 	 public static function normalize( $name )
 	 {
-		return preg_replace( " +", " ", str_replace( array( "\t", "\r", "\n" ), " ", trim( $name ) ) ) ;
+		return preg_replace( '#\s+#', ' ', trim( $name ) ) ;
 	 }
 	 
 	/** Create a entity (for use by children clases).
@@ -132,14 +132,14 @@ abstract class Entity
 			throw new ContainsIllegalCharacterException( $name ) ;
 		}
 		
-		$name = self::nomalize( $name ) ;  
+		$name = self::normalize( $name ) ;
 		
-		if ( strlen( $name ) < Configuration::getValue( self::getEntityType() . '.minnamelength' ) )
+		if ( strlen( $name ) < Configuration::getValue( static::getEntityType() . '.minnamelength' ) )
 		{
 			throw new EntityNameTooShortException( $name ) ;
 		}
 		
-		if ( strlen( $name ) > $config->getValue( self::getEntityType() . '.maxnamelenght') )
+		if ( strlen( $name ) > Configuration::getValue( static::getEntityType() . '.maxnamelength' ) )
 		{
 			throw new EntityNameTooLongException( $name ) ;
 		}		
