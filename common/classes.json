@@ -10,6 +10,7 @@
 	"BadCallException": "common/exceptions/BadCallException.php",
 	"ChannelAjaxQueryPart": "web/php/ajax/ChannelAjaxQueryPart.php",
 	"Channel": "common/entities/channels/Channel.php",
+	"ChannelsCommand": "cli/classes/ChannelsCommand.php",
 	"CheckhtmlCommand": "cli/classes/CheckhtmlCommand.php",
 	"CliContext": "cli/classes/CliContext.php",
 	"CliMissingParameterException": "cli/classes/CliMissingParameterException.php",

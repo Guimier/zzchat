@@ -11,6 +11,10 @@
 	
 	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
 	
+	"cli.channels": "Gérer les canaux.",
+	"cli.channels.scenario.eject": "Fermer un canal.",
+	"cli.channels.scenario.show": "Lister les canaux actifs.",
+	
 	"cli.checkhtml": "Moyen simple de tester une entrée HTML avec les règles de validation.",
 	
 	"cli.configuration": "Gérer la configuration d’Agora",

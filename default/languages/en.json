@@ -12,6 +12,10 @@
 	
 	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",
 	
+	"cli.channels": "Manage channels.",
+	"cli.channels.scenario.eject": "Close a channel.",
+	"cli.channels.scenario.show": "Show active channels",
+
 	"cli.checkhtml": "Simple way to run test HTML input against validation rules.",
 	
 	"cli.configuration": "Manage Agora configuration",
