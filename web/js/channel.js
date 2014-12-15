@@ -238,7 +238,9 @@
 		
 		formatDate: function ( date )
 		{
-			return this.twoChars( date.getHours() ) + ':' + this.twoChars( date.getMinutes() ) + ':' + this.twoChars( date.getSeconds() ) ;
+			return this.twoChars( date.getHours() ) +
+				':' + this.twoChars( date.getMinutes() ) +
+				':' + this.twoChars( date.getSeconds() ) ;
 		},
 		
 		$date: function ( date )
@@ -260,7 +262,7 @@
 			{
 				post = posts[i] ;
 				
-				if ( post.owner.id != this.lastUser )
+				if ( post.owner.id !== this.lastUser )
 				{
 					this.lastUser = post.owner.id ;
 					this.$posts.append( $( '<p>' )
@@ -522,12 +524,9 @@
 			/* Don’t believe the client. */
 			function ( date ) { lastUpdateDate = date - backlog ; },
 			/* OK, believe the client. */
-			function ( date ) { lastUpdateDate = $.now().getTime() / 1000 - backlog ; }
+			function () { lastUpdateDate = $.now().getTime() / 1000 - backlog ; }
 		) ;
 		ajax.start( 2 ) ;
-		
-		// Mhh… don’t believe the client!
-		lastUpdateDate = 0 // Math.floor( ( new Date ).getTime() / 1000 ) ;
 		
 		channelsInterval = ajax.interval(
 			configuration.get( 'channelsrate' ),

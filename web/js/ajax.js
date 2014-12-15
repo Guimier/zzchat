@@ -311,12 +311,17 @@
 		
 		function callback( real )
 		{
-			return $.isFunction( real )
-				? function () {
+			var res = null ;
+			
+			if ( $.isFunction( real ) )
+			{
+				res = function () {
 					answered = true ;
 					real.apply( this, arguments ) ;
-				}
-				: null ;
+				} ;
+			}
+			
+			return res ;
 		}
 		
 		function step()
