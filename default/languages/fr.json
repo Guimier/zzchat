@@ -73,6 +73,7 @@
 	"exceptions.entityalreadyinactive": "L'entité dont l'id est “${id}” est déjà inactive",
 	"exceptions.entitynamealreadytaken": "Le nom d'entité « ${name} » est déjà utilisé",
 	"exceptions.entitynametooshort": "Le nom d’entité « ${name} » est trop court",
+	"exceptions.entitynametoolong": "Le nom d’entité « ${name} » est trop long",
 	"exceptions.nosuchentity": "Aucune entité ne porte le numéro « ${id} »",
 	"exceptions.inactivechannel": "La canal n° ${id} est inactif",
 	"exceptions.climissingparameter": "Paramètre « ${param} » manquant",
