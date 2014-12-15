@@ -206,10 +206,10 @@
 				}
 			) ;
 		},
-		
+
 		formatDate: function ( date )
 		{
-			return date.getHours() + ':' + date.getMinutes() ;
+			return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds() ;
 		},
 		
 		$date: function ( date )
