@@ -1,12 +1,5 @@
 @charset "utf-8" ;
 
-.page-login #nojs,
-.page-login #login-error
-{
-	color : orange ;
-}
-
-
 .page-login #nojs
 {
 	font-size : 1.2vmax ;
@@ -14,7 +7,6 @@
 
 .page-login body 
 {
-	font-family : vinerHandItc ;
 	background-color : black ;
 	background-image : url( "../img/greek-temple.jpg" ) ;
 	background-repeat : no-repeat ;

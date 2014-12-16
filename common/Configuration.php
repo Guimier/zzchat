@@ -220,5 +220,17 @@ class Configuration
 		
 		self::$localConfig[$key] = $value ;
 	}
+	
+	/** Get a translated message in the default language.
+	 * @param string $key The name of the message.
+	 * @param array $args The arguments.
+	 */
+	public function getMessage( $key, array $args  =array() )
+	{
+		return Languages::getInstance()->getMessage(
+			self::getValue( 'language' ),
+			$key, $args
+		) ;
+	}
 
 }

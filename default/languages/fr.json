@@ -6,7 +6,18 @@
 	"quotations.quotation": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
+	"channels.create.do": "Créer",
+	"channels.create.name": "Nom",
+	"channels.create.title": "Description",
+	"channels.create.wintitle": "Créer un canal",
+	"channels.default.name": "Bienvenue",
+	"channels.default.title": "Bienvenue et bon clavardage !",
+	
 	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
+	
+	"cli.channels": "Gérer les canaux.",
+	"cli.channels.scenario.eject": "Fermer un canal.",
+	"cli.channels.scenario.show": "Lister les canaux actifs.",
 	
 	"cli.checkhtml": "Moyen simple de tester une entrée HTML avec les règles de validation.",
 	
@@ -44,8 +55,10 @@
 	"cli.users.scenario.eject": "Déconnecter de force un utilisateur.",
 	"cli.users.scenario.show": "Lister les utilisateurs actifs.",
 	
-	"configuration.ajaxrate.newposts": "Taux de rafraîchissement des nouveaux messages sur les canaux (rafraîchissements par minute).",
-	"configuration.ajaxrate.people": "Taux de rafraîchissement des utilisateurs actifs sur les canaux (rafraîchissements par minute).",
+	"configuration.ajax.backlog": "Secondes d’anciens messages montrés à l’ouverture d’un canal.",
+	"configuration.ajax.channelsrate": "aux de rafraîchissement des canaux actifs (secondes entre deux rafraîchissements).",
+	"configuration.ajax.metarate": "Taux de rafraîchissement des utilisateurs actifs sur les canaux (secondes entre deux rafraîchissements).",
+	"configuration.ajax.postsrate": "Taux de rafraîchissement des nouveaux messages sur les canaux (secondes entre deux rafraîchissements).",
 	"configuration.channels.defaulttype": "Type de canal par défaut",
 	"configuration.channels.filelength": "Nombre maximum de messages dans un fichier.",
 	"configuration.channels.inactivity": "Nombre de secondes avant qu’un canal soit considéré comme inactif.",
@@ -53,6 +66,7 @@
 	"configuration.channels.maxnamelength": "Longueur maximale d’un nom de canal (octets).",
 	"configuration.channels.maxnum": "Nombre maximum de canaux actifs simultanément.",
 	"configuration.channels.postlength": "Longueur maximale des messages, balises incluses (octets).",
+	"configuration.channels.userinactivity": "Nombre de secondes avant qu’un utilisateur soit considéré comme inactif sur un canal.",
 	"configuration.language": "Langue par défaut de l’interface",
 	"configuration.debug": "Changez pour « true » pour activer le mode de débugage",
 	"configuration.users.inactivity": "Nombre de secondes avant qu’un utilisateur soit considéré comme inactif.",

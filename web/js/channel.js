@@ -20,8 +20,13 @@
 		$.extend( this, data ) ;
 		
 		/* Add the tab. */
+		this.$close = $( '<span>' )
+			.addClass( 'close' )
+			.click( function () { that.onClose.apply( that, arguments ) ; } ) ;
+		this.$name = $( '<span>' ).text( this.name ) ;
 		this.$tab = $( '<li>' )
-			.text( this.name )
+			.append( this.$close )
+			.append( this.$name )
 			.click( function ( evt ) {
 				evt.preventDefault() ;
 				that.show() ;
@@ -38,6 +43,10 @@
 		
 		/* Create the messages list. */
 		this.$posts = $( '<div>' ).addClass( 'messages' ) ;
+		this.$posts.append($( '<p>' )
+			.addClass( 'title' )
+			.text( this.title )
+		) ;
 		
 		/* Add the body. */
 		this.$body = $( '<div>' )
@@ -109,6 +118,20 @@
 		$tab: null,
 		
 		/**
+		 * The channel’s name container.
+		 * @property {jQuery} $name
+		 * @private
+		 */
+		$name: null,
+		
+		/**
+		 * The channel’s close button.
+		 * @property {jQuery} $close
+		 * @private
+		 */
+		$close: null,
+		
+		/**
 		 * The channel’s posts container.
 		 * @property {jQuery} $posts
 		 * @private
@@ -139,7 +162,6 @@
 		/**
 		 * Is the channel visible ?
 		 * @method isVisible
-		 * @private
 		 */
 		isVisible: function ()
 		{
@@ -159,9 +181,9 @@
 			/* Only this channel’s tab is the current one. */
 			this.$tab.siblings().removeClass( 'current' ) ;
 			this.$tab
-				.text( this.name )
 				.removeClass( 'new' )
 				.addClass( 'current' ) ;
+			this.$name.text( this.name ) ;
 			this.unread = 0 ;
 			
 			/* Set up the WYSIWYG if not already done. */
@@ -214,9 +236,6 @@
 			this.updatePresents() ;
 		},
 		
-		/**
-		 * TODO
-		 */
 		onEnter: function ( evt, content )
 		{
 			ajax.add(
@@ -228,14 +247,22 @@
 			) ;
 		},
 		
+		onClose: function ( evt )
+		{
+			evt.stopPropagation() ;
+			close( this.id ) ;
+		},
+		
 		twoChars: function( num )
 		{
-			return num < 10 ? '0' + num : num ;  
+			return num < 10 ? '0' + num : num ;
 		},
 		
 		formatDate: function ( date )
 		{
-			return this.twoChars( date.getHours() ) + ':' + this.twoChars( date.getMinutes() ) + ':' + this.twoChars( date.getSeconds() ) ;
+			return this.twoChars( date.getHours() ) +
+				':' + this.twoChars( date.getMinutes() ) +
+				':' + this.twoChars( date.getSeconds() ) ;
 		},
 		
 		$date: function ( date )
@@ -257,7 +284,7 @@
 			{
 				post = posts[i] ;
 				
-				if ( post.owner.id != this.lastUser )
+				if ( post.owner.id !== this.lastUser )
 				{
 					this.lastUser = post.owner.id ;
 					this.$posts.append( $( '<p>' )
@@ -278,9 +305,8 @@
 			if ( ! this.isVisible() && posts.length )
 			{
 				this.unread += posts.length ;
-				this.$tab
-					.trText( 'channels.new', { num: this.unread, name: this.name } )
-					.addClass( 'new' ) ;
+				this.$tab.addClass( 'new' ) ;
+				this.$name.trText( 'channels.new', { num: this.unread, name: this.name } ) ;
 			}
 		}
 		
@@ -292,13 +318,13 @@
  * @static
  */
 	
-	var 
+	var
 		/**
-		 * Openned channels.
-		 * @property {Object} opennedChannels
+		 * Opened channels.
+		 * @property {Object} openedChannels
 		 * @private
 		 */
-		opennedChannels = {},
+		openedChannels = {},
 		
 		/**
 		 * Interval reference for posts update.
@@ -315,6 +341,19 @@
 		metaInterval = 0,
 		
 		/**
+		 * Interval reference for active channels update.
+		 * @property channelsInterval
+		 * @private
+		 */
+		channelsInterval = 0,
+		
+		/** List of active channels.
+		 * @property activeChannels
+		 * @private
+		 */
+		activeChannels = {},
+		
+		/**
 		 * Last date of update of new posts.
 		 * @property lastUpdateDate
 		 * @private
@@ -322,24 +361,80 @@
 		lastUpdateDate = Infinity ;
 	
 	/**
-	 * List openned channels.
-	 * @method listChannels
+	 * List opened channels.
+	 * @method listOpenedChannels
 	 * @private
 	 */
-	function listChannels()
+	function listOpenedChannels()
 	{
-		return Object.keys( opennedChannels ) ;
+		return Object.keys( openedChannels ) ;
 	}
 	
 	/**
-	 * Know whether a channel has been openned.
-	 * @method channelIsOppened
+	 * Know whether a channel has been opened.
+	 * @method channelIsOpened
 	 * @private
 	 * @param {Number} id The channel identifiant.
 	 */
-	function channelIsOppened( id )
+	function channelIsOpened( id )
 	{
-		return opennedChannels[id] instanceof Channel ;
+		return openedChannels[id] instanceof Channel ;
+	}
+	
+	/**
+	 * Open a channel (callback for closed list).
+	 * @method openThis
+	 * @private
+	 */
+	function openThis()
+	{
+		// jshint validthis: true
+		open(
+			$( this ).remove().attr( 'data-id' )
+		) ;
+	}
+	
+	/**
+	 * Update the list of closed active channels.
+	 * @method updateActiveChannels
+	 * @private
+	 */
+	function updateActiveChannels()
+	{
+		var id, $channels = $( [] ) ;
+		
+		for ( id in activeChannels )
+		{
+			if ( ! channelIsOpened( id ) )
+			{
+				$channels = $channels.add( $( '<li>' )
+					.text( activeChannels[id] )
+					.attr( 'data-id', id )
+					.click( openThis )
+				) ;
+			}
+		}
+		
+		$( '#channels-list-inactives' ).html( $channels ) ;
+	}
+	
+	/**
+	 * Ajax callback for active channels list load.
+	 * @method gotActiveChannels
+	 * @private
+	 * @param {Object} data Data returned by the server.
+	 */
+	function gotActiveChannels( data )
+	{
+		var id, channels = {} ;
+		
+		for ( id in data )
+		{
+			channels[data[id].id] = data[id].name ;
+		}
+		
+		activeChannels = channels ;
+		updateActiveChannels() ;
 	}
 	
 	/**
@@ -354,9 +449,9 @@
 		
 		for ( id in data )
 		{
-			if ( channelIsOppened( id ) )
+			if ( channelIsOpened( id ) )
 			{
-				opennedChannels[id].updateData( data[id] ) ;
+				openedChannels[id].updateData( data[id] ) ;
 			}
 		}
 	}
@@ -374,9 +469,9 @@
 		
 		for ( i in data.posts )
 		{
-			if ( channelIsOppened( i ) )
+			if ( channelIsOpened( i ) )
 			{
-				opennedChannels[i].newPosts( data.posts[i] ) ;
+				openedChannels[i].newPosts( data.posts[i] ) ;
 			}
 		}
 	}
@@ -393,14 +488,15 @@
 		
 		for ( id in data )
 		{
-			if ( ! channelIsOppened( id ) )
+			if ( ! channelIsOpened( id ) )
 			{
-				opennedChannels[id] = new Channel( data[id] ) ;
+				openedChannels[id] = new Channel( data[id] ) ;
 			}
 		}
 		
 		/* Show the las one. */
-		opennedChannels[id].show() ;
+		openedChannels[id].show() ;
+		configuration.setLocal( 'channels', listOpenedChannels() ) ;
 	}
 	
 	/**
@@ -411,29 +507,68 @@
 	 */
 	function closeChannel( id )
 	{
-		opennedChannels[id].remove() ;
-		delete opennedChannels[id] ;
+		openedChannels[id].remove() ;
+		delete openedChannels[id] ;
 	}
-	
-	window.channels = {} ;
 	
 	/**
 	 * Open channels.
 	 * @method open
+	 * @private
 	 * @param {Number} id* Id of a channel to open.
 	 */
-	window.channels.open = function ( /* id* */ )
+	function open( /* id* */ )
 	{
 		var ids = Array.prototype.filter.call(
 			arguments,
 			function ( id )
 			{
-			 	return ! channelIsOppened( id ) ;
+			 	return ! channelIsOpened( id ) ;
 			}
 		) ;
 		
 		ajax.send( 'GET', 'channel', { id: ids }, gotChannelsFirstData ) ;
-	} ;
+	}
+	
+	/**
+	 * Close channels.
+	 * @method close
+	 * @private
+	 * @param {Number} id* Id of a channel to close.
+	 */
+	function close( /* id* */ )
+	{
+		var i, list, showAnother = false ;
+		
+		for ( i = 0 ; i < arguments.length ; ++ i )
+		{
+			if ( channelIsOpened( arguments[i] ) )
+			{
+				if ( openedChannels[arguments[i]].isVisible() )
+				{
+					showAnother = true ;
+				}
+				closeChannel( arguments[i] ) ;
+			}
+		}
+		
+		list = listOpenedChannels() ;
+		configuration.setLocal( 'channels', list ) ;
+		
+		if ( showAnother )
+		{
+			if ( list.length > 0 )
+			{
+				openedChannels[list[0]].show() ; // We may be smarter here, but it works
+			}
+			else
+			{
+				open( -1 ) ; // Open the default channel
+			}
+		}
+	}
+	
+	window.channels = {} ;
 	
 	/**
 	 * Start chat.
@@ -441,10 +576,24 @@
 	 */
 	window.channels.start = function ()
 	{
+		var backlog = configuration.get( 'backlog' ) ;
+		ajax.send(
+			'GET', 'date', null,
+			/* Don’t believe the client. */
+			function ( date ) { lastUpdateDate = date - backlog ; },
+			/* OK, believe the client. */
+			function () { lastUpdateDate = $.now().getTime() / 1000 - backlog ; }
+		) ;
 		ajax.start( 2 ) ;
 		
-		// Mhh… don’t believe the client!
-		lastUpdateDate = 0 // Math.floor( ( new Date ).getTime() / 1000 ) ;
+		channelsInterval = ajax.interval(
+			configuration.get( 'channelsrate' ),
+			'GET', 'activeChannels',
+			$.noop,
+			gotActiveChannels,
+			null,
+			true
+		) ;
 		
 		postsInterval = ajax.interval(
 			configuration.get( 'postsrate' ),
@@ -452,7 +601,7 @@
 			function ()
 			{
 				return {
-					channels: listChannels(),
+					channels: listOpenedChannels(),
 					from: lastUpdateDate
 				} ;
 			},
@@ -462,11 +611,11 @@
 		metaInterval = ajax.interval(
 			configuration.get( 'metarate' ),
 			'GET', 'channel',
-			function () { return { id: listChannels() } ; },
+			function () { return { id: listOpenedChannels() } ; },
 			gotChannelsData
 		) ;
 		
-		this.open.apply( this, configuration.get( 'channels' ) ) ;
+		open.apply( this, configuration.get( 'channels' ) ) ;
 	} ;
 	
 	/**
@@ -479,7 +628,85 @@
 		clearInterval( postsInterval ) ;
 		clearInterval( metaInterval ) ;
 		
-		$.each( opennedChannels, closeChannel ) ;
+		$.each( openedChannels, closeChannel ) ;
 	} ;
+
+/*----- Channels creation. -----*/
+
+	function insertDialog()
+	{
+		var
+			$nameLabel = $( '<label>' )
+				.attr( 'for', 'create-channel-name' )
+				.trText( 'channels.create.name' ),
+			
+			$nameInput = $( '<input>' )
+				.attr( {
+					id: 'create-channel-name',
+					type: 'text'
+				} ),
+			
+			$titleLabel = $( '<label>' )
+				.attr( 'for', 'create-channel-title' )
+				.trText( 'channels.create.title' ),
+			
+			$titleInput = $( '<input>' )
+				.attr( {
+					id: 'create-channel-title',
+					type: 'text'
+				} ),
+			
+			$doButton = $( '<input>' )
+				.attr( {
+					id: 'create-channel-do',
+					type: 'button'
+				} )
+				.trAttr( 'value', 'channels.create.do' )
+				.click(
+					function ()
+					{
+						ajax.add(
+							'POST', 'createChannel',
+							{ name: $nameInput.val(), title: $titleInput.val() },
+							function ( data )
+							{
+								openedChannels[data.id] = new Channel( data ) ;
+								openedChannels[data.id].show() ;
+								$createDialog.dialog( 'close' ) ;
+							},
+							function ( error )
+							{
+								$error.show().trText( error.msgName, error.msgArgs ) ;
+							}
+						) ;
+					}
+				),
+			
+			$error = $( '<p>' ).addClass( 'error' ).hide(),
+			
+			$createDialog = $( '<div>' )
+				.attr( 'id', 'create-channel' )
+				.hide()
+				.append( $nameLabel )
+				.append( $nameInput )
+				.append( $titleLabel )
+				.append( $titleInput )
+				.append( $doButton )
+				.append( $error ) ;
+		
+		$( document.body ).append( $createDialog ) ;
+		$createDialog.dialog( { autoOpen: false } ) ;
+	
+		$createDialog.closest( '.ui-dialog' ).find( '.ui-dialog-title' ).trText( 'channels.create.wintitle' )
+	
+		$( '#channels-new' ).click(
+			function ()
+			{
+				$createDialog.dialog( 'open' ) ;
+			}
+		) ;
+	}
+	
+	$( document ).ready( insertDialog ) ;
 	
 } ) ( jQuery ) ;

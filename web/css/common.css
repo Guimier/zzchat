@@ -27,6 +27,11 @@ body
 	height : 100% ;
 }
 
+.error
+{
+	color : orange ;
+}
+
 /***** Header menu. *****/
 
 #commands
@@ -62,7 +67,6 @@ input[type="button"],
 input[type="submit"],
 select
 {
-	font-family : vinerHandItc ;
 	background-color : black ;
 	box-shadow : none ;
 	border : solid ;

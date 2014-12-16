@@ -13,6 +13,21 @@ class Channel extends Entity
 		return 'channels' ;
 	}
 	
+	/** Get a special channel by its id.
+	 * @param int $id The id to look for.
+	 */
+	protected static function getSpecial( $id )
+	{
+		if ( $id == -1 )
+		{
+			return new DefaultChannel() ;
+		}
+		else
+		{
+			parent::getSpecial( $id ) ;
+		}
+	}
+	
 	/** Create a channel.
 	 * 
 	 * @param string $channelName The name of the channel which is created.
@@ -31,7 +46,6 @@ class Channel extends Entity
 				'type' => $type !== null
 					? $type
 					: Configuration::getValue( 'channels.defaulttype' ),
-				'creation' => time(),
 				'files' => array(),
 				'users' => array(
 					$channelCreator->getId() => time()

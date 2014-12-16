@@ -14,10 +14,12 @@ function sendConfiguration()
 	$jsConf = array(
 		'languages' => $langs->getAllLanguages(),
 		'language' => Configuration::getValue( 'language' ),
-		'postsrate' => Configuration::getValue( 'ajaxrate.newposts' ),
-		'metarate' => Configuration::getValue( 'ajaxrate.people' ),
+		'postsrate' => Configuration::getValue( 'ajax.postsrate' ),
+		'metarate' => Configuration::getValue( 'ajax.metarate' ),
+		'channelsrate' => Configuration::getValue( 'ajax.channelsrate' ),
+		'backlog' => Configuration::getValue( 'ajax.backlog' ),
 		'user' => $user instanceof User ? $user->getName() : null,
-		'channels' => array()
+		'channels' => array( -1 )
 	) ;
 	
 	echo 'configuration.initialise( ' . JSON::encode( $jsConf ) . ' ) ;' ;
@@ -116,6 +118,11 @@ function showNotice()
 				<div id="chat">
 					<!--Canaux-->
 					<div id="channels-list">
+						<div id="channels-inactives">
+							<input id="channels-new" type="button" value="Nouveau">
+							<div id="channels-title">Canaux</div>
+							<ul id="channels-list-inactives"></ul>
+						</div>
 						<ul id="channels-list-actives"></ul>
 					</div>
 					<div id="channels"></div>
@@ -125,7 +132,7 @@ function showNotice()
 			<div class="strut"></div>
 			<!--Formulaire-->
 			<div id="login">
-				<span id="nojs"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
+				<span id="nojs" class="error"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
 			</div>
 			<!--Footer-->
 			<div id="footer"></div>

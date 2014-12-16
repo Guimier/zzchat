@@ -54,6 +54,17 @@
 	flex : 2 ;
 }
 
+.page-chat #quote
+{
+	font-family : vinerHandItc ;
+	font-size: 130% ;
+}
+
+.page-chat #author
+{
+	padding-left : 2em ;
+}
+
 .page-chat .messages
 {
 	position : relative ;
@@ -72,6 +83,15 @@
 .page-chat .messages p
 {
 	margin : 0 ;
+}
+
+.page-chat .messages .title
+{
+	margin : 0 0.5em 1em ;
+	padding : 0.5em 0.25em ;
+	color : #ddd ;
+	font-style : italic ;
+	border-bottom : 1px solid #ddd ;
 }
 
 .page-chat .messages .speaker
@@ -128,11 +148,13 @@
 	height : 100% ;
 	color : white ;
 	background-color : black ;
-	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px ;
 	box-sizing : border-box ;
+	
+	display : flex ;
+	flex-direction : column-reverse ;
 }
 
 .page-chat .presents
@@ -144,7 +166,6 @@
 	height : 100% ;
 	color : white ;
 	background-color : black ;
-	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px ;
@@ -181,9 +202,41 @@
 	width : 100% ;
 }
 
-.page-chat #channels-list-actives li
+.page-chat #channels-list-actives,
+.page-chat #presents
+{
+	overflow-y : auto ;
+}
+
+.page-chat #channels-list-actives,
+.page-chat #channels-list-inactives
+{
+	list-style-type : none ;
+	margin : 0 ;
+	padding : 0 ;
+}
+
+.page-chat #channels-list-actives li,
+.page-chat #channels-list-inactives li
 {
 	cursor: pointer ;
+	border-bottom : 1px solid #555 ;
+	padding : 0.1em 0.2em ;
+}
+
+/* The following two rules probably need complete rewrite, it is a quick hack. */
+
+.page-chat #channels-list-actives .close:before {
+	display : inline-block ;
+	vertical-align : middle ;
+	content : '×' ; /* OK, this is not a “close” character, but it is quite similar. */
+	margin : 0.25em ;
+	color : #f00 ;
+	font-weight : bold ;
+}
+
+.page-chat #channels-list-actives .close:hover:before {
+	color : #f33 ;
 }
 
 .page-chat #channels-list-actives .current
@@ -236,5 +289,102 @@
 .morrigan-editor .mrge-toolbox .mrge-action.mrge-active
 {
 	background-color : green ;
+}
+
+.page-chat #channels-inactives
+{
+	position : relative ;
+	background : green ;
+	width : 100% ;
+	height : 2vmax ;
+}
+
+.page-chat #channels-new
+{
+	display : none ;
+	width : 80% ;
+	margin-left : 10% ;
+	margin-right : 10% ;
+	margin-top : 2px ;
+}
+
+.page-chat #channels-title
+{
+	height : 100% ;
+	width : 100% ;
+	background-color : blue ;
+}
+
+.page-chat #channels-list-inactives
+{
+	display : none ;
+}
+
+.page-chat #channels-list-actives
+{
+	flex : 1 ;
+}
+
+.page-chat #channels-inactives:hover
+{
+	position : relative ;
+	background : green ;
+	width : 100% ;
+	height : 100% ;
+}
+
+.page-chat #channels-inactives:hover #channels-new
+{
+	display : block ;
+}
+
+.page-chat #channels-inactives:hover #channels-list-inactives
+{
+	display : block ;
+}
+
+.page-chat #channels-inactives:hover #channels-title
+{
+	display : none ;
+}
+
+.page-chat #channels-inactives:hover + #channels-list-actives
+{
+	display : none ;
+}
+
+/***** Channels creation *****/
+
+#create-channel > *
+{
+	display : block ;
+	box-sizing : border-box ;
+	margin : 0 ;
+	width : 100% ;
+}
+
+#create-channel label
+{
+	text-align : center ;
+}
+
+#create-channel p
+{
+	margin-top : 0.5em ;
+	text-align : center ;
+	font-size : smaller ;
+	font-weight : bolder ;
+}
+
+#create-channel input[type="text"]
+{
+	margin-bottom : 0.5em ;
+}
+
+#create-channel input[type="button"]
+{
+	color : black ;
+	border-color : black ;
+	background-color : #bbb ;
 }
 
