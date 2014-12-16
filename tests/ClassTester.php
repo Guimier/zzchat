@@ -2,6 +2,7 @@
 // @codeCoverageIgnoreStart
 
 require_once dirname( __DIR__ ) . '/common/Autoloader.php' ;
+require_once __DIR__ . '/trees.php' ;
 
 /** Helper for unit testing.
  * Will load the class, provide test data abstraction and load any exception
@@ -42,7 +43,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	}
 
 	/** Load the tested class.
-	 * Logical place for this would be setUpBeforeClass, but setUpBeforeClass
+	 * Logical place for part of this would be setUpBeforeClass, but setUpBeforeClass
 	 * is called before #run.
 	 */
 	public function setUp()
@@ -51,11 +52,28 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		
 		$this->load( 'JSON' );
 		$this->load( 'Configuration' ) ;
+		
+		$reqData = $this->getRootDir() . '/tests/' . $this->className . '/data' ;
+		$tmpData = $this->getRootDir() . '/tests/' . $this->className . '/testdata' ;
+		if ( is_dir( $reqData ) )
+		{
+			cpTree( $reqData, $tmpData ) ;
+		}
 		Configuration::initiate( self::getRootDir(), 'tests/' . $this->className . '/testdata' ) ;
 		
 		$this->tryLoad( "$dir/placeholders.php" ) ;
 		$this->load( $this->className ) ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
+	}
+
+	/** Delete the temporary files. */
+	public function tearDown()
+	{
+		$tmpData = $this->getRootDir() . '/tests/' . $this->className . '/testdata' ;
+		if ( is_dir( $tmpData ) )
+		{
+			rmTree( $tmpData ) ;
+		}
 	}
 
 	/** Conditionnaly skip a test.
@@ -98,33 +116,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	/** Get relative path to the directory where test data is. */
 	public function getRelDataDir()
 	{
-		return 'tests/' . $this->className . '/data' ;
-	}
-
-	/** Get full path to the directory where test data is. */
-	public function getTestDataDir()
-	{
-		return $this->getRootDir() . '/' . $this->getRelDataDir() ;
-	}
-
-/***** Testing changing files *****/
-
-	private $copiedFiles = array() ;
-	
-	public function copyDataFile( $src, $dest )
-	{
-		copy( $this->getTestDataDir() . "/$src", $this->getTestDataDir() . "/$dest" ) ;
-		$this->copiedFiles[] = $dest ;
-	}
-	
-	public function deleteDataFiles()
-	{
-		$dir = $this->getTestDataDir() ;
-		
-		foreach ( $this->copiedFiles as $file )
-		{
-			delete( "$dir/$file" ) ;
-		}
+		return 'tests/' . $this->className . '/testdata' ;
 	}
 
 }
