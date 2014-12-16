@@ -50,6 +50,7 @@
 	"NoSuchEntityException": "common/entities/channels/PostContentTooLong.php",
 	"NoSuchEntityException": "common/entities/NoSuchEntityException.php",
 	"NoSuchQueryPartException": "web/php/ajax/NoSuchQueryPartException.php",
+	"NotAuthorizedNameException": "common/entities/NotAuthorizedNameException.php",
 	"NotLoggedInUserException": "common/entities/users/NotLoggedInUserException.php",
 	"PostAjaxQueryPart": "web/php/ajax/PostAjaxQueryPart.php",
 	"Post": "common/entities/channels/Post.php",

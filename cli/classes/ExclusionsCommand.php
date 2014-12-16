@@ -16,6 +16,9 @@ class ExclusionsCommand extends Command
 				),
 				'rm' => array(
 					'parameters' => array( '+id' )
+				),
+				'check' => array(
+					'parameters' => array( '+name' )
 				)
 			),
 			'parameters' => array(
@@ -32,10 +35,19 @@ class ExclusionsCommand extends Command
 	/** Add an exclusion. */
 	protected function execute_add()
 	{
-		$name = $this->getParameter( 'text' ) ;		
+		$name = $this->getParameter( 'name' ) ;		
 		
 		$exclusions = new NameExclusions() ;
 		$exclusions->add( $name ) ;
+	}
+	
+	/** Add a name. */
+	protected function execute_check()
+	{
+		$name = $this->getParameter( 'name' ) ;		
+		
+		$exclusions = new NameExclusions() ;
+		$exclusions->checkName( $name ) ;
 	}
 	
 	/** Show an exclusion.

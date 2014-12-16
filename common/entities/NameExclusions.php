@@ -2,7 +2,7 @@
 
 class NameExclusions
 {
-	const FILENAME = 'local/nameexclusions.json'
+	const FILENAME = 'local/nameexclusions.json' ;
 	
 	private $list ;
 	private $edited = false ;
