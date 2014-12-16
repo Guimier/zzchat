@@ -33,6 +33,8 @@
 			} ) ;
 		$( '#channels-list-actives' ).append( this.$tab ) ;
 		
+		this.$error = $( '<div>' ).addClass( 'error' ).hide() ;
+		
 		/* Create the WYSIWYG surface. */
 		this.$wysiwyg = $( '<div>' )
 			.addClass( 'wysiwyg' )
@@ -54,6 +56,7 @@
 			.attr( 'id', 'channel-' + this.id )
 			.append( $( '<div>' ).addClass( 'channelCore' )
 				.append( this.$posts )
+				.append( this.$error )
 				.append( this.$wysiwyg )
 			)
 			.append( this.$presents ) ;
@@ -116,6 +119,20 @@
 		 * @private
 		 */
 		$tab: null,
+		
+		/**
+		 * The channel’s error container.
+		 * @property {jQuery} $error
+		 * @private
+		 */
+		$error: null,
+		
+		/**
+		 * Reference to the delay closing the error.
+		 * @property {Number} errorCloser
+		 * @private
+		 */
+		errorCloser: 0,
 		
 		/**
 		 * The channel’s name container.
@@ -243,13 +260,30 @@
 			this.updatePresents() ;
 		},
 		
+		closeError: function ()
+		{
+			this.$error.hide() ;
+			this.errorCloser = 0 ;
+		},
+		
 		onEnter: function ( evt, content )
 		{
+			var that = this ;
+			
+			clearInterval( this.errorCloser ) ;
+			this.closeError() ;
+			
 			ajax.add(
 				'POST', 'post',
 				{
 					channel: this.id,
 					content: content
+				},
+				$.noop,
+				function ( error )
+				{
+					that.$error.trText( error.msgName, error.msgArgs ).show() ;
+					that.errorCloser = setTimeout( function () { that.closeError() ; }, 10000 ) ;
 				}
 			) ;
 		},
@@ -692,7 +726,9 @@
 						{
 							data.type = type ;
 						}
-					
+						
+						$error.hide() ;
+						
 						ajax.add(
 							'POST', 'createChannel', data,
 							function ( data )
@@ -700,6 +736,10 @@
 								openedChannels[data.id] = new Channel( data ) ;
 								openedChannels[data.id].show() ;
 								$createDialog.dialog( 'close' ) ;
+								
+								$nameInput.val( null ) ;
+								$titleInput.val( null ) ;
+								$typeSelect.val( 'default' ) ;
 							},
 							function ( error )
 							{
