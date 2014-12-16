@@ -1,4 +1,5 @@
 <?php
+// @codeCoverageIgnoreStart
 
 class TestContext extends Context
 {

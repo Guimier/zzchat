@@ -1,4 +1,5 @@
 <?php
+// @codeCoverageIgnoreStart
 
 /** From http://php.net/rmdir#110489. */
 function rmTree( $dir ) {
