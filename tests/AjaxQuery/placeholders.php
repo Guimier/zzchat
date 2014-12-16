@@ -1,8 +1,6 @@
 <?php
 // @codeCoverageIgnoreStart
 
-ClassTester::loadConfiguration() ;
-
 /* Placeholders for WebContext. */
 
 class WebContext

@@ -48,7 +48,11 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		$dir = __DIR__ . '/' . $this->className ;
+		
 		$this->load( 'JSON' );
+		$this->load( 'Configuration' ) ;
+		Configuration::initiate( self::getRootDir(), 'tests/' . $this->className . '/testdata' ) ;
+		
 		$this->tryLoad( "$dir/placeholders.php" ) ;
 		$this->load( $this->className ) ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
@@ -81,17 +85,6 @@ class ClassTester extends PHPUnit_Framework_TestCase
 			self::$autoloader = new Autoloader( self::getRootDir(), 'common/classes.json' ) ;
 		}
 		self::$autoloader->load( $className ) ;
-	}
-	
-	/** Load the Configuration class and initiate it.
-	 * @param string [$default] Default configuration file.
-	 */
-	public static function loadConfiguration(
-		$default = 'default/configuration.json'
-	)
-	{
-		self::load( 'Configuration' ) ;
-		Configuration::initiate( self::getRootDir(), $default, null ) ;
 	}
 
 /***** Paths *****/

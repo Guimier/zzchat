@@ -53,7 +53,6 @@ class Autoloader
 
 	/** Load a class if it exists.
 	 * @param string $className Name of the class to load.
-	 * @codeCoverageIgnore `require_once` is not easy to test.
 	 */
 	public function load( $className )
 	{

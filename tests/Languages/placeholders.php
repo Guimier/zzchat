@@ -1,5 +1,0 @@
-<?php
-// @codeCoverageIgnoreStart
-
-ClassTester::loadConfiguration() ;
-
