@@ -2,10 +2,10 @@
 
 class ContainsIllegalCharacterException extends AgoraUserException
 {
-	public function __construct( $name )
+	public function __construct( $type, $name )
 	{
 		parent::__construct(
-			'exceptions.containsillegalcharacter',
+			"exceptions.$type.containsillegalcharacter",
 			array( 'name' => $name )
 		);
 	}

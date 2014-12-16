@@ -3,8 +3,8 @@
 
 class EntityNameAlreadyTakenException extends AgoraUserException
 {
-	public function __construct( $name )
+	public function __construct( $this, $name )
 	{
-		parent::__construct( 'exceptions.entitynamealredytaken', array( 'name' => $name ) ) ;
+		parent::__construct( "exceptions.$type.entitynamealredytaken", array( 'name' => $name ) ) ;
 	}	
 }

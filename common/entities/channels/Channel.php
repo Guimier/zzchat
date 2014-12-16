@@ -232,7 +232,7 @@ class Channel extends Entity
 			{
 				-- $currentPost ;
 				
-				$post = new Post( $posts[$currentPost] ) ;
+				$post = new Post( $currentFile . '-' . $currentPost, $posts[$currentPost] ) ;
 				
 				if ( $post->getDate() >= $beginning )
 				{

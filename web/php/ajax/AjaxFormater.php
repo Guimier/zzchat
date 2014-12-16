@@ -65,6 +65,7 @@ class AjaxFormater
 	public static function post( Post $post )
 	{
 		return array(
+			'id' => $post->getId(),
 			'owner' => self::user( $post->getOwner() ),
 			'date' => $post->getDate(),
 			'content' => $post->getContent()

@@ -3,14 +3,27 @@
 class Post
 {
 	/*** Instances ***/
+	
+	private $postId = null ; 
 		
 	/** The array which contains the data concerning the post. */
 	private $postData = null ;
 	
 	/** Constructor of post instance */
-	public function __construct( array $data )
+	public function __construct( $id, array $data )
 	{
+		$this->postId =  $id ;
 		$this->postData = $data ;
+	}
+	
+	/** Get the id of this post.
+	 * 
+	 * @return The Id of the post.
+	 * @codeCoverageIgnore Getter
+	 */ 
+	public function getId()
+	{
+		return $this->postId ;
 	}
 	
 	/** Get the user who write this post.

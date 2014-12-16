@@ -2,8 +2,8 @@
 
 class EntityAlreadyInactiveException extends AgoraInternalException
 {
-	public function __construct( $id )
+	public function __construct( $type, $id )
 	{
-		parent::__construct( 'exceptions.entityalreadyinactive', array( 'id' => $id ) );
+		parent::__construct( "exceptions.$type.entityalreadyinactive", array( 'id' => $id ) );
 	}
 }

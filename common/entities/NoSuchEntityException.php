@@ -2,10 +2,10 @@
 
 class NoSuchEntityException extends AgoraUserException
 {
-	public function __construct( $id )
+	public function __construct( $type, $id )
 	{
 		parent::__construct(
-			'exceptions.nosuchentity',
+			"exceptions.$type.nosuchentity",
 			array( 'id' => $id )
 		);
 	}

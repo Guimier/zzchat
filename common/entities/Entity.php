@@ -84,7 +84,7 @@ abstract class Entity
 	protected static function getSpecial( $id )
 	{
 		/* At this level, we don’t kow any special entity. */
-		throw new NoSuchEntityException( $entityId ) ;
+		throw new NoSuchEntityException( static::getEntityType(), $entityId ) ;
 	}
 	
 	/** Get an entity by id.
@@ -131,25 +131,29 @@ abstract class Entity
 	{
 		if ( self::containsIllegalCharacter( $name ) )
 		{
-			throw new ContainsIllegalCharacterException( $name ) ;
+			throw new ContainsIllegalCharacterException( static::getEntityType(), $name ) ;
 		}
 		
 		$name = self::normalize( $name ) ;
 		
 		if ( strlen( $name ) < Configuration::getValue( static::getEntityType() . '.minnamelength' ) )
 		{
-			throw new EntityNameTooShortException( $name ) ;
+			throw new EntityNameTooShortException( static::getEntityType(), $name ) ;
 		}
 		
 		if ( strlen( $name ) > Configuration::getValue( static::getEntityType() . '.maxnamelength' ) )
 		{
-			throw new EntityNameTooLongException( $name ) ;
+			throw new EntityNameTooLongException( static::getEntityType(), $name ) ;
 		}		
-		 
 		
 		if ( self::getByName( $name ) !== null )
 		{
-			throw new EntityNameAlreadyTakenException( $name ) ;
+			throw new EntityNameAlreadyTakenException( static::getEntityType(), $name ) ;
+		}
+		
+		if ( count( self::getAllActive() ) > Configuration::getValue( static::getEntityType() . '.maxnum' ) )
+		{
+			throw new TooManyEntitiesException( static::getEntityType() ) ;
 		}
 
 		$lastIdFile = Configuration::getDataDir( static::getEntityType() ) . '/lastid.int' ;
@@ -213,7 +217,7 @@ abstract class Entity
 		
 		if ( $this->data === null )
 		{
-			throw new NoSuchEntityException( $entityId ) ;
+			throw new NoSuchEntityException( static::getEntityType(), $entityId ) ;
 		}
 	}
 	
@@ -285,7 +289,7 @@ abstract class Entity
 	{
 		if ( ! $this->isActive() )
 		{
-			throw new EntityAlreadyInactiveException( $this->id ) ;
+			throw new EntityAlreadyInactiveException( static::getEntityType(), $this->id ) ;
 		}
 		else
 		{
