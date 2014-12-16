@@ -298,51 +298,6 @@
 	flex-direction : column ;
 }
 
-.page-chat .mrge-popup .mrge-popup-header
-{
-	background-color : #e0e0e0 ;
-}
-
-.page-chat .mrge-content
-{
-	background-image : url( "../img/chatBackground" ) ;
-	background-repeat : no-repeat ;
-	background-size : 100% auto ; ;
-}
-
-.page-chat .mrge-toolbox
-{
-	background-color : grey ;
-}
-
-.morrigan-editor .mrge-toolbox li
-{
-	background-color : #5e5e5e ;
-}
-
-.page-chat .morrigan-editor .mrge-toolbox .mrge-disabled
-{
-	background-color : #e0e0e0 ;
-	color : black ;
-}
-
-.morrigan-editor .mrge-toolbox .mrge-action 
-{
-	background-color : #e0e0e0 ;
-	color : black ;
-}
-
-.morrigan-editor .mrge-toolbox .mrge-action.mrge-active
-{
-	background-color : #aaa ;
-}
-
-.morrigan-editor .mrge-popup-overlay
-{
-	background-color : black ;
-	opacity : 0,3 ;
-}
-
 .page-chat #channels-inactives
 {
 	position : relative ;
