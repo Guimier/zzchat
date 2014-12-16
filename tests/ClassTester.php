@@ -48,10 +48,15 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	 */
 	public function setUp()
 	{
+		spl_autoload_register( 'ClassTester::loadRestricted' ) ;
 		$dir = __DIR__ . '/' . $this->className ;
 		
 		$this->load( 'JSON' );
 		$this->load( 'Configuration' ) ;
+		$this->load( 'Context' ) ;
+		$this->load( 'Languages' ) ;
+		require_once __DIR__ . '/TestContext.php' ;
+		Context::setCanonical( new TestContext() ) ;
 		
 		$reqData = $this->getRootDir() . '/tests/' . $this->className . '/data' ;
 		$tmpData = $this->getRootDir() . '/tests/' . $this->className . '/testdata' ;
@@ -103,6 +108,18 @@ class ClassTester extends PHPUnit_Framework_TestCase
 			self::$autoloader = new Autoloader( self::getRootDir(), 'common/classes.json' ) ;
 		}
 		self::$autoloader->load( $className ) ;
+	}
+
+	/** Load a class (restricted access to the autoloader).
+	 *
+	 * @param string $className Class to load.
+	 */
+	public static function loadRestricted( $className )
+	{
+		if ( substr( $className, -9 ) === 'Exception' )
+		{
+			self::load( $className ) ;
+		}
 	}
 
 /***** Paths *****/

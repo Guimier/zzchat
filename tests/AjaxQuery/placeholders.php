@@ -23,12 +23,10 @@ class WebContext
 	}
 }
 
-/* Generic exception */
+/* Generic exceptions. */
 
 class GenericException extends Exception {}
-class AgoraUserException extends Exception {}
 class GenericAgoraUserException extends AgoraUserException {}
-class NoSuchQueryPartException extends AgoraUserException {}
 
 /* AjaxQueryPart classes */
 
