@@ -137,7 +137,6 @@
 	height : 100% ;
 	color : white ;
 	background-color : black ;
-	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px ;
@@ -156,7 +155,6 @@
 	height : 100% ;
 	color : white ;
 	background-color : black ;
-	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px ;
@@ -191,6 +189,12 @@
 	display : none ;
 	height : 100% ;
 	width : 100% ;
+}
+
+.page-chat #channels-list-actives,
+.page-chat #presents
+{
+	overflow-y : auto ;
 }
 
 .page-chat #channels-list-actives,
