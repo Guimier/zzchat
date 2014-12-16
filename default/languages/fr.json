@@ -103,7 +103,7 @@
 	"exceptions.invalidconfigurationvalue": "Mauvaise valeur pour la clé de configuration « ${key} » : ${expected} attendu, ${given} fourni",
 	"exception.channels.toomanyentities": "Trop de canaux actifs",
 	"exception.users.toomanyentities": "Trop d'utilisateur actifs",
-	"exceptions.postcontenttoolong": "Le message est trop long de ${percentage} %"
+	"exceptions.postcontenttoolong": "Le message est trop long de ${percentage} %",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",

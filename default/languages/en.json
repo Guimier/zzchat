@@ -105,7 +105,7 @@
 	"exceptions.invalidconfigurationvalue": "Bad value given for configuration key “${key}”: ${expected} expected, ${given} given",
 	"exception.channels.toomanyentities": "Too many active channels",
 	"exception.users.toomanyentities": "Too many active users",
-	"exceptions.postcontenttoolong": "The post is ${percentage}% too long"
+	"exceptions.postcontenttoolong": "The post is ${percentage}% too long",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",
