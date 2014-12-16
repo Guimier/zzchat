@@ -24,22 +24,45 @@ class AjaxQueryTest extends ClassTester
 	{
 		$query = new AjaxQuery( new WebContext( false ) ) ;
 
-		if ( defined( 'JSON_UNESCAPED_UNICODE' ) )
-		{
-			$expected =
-<<<JSON
-{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"#[baz]#","struct":{"message":"baz","arguments":[]}},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"“nonexistant” query part does not exist","struct":{"message":"exceptions.nosuchquerypart","arguments":{"partname":"nonexistant"}}}}
-JSON
-			;
-		}
-		else
-		{
-			$expected =
-<<<JSON
-{"working":{"success":true,"data":["foo","\u00df","\u00d7"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"#[baz]#","struct":{"message":"baz","arguments":[]}},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"“nonexistant” query part does not exist","struct":{"message":"exceptions.nosuchquerypart","arguments":{"partname":"nonexistant"}}}}
-JSON
-			;
-		}
+		$expected = JSON::encode( array(
+			"working" => array(
+				"success" => true,
+				"data" => array( "foo","ß","×" )
+			),
+			"workingNull" => array(
+				"success" => true
+			),
+			"workingEmpty" => array(
+				"success" => true,
+				"data" => array()
+			),
+			"throwingUser" => array(
+				"success" => false,
+				"type" => "user",
+				"error" => "GenericAgoraUserException",
+				"message" => "#[baz]#",
+				"struct" => array(
+					"message" => "baz",
+					"arguments" => array()
+				)
+			),
+			"throwingInternal" => array(
+				"success" => false,
+				"type" => "internal"
+			),
+			"nonexistant" => array(
+				"success" => false,
+				"type" => "user",
+				"error" => "NoSuchQueryPartException",
+				"message" => "“nonexistant” query part does not exist",
+				"struct" => array(
+					"message" => "exceptions.nosuchquerypart",
+					"arguments" => array(
+						"partname" => "nonexistant"
+					)
+				)
+			)
+		) ) ;
 
 		$query->execute() ;
 		$query->show() ;
