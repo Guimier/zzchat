@@ -2,8 +2,8 @@
 
 class EntityNameTooLongException extends AgoraUserException
 {
-	public function __construct( $name )
+	public function __construct( $type, $name )
 	{
-		parent::__construct( 'exceptions.entitynametoolong', array( 'name' => $name ) );
+		parent::__construct( "exceptions.$type.entitynametoolong", array( 'name' => $name ) );
 	}
 }
