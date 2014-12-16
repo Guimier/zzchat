@@ -8,6 +8,7 @@
 	
 	"channels.create.do": "Create",
 	"channels.create.name": "Name",
+	"channels.create": "New",
 	"channels.create.title": "Description",
 	"channels.create.type": "Type",
 	"channels.create.type.default": "Use default",
@@ -16,6 +17,7 @@
 	"channels.create.wintitle": "Create a channel",
 	"channels.default.name": "Welcome",
 	"channels.default.title": "Welcome to this chat!",
+	"channels.inactives": "Channels",
 	"channels.new": "(${num}) ${name}",
 	
 	"cli.ajax": "Simple way to run `ajax.php` queries through command line.",

@@ -8,6 +8,7 @@
 	
 	"channels.create.do": "Créer",
 	"channels.create.name": "Nom",
+	"channels.create": "Nouveau",
 	"channels.create.title": "Description",
 	"channels.create.type": "Type",
 	"channels.create.type.default": "Type par défaut",
@@ -16,6 +17,7 @@
 	"channels.create.wintitle": "Créer un canal",
 	"channels.default.name": "Bienvenue",
 	"channels.default.title": "Bienvenue et bon clavardage !",
+	"channels.inactives": "Canaux",
 	
 	"cli.ajax": "Moyen simple d’exécuter des requêtes pour `ajax.php` via la ligne de commande",
 	

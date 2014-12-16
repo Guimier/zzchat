@@ -119,8 +119,8 @@ function showNotice()
 					<!--Canaux-->
 					<div id="channels-list">
 						<div id="channels-inactives">
-							<input id="channels-new" type="button" value="Nouveau">
-							<div id="channels-title">Canaux</div>
+							<input id="channels-new" type="button">
+							<div id="channels-title"></div>
 							<ul id="channels-list-inactives"></ul>
 						</div>
 						<ul id="channels-list-actives"></ul>

@@ -225,9 +225,28 @@
 .page-chat #channels-list-actives li,
 .page-chat #channels-list-inactives li
 {
-	cursor: pointer ;
-	border-bottom : 1px solid #555 ;
+	cursor : pointer ;
+	border-width : 0 0 1px ;
+	border-style : solid ;
+}
+
+.page-chat #channels-list-actives li
+{
+	cursor : pointer ;
+	border-color : #555 ;
 	padding : 0.1em 0.2em ;
+}
+
+.page-chat #channels-list-inactives li
+{
+	text-align : center ;
+	border-color : #aaa ;
+	padding : 0.25em 0.5em ;
+}
+
+.page-chat #channels-list-inactives li:first-child
+{
+	border-top-width : 1px ;
 }
 
 /* The following two rules probably need complete rewrite, it is a quick hack. */
@@ -300,7 +319,7 @@
 .page-chat #channels-inactives
 {
 	position : relative ;
-	background : green ;
+	background : #555 ;
 	width : 100% ;
 	height : 2vmax ;
 }
@@ -309,16 +328,17 @@
 {
 	display : none ;
 	width : 80% ;
-	margin-left : 10% ;
-	margin-right : 10% ;
-	margin-top : 2px ;
+	margin : 0.5em 10% 1em ;
 }
 
 .page-chat #channels-title
 {
 	height : 100% ;
 	width : 100% ;
-	background-color : blue ;
+	text-align : center ;
+	padding : 0.5vmax 0 ;
+	line-height : 1vmax ;
+	font-size : 1vmax ;
 }
 
 .page-chat #channels-list-inactives
@@ -334,26 +354,17 @@
 .page-chat #channels-inactives:hover
 {
 	position : relative ;
-	background : green ;
 	width : 100% ;
 	height : 100% ;
 }
 
-.page-chat #channels-inactives:hover #channels-new
-{
-	display : block ;
-}
-
+.page-chat #channels-inactives:hover #channels-new,
 .page-chat #channels-inactives:hover #channels-list-inactives
 {
 	display : block ;
 }
 
-.page-chat #channels-inactives:hover #channels-title
-{
-	display : none ;
-}
-
+.page-chat #channels-inactives:hover #channels-title,
 .page-chat #channels-inactives:hover + #channels-list-actives
 {
 	display : none ;

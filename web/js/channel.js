@@ -730,12 +730,16 @@
 	
 		$createDialog.closest( '.ui-dialog' ).find( '.ui-dialog-title' ).trText( 'channels.create.wintitle' )
 	
-		$( '#channels-new' ).click(
-			function ()
-			{
-				$createDialog.dialog( 'open' ) ;
-			}
-		) ;
+		$( '#channels-title' ).trText( 'channels.inactives' ) ;
+	
+		$( '#channels-new' )
+			.trAttr( 'value', 'channels.create' )
+			.click(
+				function ()
+				{
+					$createDialog.dialog( 'open' ) ;
+				}
+			) ;
 	}
 	
 	$( document ).ready( insertDialog ) ;
