@@ -162,6 +162,7 @@
 	position : relative ;
 	padding : 0;
 	margin : 0 ;
+	list-style-type : none ;
 	width : 10% ;
 	height : 100% ;
 	color : white ;
@@ -170,6 +171,11 @@
 	border-style : solid ;
 	border-width : 1px ;
 	box-sizing : border-box ;
+}
+
+.page-chat .presents li
+{
+	padding : 0.25em 0.5em ;
 }
 
 .page-chat #container2
@@ -203,7 +209,7 @@
 }
 
 .page-chat #channels-list-actives,
-.page-chat #presents
+.page-chat .presents
 {
 	overflow-y : auto ;
 }
@@ -239,14 +245,14 @@
 	color : #f33 ;
 }
 
-.page-chat #channels-list-actives .current
+.page-chat #channels-list-actives .current :last-child:before
 {
-	color: #008800 ;
+  content: '• '
 }
 
 .page-chat #channels-list-actives .new
 {
-	color: #cc0000 ;
+	font-style : italic ;
 }
 
 .page-chat .currentChannel
