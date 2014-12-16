@@ -30,6 +30,7 @@
 	"EntityNameAlreadyTakenException": "common/entities/EntityNameAlreadyTakenException.php",
 	"EntityNameTooLongException": "common/entities/EntityNameTooLongException.php",
 	"EntityNameTooShortException": "common/entities/EntityNameTooShortException.php",
+	"ExclusionsCommand": "cli/classes/ExclusionsCommand.php",
 	"HTML": "common/html/HTML.php",
 	"IllegalAttributeException": "common/html/IllegalAttributeException.php",
 	"IllegalAttributeValueException": "common/html/IllegalAttributeValueException.php",
