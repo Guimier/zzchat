@@ -54,6 +54,17 @@
 	flex : 2 ;
 }
 
+.page-chat #quote
+{
+	font-family : vinerHandItc ;
+	font-size: 130% ;
+}
+
+.page-chat #author
+{
+	padding-left : 2em ;
+}
+
 .page-chat .messages
 {
 	position : relative ;
