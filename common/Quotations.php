@@ -4,7 +4,7 @@
 class Quotations
 {
 
-	const FILENAME = 'local/quotations.json' ;
+	const FILENAME = 'quotations.json' ;
 
 	private $list ;
 	private $edited = false ;
@@ -13,7 +13,7 @@ class Quotations
 	public function __construct()
 	{
 		$this->list = Configuration::loadJson(
-			self::FILENAME,
+			Configuration::getLocalDir() . '/' . self::FILENAME,
 			array()
 		) ;
 	}
@@ -24,7 +24,7 @@ class Quotations
 		if ( $this->edited )
 		{
 			Configuration::saveJson(
-				self::FILENAME,
+				Configuration::getLocalDir() . '/' . self::FILENAME,
 				$this->list
 			) ;
 		}

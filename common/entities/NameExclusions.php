@@ -2,7 +2,7 @@
 
 class NameExclusions
 {
-	const FILENAME = 'local/nameexclusions.json' ;
+	const FILENAME = 'nameexclusions.json' ;
 	
 	private $list ;
 	private $edited = false ;
@@ -11,7 +11,7 @@ class NameExclusions
 	public function __construct()
 	{
 		$this->list = Configuration::loadJson(
-			self::FILENAME,
+			Configuration::getLocalDir() . '/' . self::FILENAME,
 			array()
 		) ;
 	}
@@ -22,7 +22,7 @@ class NameExclusions
 		if ( $this->edited )
 		{
 			Configuration::saveJson(
-				self::FILENAME,
+				Configuration::getLocalDir() . '/' . self::FILENAME,
 				$this->list
 			) ;
 		}

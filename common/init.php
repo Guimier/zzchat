@@ -13,11 +13,7 @@ spl_autoload_register( array(
 	'load'
 ) ) ;
 
-Configuration::initiate(
-	$root,
-	'default/configuration.json',
-	'local/configuration.json'
-) ;
+Configuration::initiate( $root, 'local' ) ;
 
 Context::setCanonical( php_sapi_name() == 'cli'
 	? new CliContext( $argv )

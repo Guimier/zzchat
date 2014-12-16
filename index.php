@@ -31,7 +31,7 @@ function sendConfiguration()
 /** Insert the notice if it has been defined. */
 function showNotice()
 {
-	$noticeFile = Configuration::getFullPath( 'local/notice.html' ) ;
+	$noticeFile = Configuration::getFullPath( Configuration::getLocalDir() . '/' . 'notice.html' ) ;
 	
 	if ( file_exists( $noticeFile ) )
 	{

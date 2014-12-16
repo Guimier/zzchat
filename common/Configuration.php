@@ -14,20 +14,23 @@ class Configuration
 	/** Initiate the configuration.
 	 * @param string $root Full path to the root directory of Agora.
 	 * @param string $defaultConfigRelativePath Relative path to the default configuration.
-	 * @param string $localConfigRelativePath Relative path to the configuration the administrator may change.
+	 * @param string $localDir Relative path to the directory containing local data.
 	 */
-	public static function initiate( $root, $defaultConfigRelativePath, $localConfigRelativePath )
+	public static function initiate( $root, $localDir )
 	{
 		self::$root = $root ;
-		self::$defaultConfig = self::loadJson( $defaultConfigRelativePath, array() ) ;
-		self::$localConfig = self::loadJson( $localConfigRelativePath, array() ) ;
-		self::$localFile = $localConfigRelativePath ;
+		self::$localDir = $localDir ;
+		self::$defaultConfig = self::loadJson( "default/configuration.json", array() ) ;
+		self::$localConfig = self::loadJson( "$localDir/configuration.json", array() ) ;
 	}
 
 /***** Paths *****/
 
 	/** Full path to the root directory of Agora. */
 	private static $root = null ;
+	
+	/** Relative path to the directory containing local data. */
+	private static $localDir = null ;
 	
 	/** Get root repository path. */
 	public static function getRootDir()
@@ -36,11 +39,21 @@ class Configuration
 	}
 
 	/** Get specific data directory path (relative).
+	 * @param string $key Key for a subdirectory.
 	 * @return Full path to a specific data directory.
 	 */
 	public static function getDataDir( $key )
 	{
-		return '/local/data/' . $key ;
+		return self::$localDir . '/data/' . $key ;
+	}
+
+	/** Get specific local data relative path.
+	 * @return Full path to a specific data directory.
+	 * @codeCoverageIgnore Getter.
+	 */
+	public static function getLocalDir()
+	{
+		return self::$localDir ;
 	}
 
 	/** Get the full path to a file.
