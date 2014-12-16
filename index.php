@@ -132,7 +132,7 @@ function showNotice()
 			<div class="strut"></div>
 			<!--Formulaire-->
 			<div id="login">
-				<span id="nojs"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
+				<span id="nojs" class="error"><?php echo Context::getCanonical()->getMessage( 'web.nojs' ) ; ?></span>
 			</div>
 			<!--Footer-->
 			<div id="footer"></div>

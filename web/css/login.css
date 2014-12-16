@@ -1,12 +1,5 @@
 @charset "utf-8" ;
 
-.page-login #nojs,
-.page-login #login-error
-{
-	color : orange ;
-}
-
-
 .page-login #nojs
 {
 	font-size : 1.2vmax ;

@@ -138,6 +138,7 @@
 			.append( $( '<p>' )
 				.hide()
 				.attr( 'id', 'login-error' )
+				.addClass( 'error' )
 			) ;
 	}
 

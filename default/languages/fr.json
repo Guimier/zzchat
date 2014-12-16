@@ -6,6 +6,10 @@
 	"quotations.quotation": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
+	"channels.create.do": "Créer",
+	"channels.create.name": "Nom",
+	"channels.create.title": "Description",
+	"channels.create.wintitle": "Créer un canal",
 	"channels.default.name": "Bienvenue",
 	"channels.default.title": "Bienvenue et bon clavardage !",
 	

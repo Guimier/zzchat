@@ -630,5 +630,83 @@
 		
 		$.each( openedChannels, closeChannel ) ;
 	} ;
+
+/*----- Channels creation. -----*/
+
+	function insertDialog()
+	{
+		var
+			$nameLabel = $( '<label>' )
+				.attr( 'for', 'create-channel-name' )
+				.trText( 'channels.create.name' ),
+			
+			$nameInput = $( '<input>' )
+				.attr( {
+					id: 'create-channel-name',
+					type: 'text'
+				} ),
+			
+			$titleLabel = $( '<label>' )
+				.attr( 'for', 'create-channel-title' )
+				.trText( 'channels.create.title' ),
+			
+			$titleInput = $( '<input>' )
+				.attr( {
+					id: 'create-channel-title',
+					type: 'text'
+				} ),
+			
+			$doButton = $( '<input>' )
+				.attr( {
+					id: 'create-channel-do',
+					type: 'button'
+				} )
+				.trAttr( 'value', 'channels.create.do' )
+				.click(
+					function ()
+					{
+						ajax.add(
+							'POST', 'createChannel',
+							{ name: $nameInput.val(), title: $titleInput.val() },
+							function ( data )
+							{
+								openedChannels[data.id] = new Channel( data ) ;
+								openedChannels[data.id].show() ;
+								$createDialog.dialog( 'close' ) ;
+							},
+							function ( error )
+							{
+								$error.show().trText( error.msgName, error.msgArgs ) ;
+							}
+						) ;
+					}
+				),
+			
+			$error = $( '<p>' ).addClass( 'error' ).hide(),
+			
+			$createDialog = $( '<div>' )
+				.attr( 'id', 'create-channel' )
+				.hide()
+				.append( $nameLabel )
+				.append( $nameInput )
+				.append( $titleLabel )
+				.append( $titleInput )
+				.append( $doButton )
+				.append( $error ) ;
+		
+		$( document.body ).append( $createDialog ) ;
+		$createDialog.dialog( { autoOpen: false } ) ;
+	
+		$createDialog.closest( '.ui-dialog' ).find( '.ui-dialog-title' ).trText( 'channels.create.wintitle' )
+	
+		$( '#channels-new' ).click(
+			function ()
+			{
+				$createDialog.dialog( 'open' ) ;
+			}
+		) ;
+	}
+	
+	$( document ).ready( insertDialog ) ;
 	
 } ) ( jQuery ) ;

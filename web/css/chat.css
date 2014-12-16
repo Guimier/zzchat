@@ -342,4 +342,38 @@
 	display : none ;
 }
 
+/***** Channels creation *****/
+
+#create-channel > *
+{
+	display : block ;
+	box-sizing : border-box ;
+	margin : 0 ;
+	width : 100% ;
+}
+
+#create-channel label
+{
+	text-align : center ;
+}
+
+#create-channel p
+{
+	margin-top : 0.5em ;
+	text-align : center ;
+	font-size : smaller ;
+	font-weight : bolder ;
+}
+
+#create-channel input[type="text"]
+{
+	margin-bottom : 0.5em ;
+}
+
+#create-channel input[type="button"]
+{
+	color : black ;
+	border-color : black ;
+	background-color : #bbb ;
+}
 
