@@ -109,14 +109,14 @@ abstract class Entity
 		return $entities[$entityId] ;
 	}
 	
-	/* Replace the multiple occurence of spaces by only one space.
+	/** Replace the multiple occurence of spaces by only one space.
 	 * @param string $name The name that we want to normalize.
 	 * @return string The name normalized.
 	 */
-	 public static function normalize( $name )
-	 {
+	public static function normalize( $name )
+	{
 		return preg_replace( '#\s+#', ' ', trim( $name ) ) ;
-	 }
+	}
 	 
 	/** Create a entity (for use by children clases).
 	 * 
@@ -135,6 +135,9 @@ abstract class Entity
 		}
 		
 		$name = self::normalize( $name ) ;
+		
+		$ne = new NameExclusions() ;
+		$ne->checkName( $name ) ;
 		
 		if ( strlen( $name ) < Configuration::getValue( static::getEntityType() . '.minnamelength' ) )
 		{
