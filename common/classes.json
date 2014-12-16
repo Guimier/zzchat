@@ -54,6 +54,7 @@
 	"QuotationAjaxQueryPart": "web/php/ajax/QuotationAjaxQueryPart.php",
 	"QuotationsCommand": "cli/classes/QuotationsCommand.php",
 	"Quotations": "common/Quotations.php",
+	"TooManyEntitiesException": "common/entities/TooManyEntitiesException.php",
 	"User": "common/entities/users/User.php",
 	"UsersCommand": "cli/classes/UsersCommand.php",
 	"WebContext": "web/php/WebContext.php",
