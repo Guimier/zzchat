@@ -154,7 +154,7 @@
 				
 				if (  $.isArray( elem ) )
 				{
-					res = elem.join( ',' ) ;
+					res = elem.length ? elem.join( ',' ) : undefined ;
 				}
 				else if ( typeof elem === 'boolean' )
 				{
