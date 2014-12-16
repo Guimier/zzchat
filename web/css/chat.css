@@ -69,8 +69,11 @@
 {
 	position : relative ;
 	
-	color : white ;
-	background-color : black ;
+	color : black ;
+	background-image : url( "../img/chatBackground" ) ;
+	background-repeat : no-repeat ;
+	background-size : 100% auto ;
+	
 	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
@@ -89,9 +92,9 @@
 {
 	margin : 0 0.5em 1em ;
 	padding : 0.5em 0.25em ;
-	color : #ddd ;
+	color : #555 ;
 	font-style : italic ;
-	border-bottom : 1px solid #ddd ;
+	border-bottom : 1px solid #555 ;
 }
 
 .page-chat .messages .speaker
@@ -115,7 +118,7 @@
 {
 	position : relative ;	
 	
-	color : white ;
+	color : black ;
 	background-color : black ;
 	border-color : white ;
 	border-style : solid ;
@@ -289,9 +292,16 @@
 	flex-direction : column ;
 }
 
+.page-chat .mrge-popup .mrge-popup-header
+{
+	background-color : #e0e0e0 ;
+}
+
 .page-chat .mrge-content
 {
-	background-color : white ;
+	background-image : url( "../img/chatBackground" ) ;
+	background-repeat : no-repeat ;
+	background-size : 100% auto ; ;
 }
 
 .page-chat .mrge-toolbox
@@ -299,21 +309,32 @@
 	background-color : grey ;
 }
 
+.morrigan-editor .mrge-toolbox li
+{
+	background-color : #5e5e5e ;
+}
+
 .page-chat .morrigan-editor .mrge-toolbox .mrge-disabled
 {
-	background-color : red ;
+	background-color : #e0e0e0 ;
 	color : black ;
 }
 
 .morrigan-editor .mrge-toolbox .mrge-action 
 {
-	background-color : red ;
+	background-color : #e0e0e0 ;
 	color : black ;
 }
 
 .morrigan-editor .mrge-toolbox .mrge-action.mrge-active
 {
-	background-color : green ;
+	background-color : #aaa ;
+}
+
+.morrigan-editor .mrge-popup-overlay
+{
+	background-color : black ;
+	opacity : 0,3 ;
 }
 
 .page-chat #channels-inactives
