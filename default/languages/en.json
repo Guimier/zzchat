@@ -112,7 +112,7 @@
 	"exception.channels.toomanyentities": "Too many active channels",
 	"exception.users.toomanyentities": "Too many active users",
 	"exceptions.postcontenttoolong": "The post is ${percentage}% too long",
-	"exception.notauthorizedname": "The name ${name} is not authorized",
+	"exceptions.notauthorizedname": "The name “${name}” is not authorized",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

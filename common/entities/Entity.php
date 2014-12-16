@@ -136,7 +136,8 @@ abstract class Entity
 		
 		$name = self::normalize( $name ) ;
 		
-		NameExclusions::checkName( $name ) ;
+		$ne = new NameExclusions() ;
+		$ne->checkName( $name ) ;
 		
 		if ( strlen( $name ) < Configuration::getValue( static::getEntityType() . '.minnamelength' ) )
 		{
