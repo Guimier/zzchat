@@ -399,11 +399,6 @@
 	font-weight : bolder ;
 }
 
-#create-channel-type-default
-{
-	font-style : italic ;
-}
-
 #create-channel input[type="text"],
 #create-channel select
 {

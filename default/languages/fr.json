@@ -11,7 +11,6 @@
 	"channels.create": "Nouveau",
 	"channels.create.title": "Description",
 	"channels.create.type": "Type",
-	"channels.create.type.default": "Type par défaut",
 	"channels.create.type.theater": "Théâtre",
 	"channels.create.type.normal": "Normal",
 	"channels.create.wintitle": "Créer un canal",

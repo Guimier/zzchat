@@ -740,7 +740,7 @@
 								
 								$nameInput.val( null ) ;
 								$titleInput.val( null ) ;
-								$typeSelect.val( 'default' ) ;
+								$typeSelect.val( configuration.get( 'defaulttype' ) ) ;
 							},
 							function ( error )
 							{
@@ -764,17 +764,16 @@
 				.append( $doButton )
 				.append( $error ) ;
 			
-		function addTypeOption( type, selected )
+		function addTypeOption( type )
 		{
 			$typeSelect.append( $( '<option>' )
 				.val( type )
 				.attr( 'id', 'create-channel-type-' + type )
-				.prop( 'selected', selected || false )
+				.prop( 'selected', type === configuration.get( 'defaulttype' ) )
 				.trText( 'channels.create.type.' + type )
 			) ;
 		}
 		
-		addTypeOption( 'default', true ) ;
 		addTypeOption( 'normal' ) ;
 		addTypeOption( 'theater' ) ;
 		

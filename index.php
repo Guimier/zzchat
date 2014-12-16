@@ -18,6 +18,7 @@ function sendConfiguration()
 		'metarate' => Configuration::getValue( 'ajax.metarate' ),
 		'channelsrate' => Configuration::getValue( 'ajax.channelsrate' ),
 		'backlog' => Configuration::getValue( 'ajax.backlog' ),
+		'defaulttype' => Configuration::getValue( 'channels.defaulttype' ),
 		'user' => $user instanceof User ? $user->getName() : null,
 		'channels' => array( -1 )
 	) ;
