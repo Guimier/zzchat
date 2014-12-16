@@ -148,9 +148,6 @@ class Configuration
 	}
 
 /***** Configuration management. *****/
-	
-	/** Local configuration relative path. */
-	private static $localFile ;
 
 	/** Get the state for a key.
 	 *
@@ -200,7 +197,7 @@ class Configuration
 	/** Save the edited local configuration. */
 	public static function saveLocal()
 	{
-		self::saveJson( self::$localFile, self::$localConfig ) ;
+		self::saveJson( self::$localDir . '/configuration.json', self::$localConfig ) ;
 	}
 
 	/** Return to default for a given key.
