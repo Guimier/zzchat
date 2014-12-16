@@ -327,7 +327,7 @@
 				post = posts[i] ;
 				if ( this.shownPosts.indexOf( post.id ) < 0 )
 				{
-					if ( post.owner.id != this.lastUser )
+					if ( post.owner.id !== this.lastUser )
 					{
 						this.lastUser = post.owner.id ;
 						this.$posts.append( $( '<p>' )
@@ -583,7 +583,7 @@
 	 * @private
 	 * @param {Number} id* Id of a channel to close.
 	 */
-	function close( /* id* */ )
+	function close( /* id* */ ) // jshint ignore:line // Used in Channel::onClose
 	{
 		var i, list, showAnother = false ;
 		
@@ -780,7 +780,10 @@
 		$( document.body ).append( $createDialog ) ;
 		$createDialog.dialog( { autoOpen: false } ) ;
 	
-		$createDialog.closest( '.ui-dialog' ).find( '.ui-dialog-title' ).trText( 'channels.create.wintitle' )
+		$createDialog
+			.closest( '.ui-dialog' )
+			.find( '.ui-dialog-title' )
+			.trText( 'channels.create.wintitle' ) ;
 	
 		$( '#channels-title' ).trText( 'channels.inactives' ) ;
 	
