@@ -43,6 +43,7 @@
 	"LogoutAjaxQueryPart": "web/php/ajax/LogoutAjaxQueryPart.php",
 	"MessagesAjaxQueryPart": "web/php/ajax/MessagesAjaxQueryPart.php",
 	"MessagesCommand": "cli/classes/MessagesCommand.php",
+	"NameExclusions": "common/entities/NameExclusions.php",
 	"NoNameGivenException": "web/php/exceptions/NoNameGivenException.php",
 	"NoSuchConfigurationKeyException": "common/exceptions/NoSuchConfigurationKeyException.php",
 	"NoSuchEntityException": "common/entities/channels/PostContentTooLong.php",

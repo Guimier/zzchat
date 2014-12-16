@@ -110,6 +110,7 @@
 	"exception.channels.toomanyentities": "Trop de canaux actifs",
 	"exception.users.toomanyentities": "Trop d'utilisateur actifs",
 	"exceptions.postcontenttoolong": "Le message est trop long de ${percentage} %",
+	"exception.notauthorizedname": "Le nom ${name} n'est pas autorisé",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
