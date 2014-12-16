@@ -26,17 +26,17 @@ class AjaxQueryTest extends ClassTester
 
 		if ( defined( 'JSON_UNESCAPED_UNICODE' ) )
 		{
-			$expected = 
+			$expected =
 <<<JSON
-{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"baz"},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"nonexistant"}}
+{"working":{"success":true,"data":["foo","ß","×"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"#[baz]#","struct":{"message":"baz","arguments":[]}},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"“nonexistant” query part does not exist","struct":{"message":"exceptions.nosuchquerypart","arguments":{"partname":"nonexistant"}}}}
 JSON
 			;
 		}
 		else
 		{
-			$expected = 
+			$expected =
 <<<JSON
-{"working":{"success":true,"data":["foo","\u00df","\u00d7"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"baz"},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"nonexistant"}}
+{"working":{"success":true,"data":["foo","\u00df","\u00d7"]},"workingNull":{"success":true},"workingEmpty":{"success":true,"data":[]},"throwingUser":{"success":false,"type":"user","error":"GenericAgoraUserException","message":"#[baz]#","struct":{"message":"baz","arguments":[]}},"throwingInternal":{"success":false,"type":"internal"},"nonexistant":{"success":false,"type":"user","error":"NoSuchQueryPartException","message":"“nonexistant” query part does not exist","struct":{"message":"exceptions.nosuchquerypart","arguments":{"partname":"nonexistant"}}}}
 JSON
 			;
 		}
