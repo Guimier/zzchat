@@ -656,6 +656,13 @@
 					type: 'text'
 				} ),
 			
+			$typeLabel = $( '<label>' )
+				.attr( 'for', 'create-channel-type' )
+				.trText( 'channels.create.type' ),
+			
+			$typeSelect = $( '<select>' )
+				.attr( 'id', 'create-channel-type' ),
+			
 			$doButton = $( '<input>' )
 				.attr( {
 					id: 'create-channel-do',
@@ -665,9 +672,17 @@
 				.click(
 					function ()
 					{
+						var
+							data = { name: $nameInput.val(), title: $titleInput.val() },
+							type = $typeSelect.val() ;
+						
+						if ( type !== 'default' )
+						{
+							data.type = type ;
+						}
+					
 						ajax.add(
-							'POST', 'createChannel',
-							{ name: $nameInput.val(), title: $titleInput.val() },
+							'POST', 'createChannel', data,
 							function ( data )
 							{
 								openedChannels[data.id] = new Channel( data ) ;
@@ -691,8 +706,24 @@
 				.append( $nameInput )
 				.append( $titleLabel )
 				.append( $titleInput )
+				.append( $typeLabel )
+				.append( $typeSelect )
 				.append( $doButton )
 				.append( $error ) ;
+			
+		function addTypeOption( type, selected )
+		{
+			$typeSelect.append( $( '<option>' )
+				.val( type )
+				.attr( 'id', 'create-channel-type-' + type )
+				.prop( 'selected', selected || false )
+				.trText( 'channels.create.type.' + type )
+			) ;
+		}
+		
+		addTypeOption( 'default', true ) ;
+		addTypeOption( 'normal' ) ;
+		addTypeOption( 'theater' ) ;
 		
 		$( document.body ).append( $createDialog ) ;
 		$createDialog.dialog( { autoOpen: false } ) ;

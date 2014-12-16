@@ -376,12 +376,19 @@
 	font-weight : bolder ;
 }
 
-#create-channel input[type="text"]
+#create-channel-type-default
+{
+	font-style : italic ;
+}
+
+#create-channel input[type="text"],
+#create-channel select
 {
 	margin-bottom : 0.5em ;
 }
 
-#create-channel input[type="button"]
+#create-channel input[type="button"],
+#create-channel select
 {
 	color : black ;
 	border-color : black ;
