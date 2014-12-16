@@ -53,6 +53,7 @@
 		/* Add the body. */
 		this.$body = $( '<div>' )
 			.addClass( 'channel' )
+			.addClass( 'channel-' + this.type )
 			.attr( 'id', 'channel-' + this.id )
 			.append( $( '<div>' ).addClass( 'channelCore' )
 				.append( this.$posts )
