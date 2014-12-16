@@ -42,6 +42,9 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		}
 	}
 
+	/** Are we loading a class hierarchy? */
+	private static $loading = false ;
+
 	/** Load the tested class.
 	 * Logical place for part of this would be setUpBeforeClass, but setUpBeforeClass
 	 * is called before #run.
@@ -58,8 +61,8 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		require_once __DIR__ . '/TestContext.php' ;
 		Context::setCanonical( new TestContext() ) ;
 		
-		$reqData = $this->getRootDir() . '/tests/' . $this->className . '/data' ;
-		$tmpData = $this->getRootDir() . '/tests/' . $this->className . '/testdata' ;
+		$reqData = "$dir/data" ;
+		$tmpData = "$dir/testdata" ;
 		if ( is_dir( $reqData ) )
 		{
 			cpTree( $reqData, $tmpData ) ;
@@ -67,7 +70,9 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		Configuration::initiate( self::getRootDir(), 'tests/' . $this->className . '/testdata' ) ;
 		
 		$this->tryLoad( "$dir/placeholders.php" ) ;
+		self::$loading = true ;
 		$this->load( $this->className ) ;
+		self::$loading = false ;
 		$this->tryLoad( "$dir/extenders.php" ) ;
 	}
 
@@ -98,10 +103,10 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	private static $autoloader = null ;
 
 	/** Load a class (unrestricted access to the autoloader).
-	 *
+	 * This method is now public: load any **core** class you need.
 	 * @param string $className Class to load.
 	 */
-	private static function load( $className )
+	public static function load( $className )
 	{
 		if ( self::$autoloader == null )
 		{
@@ -116,7 +121,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	 */
 	public static function loadRestricted( $className )
 	{
-		if ( substr( $className, -9 ) === 'Exception' )
+		if ( self::$loading || substr( $className, -9 ) === 'Exception' )
 		{
 			self::load( $className ) ;
 		}
