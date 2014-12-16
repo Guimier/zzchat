@@ -81,6 +81,10 @@ function showNotice()
 			id="css-chat"
 			href="web/css/chat.css"
 		/>
+		<link 
+			rel="stylesheet" 
+			href="web/lib/jquery.mCustomScrollbar.css" 
+		/>
 	
 		<!-- Scripts -->
 		<script src="web/lib/jquery.js"></script>
@@ -93,6 +97,7 @@ function showNotice()
 		<script src="web/lib/morrigan.js"></script>
 		<script src="web/js/channel.js"></script>
 		<script src="web/js/chat.js"></script>
+		<script src="web/lib/jquery.mCustomScrollbar.concat.js"></script>
 	</head>
 	<body>
 		<!--Container-->

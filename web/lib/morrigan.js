@@ -45,6 +45,7 @@ $.widget( "morrigan.morrigan_editor", {
 
     _browser: {},
     _content: null,
+    _mcs: null,
     _window: null,
     _actionManager: null,
     _selectionManager: null,
@@ -1430,12 +1431,13 @@ $.widget( "morrigan.morrigan_editor", {
 //            $($.grep(children, function (item) {
 //                return !$(item).hasClass('mrge-support-element');
 //            })).detach();
-            return this._content.append(html).get(0);
+			this._content.mCustomScrollbar( 'update' ) ;
+            return this._mcs.append(html).get(0);
         } else {
             var targetHtml;
             var contentClone = this._content.clone();
             contentClone.find('.mrge-temp-support-element').remove();
-            contentClone.find('br').remove();
+            //contentClone.find('br').remove();
             contentClone.find('b').each(function () {
                 targetHtml = this.innerHTML;
                 $(this).replaceWith($('<strong></strong>').html(targetHtml))
@@ -1446,6 +1448,14 @@ $.widget( "morrigan.morrigan_editor", {
             });
             return contentClone.html();
         }
-    }
+    },
+    
+    mCustomScrollbar: function ()
+    {
+		console.log( this._content ) ;
+	    $.fn.mCustomScrollbar.apply( this._content, arguments ) ;
+	    this._mcs = this._content ;
+	    this._content = this._mcs.find( '.mCSB_container' ) ;
+	}
 
 });
