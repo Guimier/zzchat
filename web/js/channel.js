@@ -160,6 +160,13 @@
 		unread: 0,
 		
 		/**
+		 * Array containing the id of the posts which have already been shown.
+		 * @property {Array} shownPosts
+		 * @private
+		 */
+		shownPosts: [],
+		
+		/**
 		 * Is the channel visible ?
 		 * @method isVisible
 		 */
@@ -278,29 +285,34 @@
 		 */
 		newPosts: function( posts )
 		{
-			var i, post ;
+			var i, post, postIds = [] ;
 			
 			for ( i = 0 ; i < posts.length ; ++ i )
 			{
 				post = posts[i] ;
-				
-				if ( post.owner.id !== this.lastUser )
+				if ( this.shownPosts.indexOf( post.id ) < 0 )
 				{
-					this.lastUser = post.owner.id ;
+					if ( post.owner.id != this.lastUser )
+					{
+						this.lastUser = post.owner.id ;
+						this.$posts.append( $( '<p>' )
+							.addClass( 'speaker' )
+							.text( post.owner.name )
+						) ;
+					}
+					
 					this.$posts.append( $( '<p>' )
-						.addClass( 'speaker' )
-						.text( post.owner.name )
+						.addClass( 'message' )
+						.html( post.content )
+						.prepend( this.$date(
+							new Date( post.date * 1000 )
+						) )
 					) ;
+					postIds.push( post.id ) ; 
 				}
-				
-				this.$posts.append( $( '<p>' )
-					.addClass( 'message' )
-					.html( post.content )
-					.prepend( this.$date(
-						new Date( post.date * 1000 )
-					) )
-				) ;
 			}
+			
+			this.shownPosts = postIds ;
 			
 			if ( ! this.isVisible() && posts.length )
 			{
