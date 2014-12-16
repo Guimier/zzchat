@@ -14,6 +14,7 @@ class HTML
 		'p' => array(),
 		'strong' => array(),
 		'strike' => array(),
+		'em' => array(),
 		'a' => array(
 			'href' => '#^https?://#'
 		),

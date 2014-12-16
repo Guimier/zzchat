@@ -140,6 +140,14 @@ class Channel extends Entity
 	{
 		$this->activatedBy( $user ) ;
 		
+		$postLength = strlen( $content ) ;
+		$maxlength = Configuration::getValue()->channels.postlength ;		 
+		
+		if ( $postLength > Configuration::getValue()->channels.postlength )
+		{
+			throw new PostContentTooLongException( ( ( $postLength - $maxlength ) / $maxlength ) * 100 ) ;
+		}
+		
 		if ( ! is_string( $content ) )
 		{
 			throw new BadCallException() ;
