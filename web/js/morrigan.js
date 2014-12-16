@@ -17,9 +17,20 @@
 	 * @private
 	 */
 	var smileys = [
-		'smiley-x',
-		'smiley-v',
-		'smiley-o'
+		'smiley-angry',
+		'smiley-conniving',
+		'smiley-dead',
+		'smiley-happy',
+		'smiley-happy2',
+		'smiley-neutral',
+		'smiley-sad',
+		'smiley-sick',
+		'smiley-sleepy',
+		'smiley-smile',
+		'smiley-surprised',
+		'smiley-talky',
+		'smiley-unhappy',
+		'smiley-unhappy2'
 	] ;
 
 	/**
