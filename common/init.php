@@ -15,8 +15,12 @@ spl_autoload_register( array(
 
 Configuration::initiate( $root, 'local' ) ;
 
-Context::setCanonical( php_sapi_name() == 'cli'
-	? new CliContext( $argv )
-	: new WebContext( $_GET, $_POST )
-) ;
-
+if ( php_sapi_name() === 'cli' )
+{
+	Context::setCanonical( new CliContext( $argv ) ) ;
+}
+else
+{
+	session_start() ;
+	Context::setCanonical( new WebContext( $_GET, $_POST, $_SESSION ) ) ;
+}

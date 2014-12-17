@@ -164,8 +164,8 @@ abstract class Entity
 		
 		$data = array(
 			'name' => $name,
-			'creation' => $this->getTime(),
-			'last-action' => $this->getTime(),
+			'creation' => self::getTime(),
+			'last-action' => self::getTime(),
 			'ejected' => false
 		) ;
 		$data += $initialArray ;

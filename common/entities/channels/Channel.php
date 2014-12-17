@@ -48,7 +48,7 @@ class Channel extends Entity
 					: Configuration::getValue( 'channels.defaulttype' ),
 				'files' => array(),
 				'users' => array(
-					$channelCreator->getId() => $this->getTime()
+					$channelCreator->getId() => static::getTime()
 				)
 			)
 		) ;
