@@ -154,13 +154,17 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		$command->execute() ;
 	}
 
+	private $session = array() ;
+	
+	protected function setSession( array $new ) { $this->session = $new ; }
+	protected function getSession() { return $this->session  ; }
+
 	protected function runAjax( $get = array(), $post = array() )
 	{
-		$session = array() ;
 		$class = $this->className ;
 		$this->load( 'WebContext' ) ;
 		require_once __DIR__ . '/TestWebContext.php' ;
-		$queryPart = new $class( 'p', new TestWebContext( $get, $post, $session ) ) ;
+		$queryPart = new $class( 'p', new TestWebContext( $get, $post, $this->session ) ) ;
 		return $queryPart->execute() ;
 	}
 
