@@ -12,6 +12,7 @@ function sendConfiguration()
 	$user = Context::getCanonical()->getUser() ;
 	
 	$jsConf = array(
+		'prefix' => Configuration::getValue( 'prefix' ),
 		'languages' => $langs->getAllLanguages(),
 		'language' => Configuration::getValue( 'language' ),
 		'postsrate' => Configuration::getValue( 'ajax.postsrate' ),

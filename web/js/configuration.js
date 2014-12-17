@@ -23,6 +23,11 @@
 		values = {} ;
 
 	window.configuration = {} ;
+
+	window.configuration.getKey = function ( rawKey )
+	{
+		return values.prefix !== '' ? values.prefix + '-' + rawKey : rawKey ;
+	}
 	
 	/**
 	 * Initialise data (supposed to be with server defaults).
@@ -49,7 +54,7 @@
 	window.configuration.get = function ( key )
 	{
 		var res = JSON.parse(
-			localStorage.getItem( 'configuration-' + key )
+			localStorage.getItem( this.getKey( 'configuration-' + key ) )
 		) ;
 		
 		if ( res === null && typeof values[key] !== 'undefined' )
@@ -70,7 +75,7 @@
 	window.configuration.setLocal = function ( key, value )
 	{
 		localStorage.setItem(
-			'configuration-' + key,
+			this.getKey( 'configuration-' + key ),
 			JSON.stringify( value )
 		) ;
 	} ;
@@ -83,7 +88,7 @@
 	 */
 	window.configuration.returnToDefault = function ( key )
 	{
-		localStorage.removeItem( 'configuration-' + key ) ;
+		localStorage.removeItem( this.getKey( 'configuration-' + key ) ) ;
 	} ;
 
 } ) () ;

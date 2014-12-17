@@ -36,7 +36,7 @@
 	function loginSuccess( name )
 	{
 		user = name ;
-		localStorage.setItem( 'lastname', name ) ;
+		localStorage.setItem( configuration.getKey( 'lastname' ), name ) ;
 		$( '#loginForm' ).removeClass( 'login-waiting' ) ;
 		$( '#login-error' ).hide() ;
 		initChatPage() ;
@@ -125,7 +125,7 @@
 					name: 'pseudo',
 					type: 'text'
 				} )
-				.val( localStorage.getItem( 'lastname' ) )
+				.val( localStorage.getItem( configuration.getKey( 'lastname' ) ) )
 			)
 			.append( '<br>' )
 			.append( $( '<input>' )

@@ -19,6 +19,13 @@ class WebContext extends Context
 	/* Current User. */
 	private $user = null ;
 	
+	/** Get the session key for th user-id. */
+	public function getSessionKey()
+	{
+		$prefix = Configuration::getValue( 'prefix' ) ;
+		return $prefix === '' ? 'user-id' : "$prefix-user-id" ;
+	}
+	
 	/** Constructor.
 	 * @param array $getParams Array of GET parameters ($_GET).
 	 * @param array $postParams Array of POST parameters ($_POST).
@@ -32,11 +39,11 @@ class WebContext extends Context
 		$this->postParams = $postParams ;
 		$this->session = &$session ;
 		
-		if ( array_key_exists( 'user-id', $this->session ) )
+		if ( array_key_exists( $this->getSessionKey(), $this->session ) )
 		{
 			try
 			{
-				$user = User::getById( $this->session['user-id'] ) ;
+				$user = User::getById( $this->session[$this->getSessionKey()] ) ;
 
 				if( $user->isActive() )
 				{
@@ -117,11 +124,11 @@ class WebContext extends Context
 	{
 		if ( $this->user === null )
 		{
-			unset ( $this->session['user-id'] ) ;
+			unset ( $this->session[$this->getSessionKey()] ) ;
 		}
 		else
 		{
-			$this->session['user-id'] = $this->user->getId() ;
+			$this->session[$this->getSessionKey()] = $this->user->getId() ;
 		}
 	}
 	
