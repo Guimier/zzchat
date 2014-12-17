@@ -14,26 +14,29 @@ class WebContext extends Context
 	private $getParams ;
 	/** Array of POST parameters ($_POST). */
 	private $postParams ;
+	/** Array of session variables ($_SESSION). */
+	private $session ;
 	/* Current User. */
 	private $user = null ;
 	
 	/** Constructor.
 	 * @param array $getParams Array of GET parameters ($_GET).
 	 * @param array $postParams Array of POST parameters ($_POST).
+	 * @param array $postParams Array of sessions variables ($_SESSION).
 	 */
-	public function __construct( $getParams, $postParams )
+	public function __construct( $getParams, $postParams, &$session )
 	{
 		parent::__construct() ;
 		
 		$this->getParams = $getParams ;
 		$this->postParams = $postParams ;
+		$this->session = &$session ;
 		
-		session_start() ;
-		if ( array_key_exists( 'user-id', $_SESSION ) )
+		if ( array_key_exists( 'user-id', $this->session ) )
 		{
 			try
 			{
-				$user = User::getById( $_SESSION['user-id'] ) ;
+				$user = User::getById( $this->session['user-id'] ) ;
 
 				if( $user->isActive() )
 				{
@@ -114,11 +117,11 @@ class WebContext extends Context
 	{
 		if ( $this->user === null )
 		{
-			unset ( $_SESSION['user-id'] ) ;
+			unset ( $this->session['user-id'] ) ;
 		}
 		else
 		{
-			$_SESSION['user-id'] = $this->user->getId() ;
+			$this->session['user-id'] = $this->user->getId() ;
 		}
 	}
 	
