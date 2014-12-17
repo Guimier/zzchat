@@ -44,7 +44,7 @@
 		this.$presents = $( '<ul>' ).addClass( 'presents' ) ;
 		
 		/* Create the messages list. */
-		this.$posts = $( '<div>' ).addClass( 'messages' ) ;
+		this.$posts = $( '<div>' ) .addClass( 'messages' ) ;
 		this.$posts.append($( '<p>' )
 			.addClass( 'title' )
 			.text( this.title )
@@ -214,8 +214,20 @@
 			/* Set up the WYSIWYG if not already done. */
 			if ( ! this.shown )
 			{
+				var mcsOpts = {
+					theme: 'dark-3',
+					alwaysShowScrollbar: 2,
+					scrollInertia: 0,
+					autoDraggerLength: true,
+					scrollButtons:{ enable: true }
+				} ;
+				
 				this.shown = true ;
 				this.$wysiwyg.wysiwyg( this.type ) ;
+				this.$wysiwyg.morrigan_editor( 'mCustomScrollbar', mcsOpts ) ;
+				
+				this.$posts.mCustomScrollbar( mcsOpts ) ;
+				this.$posts = this.$posts.find( '.mCSB_container' ) ;
 			}
 		},
 		
@@ -346,6 +358,8 @@
 					postIds.push( post.id ) ; 
 				}
 			}
+				
+			this.$posts.mCustomScrollbar( 'update' ) ;
 			
 			this.shownPosts = postIds ;
 			
