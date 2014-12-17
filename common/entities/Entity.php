@@ -118,6 +118,17 @@ abstract class Entity
 	{
 		return preg_replace( '#\s+#', ' ', trim( $name ) ) ;
 	}
+	
+	/** Send error if the string contains illegal characters.
+	 * 
+	 * @param string $name
+	 * 
+	 * @return bool true: there is illegal characters, false otherwise.
+	 */
+	public static function containsIllegalCharacter( $name )
+	{
+		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç0-9\' -]*$#', $name ) ;
+	}
 	 
 	/** Create a entity (for use by children clases).
 	 * 
@@ -349,17 +360,6 @@ abstract class Entity
 	public function getName()
 	{
 		return $this->data['name'] ;
-	}
-	
-	/** Send error if the string contains illegal characters.
-	 * 
-	 * @param string $name
-	 * 
-	 * @return bool true: there is illegal characters, false otherwise.
-	 */
-	public function containsIllegalCharacter( $name )
-	{
-		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç0-9\' -]*$#', $name ) ;
 	}
 	
 }
