@@ -12,4 +12,26 @@ class QuotationsCommandTest extends ClassTester
 	{
 		$this->runCommand( 'QuotationsCommand', 'add' ) ;
 	}
+	
+	public function testAdditionWithAuthor()
+	{
+		$this->runCommand( 'QuotationsCommand', 'add', '--text=A text', '--author=An author' ) ;
+		$this->assertEquals(
+			Quotations::$calls,
+			array(
+				array( 'text' => 'A text', 'author' => 'An author' )
+			)
+		) ;
+	}
+	
+	public function testAdditionWithoutAuthor()
+	{
+		$this->runCommand( 'QuotationsCommand', 'add', '--text=A text' ) ;
+		$this->assertEquals(
+			Quotations::$calls,
+			array(
+				array( 'text' => 'A text', 'author' => null )
+			)
+		) ;
+	}
 }
