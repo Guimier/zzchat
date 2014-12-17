@@ -23,6 +23,6 @@ class NameExclusions
 	public function get( $id )
 	{
 		self::$calls[] = array( 'get', 'id' => $id ) ;
-		return 'a+b' ;
+		return 'Rodolf' ;
 	}
 }

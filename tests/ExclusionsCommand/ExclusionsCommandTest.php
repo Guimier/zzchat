@@ -65,7 +65,7 @@ RAW
 		
 		$this->expectOutputString(
 <<<RAW
-1] a+b
+1] Rodolf
 
 RAW
 		) ;
