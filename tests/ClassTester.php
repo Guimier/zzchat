@@ -121,7 +121,11 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	 */
 	public static function loadRestricted( $className )
 	{
-		if ( self::$loading || substr( $className, -9 ) === 'Exception' )
+		if (
+			self::$loading
+			|| substr( $className, -9 ) === 'Exception'
+			|| substr( $className, -8 ) === 'Formater'
+		)
 		{
 			self::load( $className ) ;
 		}
@@ -150,12 +154,17 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		$command->execute() ;
 	}
 
-	protected function runAjax( $class, $get = array(), $post = array() )
+	private $session = array() ;
+	
+	protected function setSession( array $new ) { $this->session = $new ; }
+	protected function getSession() { return $this->session  ; }
+
+	protected function runAjax( $get = array(), $post = array() )
 	{
-		$session = array() ;
+		$class = $this->className ;
 		$this->load( 'WebContext' ) ;
 		require_once __DIR__ . '/TestWebContext.php' ;
-		$queryPart = new $class( 'p', new TestWebContext( $post, $get, $session ) ) ;
+		$queryPart = new $class( 'p', new TestWebContext( $get, $post, $this->session ) ) ;
 		return $queryPart->execute() ;
 	}
 

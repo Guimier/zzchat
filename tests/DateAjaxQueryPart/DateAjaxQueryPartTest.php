@@ -10,7 +10,7 @@ class DateAjaxQueryPartTest extends ClassTester
 	public function testDate()
 	{
 		$this->assertEquals(
-			$this->runAjax( 'DateAjaxQueryPart' ),
+			$this->runAjax(),
 			42
 		) ;
 	}
