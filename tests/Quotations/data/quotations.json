@@ -1,0 +1,14 @@
+[
+	{
+		"text": "Some quotation",
+		"author": "Me"
+	},
+	{
+		"text": "Some other quotation",
+		"author": "You"
+	},
+	{
+		"text": "Always more quotations",
+		"author": null
+	}
+]
