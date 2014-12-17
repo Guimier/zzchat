@@ -23,6 +23,8 @@ class WebContext extends Context
 	 */
 	public function __construct( $getParams, $postParams )
 	{
+		parent::__construct() ;
+		
 		$this->getParams = $getParams ;
 		$this->postParams = $postParams ;
 		

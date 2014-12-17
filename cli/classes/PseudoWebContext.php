@@ -10,7 +10,7 @@ class PseudoWebContext extends WebContext
 	/** Constructor.
 	 * @param CliContext $trueContext Real context.
 	 */
-	public function __construct( CliContext $trueContext )
+	public function __construct( Context $trueContext )
 	{
 		$this->trueContext = $trueContext ;
 	}
@@ -30,6 +30,14 @@ class PseudoWebContext extends WebContext
 	public function getUser()
 	{
 		return $this->trueContext->getUser() ;
+	}
+	
+	/** Get the time.
+	 * @codeCoverageIgnore Getter.
+	 */
+	public function getTime()
+	{
+		return $this->trueContext->getTime() ;
 	}
 	
 	/** Create and connect an user with the name in parameter.

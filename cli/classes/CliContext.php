@@ -15,6 +15,8 @@ class CliContext extends Context
 	 */
 	public function __construct( $argv )
 	{
+		parent::__construct() ;
+		
 		$this->parseArguments( $argv ) ;
 	}
 	

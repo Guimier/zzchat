@@ -50,6 +50,22 @@ abstract class Context
 
 /******************************************************************************/
 
+	private $time = null ;
+
+	/** constructor. */
+	protected function __construct()
+	{
+		$this->time = time() ;
+	}
+
+	/** Get the time. */
+	public function getTime()
+	{
+		return $this->time ;
+	}
+
+/******************************************************************************/
+
 	/** Get the string value of a parameter.
 	 * @param string $key Name of the parameter.
 	 * @param $more May be used by subclasses for selection precision (for example GET/POST), may be null.

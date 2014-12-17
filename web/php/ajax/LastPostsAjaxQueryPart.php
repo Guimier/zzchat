@@ -23,7 +23,7 @@ class LastPostsAjaxQueryPart extends AjaxQueryPart
 		}
 		
 		return array(
-			'date' => time(),
+			'date' => $this->getContext()->getTime(),
 			'posts' => $res
 		) ;
 	}
