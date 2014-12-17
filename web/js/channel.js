@@ -583,8 +583,8 @@
 	 * @private
 	 * @param {Number} id* Id of a channel to close.
 	 */
-	function close( /* id* */ ) // jshint ignore:line // Used in Channel::onClose
-	{
+	function close( /* id* */ ) // jshint ignore:line
+	{ // (jshint ignore explanation) Used in Channel::onClose
 		var i, list, showAnother = false ;
 		
 		for ( i = 0 ; i < arguments.length ; ++ i )

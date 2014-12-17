@@ -326,7 +326,7 @@
 				res = function ()
 				{
 					answered = true ;
-				}
+				} ;
 			}
 			
 			return res ;
