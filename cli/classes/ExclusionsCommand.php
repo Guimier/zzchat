@@ -68,7 +68,7 @@ class ExclusionsCommand extends Command
 		$raw = $exclusions->getAll() ;
 		$ids = $this->getParameter( 'id' ) ;
 		
-		if ( $ids === null )
+		if ( count ( $ids ) === 0 )
 		{
 			foreach ( $raw as $id => $exclusion )
 			{

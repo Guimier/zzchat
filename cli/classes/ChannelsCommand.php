@@ -1,6 +1,8 @@
 <?php
 
-/** Manage users. */
+/** Manage users.
+ * @codeCoverageIgnore 
+ */
 class ChannelsCommand extends EntityManagementCommand
 {
 
@@ -11,4 +13,3 @@ class ChannelsCommand extends EntityManagementCommand
 	}
 
 }
-

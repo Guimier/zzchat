@@ -44,7 +44,7 @@ abstract class Context
 	public static function arrayValue( $value )
 	{
 		return ( $value === null )
-			? null
+			? array()
 			: explode( ',', $value ) ;
 	}
 
