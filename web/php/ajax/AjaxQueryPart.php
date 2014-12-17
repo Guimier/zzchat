@@ -61,7 +61,7 @@ abstract class AjaxQueryPart
 	 */
 	protected function loggedInOnly()
 	{
-		$user = Context::getCanonical()->getUser() ;
+		$user = $this->context->getUser() ;
 		
 		if ( $user === null )
 		{
