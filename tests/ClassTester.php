@@ -11,15 +11,18 @@ require_once __DIR__ . '/trees.php' ;
 class ClassTester extends PHPUnit_Framework_TestCase
 {
 	
+	/** Name of the test directory. */
+	private $dirName ;
+	
 	/** Name of the class being tested. */
 	private $className ;
 
-	/** Constructor.
-	 */
+	/** Constructor. */
 	public function __construct( $name = NULL, array $data = array(), $dataName = '' )
 	{
 		parent::__construct( $name, $data, $dataName ) ;
-		$this->className = substr( get_class( $this ), 0, -4 ) ;
+		$this->className = preg_replace( '/^(\w+)_.+$/', '\1', get_class( $this ) ) ;
+		$this->dirName = preg_replace( '/^(.+)_\w+$/', '\1', get_class( $this ) ) ;
 	}
 
 	/** Wrapper for PHPUnit_Framework_TestCase::run
@@ -52,7 +55,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	public function setUp()
 	{
 		spl_autoload_register( 'ClassTester::loadRestricted' ) ;
-		$dir = __DIR__ . '/' . $this->className ;
+		$dir = __DIR__ . '/' . $this->dirName ;
 		
 		$this->load( 'JSON' );
 		$this->load( 'Configuration' ) ;
@@ -67,7 +70,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		{
 			cpTree( $reqData, $tmpData ) ;
 		}
-		Configuration::initiate( self::getRootDir(), 'tests/' . $this->className . '/testdata' ) ;
+		Configuration::initiate( self::getRootDir(), 'tests/' . $this->dirName . '/testdata' ) ;
 		
 		$this->tryLoad( "$dir/placeholders.php" ) ;
 		self::$loading = true ;
@@ -79,7 +82,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	/** Delete the temporary files. */
 	public function tearDown()
 	{
-		$tmpData = $this->getRootDir() . '/tests/' . $this->className . '/testdata' ;
+		$tmpData = $this->getRootDir() . '/tests/' . $this->dirName . '/testdata' ;
 		if ( is_dir( $tmpData ) )
 		{
 			rmTree( $tmpData ) ;
@@ -142,7 +145,7 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	/** Get relative path to the directory where test data is. */
 	public function getRelDataDir()
 	{
-		return 'tests/' . $this->className . '/testdata' ;
+		return 'tests/' . $this->dirName . '/testdata' ;
 	}
 
 /***** Specific classes types. *****/

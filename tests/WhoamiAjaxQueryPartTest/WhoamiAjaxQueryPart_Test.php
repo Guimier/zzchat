@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for  WhoamiAjaxQueryPart. */
-class WhoamiAjaxQueryPartTest extends ClassTester
+class WhoamiAjaxQueryPart_Test extends ClassTester
 {
 
 	public function testUnconnected()

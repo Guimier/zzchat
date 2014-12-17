@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for DateAjaxQueryPart. */
-class DateAjaxQueryPartTest extends ClassTester
+class DateAjaxQueryPart_Test extends ClassTester
 {
 
 	public function testDate()

@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for ActiveChannelsAjaxQueryPart. */
-class ActiveChannelsAjaxQueryPartTest extends ClassTester
+class ActiveChannelsAjaxQueryPart_Test extends ClassTester
 {
 
 	public function testWithName()
