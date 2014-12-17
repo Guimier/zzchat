@@ -112,6 +112,7 @@
 	"exception.users.toomanyentities": "Too many active users",
 	"exceptions.postcontenttoolong": "The post is ${percentage}% too long",
 	"exceptions.notauthorizedname": "The name “${name}” is not authorized",
+	"exceptions.emptymessage": "Empty post!",
 	
 	"login.validate": "Enter agora",
 	"login.welcome": "Say who you are",

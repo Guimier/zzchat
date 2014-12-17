@@ -110,6 +110,7 @@
 	"exception.users.toomanyentities": "Trop d'utilisateur actifs",
 	"exceptions.postcontenttoolong": "Le message est trop long de ${percentage} %",
 	"exceptions.notauthorizedname": "Le nom « ${name} » n'est pas autorisé",
+	"exceptions.emptymessage": "Message vide !",
 	
 	"login.validate": "Entrez dans l’agora",
 	"login.welcome": "Participant à l'agora, annoncez-vous :",
