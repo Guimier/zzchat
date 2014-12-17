@@ -9,7 +9,7 @@ class LoginAjaxQueryPart extends AjaxQueryPart
 		
 		if ( $name === null )
 		{
-			throw new NoNameGivenException() ;
+			throw new WebMissingParameterException( 'name' ) ;
 		}
 		
 		$this->getContext()->connect( $name ) ;
