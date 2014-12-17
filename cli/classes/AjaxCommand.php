@@ -11,7 +11,7 @@ class AjaxCommand extends Command
 	}
 
 	/** See Command::execute. */
-	protected function execute()
+	public function execute()
 	{
 		$query = new AjaxQuery( new PseudoWebContext( Context::getCanonical() ) ) ;
 		$query->execute() ;

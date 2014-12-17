@@ -16,7 +16,7 @@ abstract class Command
 		
 		try
 		{
-			$command = new $className( $commandName ) ;
+			$command = new $className( Context::getCanonical(), $commandName ) ;
 			if ( Context::getCanonical()->getBooleanParameter( 'help', 'h' ) )
 			{
 				$command->showDocumentation() ;
@@ -39,15 +39,16 @@ abstract class Command
 	}
 
 	/** Constructor. */
-	private function __construct( $commandName )
+	public function __construct( CliContext $context, $commandName )
 	{
+		$this->context = $context ;
 		$this->commandName = $commandName ;
 	}
 
 	/** Executable part of the command line.
 	 * Override if you don’t want auto-splitting.
 	 */
-	protected function execute()
+	public function execute()
 	{
 		$method = $this->getMethod() ;
 		$this->$method() ;
@@ -268,11 +269,13 @@ abstract class Command
 		) ) ;
 	}
 
+	/** The Context. */
+	private $context = null ;
+
 	/** Get the context of execution. */
 	protected function getContext()
 	{
-		// Until we need something more sophisticated…
-		return Context::getCanonical() ;
+		return $this->context ;
 	}
 
 	/** Print a line on the console.
@@ -288,7 +291,14 @@ abstract class Command
 	 */
 	protected static function errln( $message )
 	{
-		fwrite( STDERR, "$message\n" ) ;
+		if ( defined( 'STDERR' ) )
+		{
+			fwrite( STDERR, "$message\n" ) ;
+		}
+		else
+		{
+			self::writeln( $message ) ;
+		}
 	}
 
 	/** Get a parameter (type from documentation).

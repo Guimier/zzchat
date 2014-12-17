@@ -11,7 +11,7 @@ class CheckhtmlCommand extends Command
 	}
 
 	/** See Command::execute. */
-	protected function execute()
+	public function execute()
 	{
 		HTML::checkInput( file_get_contents( 'php://stdin' ) ) ;
 	}

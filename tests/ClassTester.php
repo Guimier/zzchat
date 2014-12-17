@@ -141,4 +141,13 @@ class ClassTester extends PHPUnit_Framework_TestCase
 		return 'tests/' . $this->className . '/testdata' ;
 	}
 
+/***** Specific classes types. *****/
+
+	protected function runCommand( $class /* … */ )
+	{
+		self::load( 'CliContext' ) ;
+		$command = new $class( new CliContext( func_get_args() ), $class ) ;
+		$command->execute() ;
+	}
+
 }

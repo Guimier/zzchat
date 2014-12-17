@@ -18,7 +18,7 @@ class MessagesCommand extends Command
 	}
 
 	/** See Command::execute. */
-	protected function execute()
+	public function execute()
 	{
 		$defaults = $this->getParameter( 'defaults' ) ;
 		$list = Languages::getInstance()->getAllMessages(
