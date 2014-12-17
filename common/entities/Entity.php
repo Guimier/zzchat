@@ -6,6 +6,7 @@ abstract class Entity
 	 * 
 	 * @warning Child classes MUST override this method.
 	 * @return The name of the directory.
+	 * @codeCoverageIgnore Not supposed to be reached.
 	 */
 	protected static function getEntityType()
 	{
@@ -84,7 +85,7 @@ abstract class Entity
 	protected static function getSpecial( $id )
 	{
 		/* At this level, we don’t kow any special entity. */
-		throw new NoSuchEntityException( static::getEntityType(), $entityId ) ;
+		throw new NoSuchEntityException( static::getEntityType(), $id ) ;
 	}
 	
 	/** Get an entity by id.
@@ -154,7 +155,7 @@ abstract class Entity
 			throw new EntityNameAlreadyTakenException( static::getEntityType(), $name ) ;
 		}
 		
-		if ( count( self::getAllActive() ) > Configuration::getValue( static::getEntityType() . '.maxnum' ) )
+		if ( count( self::getAllActive() ) >= Configuration::getValue( static::getEntityType() . '.maxnum' ) )
 		{
 			throw new TooManyEntitiesException( static::getEntityType() ) ;
 		}
