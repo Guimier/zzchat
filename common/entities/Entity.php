@@ -358,7 +358,7 @@ abstract class Entity
 	 */
 	public function containsIllegalCharacter( $name )
 	{
-		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç\' -]*$#', $name ) ;
+		return ! preg_match( '#^[A-ZÉÈÊÀÙÂÎÔÛÏËÜÖÇa-zéèêàùâîôûïëüöç0-9\' -]*$#', $name ) ;
 	}
 	
 }
