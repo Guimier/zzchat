@@ -76,6 +76,7 @@
 	"configuration.channels.userinactivity": "Number of seconds a user may be innactive before it is declared inactive on a channel.",
 	"configuration.debug": "Set this to “true” to turn on debug mode.",
 	"configuration.language": "Default language for the interface.",
+	"configuration.prefix": "Prefixe used to make several instances independant.",
 	"configuration.users.inactivity": "Number of seconds a user may be innactive before he is declared inactive.",
 	"configuration.users.maxpostrate": "Maximum number of posts a user may post on all channels in one minute.",
 	"configuration.users.minnamelength": "Minimum user name length (octets).",
