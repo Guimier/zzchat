@@ -1,5 +1,8 @@
 <?php
 
+/** Command-line user.
+ * @codeCoverageIgnore Simple override.
+ */
 class CliUser extends User
 {
 	
@@ -24,7 +27,6 @@ class CliUser extends User
 	{
 		return -1 ;
 	}
-	
 	
 	/** Get the name of the user.
 	 * @return The name of the User instance.
