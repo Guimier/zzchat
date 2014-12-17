@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for LogoutAjaxQueryPart. */
-class LogoutAjaxQueryPartTest extends ClassTester
+class LogoutAjaxQueryPart_Test extends ClassTester
 {
 
 	/** @expectedException NotLoggedInUserException */

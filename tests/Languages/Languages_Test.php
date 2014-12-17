@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for Languages. */
-class LanguagesTest extends ClassTester
+class Languages_Test extends ClassTester
 {
 	
 	public function testLanguagesList()

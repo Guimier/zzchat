@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for WebContext. */
-class WebContextTest extends ClassTester
+class WebContext_Test extends ClassTester
 {
 	
 	/** Tests of parameters access for default selection. */

@@ -45,6 +45,7 @@ $.widget( "morrigan.morrigan_editor", {
 
     _browser: {},
     _content: null,
+    _mcs: null,
     _window: null,
     _actionManager: null,
     _selectionManager: null,
@@ -1435,6 +1436,7 @@ $.widget( "morrigan.morrigan_editor", {
             var targetHtml;
             var contentClone = this._content.clone();
             contentClone.find('.mrge-temp-support-element').remove();
+            contentClone.find('div').remove();
             contentClone.find('br').remove();
             contentClone.find('b').each(function () {
                 targetHtml = this.innerHTML;
@@ -1447,5 +1449,4 @@ $.widget( "morrigan.morrigan_editor", {
             return contentClone.html();
         }
     }
-
 });

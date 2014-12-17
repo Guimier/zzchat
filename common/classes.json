@@ -24,6 +24,7 @@
 	"CreateChannelAjaxQueryPart": "web/php/ajax/CreateChannelAjaxQueryPart.php",
 	"DateAjaxQueryPart": "web/php/ajax/DateAjaxQueryPart.php",
 	"DefaultChannel": "common/entities/channels/DefaultChannel.php",
+	"EmptyMessageException": "common/html/EmptyMessageException.php",
 	"EntityAlreadyInactiveException": "common/entities/EntityAlreadyInactiveException.php",
 	"Entity": "common/entities/Entity.php",
 	"EntityManagementCommand": "cli/classes/EntityManagementCommand.php",

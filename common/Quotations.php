@@ -25,7 +25,7 @@ class Quotations
 		{
 			Configuration::saveJson(
 				Configuration::getLocalDir() . '/' . self::FILENAME,
-				$this->list
+				array_values( $this->list )
 			) ;
 		}
 	}
@@ -94,7 +94,6 @@ class Quotations
 		}
 		
 		unset( $this->list[$id] ) ;
-		$this->list = array_values( $this->list );
 		$this->edited = true ;
 	}
 

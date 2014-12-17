@@ -16,6 +16,10 @@
 	position : relative ;
 	height : 100% ;
 	background-color : black ;
+	background-image : url( "../img/bw-banner.jpg" ) ;
+	background-repeat : no-repeat ;
+	background-position : top-left ;
+	background-size : auto 60% ;
 }
 
 .page-chat #footer
@@ -31,11 +35,6 @@
 	position : relative ;
 	height : 20% ;
 	width : 100% ;
-	background-color : black ;
-	background-image : url( "../img/bw-banner.jpg" ) ;
-	background-repeat : no-repeat ;
-	background-position : left ;
-	background-size : auto 100% ;
 	display : flex ;
 	flex-direction : row ;
 }
@@ -74,7 +73,6 @@
 	background-repeat : no-repeat ;
 	background-size : 100% auto ;
 	
-	overflow-y : scroll ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px 0 ;
@@ -156,7 +154,6 @@
 	width : 10% ;
 	height : 100% ;
 	color : white ;
-	background-color : black ;
 	border-color : white ;
 	border-style : solid ;
 	border-width : 1px ;
@@ -330,6 +327,7 @@
 
 .page-chat #channels-list-actives
 {
+	background-color : rgba( 0, 0, 0, 0.3 ) ;
 	flex : 1 ;
 }
 

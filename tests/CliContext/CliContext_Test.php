@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for CliContext. */
-class CliContextTest extends ClassTester
+class CliContext_Test extends ClassTester
 {
 	
 	/** Canonical case. */

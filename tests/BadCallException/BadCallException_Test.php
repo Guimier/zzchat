@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for BadCallException. */
-class BadCallExceptionTest extends ClassTester
+class BadCallException_Test extends ClassTester
 {
 	
 	/** Test method discovery. */

@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for QuotationsCommand. */
-class ExclusionsCommandTest extends ClassTester
+class ExclusionsCommand_Test extends ClassTester
 {
 
 /*----- add -----*/

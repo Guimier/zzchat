@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for LogoutAjaxQueryPart. */
-class LoginAjaxQueryPartTest extends ClassTester
+class LoginAjaxQueryPart_Test extends ClassTester
 {
 
 	/** @expectedException WebMissingParameterException */

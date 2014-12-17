@@ -97,14 +97,13 @@ class Configuration
 	public static function saveJson( $file, $value )
 	{
 		$full = self::getFullPath( $file ) ;
-		$setRights = ! file_exists( $full ) ;
-
-		file_put_contents( $full, JSON::encode( $value ) ) ;
-
-		if ( $setRights )
+		if ( ! file_exists( $full ) )
 		{
+			touch( $full ) ;
 			chmod( $full, 0666 ) ;
 		}
+
+		file_put_contents( $full, JSON::encode( $value ) ) ;
 	}
 
 	/** Get the value of a counter and increment it.

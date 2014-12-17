@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for AjaxQuery. */
-class AjaxQueryTest extends ClassTester
+class AjaxQuery_Test extends ClassTester
 {
 	
 	/** Test for headers */

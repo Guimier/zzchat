@@ -4,7 +4,7 @@
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
 /** Test for  ChannelAjaxQueryPart. */
-class ChannelAjaxQueryPartTest extends ClassTester
+class ChannelAjaxQueryPart_Test extends ClassTester
 {
 
 	/** @expectedException WebMissingParameterException */

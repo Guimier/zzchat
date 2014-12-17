@@ -63,6 +63,12 @@ class HTML
 	{
 		$dd = new DOMDocument() ;
 		$dd->loadHTML( $html ) ;
+		
+		if ( trim( $dd->textContent ) === '' )
+		{
+			throw new EmptyMessageException() ;
+		}
+		
 		self::checkChildren( $dd->getElementsByTagName( 'head' )->item( 0 ) ) ;
 		self::checkChildren( $dd->getElementsByTagName( 'body' )->item( 0 ) ) ;
 	}
