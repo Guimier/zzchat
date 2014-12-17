@@ -1436,6 +1436,7 @@ $.widget( "morrigan.morrigan_editor", {
             var targetHtml;
             var contentClone = this._content.clone();
             contentClone.find('.mrge-temp-support-element').remove();
+            contentClone.find('div').remove();
             contentClone.find('br').remove();
             contentClone.find('b').each(function () {
                 targetHtml = this.innerHTML;
