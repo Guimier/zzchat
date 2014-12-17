@@ -25,4 +25,12 @@ class NameExclusions
 		self::$calls[] = array( 'get', 'id' => $id ) ;
 		return 'Rodolf' ;
 	}
+	
+	public function checkName( $text )
+	{
+		if ( $text === 'unallowed' )
+		{
+			throw new NotAuthorizedNameException( $text ) ;
+		}
+	}
 }
