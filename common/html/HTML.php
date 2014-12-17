@@ -11,7 +11,6 @@ class HTML
 	 * (passed to preg_match).
 	 */
 	private static $allowed = array(
-		'br' => array(),
 		'p' => array(),
 		'strong' => array(),
 		'strike' => array(),

@@ -224,7 +224,6 @@
 				
 				this.shown = true ;
 				this.$wysiwyg.wysiwyg( this.type ) ;
-				this.$wysiwyg.morrigan_editor( 'mCustomScrollbar', mcsOpts ) ;
 				
 				this.$posts.mCustomScrollbar( mcsOpts ) ;
 				this.$posts = this.$posts.find( '.mCSB_container' ) ;
