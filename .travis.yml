@@ -7,4 +7,4 @@ php:
 install:
         npm install jshint
 script:
-        ant test-php
+        ant test
