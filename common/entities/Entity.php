@@ -164,8 +164,8 @@ abstract class Entity
 		
 		$data = array(
 			'name' => $name,
-			'creation' => Context::getCanonical()->getTime(),
-			'last-action' => Context::getCanonical()->getTime(),
+			'creation' => $this->getTime(),
+			'last-action' => $this->getTime(),
 			'ejected' => false
 		) ;
 		$data += $initialArray ;
@@ -268,6 +268,22 @@ abstract class Entity
 		return $this->data[$key] ;
 	}
 	
+	/** Get the current time, from context if possible. */
+	protected static function getTime()
+	{
+		try
+		{
+			$time = Context::getCanonical()->getTime() ;
+		}
+		catch ( Exception $e )
+		{
+			// Mhh… no context, use real time.
+			$time = time() ;
+		}
+		
+		return $time ;
+	}
+	
 	/** Check whether the entity is active or not.
 	 * 
 	 * @return True if the entity is active, false otherwise.
@@ -275,7 +291,7 @@ abstract class Entity
 	public function isActive()
 	{
 		return ! $this->getValue( 'ejected' )
-			&& Context::getCanonical()->getTime() - $this->data['last-action']
+			&& $this->getTime() - $this->data['last-action']
 				< Configuration::getValue( static::getEntityType() . '.inactivity' ) ;
 	}
 	
@@ -310,7 +326,7 @@ abstract class Entity
 	/** Remember the entity is active just now. */
 	public function isActiveNow()
 	{
-		$this->setValue( 'last-action', Context::getCanonical()->getTime() ) ;
+		$this->setValue( 'last-action', $this->getTime() ) ;
 	}
 	
 	/** Get the id of the entity.

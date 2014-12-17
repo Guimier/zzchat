@@ -12,7 +12,7 @@ abstract class Context
 		if ( self::$canonical === null )
 		{
 			/* Exception since AgoraException depends on Context. */
-			return new Exception( 'No instance of Context.' ) ;
+			throw new Exception( 'No instance of Context.' ) ;
 		}
 		
 		return self::$canonical ;

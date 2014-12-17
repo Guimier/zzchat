@@ -48,7 +48,7 @@ class Channel extends Entity
 					: Configuration::getValue( 'channels.defaulttype' ),
 				'files' => array(),
 				'users' => array(
-					$channelCreator->getId() => $this->trueContext->getTime()
+					$channelCreator->getId() => $this->getTime()
 				)
 			)
 		) ;
@@ -126,7 +126,7 @@ class Channel extends Entity
 	public function activatedBy( User $user )
 	{
 		$this->isActiveNow() ;
-		$this->setArrayValue( 'users', $user->getId(), $this->trueContext->getTime() ) ;
+		$this->setArrayValue( 'users', $user->getId(), $this->getTime() ) ;
 	}
 	
 	/** Add post on the channel.
@@ -162,7 +162,7 @@ class Channel extends Entity
 
 		$data = array(
 			'owner' => $user->getId(),
-			'date' => $this->trueContext->getTime(),
+			'date' => $this->getTime(),
 			'hidden' => false,
 			'content' => $content
 		) ;
@@ -199,7 +199,7 @@ class Channel extends Entity
 		
 		foreach ( $users as $id => $lastAction )
 		{
-			if ( $this->trueContext->getTime() - $lastAction <= Configuration::getValue( 'channels.userinactivity' ) )
+			if ( $this->getTime() - $lastAction <= Configuration::getValue( 'channels.userinactivity' ) )
 			{
 				$user = User::getById( $id ) ;
 				if ( $user->isActive() )
