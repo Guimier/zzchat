@@ -4,5 +4,7 @@ php:
   - "5.4"
   - "5.3.3"
   - "hhvm"
+install:
+        npm install jshint
 script:
         ant test-php
