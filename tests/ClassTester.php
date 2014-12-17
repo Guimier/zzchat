@@ -21,8 +21,8 @@ class ClassTester extends PHPUnit_Framework_TestCase
 	public function __construct( $name = NULL, array $data = array(), $dataName = '' )
 	{
 		parent::__construct( $name, $data, $dataName ) ;
-		$this->className = preg_replace( '/^(\w+)_.+$/', '\1', get_class( $this ) ) ;
-		$this->dirName = preg_replace( '/^(.+)_\w+$/', '\1', get_class( $this ) ) ;
+		$this->className = preg_replace( '/^([A-Za-z]+)_.+$/', '\1', get_class( $this ) ) ;
+		$this->dirName = preg_replace( '/^(.+)_[A-Za-z]+$/', '\1', get_class( $this ) ) ;
 	}
 
 	/** Wrapper for PHPUnit_Framework_TestCase::run
