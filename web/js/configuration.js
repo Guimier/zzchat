@@ -27,7 +27,7 @@
 	window.configuration.getKey = function ( rawKey )
 	{
 		return values.prefix !== '' ? values.prefix + '-' + rawKey : rawKey ;
-	}
+	} ;
 	
 	/**
 	 * Initialise data (supposed to be with server defaults).
