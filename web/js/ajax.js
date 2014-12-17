@@ -315,10 +315,18 @@
 			
 			if ( $.isFunction( real ) )
 			{
-				res = function () {
+				res = function ()
+				{
 					answered = true ;
 					real.apply( this, arguments ) ;
 				} ;
+			}
+			else
+			{
+				res = function ()
+				{
+					answered = true ;
+				}
 			}
 			
 			return res ;
