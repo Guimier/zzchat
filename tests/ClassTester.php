@@ -152,9 +152,10 @@ class ClassTester extends PHPUnit_Framework_TestCase
 
 	protected function runAjax( $class, $get = array(), $post = array() )
 	{
+		$session = array() ;
 		$this->load( 'WebContext' ) ;
-		$this->load( 'PseudoWebContext' ) ;
-		$queryPart = new $class( 'p', new PseudoWebContext( Context::getCanonical() ) ) ;
+		require_once __DIR__ . '/TestWebContext.php' ;
+		$queryPart = new $class( 'p', new TestWebContext( $post, $get, $session ) ) ;
 		return $queryPart->execute() ;
 	}
 

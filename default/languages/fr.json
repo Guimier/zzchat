@@ -3,7 +3,7 @@
 	"lang.fr": "Français",
 	
 	"quotations.anonymous": "— Anonyme",
-	"quotations.quotation": "« ${content} »",
+	"quotations.quote": "« ${content} »",
 	"quotations.author": "— ${name}",
 	
 	"channels.create.do": "Créer",

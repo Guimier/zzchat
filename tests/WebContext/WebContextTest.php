@@ -10,9 +10,11 @@ class WebContextTest extends ClassTester
 	/** Tests of parameters access for default selection. */
 	public function testParametersDefault()
 	{
+		$session = array() ;
 		$context = new WebContext(
 			array( 'get_existant' => 'foo', 'common' => 'foo2' ),
-			array( 'post_existant' => 'bar', 'common' => 'bar2' )
+			array( 'post_existant' => 'bar', 'common' => 'bar2' ),
+			$session
 		) ;
 		
 		$this->assertEquals(
@@ -42,9 +44,11 @@ class WebContextTest extends ClassTester
 	/** Tests of parameters access for BOTH selection. */
 	public function testParametersBOTH()
 	{
+		$session = array() ;
 		$context = new WebContext(
 			array( 'get_existant' => 'foo', 'common' => 'foo2' ),
-			array( 'post_existant' => 'bar', 'common' => 'bar2' )
+			array( 'post_existant' => 'bar', 'common' => 'bar2' ),
+			$session
 		) ;
 		
 		$this->assertEquals(
@@ -74,9 +78,11 @@ class WebContextTest extends ClassTester
 	/** Tests of parameters access for POST selection. */
 	public function testParametersPOST()
 	{
+		$session = array() ;
 		$context = new WebContext(
 			array( 'get_existant' => 'foo' ),
-			array( 'post_existant' => 'bar' )
+			array( 'post_existant' => 'bar' ),
+			$session
 		) ;
 		
 		$this->assertEquals(
