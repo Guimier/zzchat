@@ -79,7 +79,7 @@ class ExclusionsCommand extends Command
 		{
 			foreach ( $ids as $id )
 			{
-				$this->showExclusion( $id, $excluisons->get( $id ) ) ;
+				$this->showExclusion( $id, $exclusions->get( $id ) ) ;
 			}
 		}
 	}
