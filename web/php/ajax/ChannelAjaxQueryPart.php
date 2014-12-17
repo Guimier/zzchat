@@ -8,13 +8,9 @@ class ChannelAjaxQueryPart extends AjaxQueryPart
 		$channels = array() ;
 	
 		$names = $this->getArrayParameter( 'name' ) ;
-		if ( $names === null )
+		if ( count( $names ) === 0 )
 		{
 			$ids = $this->getArrayParameter( 'id' ) ;
-			if ( $ids === null )
-			{
-				throw new WebMissingParameterException( 'id' ) ;
-			}
 			
 			foreach ( $ids as $id )
 			{

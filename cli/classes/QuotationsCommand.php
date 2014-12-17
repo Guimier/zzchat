@@ -71,7 +71,7 @@ class QuotationsCommand extends Command
 		$raw = $cits->getAll() ;
 		$ids = $this->getParameter( 'id' ) ;
 		
-		if ( $ids === null )
+		if ( count( $ids ) === 0 )
 		{
 			foreach ( $raw as $id => $cit )
 			{

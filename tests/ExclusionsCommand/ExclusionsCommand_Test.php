@@ -3,7 +3,7 @@
 
 require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 
-/** Test for QuotationsCommand. */
+/** Test for ExclusionsCommand. */
 class ExclusionsCommand_Test extends ClassTester
 {
 
@@ -77,4 +77,24 @@ RAW
 			)
 		) ;
 	}
+	
+/*----- check -----*/
+
+	/** @expectedException NotAuthorizedNameException */
+	public function testCheckWithNameParameterNonPassing()
+	{
+		$this->runCommand( 'ExclusionsCommand', 'check', '--name=unallowed' ) ;
+	}
+
+	public function testCheckWithNameParameterPassing()
+	{
+		$this->runCommand( 'ExclusionsCommand', 'check', '--name=allowed' ) ;
+	}
+	
+	/** @expectedException CliMissingParameterException */
+	public function testCheckWithoutParameter()
+	{
+		$this->runCommand( 'ExclusionsCommand', 'check' ) ;
+	}	
+	
 }

@@ -7,12 +7,11 @@ require_once dirname( __DIR__ ) . '/ClassTester.php' ;
 class ChannelAjaxQueryPart_Test extends ClassTester
 {
 
-	/** @expectedException WebMissingParameterException */
 	public function testWithoutId()
 	{
 		$this->assertEquals(
 			$this->runAjax( array() ),
-			42
+			array()
 		) ;
 	}
 

@@ -1,6 +1,8 @@
 <?php
 
-/** Manage users. */
+/** Manage users.
+ * @codeCoverageIgnore
+ */
 class UsersCommand extends EntityManagementCommand
 {
 
