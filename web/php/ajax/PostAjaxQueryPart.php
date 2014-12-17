@@ -7,9 +7,11 @@ class PostAjaxQueryPart extends AjaxQueryPart
 	{
 		$user = $this->loggedInOnly() ;
 		
-		$channel = Channel::getById(
-			$this->getParameter( 'channel', WebContext::POST )
-		) ;
+		$id = $this->getParameter( 'channel', WebContext::POST ) ;
+		if ( $id === null )
+		{
+			throw new WebMissingParameterException( 'channel' ) ;
+		}
 		
 		$content = $this->getParameter( 'content', WebContext::POST ) ;
 		if ( $content === null )
@@ -17,6 +19,7 @@ class PostAjaxQueryPart extends AjaxQueryPart
 			throw new WebMissingParameterException( 'content' ) ;
 		}
 		
+		$channel = Channel::getById( (int) $id ) ;
 		$channel->addPost( $user, $content ) ;
 	}
 	
