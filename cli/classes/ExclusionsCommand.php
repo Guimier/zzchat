@@ -58,7 +58,7 @@ class ExclusionsCommand extends Command
 	{
 		$context = $this->getContext() ;
 		
-		$this->writeln( "$id] $exclusion ") ;
+		$this->writeln( "$id] $exclusion") ;
 	}
 	
 	/** Show all or some name exclusions. */
@@ -79,7 +79,7 @@ class ExclusionsCommand extends Command
 		{
 			foreach ( $ids as $id )
 			{
-				$this->showExclusion( $id, $excluisons->get( $id ) ) ;
+				$this->showExclusion( $id, $exclusions->get( $id ) ) ;
 			}
 		}
 	}
