@@ -17,10 +17,10 @@ class LastPostsAjaxQueryPartTest extends ClassTester
 		$res = $this->runAjax( array( 'p_from' => '10' ) ) ;
 		
 		$this->assertEquals( $res, array(
-										'date' => 42,
-										'posts' => array()
-									)
-				) ; 
+			'date' => 42,
+			'posts' => array()
+			)
+		) ; 
 	}
 	
 }
