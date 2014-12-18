@@ -8,7 +8,9 @@ Small chat system developped for *web development* course.
     cd zzchat
     dev/initialise.sh
 
-Please note that Agora uses PHP sessions. You should not install it on a server where other services use PHP sessions.
+Please note that Agora uses PHP sessions. You should not install it on a server where other services close PHP sessions (services using a single session—like Agora— will work).
+
+If you want to use several instances on a single server, be sure to set a different prefix for each one (`cli/configuration set --key=prefix --value=<your prefix>`).
 
 ## Documentation
 
