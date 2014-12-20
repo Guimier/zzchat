@@ -373,6 +373,12 @@
 	font-weight : bolder ;
 }
 
+#create-channel input[type="text"]
+{
+	background-color : #bbb ;
+	border-color : black ;
+}
+
 #create-channel input[type="text"],
 #create-channel select
 {
