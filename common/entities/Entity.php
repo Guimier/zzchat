@@ -236,10 +236,8 @@ abstract class Entity
 		}
 	}
 	
-	/** Destructor.
-	 * Save the data if modified.
-	 */
-	public function __destruct()
+	/* Save the data. */
+	public function saveState()
 	{
 		if ( $this->modified )
 		{
@@ -247,7 +245,16 @@ abstract class Entity
 				$this->getEntityFile( $this->id ),
 				$this->data
 			) ;
+			$this->modified = false ;
 		}
+	}
+	
+	/** Destructor.
+	 * @codeCoverageIgnore Simple call to #saveState
+	 */
+	public function __destruct()
+	{
+		$this->saveState() ;
 	}
 	
 	/** Change a key in the data array.

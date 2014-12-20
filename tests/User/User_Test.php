@@ -72,9 +72,15 @@ class User_Test extends ClassTester
 	}
 	
 	/** @expectedException NoSuchEntityException */
-	public function testUnknownUser()
+	public function testUnknownSpecialUser()
 	{
 		User::getById( -2 ) ;
+	}
+	
+	/** @expectedException NoSuchEntityException */
+	public function testUnknownNormalUser()
+	{
+		User::getById( 5 ) ;
 	}
 	
 /*----- List of active -----*/
@@ -109,14 +115,14 @@ class User_Test extends ClassTester
 	
 	public function testLogout()
 	{
-		$this->skipIf( true ) ; // Mhh… this test works only without process isolation.
-		
-		User::getById( 1 )->isNowInactive() ;
+		$user = User::getById( 1 );
+		$user->isNowInactive() ;
+		$user->saveState() ;
 		
 		$this->assertEquals(
 			Configuration::loadJson( Configuration::getDataDir( 'users' ) . '/1.json' ),
 			array(
-				'logged-out' => false,
+				'logged-out' => true,
 				'name' => 'name-in-use',
 				'creation' => 0,
 				'last-action' => 41,
@@ -125,5 +131,32 @@ class User_Test extends ClassTester
 		) ;
 	}
 	
-
+	/** @expectedException EntityAlreadyInactiveException */
+	public function testLogoutAlreadyInactive()
+	{
+		$user = User::getById( 2 );
+		$user->isNowInactive() ;
+	}
+	
+/*----- Ejection -----*/
+	
+	public function testEject()
+	{
+		$user = User::getById( 1 );
+		$user->eject() ;
+		$user->saveState() ;
+		
+		$this->assertEquals(
+			Configuration::loadJson( Configuration::getDataDir( 'users' ) . '/1.json' ),
+			array(
+				'logged-out' => false,
+				'name' => 'name-in-use',
+				'creation' => 0,
+				'last-action' => 41,
+				'ejected' => true
+			)
+		) ;
+	}
+	
 }
+
